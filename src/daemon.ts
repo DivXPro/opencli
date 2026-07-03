@@ -569,12 +569,15 @@ wss.on('connection', (ws: WebSocket) => {
       const msg = JSON.parse(data.toString());
 
       // Listener events streamed from the extension (unsolicited pushes).
+      // The envelope's top-level `type` is the discriminator ('listener-event');
+      // the actual lifecycle/data type lives in `eventType` to avoid a name
+      // collision with the envelope discriminator.
       if (msg.type === 'listener-event') {
         const event = msg as {
           listenerKey: string;
           adapterKey?: string;
           listenerId?: string;
-          type: ListenerEvent['type'];
+          eventType: ListenerEvent['type'];
           data?: unknown;
           reason?: ListenerEvent['reason'];
           error?: string;
@@ -586,7 +589,7 @@ wss.on('connection', (ws: WebSocket) => {
         const typed: ListenerEvent = {
           listenerId,
           adapterKey,
-          type: event.type,
+          type: event.eventType,
           data: event.data,
           reason: event.reason,
           error: event.error,

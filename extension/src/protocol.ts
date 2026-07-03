@@ -85,6 +85,8 @@ export interface Command {
   listenerSource?: 'network' | 'dom' | 'cdp' | 'console';
   /** listener-start/stop: stop reason (informational). */
   listenerStopReason?: 'tab-closed' | 'browser-closed' | 'page-navigated' | 'user-stop' | 'error';
+  /** listener-start (dom source): MutationObserver options override. */
+  mutationOptions?: { childList?: boolean; subtree?: boolean; characterData?: boolean; attributes?: boolean };
 }
 
 export interface Result {

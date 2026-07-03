@@ -11,6 +11,10 @@ import type { Command, Result } from './protocol';
 import { DAEMON_HOST, DAEMON_PORT, DAEMON_WS_URL, DAEMON_PING_URL } from './protocol';
 import * as executor from './cdp';
 import * as identity from './identity';
+import { ListenerRegistry } from './listeners/index';
+import { TabLifecycleMonitor } from './listeners/tab-lifecycle';
+import { startNetworkListener, stopNetworkListener, type NetworkListenerHandle } from './listeners/network';
+import { buildObserverInjection, DRAIN_EXPRESSION, DEFAULT_DOM_POLL_MS } from './listeners/dom';
 
 let ws: WebSocket | null = null;
 let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
@@ -19,6 +23,10 @@ const CONTEXT_ID_KEY = 'opencli_context_id_v1';
 let currentContextId = 'default';
 let contextIdPromise: Promise<string> | null = null;
 let connectInFlight: Promise<void> | null = null;
+
+// ─── Realtime listener registry (event source for /listener/*) ───
+const listenerRegistry = new ListenerRegistry();
+let lifecycleMonitorInstalled = false;
 
 async function getCurrentContextId(): Promise<string> {
   if (contextIdPromise) return contextIdPromise;
@@ -1219,6 +1227,10 @@ async function handleCommand(cmd: Command): Promise<Result> {
         return await handleWaitDownload(cmd);
       case 'frames':
         return await handleFrames(cmd, leaseKey);
+      case 'listener-start':
+        return await handleListenerStart(cmd);
+      case 'listener-stop':
+        return await handleListenerStop(cmd);
       default:
         return { id: cmd.id, ok: false, error: `Unknown action: ${cmd.action}` };
     }
@@ -2113,3 +2125,175 @@ export const __test__ = {
     });
   },
 };
+
+// ─── Realtime listener command handlers ─────────────────────────────
+
+type ListenerSource = 'network' | 'dom' | 'cdp' | 'console';
+
+function emitListenerEvent(payload: {
+  listenerKey: string;
+  type: 'data' | 'stopped' | 'paused' | 'resumed' | 'error';
+  data?: unknown;
+  reason?: 'tab-closed' | 'browser-closed' | 'page-navigated' | 'user-stop' | 'error';
+  error?: string;
+  tabId?: number;
+}): void {
+  const [adapterKey, listenerId] = splitListenerKey(payload.listenerKey);
+  safeSend(ws, {
+    type: 'listener-event',
+    listenerKey: payload.listenerKey,
+    adapterKey,
+    listenerId,
+    eventType: payload.type,
+    data: payload.data,
+    reason: payload.reason,
+    error: payload.error,
+    tabId: payload.tabId,
+    timestamp: Date.now(),
+  });
+}
+
+function splitListenerKey(listenerKey: string): [string, string] {
+  const lastColon = listenerKey.lastIndexOf(':');
+  if (lastColon < 0) return ['', listenerKey];
+  return [listenerKey.slice(0, lastColon), listenerKey.slice(lastColon + 1)];
+}
+
+function ensureLifecycleMonitor(): void {
+  if (lifecycleMonitorInstalled) return;
+  lifecycleMonitorInstalled = true;
+  new TabLifecycleMonitor(listenerRegistry, (event) => {
+    // The lifecycle monitor deletes from registry on stopped; we just forward.
+    emitListenerEvent({
+      listenerKey: event.listenerKey,
+      type: event.type,
+      reason: event.reason,
+      tabId: event.tabId,
+    });
+  });
+}
+
+async function ensureTabForUrl(url: string): Promise<number> {
+  try {
+    const target = new URL(url);
+    const tabs = await chrome.tabs.query({});
+    const existing = tabs.find((t) => t.url && t.url.startsWith(target.origin));
+    if (existing && existing.id != null) return existing.id;
+  } catch {
+    // invalid URL — fall through to create
+  }
+  const tab = await chrome.tabs.create({ url, active: false });
+  return tab.id!;
+}
+
+async function handleListenerStart(cmd: Command): Promise<Result> {
+  const listenerKey = cmd.listenerKey ?? '';
+  if (!listenerKey) return { id: cmd.id, ok: false, error: 'listenerKey required' };
+  if (listenerRegistry.has(listenerKey)) {
+    // Dedup: already running. Mirrors the daemon-side check; protects against
+    // racing start commands so we never open a duplicate observation tab.
+    return { id: cmd.id, ok: true, data: { started: false, reason: 'already-running' } };
+  }
+  const source = (cmd.listenerSource as ListenerSource | undefined) ?? 'network';
+  const url = cmd.url ?? '';
+  if (!url) return { id: cmd.id, ok: false, error: 'url required for listener-start' };
+
+  ensureLifecycleMonitor();
+
+  let tabId: number;
+  try {
+    tabId = await ensureTabForUrl(url);
+  } catch (err) {
+    return { id: cmd.id, ok: false, error: `Failed to open tab: ${err instanceof Error ? err.message : String(err)}` };
+  }
+
+  const [adapterKey, listenerId] = splitListenerKey(listenerKey);
+
+  if (source === 'network') {
+    const pattern = cmd.pattern ?? '';
+    listenerRegistry.set(listenerKey, { kind: 'network', tabId });
+    const handle: NetworkListenerHandle = { tabId, pattern, listenerKey, adapterKey, listenerId };
+    try {
+      await startNetworkListener(handle, (event) => {
+        emitListenerEvent({ listenerKey, type: 'data', data: event.data });
+      });
+    } catch (err) {
+      listenerRegistry.delete(listenerKey);
+      return { id: cmd.id, ok: false, error: `Network listener attach failed: ${err instanceof Error ? err.message : String(err)}` };
+    }
+    emitListenerEvent({ listenerKey, type: 'resumed' });
+    return { id: cmd.id, ok: true, data: { started: true, tabId } };
+  }
+
+  if (source === 'dom') {
+    const selector = cmd.selector ?? 'body';
+    listenerRegistry.set(listenerKey, { kind: 'dom', tabId });
+    try {
+      await new Promise<void>((resolve, reject) => {
+        chrome.debugger.attach({ tabId }, '1.3', () => {
+          if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+          else resolve();
+        });
+      });
+      await new Promise<void>((resolve, reject) => {
+        chrome.debugger.sendCommand(
+          { tabId },
+          'Runtime.evaluate',
+          { expression: buildObserverInjection(selector, cmd.mutationOptions) },
+          () => {
+            if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+            else resolve();
+          },
+        );
+      });
+    } catch (err) {
+      listenerRegistry.delete(listenerKey);
+      return { id: cmd.id, ok: false, error: `DOM listener setup failed: ${err instanceof Error ? err.message : String(err)}` };
+    }
+    const timer = setInterval(() => {
+      chrome.debugger.sendCommand(
+        { tabId },
+        'Runtime.evaluate',
+        { expression: DRAIN_EXPRESSION, returnByValue: true },
+        (result: { result?: { value?: unknown[] } } | undefined) => {
+          if (chrome.runtime.lastError) return;
+          const drained = result?.result?.value;
+          if (Array.isArray(drained) && drained.length > 0) {
+            emitListenerEvent({ listenerKey, type: 'data', data: drained });
+          }
+        },
+      );
+    }, DEFAULT_DOM_POLL_MS);
+    // Re-record with the poll handle for cleanup.
+    listenerRegistry.set(listenerKey, { kind: 'dom', tabId, handleId: timer as unknown as number });
+    emitListenerEvent({ listenerKey, type: 'resumed' });
+    return { id: cmd.id, ok: true, data: { started: true, tabId } };
+  }
+
+  return { id: cmd.id, ok: false, error: `Unsupported listener source: ${source}` };
+}
+
+async function handleListenerStop(cmd: Command): Promise<Result> {
+  const listenerKey = cmd.listenerKey ?? '';
+  if (!listenerKey) return { id: cmd.id, ok: false, error: 'listenerKey required' };
+  const entry = listenerRegistry.get(listenerKey);
+  if (!entry) return { id: cmd.id, ok: true, data: { stopped: false, reason: 'not-found' } };
+  if (entry.kind === 'network') {
+    const handle: NetworkListenerHandle = { tabId: entry.tabId, pattern: '', listenerKey, adapterKey: '', listenerId: '' };
+    try {
+      stopNetworkListener(handle as NetworkListenerHandle & { _cleanup?: () => void });
+    } catch {
+      // detach errors are non-fatal
+    }
+  } else if (entry.kind === 'dom') {
+    if (entry.handleId) clearInterval(entry.handleId as unknown as ReturnType<typeof setInterval>);
+    try {
+      await new Promise<void>((resolve) => chrome.debugger.detach({ tabId: entry.tabId }, () => resolve()));
+    } catch {
+      // non-fatal
+    }
+  }
+  listenerRegistry.delete(listenerKey);
+  emitListenerEvent({ listenerKey, type: 'stopped', reason: 'user-stop', tabId: entry.tabId });
+  return { id: cmd.id, ok: true, data: { stopped: true } };
+}

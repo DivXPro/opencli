@@ -636,12 +636,202 @@ async function refreshMappings() {
   }
 }
 
+class ListenerRegistry {
+  map = /* @__PURE__ */ new Map();
+  set(key, value) {
+    this.map.set(key, value);
+  }
+  get(key) {
+    return this.map.get(key);
+  }
+  has(key) {
+    return this.map.has(key);
+  }
+  delete(key) {
+    this.map.delete(key);
+  }
+  keys() {
+    return [...this.map.keys()];
+  }
+  findByTabId(tabId) {
+    return [...this.map.entries()].filter(([, v]) => v.tabId === tabId).map(([k]) => k);
+  }
+}
+
+class TabLifecycleMonitor {
+  constructor(registry, emit) {
+    this.registry = registry;
+    this.emit = emit;
+    chrome.tabs.onRemoved.addListener((tabId) => this.handleRemoved(tabId));
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+      if (changeInfo.status === "loading") this.handleNavigated(tabId);
+    });
+    chrome.windows.onRemoved.addListener(() => this.handleWindowClosed());
+  }
+  handleRemoved(tabId) {
+    const keys = this.registry.findByTabId(tabId);
+    for (const listenerKey of keys) {
+      this.registry.delete(listenerKey);
+      this.emit({
+        listenerKey,
+        type: "stopped",
+        reason: "tab-closed",
+        tabId,
+        timestamp: Date.now()
+      });
+    }
+  }
+  handleNavigated(tabId) {
+    const keys = this.registry.findByTabId(tabId);
+    for (const listenerKey of keys) {
+      this.emit({
+        listenerKey,
+        type: "paused",
+        reason: "page-navigated",
+        tabId,
+        timestamp: Date.now()
+      });
+    }
+  }
+  handleWindowClosed() {
+    for (const listenerKey of this.registry.keys()) {
+      const entry = this.registry.get(listenerKey);
+      this.registry.delete(listenerKey);
+      this.emit({
+        listenerKey,
+        type: "stopped",
+        reason: "browser-closed",
+        tabId: entry?.tabId ?? -1,
+        timestamp: Date.now()
+      });
+    }
+  }
+}
+
+function matchesPattern(url, pattern) {
+  if (!pattern) return true;
+  return url.includes(pattern);
+}
+function extractJsonData(body) {
+  try {
+    const parsed = JSON.parse(body);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+async function startNetworkListener(handle, emit) {
+  await new Promise((resolve, reject) => {
+    chrome.debugger.attach({ tabId: handle.tabId }, "1.3", () => {
+      if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+      else resolve();
+    });
+  });
+  await new Promise((resolve, reject) => {
+    chrome.debugger.sendCommand({ tabId: handle.tabId }, "Network.enable", {}, () => {
+      if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+      else resolve();
+    });
+  });
+  const pendingRequests = /* @__PURE__ */ new Map();
+  const onResponseReceived = (source, method, params) => {
+    if (source.tabId !== handle.tabId) return;
+    const url = params.response?.url ?? params.request?.url ?? "";
+    if (!matchesPattern(url, handle.pattern)) return;
+    pendingRequests.set(params.requestId, { url, method: params.request?.method ?? "" });
+  };
+  const onLoadingFinished = async (source, method, params) => {
+    if (source.tabId !== handle.tabId) return;
+    const pending = pendingRequests.get(params.requestId);
+    if (!pending) return;
+    pendingRequests.delete(params.requestId);
+    try {
+      await new Promise((resolve) => {
+        chrome.debugger.sendCommand(
+          { tabId: handle.tabId },
+          "Network.getResponseBody",
+          { requestId: params.requestId },
+          (bodyResult) => {
+            if (chrome.runtime.lastError || !bodyResult || bodyResult.base64Encoded) {
+              resolve();
+              return;
+            }
+            const parsed = extractJsonData(bodyResult.body ?? "");
+            if (parsed) {
+              emit({ type: "data", data: { url: pending.url, method: pending.method, body: parsed } });
+            }
+            resolve();
+          }
+        );
+      });
+    } catch {
+    }
+  };
+  const onEvent = (source, method, params) => {
+    if (source.tabId !== handle.tabId) return;
+    if (method === "Network.responseReceived") {
+      onResponseReceived(source, method, params);
+    } else if (method === "Network.loadingFinished") {
+      void onLoadingFinished(source, method, params);
+    }
+  };
+  chrome.debugger.onEvent.addListener(onEvent);
+  handle._cleanup = () => {
+    chrome.debugger.onEvent.removeListener(onEvent);
+    chrome.debugger.detach({ tabId: handle.tabId }, () => {
+    });
+  };
+}
+function stopNetworkListener(handle) {
+  handle._cleanup?.();
+}
+
+const DEFAULT_DOM_POLL_MS = 1e3;
+function buildObserverInjection(selector, options = {}) {
+  const opts = {
+    childList: true,
+    subtree: true,
+    characterData: true,
+    attributes: false,
+    ...options
+  };
+  return `
+(() => {
+  if (window.__OPENCLI_DOM_LISTENER__) return;
+  window.__OPENCLI_DOM_LISTENER__ = { queue: [] };
+  const target = document.querySelector(${JSON.stringify(selector)});
+  if (!target) return;
+  const obs = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      window.__OPENCLI_DOM_LISTENER__.queue.push({
+        type: m.type,
+        timestamp: Date.now(),
+        text: m.target && m.target.textContent ? m.target.textContent.slice(0, 500) : '',
+        added: m.addedNodes ? m.addedNodes.length : 0,
+        removed: m.removedNodes ? m.removedNodes.length : 0,
+      });
+      if (window.__OPENCLI_DOM_LISTENER__.queue.length > 200) window.__OPENCLI_DOM_LISTENER__.queue.shift();
+    }
+  });
+  obs.observe(target, ${JSON.stringify(opts)});
+  window.__OPENCLI_DOM_LISTENER__.drain = () => {
+    const out = window.__OPENCLI_DOM_LISTENER__.queue;
+    window.__OPENCLI_DOM_LISTENER__.queue = [];
+    return out;
+  };
+})();
+`;
+}
+const DRAIN_EXPRESSION = `window.__OPENCLI_DOM_LISTENER__ && window.__OPENCLI_DOM_LISTENER__.drain ? window.__OPENCLI_DOM_LISTENER__.drain() : []`;
+
 let ws = null;
 let reconnectTimer = null;
 const CONTEXT_ID_KEY = "opencli_context_id_v1";
 let currentContextId = "default";
 let contextIdPromise = null;
 let connectInFlight = null;
+const listenerRegistry = new ListenerRegistry();
+let lifecycleMonitorInstalled = false;
 async function getCurrentContextId() {
   if (contextIdPromise) return contextIdPromise;
   contextIdPromise = (async () => {
@@ -1550,6 +1740,10 @@ async function handleCommand(cmd) {
         return await handleWaitDownload(cmd);
       case "frames":
         return await handleFrames(cmd, leaseKey);
+      case "listener-start":
+        return await handleListenerStart(cmd);
+      case "listener-stop":
+        return await handleListenerStop(cmd);
       default:
         return { id: cmd.id, ok: false, error: `Unknown action: ${cmd.action}` };
     }
@@ -2260,4 +2454,146 @@ async function handleBind(cmd, leaseKey) {
     title: boundTab.title,
     session: getSessionFromKey(leaseKey)
   });
+}
+function emitListenerEvent(payload) {
+  const [adapterKey, listenerId] = splitListenerKey(payload.listenerKey);
+  safeSend(ws, {
+    type: "listener-event",
+    listenerKey: payload.listenerKey,
+    adapterKey,
+    listenerId,
+    eventType: payload.type,
+    data: payload.data,
+    reason: payload.reason,
+    error: payload.error,
+    tabId: payload.tabId,
+    timestamp: Date.now()
+  });
+}
+function splitListenerKey(listenerKey) {
+  const lastColon = listenerKey.lastIndexOf(":");
+  if (lastColon < 0) return ["", listenerKey];
+  return [listenerKey.slice(0, lastColon), listenerKey.slice(lastColon + 1)];
+}
+function ensureLifecycleMonitor() {
+  if (lifecycleMonitorInstalled) return;
+  lifecycleMonitorInstalled = true;
+  new TabLifecycleMonitor(listenerRegistry, (event) => {
+    emitListenerEvent({
+      listenerKey: event.listenerKey,
+      type: event.type,
+      reason: event.reason,
+      tabId: event.tabId
+    });
+  });
+}
+async function ensureTabForUrl(url) {
+  try {
+    const target = new URL(url);
+    const tabs = await chrome.tabs.query({});
+    const existing = tabs.find((t) => t.url && t.url.startsWith(target.origin));
+    if (existing && existing.id != null) return existing.id;
+  } catch {
+  }
+  const tab = await chrome.tabs.create({ url, active: false });
+  return tab.id;
+}
+async function handleListenerStart(cmd) {
+  const listenerKey = cmd.listenerKey ?? "";
+  if (!listenerKey) return { id: cmd.id, ok: false, error: "listenerKey required" };
+  if (listenerRegistry.has(listenerKey)) {
+    return { id: cmd.id, ok: true, data: { started: false, reason: "already-running" } };
+  }
+  const source = cmd.listenerSource ?? "network";
+  const url = cmd.url ?? "";
+  if (!url) return { id: cmd.id, ok: false, error: "url required for listener-start" };
+  ensureLifecycleMonitor();
+  let tabId;
+  try {
+    tabId = await ensureTabForUrl(url);
+  } catch (err) {
+    return { id: cmd.id, ok: false, error: `Failed to open tab: ${err instanceof Error ? err.message : String(err)}` };
+  }
+  const [adapterKey, listenerId] = splitListenerKey(listenerKey);
+  if (source === "network") {
+    const pattern = cmd.pattern ?? "";
+    listenerRegistry.set(listenerKey, { kind: "network", tabId });
+    const handle = { tabId, pattern, listenerKey, adapterKey, listenerId };
+    try {
+      await startNetworkListener(handle, (event) => {
+        emitListenerEvent({ listenerKey, type: "data", data: event.data });
+      });
+    } catch (err) {
+      listenerRegistry.delete(listenerKey);
+      return { id: cmd.id, ok: false, error: `Network listener attach failed: ${err instanceof Error ? err.message : String(err)}` };
+    }
+    emitListenerEvent({ listenerKey, type: "resumed" });
+    return { id: cmd.id, ok: true, data: { started: true, tabId } };
+  }
+  if (source === "dom") {
+    const selector = cmd.selector ?? "body";
+    listenerRegistry.set(listenerKey, { kind: "dom", tabId });
+    try {
+      await new Promise((resolve, reject) => {
+        chrome.debugger.attach({ tabId }, "1.3", () => {
+          if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+          else resolve();
+        });
+      });
+      await new Promise((resolve, reject) => {
+        chrome.debugger.sendCommand(
+          { tabId },
+          "Runtime.evaluate",
+          { expression: buildObserverInjection(selector, cmd.mutationOptions) },
+          () => {
+            if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+            else resolve();
+          }
+        );
+      });
+    } catch (err) {
+      listenerRegistry.delete(listenerKey);
+      return { id: cmd.id, ok: false, error: `DOM listener setup failed: ${err instanceof Error ? err.message : String(err)}` };
+    }
+    const timer = setInterval(() => {
+      chrome.debugger.sendCommand(
+        { tabId },
+        "Runtime.evaluate",
+        { expression: DRAIN_EXPRESSION, returnByValue: true },
+        (result) => {
+          if (chrome.runtime.lastError) return;
+          const drained = result?.result?.value;
+          if (Array.isArray(drained) && drained.length > 0) {
+            emitListenerEvent({ listenerKey, type: "data", data: drained });
+          }
+        }
+      );
+    }, DEFAULT_DOM_POLL_MS);
+    listenerRegistry.set(listenerKey, { kind: "dom", tabId, handleId: timer });
+    emitListenerEvent({ listenerKey, type: "resumed" });
+    return { id: cmd.id, ok: true, data: { started: true, tabId } };
+  }
+  return { id: cmd.id, ok: false, error: `Unsupported listener source: ${source}` };
+}
+async function handleListenerStop(cmd) {
+  const listenerKey = cmd.listenerKey ?? "";
+  if (!listenerKey) return { id: cmd.id, ok: false, error: "listenerKey required" };
+  const entry = listenerRegistry.get(listenerKey);
+  if (!entry) return { id: cmd.id, ok: true, data: { stopped: false, reason: "not-found" } };
+  if (entry.kind === "network") {
+    const handle = { tabId: entry.tabId, pattern: "", listenerKey, adapterKey: "", listenerId: "" };
+    try {
+      stopNetworkListener(handle);
+    } catch {
+    }
+  } else if (entry.kind === "dom") {
+    if (entry.handleId) clearInterval(entry.handleId);
+    try {
+      await new Promise((resolve) => chrome.debugger.detach({ tabId: entry.tabId }, () => resolve()));
+    } catch {
+    }
+  }
+  listenerRegistry.delete(listenerKey);
+  emitListenerEvent({ listenerKey, type: "stopped", reason: "user-stop", tabId: entry.tabId });
+  return { id: cmd.id, ok: true, data: { stopped: true } };
 }
