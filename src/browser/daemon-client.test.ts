@@ -4,8 +4,12 @@ import {
   BrowserCommandError,
   fetchDaemonStatus,
   getDaemonHealth,
+  getListenerHistory,
+  getListenerStatus,
   requestDaemonShutdown,
   sendCommand,
+  startListener,
+  stopListener,
 } from './daemon-client.js';
 import * as daemonLifecycle from './daemon-lifecycle.js';
 
@@ -376,5 +380,52 @@ describe('daemon-client', () => {
 
     expect(ensureSpy).not.toHaveBeenCalled();
     expect(fetch).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('listener daemon-client helpers', () => {
+  beforeEach(() => {
+    vi.stubGlobal('fetch', vi.fn());
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('startListener posts to /listener/start', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, status: 'starting', key: 's/a:l', state: {} }), { status: 202, headers: { 'Content-Type': 'application/json' } }));
+    const res = await startListener({ site: 's', adapter: 'a', listenerId: 'l', source: 'network', url: 'https://x' });
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining('/listener/start'), expect.objectContaining({ method: 'POST' }));
+    expect(res.status).toBe('starting');
+  });
+
+  it('stopListener posts to /listener/stop', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, status: 'stopped' }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+    await stopListener({ site: 's', adapter: 'a', listenerId: 'l' });
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining('/listener/stop'), expect.objectContaining({ method: 'POST' }));
+  });
+
+  it('getListenerStatus requests /listener/status', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, listeners: [] }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+    const list = await getListenerStatus();
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining('/listener/status'), expect.any(Object));
+    expect(list).toEqual([]);
+  });
+
+  it('getListenerStatus can request inactive listeners', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, listeners: [{ listenerId: 'x' }] }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+    const list = await getListenerStatus({ active: false });
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining('active=0'), expect.any(Object));
+    expect(list.length).toBe(1);
+  });
+
+  it('getListenerHistory passes since param', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response(JSON.stringify({ ok: true, events: [] }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+    await getListenerHistory('l', 12345);
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining('since=12345'), expect.any(Object));
+  });
+
+  it('getListenerHistory requires listenerId', async () => {
+    await expect(getListenerHistory('')).rejects.toThrow();
   });
 });

@@ -12,6 +12,8 @@ import { DEFAULT_BROWSER_CONNECT_TIMEOUT } from './config.js';
 import { ensureBrowserBridgeReady } from './daemon-lifecycle.js';
 import { isPreDispatchError } from './bridge-readiness.js';
 import {
+  DAEMON_PORT,
+  OPENCLI_HEADERS,
   fetchDaemonStatus,
   getDaemonHealth,
   requestDaemon,
@@ -230,4 +232,96 @@ export async function sendCommandFull(
 
 export async function bindTab(session: string, opts: { contextId?: string } = {}): Promise<unknown> {
   return sendCommand('bind', { session, surface: 'browser', ...opts });
+}
+
+// ─── Listener HTTP helpers ──────────────────────────────────────────
+
+export interface StartListenerArgs {
+  site: string;
+  adapter: string;
+  listenerId: string;
+  source: 'network' | 'dom' | 'cdp' | 'console';
+  pattern?: string;
+  selector?: string;
+  mutationOptions?: { childList?: boolean; subtree?: boolean; characterData?: boolean; attributes?: boolean };
+  url: string;
+  session?: string;
+  contextId?: string;
+}
+
+export interface StartListenerResult {
+  ok: boolean;
+  status: string;
+  key?: string;
+  state?: unknown;
+  error?: string;
+}
+
+export async function startListener(args: StartListenerArgs): Promise<StartListenerResult> {
+  const res = await requestDaemon('/listener/start', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(args),
+    timeout: 30000,
+  });
+  return (await res.json()) as StartListenerResult;
+}
+
+export async function stopListener(args: { site: string; adapter: string; listenerId: string; contextId?: string; reason?: string }): Promise<void> {
+  await requestDaemon('/listener/stop', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(args),
+    timeout: 10000,
+  });
+}
+
+export async function getListenerStatus(opts?: { active?: boolean; contextId?: string }): Promise<unknown[]> {
+  const params = new URLSearchParams();
+  if (opts?.active === false) params.set('active', '0');
+  if (opts?.contextId) params.set('contextId', opts.contextId);
+  const qs = params.size ? '?' + params.toString() : '';
+  const res = await requestDaemon(`/listener/status${qs}`, { timeout: 5000 });
+  const body = (await res.json()) as { ok: boolean; listeners?: unknown[] };
+  return body.listeners ?? [];
+}
+
+export async function getListenerHistory(listenerId: string, since?: number): Promise<unknown[]> {
+  if (!listenerId) throw new Error('listenerId required');
+  const params = new URLSearchParams({ listenerId });
+  if (since !== undefined) params.set('since', String(since));
+  const res = await requestDaemon(`/listener/history?${params.toString()}`, { timeout: 5000 });
+  const body = (await res.json()) as { ok: boolean; events?: unknown[] };
+  return body.events ?? [];
+}
+
+/**
+ * Subscribe to the SSE stream for a listener. Returns an async generator
+ * that yields parsed event objects. Used by `opencli listener stream`.
+ */
+export async function* streamListenerEvents(listenerId: string): AsyncGenerator<Record<string, unknown>> {
+  const res = await fetch(`http://127.0.0.1:${DAEMON_PORT}/listener/stream?listenerId=${encodeURIComponent(listenerId)}`, {
+    headers: OPENCLI_HEADERS,
+  });
+  if (!res.ok || !res.body) throw new Error(`listener stream failed: HTTP ${res.status}`);
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    let idx: number;
+    while ((idx = buffer.indexOf('\n\n')) >= 0) {
+      const frame = buffer.slice(0, idx);
+      buffer = buffer.slice(idx + 2);
+      const dataLine = frame.split('\n').find((l) => l.startsWith('data: '));
+      if (!dataLine) continue;
+      try {
+        yield JSON.parse(dataLine.slice(6)) as Record<string, unknown>;
+      } catch {
+        // ignore malformed frames
+      }
+    }
+  }
 }
