@@ -524,6 +524,9 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise
   jsonResponse(res, 404, { error: 'Not found' });
 }
 
+// ─── Test-only exports (used by daemon.test.ts) ─────────────────────
+export const __test = { handleRequest, listenerManager, eventBus, extensionProfiles };
+
 // ─── WebSocket for Extension ─────────────────────────────────────────
 
 const httpServer = createServer((req, res) => { handleRequest(req, res).catch(() => { res.writeHead(500); res.end(); }); });
@@ -670,9 +673,11 @@ wss.on('connection', (ws: WebSocket) => {
 
 // ─── Start ───────────────────────────────────────────────────────────
 
-httpServer.listen(PORT, '127.0.0.1', () => {
-  log.info(`[daemon] Listening on http://127.0.0.1:${PORT}`);
-});
+if (!process.env.VITEST) {
+  httpServer.listen(PORT, '127.0.0.1', () => {
+    log.info(`[daemon] Listening on http://127.0.0.1:${PORT}`);
+  });
+}
 
 httpServer.on('error', (err: NodeJS.ErrnoException) => {
   if (err.code === 'EADDRINUSE') {
