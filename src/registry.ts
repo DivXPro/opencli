@@ -75,6 +75,16 @@ interface BaseCliCommand {
   defaultFormat?: 'table' | 'plain' | 'json' | 'yaml' | 'yml' | 'md' | 'markdown' | 'csv';
   /** Optional auth-status metadata attached by shared auth adapters. */
   authStatus?: AuthStatusMetadata;
+  /** Optional realtime listeners this adapter exposes. */
+  listeners?: Array<{
+    id: string;
+    source: 'network' | 'dom' | 'cdp' | 'console';
+    pattern?: string;
+    selector?: string;
+    mutationOptions?: { childList?: boolean; subtree?: boolean; characterData?: boolean; attributes?: boolean };
+    description?: string;
+    outputSchema?: Record<string, string>;
+  }>;
 }
 
 export interface BrowserCliCommand extends BaseCliCommand {
@@ -150,6 +160,7 @@ export function cli(opts: CliOptions): CliCommand {
     defaultWindowMode: opts.defaultWindowMode,
     defaultFormat: opts.defaultFormat,
     authStatus: opts.authStatus,
+    listeners: opts.listeners,
   };
 
   registerCommand(cmd);
