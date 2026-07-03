@@ -33,6 +33,9 @@ import {
   buildExtensionDisconnectFailure,
   getResponseCorsHeaders,
 } from './daemon-utils.js';
+import { EventBus } from './listener/event-bus.js';
+import { ListenerManager } from './listener/listener-manager.js';
+import type { ListenerEvent, ListenerState, ListenerSource } from './listener/types.js';
 
 const PORT = DEFAULT_DAEMON_PORT;
 if (process.env.OPENCLI_DAEMON_PORT) {
@@ -60,6 +63,8 @@ const pending = new Map<string, {
   timer: ReturnType<typeof setTimeout>;
 }>();
 let commandResultUnknownCount = 0;
+const eventBus = new EventBus(1000);
+const listenerManager = new ListenerManager();
 // Extension log ring buffer
 interface LogEntry { level: string; msg: string; ts: number; }
 const LOG_BUFFER_SIZE = 200;
@@ -372,6 +377,150 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise
     return;
   }
 
+  // ─── Listener endpoints ───────────────────────────────────────────
+  if (req.method === 'POST' && pathname === '/listener/start') {
+    try {
+      const body = JSON.parse(await readBody(req));
+      if (!body.site || !body.adapter || !body.listenerId || !body.source) {
+        jsonResponse(res, 400, { ok: false, error: 'site/adapter/listenerId/source required' });
+        return;
+      }
+      const key = listenerManager.key(body.site, body.adapter, body.listenerId);
+      if (listenerManager.exists(body.site, body.adapter, body.listenerId)) {
+        const existing = listenerManager.get(body.site, body.adapter, body.listenerId);
+        jsonResponse(res, 200, { ok: true, status: 'already-running', key, state: existing });
+        return;
+      }
+      const state: ListenerState = {
+        key,
+        site: body.site,
+        adapter: body.adapter,
+        listenerId: body.listenerId,
+        source: body.source as ListenerSource,
+        pattern: body.pattern,
+        selector: body.selector,
+        status: 'starting',
+        url: body.url,
+        createdAt: Date.now(),
+        eventCount: 0,
+      };
+      listenerManager.register(state);
+
+      const route = resolveExtensionConnection(typeof body.contextId === 'string' ? body.contextId : undefined);
+      if (!route.connection) {
+        listenerManager.update(body.site, body.adapter, body.listenerId, { status: 'stopped' });
+        jsonResponse(res, route.errorCode === 'profile_required' ? 409 : 503, {
+          ok: false,
+          errorCode: route.errorCode,
+          error: route.error,
+          ...(route.errorHint ? { errorHint: route.errorHint } : {}),
+        });
+        return;
+      }
+      const startId = `lst_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+      const startCmd = {
+        id: startId,
+        action: 'listener-start' as const,
+        listenerKey: key,
+        listenerSource: body.source,
+        pattern: body.pattern,
+        selector: body.selector,
+        mutationOptions: body.mutationOptions,
+        url: body.url,
+        session: body.session,
+        surface: 'adapter' as const,
+        contextId: route.connection.contextId,
+      };
+      try {
+        route.connection.ws.send(JSON.stringify(startCmd), (err?: Error) => {
+          if (err) log.warn(`[daemon] listener-start dispatch failed: ${err.message}`);
+        });
+      } catch {
+        listenerManager.update(body.site, body.adapter, body.listenerId, { status: 'stopped' });
+        jsonResponse(res, 502, { ok: false, error: 'Failed to dispatch listener-start to extension' });
+        return;
+      }
+      jsonResponse(res, 202, { ok: true, status: 'starting', key, state });
+    } catch (err) {
+      jsonResponse(res, 400, { ok: false, error: err instanceof Error ? err.message : 'Invalid request' });
+    }
+    return;
+  }
+
+  if (req.method === 'POST' && pathname === '/listener/stop') {
+    try {
+      const body = JSON.parse(await readBody(req));
+      const state = listenerManager.get(body.site, body.adapter, body.listenerId);
+      if (!state) {
+        jsonResponse(res, 404, { ok: false, error: 'listener not found' });
+        return;
+      }
+      const route = resolveExtensionConnection(typeof body.contextId === 'string' ? body.contextId : undefined);
+      if (route.connection) {
+        const stopId = `lstp_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+        route.connection.ws.send(JSON.stringify({
+          id: stopId,
+          action: 'listener-stop',
+          listenerKey: state.key,
+          listenerStopReason: body.reason ?? 'user-stop',
+          contextId: route.connection.contextId,
+        }), () => {});
+      }
+      listenerManager.update(body.site, body.adapter, body.listenerId, { status: 'stopped' });
+      jsonResponse(res, 200, { ok: true, status: 'stopped' });
+    } catch (err) {
+      jsonResponse(res, 400, { ok: false, error: err instanceof Error ? err.message : 'Invalid request' });
+    }
+    return;
+  }
+
+  if (req.method === 'GET' && pathname === '/listener/status') {
+    const params = new URL(url, `http://localhost:${PORT}`).searchParams;
+    const onlyActive = params.get('active') !== '0';
+    const list = onlyActive ? listenerManager.listActive() : listenerManager.listAll();
+    jsonResponse(res, 200, { ok: true, listeners: list });
+    return;
+  }
+
+  if (req.method === 'GET' && pathname === '/listener/history') {
+    const params = new URL(url, `http://localhost:${PORT}`).searchParams;
+    const listenerId = params.get('listenerId') ?? '';
+    const sinceParam = params.get('since');
+    const since = sinceParam ? parseInt(sinceParam, 10) : undefined;
+    if (!listenerId) {
+      jsonResponse(res, 400, { ok: false, error: 'listenerId required' });
+      return;
+    }
+    jsonResponse(res, 200, { ok: true, events: eventBus.history(listenerId, since) });
+    return;
+  }
+
+  if (req.method === 'GET' && pathname === '/listener/stream') {
+    const params = new URL(url, `http://localhost:${PORT}`).searchParams;
+    const listenerId = params.get('listenerId') ?? '';
+    if (!listenerId) {
+      jsonResponse(res, 400, { ok: false, error: 'listenerId required' });
+      return;
+    }
+    const streamOrigin = req.headers['origin'] as string | undefined;
+    const allowOrigin = streamOrigin && streamOrigin.startsWith('chrome-extension://') ? streamOrigin : 'null';
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': allowOrigin,
+    });
+    const subscriberId = `sse_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+    res.write(`event: hello\ndata: ${JSON.stringify({ subscriberId, listenerId })}\n\n`);
+    eventBus.subscribe(subscriberId, listenerId, (event) => {
+      res.write(`data: ${JSON.stringify(event)}\n\n`);
+    });
+    req.on('close', () => {
+      eventBus.unsubscribe(subscriberId);
+    });
+    return;
+  }
+
   jsonResponse(res, 404, { error: 'Not found' });
 }
 
@@ -418,6 +567,52 @@ wss.on('connection', (ws: WebSocket) => {
   ws.on('message', (data: RawData) => {
     try {
       const msg = JSON.parse(data.toString());
+
+      // Listener events streamed from the extension (unsolicited pushes).
+      if (msg.type === 'listener-event') {
+        const event = msg as {
+          listenerKey: string;
+          adapterKey?: string;
+          listenerId?: string;
+          type: ListenerEvent['type'];
+          data?: unknown;
+          reason?: ListenerEvent['reason'];
+          error?: string;
+          tabId?: number;
+          timestamp?: number;
+        };
+        const adapterKey = event.adapterKey ?? event.listenerKey.split(':').slice(0, -1).join(':') ?? '';
+        const listenerId = event.listenerId ?? event.listenerKey.split(':').pop() ?? '';
+        const typed: ListenerEvent = {
+          listenerId,
+          adapterKey,
+          type: event.type,
+          data: event.data,
+          reason: event.reason,
+          error: event.error,
+          tabId: event.tabId,
+          timestamp: event.timestamp ?? Date.now(),
+        };
+        eventBus.publish(typed);
+        // Mirror lifecycle into ListenerManager state.
+        const slashIdx = typed.adapterKey.indexOf('/');
+        const site = slashIdx >= 0 ? typed.adapterKey.slice(0, slashIdx) : '';
+        const adapter = slashIdx >= 0 ? typed.adapterKey.slice(slashIdx + 1) : '';
+        if (site && adapter) {
+          if (typed.type === 'stopped') {
+            listenerManager.update(site, adapter, typed.listenerId, { status: 'stopped' });
+          } else if (typed.type === 'paused') {
+            listenerManager.update(site, adapter, typed.listenerId, { status: 'paused' });
+          } else if (typed.type === 'data') {
+            const cur = listenerManager.get(site, adapter, typed.listenerId);
+            listenerManager.update(site, adapter, typed.listenerId, {
+              lastEventAt: typed.timestamp,
+              eventCount: (cur?.eventCount ?? 0) + 1,
+            });
+          }
+        }
+        return;
+      }
 
       // Handle hello message from extension (version handshake)
       if (msg.type === 'hello') {
