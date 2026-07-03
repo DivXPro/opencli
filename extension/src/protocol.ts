@@ -20,7 +20,9 @@ export type Action =
   | 'network-capture-read'
   | 'wait-download'
   | 'cdp'
-  | 'frames';
+  | 'frames'
+  | 'listener-start'
+  | 'listener-stop';
 
 export interface Command {
   /** Unique request ID */
@@ -77,6 +79,12 @@ export interface Command {
   frameIndex?: number;
   /** Browser profile/context selected by the CLI. Used by the daemon for routing. */
   contextId?: string;
+  /** listener-start: opaque listener key, e.g. "buyin/live-products:comments". */
+  listenerKey?: string;
+  /** listener-start: observation source. */
+  listenerSource?: 'network' | 'dom' | 'cdp' | 'console';
+  /** listener-start/stop: stop reason (informational). */
+  listenerStopReason?: 'tab-closed' | 'browser-closed' | 'page-navigated' | 'user-stop' | 'error';
 }
 
 export interface Result {
