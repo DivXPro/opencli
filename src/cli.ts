@@ -34,6 +34,15 @@ import { buildExtractHtmlJs, runExtractFromHtml } from './browser/extract.js';
 import { analyzeSite, type PageSignals } from './browser/analyze.js';
 import { registerAuthCommands } from './commands/auth.js';
 import { daemonRestart, daemonStatus, daemonStop } from './commands/daemon.js';
+import {
+  listenerStart,
+  listenerStop,
+  listenerList,
+  listenerStatus,
+  listenerHistory,
+  listenerStream,
+  listenerRestart,
+} from './commands/listener.js';
 import { log } from './logger.js';
 import { bindTab, BrowserCommandError, sendCommand } from './browser/daemon-client.js';
 import { fetchDaemonStatus } from './browser/daemon-transport.js';
@@ -3395,6 +3404,78 @@ cli({
     .description('Restart the daemon')
     .action(async () => { await daemonRestart(); });
 
+  // ── Listener ─────────────────────────────────────────────────────────────
+
+  const listenerCmd = program
+    .command('listener')
+    .description('Manage realtime listeners');
+  listenerCmd
+    .command('start')
+    .description('Start a realtime listener on a page')
+    .requiredOption('--site <site>', 'adapter site (e.g. buyin)')
+    .requiredOption('--adapter <adapter>', 'adapter name (e.g. live-products)')
+    .requiredOption('--listener <id>', 'listener id from adapter manifest')
+    .requiredOption('--source <source>', 'observation source: network|dom')
+    .option('--pattern <pattern>', 'URL substring (network source)')
+    .option('--selector <selector>', 'CSS selector (dom source)')
+    .requiredOption('--url <url>', 'page URL to observe')
+    .action(async (opts) => {
+      await listenerStart({
+        site: opts.site,
+        adapter: opts.adapter,
+        listenerId: opts.listener,
+        source: opts.source as 'network' | 'dom',
+        pattern: opts.pattern,
+        selector: opts.selector,
+        url: opts.url,
+      });
+    });
+  listenerCmd
+    .command('stop')
+    .description('Stop a running listener')
+    .requiredOption('--site <site>')
+    .requiredOption('--adapter <adapter>')
+    .requiredOption('--listener <id>')
+    .action(async (opts) => listenerStop(opts.site, opts.adapter, opts.listener));
+  listenerCmd
+    .command('list')
+    .description('List active listeners')
+    .action(listenerList);
+  listenerCmd
+    .command('status')
+    .description('Show all listener states (active and stopped)')
+    .action(listenerStatus);
+  listenerCmd
+    .command('history')
+    .description('Print buffered events as JSONL')
+    .requiredOption('--listener <id>')
+    .option('--since <ms>', 'only events after this epoch ms')
+    .action(async (opts) => listenerHistory(opts.listener, opts.since ? Number(opts.since) : undefined));
+  listenerCmd
+    .command('stream')
+    .description('Stream events as JSONL (SSE)')
+    .requiredOption('--listener <id>')
+    .action(async (opts) => listenerStream(opts.listener));
+  listenerCmd
+    .command('restart')
+    .description('Stop then start a listener')
+    .requiredOption('--site <site>')
+    .requiredOption('--adapter <adapter>')
+    .requiredOption('--listener <id>')
+    .requiredOption('--source <source>')
+    .option('--pattern <pattern>')
+    .option('--selector <selector>')
+    .requiredOption('--url <url>')
+    .action(async (opts) => listenerRestart({
+      site: opts.site,
+      adapter: opts.adapter,
+      listenerId: opts.listener,
+      source: opts.source,
+      pattern: opts.pattern,
+      selector: opts.selector,
+      url: opts.url,
+    }));
+
   // ── External CLIs ─────────────────────────────────────────────────────────
 
   const externalClis = loadExternalClis();
@@ -3522,6 +3603,7 @@ cli({
   installCommanderNamespaceStructuredHelp(browser, { globalCommand: program, description: originalBrowserDescription });
   installCommanderNamespaceStructuredHelp(authCmd, { globalCommand: program, description: 'Inspect website login status' });
   installCommanderNamespaceStructuredHelp(daemonCmd, { globalCommand: program, description: originalDaemonDescription });
+  installCommanderNamespaceStructuredHelp(listenerCmd, { globalCommand: program, description: 'Manage realtime listeners' });
   installCommanderNamespaceStructuredHelp(pluginCmd, { globalCommand: program, description: originalPluginDescription });
   installCommanderNamespaceStructuredHelp(adapterCmd, { globalCommand: program, description: originalAdapterDescription });
   installCommanderNamespaceStructuredHelp(profileCmd, { globalCommand: program, description: originalProfileDescription });
