@@ -1,6 +1,6 @@
 // coingecko top — top coins by market cap.
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
 
 cli({
   site: 'coingecko',

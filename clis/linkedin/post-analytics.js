@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
 import { parseLimit } from './shared.js';
 import { collectPosts } from './posts-core.js';
 

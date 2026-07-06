@@ -1,8 +1,8 @@
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { saveBase64ToFile } from '@jackwener/opencli/utils';
-import { ArgumentError, CommandExecutionError, EmptyResultError, TimeoutError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { saveBase64ToFile } from '@scopai/opencli/utils';
+import { ArgumentError, CommandExecutionError, EmptyResultError, TimeoutError } from '@scopai/opencli/errors';
 import {
     QIANWEN_DOMAIN,
     authRequired,

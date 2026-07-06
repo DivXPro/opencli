@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { CommandExecutionError } from '@jackwener/opencli/errors';
-import { getRegistry } from '@jackwener/opencli/registry';
+import { CommandExecutionError } from '@scopai/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
 import './cite.js';
 
 describe('google-scholar cite command', () => {

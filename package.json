@@ -1,5 +1,5 @@
 {
-  "name": "@jackwener/opencli",
+  "name": "@scopai/opencli",
   "version": "1.8.5",
   "publishConfig": {
     "access": "public"
@@ -76,7 +76,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jackwener/opencli.git"
+    "url": "git+https://github.com/scopai/OpenCLI.git"
   },
   "dependencies": {
     "@mozilla/readability": "^0.6.0",
@@ -105,5 +105,6 @@
     "vitepress": {
       "vite": "6.4.2"
     }
-  }
+  },
+  "homepage": "https://github.com/scopai/OpenCLI"
 }

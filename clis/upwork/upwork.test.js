@@ -4,8 +4,8 @@ import {
     AuthRequiredError,
     CommandExecutionError,
     EmptyResultError,
-} from '@jackwener/opencli/errors';
-import { getRegistry } from '@jackwener/opencli/registry';
+} from '@scopai/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
 import {
     UPWORK_ORIGIN,
     LIST_COLUMNS,

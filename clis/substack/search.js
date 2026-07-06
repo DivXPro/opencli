@@ -1,5 +1,5 @@
-import { CommandExecutionError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 function headers() {
     return {
         'User-Agent': 'Mozilla/5.0',

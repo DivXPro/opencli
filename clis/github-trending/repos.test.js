@@ -1,5 +1,5 @@
-import { getRegistry } from '@jackwener/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import './repos.js';
 

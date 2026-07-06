@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CommandExecutionError } from '@jackwener/opencli/errors';
+import { CommandExecutionError } from '@scopai/opencli/errors';
 import {
     requireArrayEvaluateResult,
     requireBooleanEvaluateResult,

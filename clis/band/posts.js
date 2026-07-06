@@ -1,5 +1,5 @@
-import { AuthRequiredError, EmptyResultError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { AuthRequiredError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 /**
  * band posts — List posts from a specific Band.
  *

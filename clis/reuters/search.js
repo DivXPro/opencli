@@ -4,8 +4,8 @@
  * The endpoint sits behind a Datadome anti-bot challenge for direct fetches,
  * so we run inside an authenticated reuters.com tab via Strategy.COOKIE.
  */
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { buildSearchScript, isAuthStatus, looksAuthWallText, mapSearchArticles, parseLimit } from './utils.js';
 
 cli({

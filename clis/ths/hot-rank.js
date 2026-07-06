@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 
 const THS_HOT_URL = 'https://eq.10jqka.com.cn/webpage/ths-hot-list/index.html?showStatusBar=true';
 

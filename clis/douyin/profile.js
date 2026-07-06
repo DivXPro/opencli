@@ -1,6 +1,6 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { browserFetch } from './_shared/browser-fetch.js';
-import { CommandExecutionError } from '@jackwener/opencli/errors';
+import { CommandExecutionError } from '@scopai/opencli/errors';
 cli({
     site: 'douyin',
     name: 'profile',

@@ -1,6 +1,6 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { AuthRequiredError, CommandExecutionError } from '@jackwener/opencli/errors';
-import { BROWSER_JSON_SNIFF_FN, throwIfLoginWall } from '@jackwener/opencli/utils';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { BROWSER_JSON_SNIFF_FN, throwIfLoginWall } from '@scopai/opencli/utils';
 import { TWITTER_BEARER_TOKEN, applyTopByEngagement } from './utils.js';
 import { extractCard, extractQuotedTweet, extractMedia, describeTwitterApiError } from './shared.js';
 

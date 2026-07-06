@@ -185,7 +185,7 @@ function browserConnectErrorFromHealth(health: DaemonHealth, contextId?: string)
       'Browser Bridge extension not connected',
       'Make sure Chrome/Chromium is open and the OpenCLI extension is enabled.\n' +
       'If not installed:\n' +
-      '  1. Download: https://github.com/jackwener/opencli/releases\n' +
+      '  1. Download: https://github.com/scopai/opencli/releases\n' +
       '  2. Open chrome://extensions → Developer Mode → Load unpacked',
       'extension-not-connected',
     );

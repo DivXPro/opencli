@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { CommandExecutionError, TimeoutError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
 import {
     authRequired,
     ensureOnGrok,

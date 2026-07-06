@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
-import { CommandExecutionError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { parseTweetUrl, buildTwitterArticleScopeSource } from './shared.js';
 import {
     COMPOSER_FILE_INPUT_SELECTOR,

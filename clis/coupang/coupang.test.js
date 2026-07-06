@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { ArgumentError, CommandExecutionError } from '@jackwener/opencli/errors';
-import { getRegistry } from '@jackwener/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
 import './search.js';
 import './product.js';
 import './add-to-cart.js';

@@ -4,8 +4,8 @@
  * returns a small set of carousels (e.g. "Top picks for you"); this
  * command flattens the cards across them into a ranked list.
  */
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
 
 const DOMAIN = 'www.linkedin.com';
 const MAX_LIMIT = 50;

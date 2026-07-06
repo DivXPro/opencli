@@ -1,10 +1,10 @@
 // Kimi Code console usage summary.
 // Reads the four dashboard cards from https://www.kimi.com/code/console
 
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import {
     CommandExecutionError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 
 const KIMI_DOMAIN = 'kimi.com';
 const KIMI_URL = 'https://www.kimi.com/';

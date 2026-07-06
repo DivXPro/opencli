@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { AuthRequiredError, CommandExecutionError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
 
 const LINKEDIN_DOMAIN = 'www.linkedin.com';
 const SENT_URL = 'https://www.linkedin.com/mynetwork/invitation-manager/sent/';

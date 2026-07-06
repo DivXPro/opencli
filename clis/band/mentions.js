@@ -1,5 +1,5 @@
-import { AuthRequiredError, EmptyResultError, selectorError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { AuthRequiredError, EmptyResultError, selectorError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 /**
  * band mentions — Show Band notifications where you were @mentioned.
  *

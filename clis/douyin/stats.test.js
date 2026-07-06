@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRegistry } from '@jackwener/opencli/registry';
+import { getRegistry } from '@scopai/opencli/registry';
 import './stats.js';
 describe('douyin stats registration', () => {
     it('registers the stats command', () => {

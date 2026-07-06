@@ -15,12 +15,12 @@
 //   add-context           — click Add context (opens file/url picker)
 //   revert                — click revert-button (per-message revert)
 
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 import { unwrapEvaluateResult } from './_actions.js';
 
 function clickFirstScript(sels) {

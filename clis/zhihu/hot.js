@@ -1,4 +1,4 @@
-import { cli } from '@jackwener/opencli/registry';
+import { cli } from '@scopai/opencli/registry';
 cli({
     site: 'zhihu',
     name: 'hot',

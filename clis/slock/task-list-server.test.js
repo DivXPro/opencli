@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getRegistry } from '@jackwener/opencli/registry';
+import { getRegistry } from '@scopai/opencli/registry';
 import './task-list-server.js';
 
 function makePage(envelope) {

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@jackwener/opencli/registry';
+import { getRegistry } from '@scopai/opencli/registry';
 import './answer.js';
 describe('zhihu answer', () => {
     it('registers as a cookie browser command', () => {

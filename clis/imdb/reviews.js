@@ -1,5 +1,5 @@
-import { CommandExecutionError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { forceEnglishUrl, getCurrentImdbId, isChallengePage, normalizeImdbId, waitForImdbPath, waitForImdbReviewsReady, } from './utils.js';
 /**
  * Read IMDb user reviews from the first review page.

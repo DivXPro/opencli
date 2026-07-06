@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { CliError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { CliError } from '@scopai/opencli/errors';
 import { getOnesBaseUrl, onesFetchInPage } from './common.js';
 cli({
     site: 'ones',

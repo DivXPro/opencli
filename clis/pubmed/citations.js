@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { EmptyResultError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { EmptyResultError } from '@scopai/opencli/errors';
 import { LINK_COLUMNS, eutilsFetch, fetchSummaryRows, requireBoundedInt, requireChoice, requirePmid } from './utils.js';
 
 cli({

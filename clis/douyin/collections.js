@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { browserFetch } from './_shared/browser-fetch.js';
 cli({
     site: 'douyin',

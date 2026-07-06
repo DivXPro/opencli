@@ -18,7 +18,7 @@ import {
     AuthRequiredError,
     CommandExecutionError,
     EmptyResultError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 
 export const GUAZI_M_BASE = 'https://m.guazi.com';
 

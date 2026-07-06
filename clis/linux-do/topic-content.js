@@ -1,6 +1,6 @@
-import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { htmlToMarkdown, isRecord } from '@jackwener/opencli/utils';
+import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { htmlToMarkdown, isRecord } from '@scopai/opencli/utils';
 const LINUX_DO_DOMAIN = 'linux.do';
 const LINUX_DO_HOME = 'https://linux.do';
 function toLocalTime(utcStr) {

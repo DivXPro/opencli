@@ -1,6 +1,6 @@
-import { getRegistry } from '@jackwener/opencli/registry';
+import { getRegistry } from '@scopai/opencli/registry';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { executePipeline } from '@jackwener/opencli/pipeline';
+import { executePipeline } from '@scopai/opencli/pipeline';
 
 // Import all binance adapters to register them
 import './top.js';

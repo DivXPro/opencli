@@ -1,7 +1,7 @@
-import { AuthRequiredError, EmptyResultError } from '@jackwener/opencli/errors';
-import { formatCookieHeader } from '@jackwener/opencli/download';
-import { downloadMedia } from '@jackwener/opencli/download/media-download';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { AuthRequiredError, EmptyResultError } from '@scopai/opencli/errors';
+import { formatCookieHeader } from '@scopai/opencli/download';
+import { downloadMedia } from '@scopai/opencli/download/media-download';
+import { cli, Strategy } from '@scopai/opencli/registry';
 /**
  * band post — Export full content of a Band post: body, comments, and optional photo download.
  *

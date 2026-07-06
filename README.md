@@ -5,9 +5,9 @@
 > Or run Browser Use against any page — navigate, fill forms, click, extract, automate.
 
 [![中文文档](https://img.shields.io/badge/docs-%E4%B8%AD%E6%96%87-0F766E?style=flat-square)](./README.zh-CN.md)
-[![npm](https://img.shields.io/npm/v/@jackwener/opencli?style=flat-square)](https://www.npmjs.com/package/@jackwener/opencli)
-[![Node.js Version](https://img.shields.io/node/v/@jackwener/opencli?style=flat-square)](https://nodejs.org)
-[![License](https://img.shields.io/npm/l/@jackwener/opencli?style=flat-square)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@scopai/opencli?style=flat-square)](https://www.npmjs.com/package/@scopai/opencli)
+[![Node.js Version](https://img.shields.io/node/v/@scopai/opencli?style=flat-square)](https://nodejs.org)
+[![License](https://img.shields.io/npm/l/@scopai/opencli?style=flat-square)](./LICENSE)
 
 OpenCLI gives you one surface for three different kinds of automation:
 
@@ -35,7 +35,7 @@ OpenCLI requires **Node.js >= 20** when installed through npm.
 
 ```bash
 node --version
-npm install -g @jackwener/opencli
+npm install -g @scopai/opencli
 ```
 
 ### 2. Install the Browser Bridge Extension
@@ -46,7 +46,7 @@ OpenCLI connects to Chrome/Chromium through a lightweight Browser Bridge extensi
 Install **OpenCLI** from the [Chrome Web Store](https://chromewebstore.google.com/detail/opencli/ildkmabpimmkaediidaifkhjpohdnifk).
 
 **Option B — Manual install:**
-1. Download the latest `opencli-extension-v{version}.zip` from the GitHub [Releases page](https://github.com/jackwener/opencli/releases).
+1. Download the latest `opencli-extension-v{version}.zip` from the GitHub [Releases page](https://github.com/scopai/opencli/releases).
 2. Unzip it, open `chrome://extensions`, and enable **Developer mode**.
 3. Click **Load unpacked** and select the unzipped folder.
 
@@ -105,18 +105,18 @@ OpenCLI's browser commands are designed to be used by AI Agents — not run manu
 ### Install skills (also refreshes existing installs)
 
 ```bash
-npx skills add jackwener/opencli
+npx skills add scopai/opencli
 ```
 
 Or install only what you need:
 
 ```bash
-npx skills add jackwener/opencli --skill opencli-adapter-author
-npx skills add jackwener/opencli --skill opencli-autofix
-npx skills add jackwener/opencli --skill opencli-browser
-npx skills add jackwener/opencli --skill opencli-browser-sitemap
-npx skills add jackwener/opencli --skill opencli-sitemap-author
-npx skills add jackwener/opencli --skill opencli-usage
+npx skills add scopai/opencli --skill opencli-adapter-author
+npx skills add scopai/opencli --skill opencli-autofix
+npx skills add scopai/opencli --skill opencli-browser
+npx skills add scopai/opencli --skill opencli-browser-sitemap
+npx skills add scopai/opencli --skill opencli-sitemap-author
+npx skills add scopai/opencli --skill opencli-usage
 ```
 
 ### Which skill to use
@@ -292,7 +292,7 @@ See **[TESTING.md](./TESTING.md)** for how to run and write tests.
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=jackwener/opencli&type=Date)](https://star-history.com/#jackwener/opencli&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=scopai/opencli&type=Date)](https://star-history.com/#scopai/opencli&Date)
 
 ## License
 

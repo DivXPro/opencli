@@ -58,7 +58,7 @@ interface ListenerDeclaration {
 ## 完整示例
 
 ```javascript
-import { cli } from '@jackwener/opencli/registry';
+import { cli } from '@scopai/opencli/registry';
 
 cli({
   site: 'buyin',

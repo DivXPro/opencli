@@ -20,7 +20,7 @@ OpenCLI turns any website, Electron desktop app, or external CLI into a uniform 
 
 ```bash
 # npm global
-npm install -g @jackwener/opencli          # binary: opencli, requires Node >= 21
+npm install -g @scopai/opencli          # binary: opencli, requires Node >= 21
 opencli doctor                              # run before browser-dependent work (see below)
 
 # From source
@@ -107,7 +107,7 @@ opencli verify [target] [--smoke]       # run the command with synthetic args
 opencli browser verify <site>/<command> # end-to-end smoke inside the bridge
 ```
 
-Adapters import only `@jackwener/opencli/registry` and `@jackwener/opencli/errors`. `columns` must align 1:1 (in name and order) with keys of the object returned by `func`. For the full workflow see `opencli-adapter-author`.
+Adapters import only `@scopai/opencli/registry` and `@scopai/opencli/errors`. `columns` must align 1:1 (in name and order) with keys of the object returned by `func`. For the full workflow see `opencli-adapter-author`.
 
 ## Plugins
 

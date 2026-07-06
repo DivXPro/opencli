@@ -1,6 +1,6 @@
 import { describe, expect, it, afterEach, vi } from 'vitest';
-import { getRegistry } from '@jackwener/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
 import { __test__ as jiraSharedTest } from './shared.js';
 import './issue.js';
 import './search.js';

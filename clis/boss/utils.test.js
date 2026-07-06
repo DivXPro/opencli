@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AuthRequiredError, CommandExecutionError } from '@jackwener/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
 import { assertOk } from './utils.js';
 
 describe('assertOk', () => {

@@ -15,12 +15,12 @@
 //                            on /chat/history (each conv has an inline Edit)
 //   user-rules             — read/write the rules from /settings (best-effort)
 
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 import {
     KIMI_DOMAIN,
     KIMI_URL,

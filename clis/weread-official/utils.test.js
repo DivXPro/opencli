@@ -5,7 +5,7 @@ import {
     CommandExecutionError,
     EmptyResultError,
     TimeoutError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 import {
     SKILL_VERSION,
     WEREAD_GATEWAY_URL,

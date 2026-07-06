@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getRegistry } from '@jackwener/opencli/registry';
-import { CommandExecutionError } from '@jackwener/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
+import { CommandExecutionError } from '@scopai/opencli/errors';
 import './jobs-preferences.js';
 
 const { inferOpenToWork, normalizePreferences } = await import('./jobs-preferences.js').then((m) => m.__test__);

@@ -1,4 +1,4 @@
-import { AuthRequiredError, CommandExecutionError } from '@jackwener/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
 import { buildFetchSnippet } from './in-page.js';
 import { SLOCK_DOMAIN, SLOCK_HOME_URL } from './shared.js';
 

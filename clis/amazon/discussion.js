@@ -1,5 +1,5 @@
-import { AuthRequiredError, CommandExecutionError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { buildProductUrl, buildDiscussionUrl, buildProvenance, cleanText, extractAsin, normalizeProductUrl, parseRatingValue, parseReviewCount, trimRatingPrefix, uniqueNonEmpty, assertUsableState, gotoAndReadState, } from './shared.js';
 function normalizeDiscussionPayload(payload) {
     const sourceUrl = cleanText(payload.href) || buildDiscussionUrl(payload.href ?? '');

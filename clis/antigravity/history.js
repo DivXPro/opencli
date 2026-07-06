@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { EmptyResultError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { EmptyResultError } from '@scopai/opencli/errors';
 import { listConversations } from './_actions.js';
 
 cli({

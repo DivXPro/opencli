@@ -3,14 +3,14 @@ const { mockDownloadMedia, mockFormatCookieHeader } = vi.hoisted(() => ({
     mockDownloadMedia: vi.fn(),
     mockFormatCookieHeader: vi.fn(() => 'ct0=token'),
 }));
-vi.mock('@jackwener/opencli/download/media-download', () => ({
+vi.mock('@scopai/opencli/download/media-download', () => ({
     downloadMedia: mockDownloadMedia,
 }));
-vi.mock('@jackwener/opencli/download', () => ({
+vi.mock('@scopai/opencli/download', () => ({
     formatCookieHeader: mockFormatCookieHeader,
 }));
-import { getRegistry } from '@jackwener/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
 import { __test__ } from './download.js';
 
 const {

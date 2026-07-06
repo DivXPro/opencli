@@ -10,8 +10,8 @@
  * Round-trip + advanced filters (airline whitelist, cabin selection beyond
  * 全舱位) are out of scope for v1 — track in #1481 follow-up if requested.
  */
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { buildFlightExtractJs, buildScrollUntilJs, parseIataCode, parseIsoDate } from './utils.js';
 
 const MIN_LIMIT = 1;

@@ -1,5 +1,5 @@
-import { AuthRequiredError, EmptyResultError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { AuthRequiredError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 
 const WEIXIN_DOMAIN = 'mp.weixin.qq.com';
 

@@ -2,8 +2,8 @@
  * Maimai talent search - Browser cookie API.
  * Reuses Chrome login session to search for candidates on maimai.cn
  */
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
 
 cli({
   site: 'maimai',

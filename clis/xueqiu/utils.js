@@ -1,4 +1,4 @@
-import { AuthRequiredError, CommandExecutionError } from '@jackwener/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
 
 const CHINA_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
     timeZone: 'Asia/Shanghai',

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@jackwener/opencli/registry';
-import { ArgumentError, CommandExecutionError, TimeoutError } from '@jackwener/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
+import { ArgumentError, CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
 import { isKimiUrl, parseChatId } from './_utils.js';
 import './chat.js';
 import './ui.js';

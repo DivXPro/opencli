@@ -7,8 +7,8 @@
  * `search`.
  */
 
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { EmptyResultError, CommandExecutionError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { EmptyResultError, CommandExecutionError } from '@scopai/opencli/errors';
 import {
     JOB_COLUMNS,
     requireJobKey,

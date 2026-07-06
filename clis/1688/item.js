@@ -1,6 +1,6 @@
-import { CommandExecutionError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { isRecord } from '@jackwener/opencli/utils';
+import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { isRecord } from '@scopai/opencli/utils';
 import { assertAuthenticatedState, buildDetailUrl, buildProvenance, canonicalizeSellerUrl, cleanMultilineText, cleanText, extractLocation, extractMemberId, extractOfferId, extractShopId, gotoAndReadState, normalizePriceTiers, parseMoqText, parsePriceText, toNumber, uniqueNonEmpty, } from './shared.js';
 function normalizeItemPayload(payload) {
     const href = cleanText(payload.href);

@@ -12,7 +12,7 @@ import {
     AuthRequiredError,
     CommandExecutionError,
     EmptyResultError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 
 /**
  * Common Chinese cities → dianping cityId.

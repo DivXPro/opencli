@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@jackwener/opencli/registry';
+import { getRegistry } from '@scopai/opencli/registry';
 
 const { wikiFetchMock } = vi.hoisted(() => ({ wikiFetchMock: vi.fn() }));
 vi.mock('./utils.js', async () => {

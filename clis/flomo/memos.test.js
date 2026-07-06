@@ -4,7 +4,7 @@ import {
   AuthRequiredError,
   CommandExecutionError,
   EmptyResultError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 
 const { __test__ } = await import('./memos.js');
 const { command, normalizeMemo, parsePositiveIntArg, parseSinceArg, parseSlugArg } = __test__;

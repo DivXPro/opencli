@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { IPage } from '@jackwener/opencli/types';
-import { ArgumentError } from '@jackwener/opencli/errors';
+import type { IPage } from '@scopai/opencli/types';
+import { ArgumentError } from '@scopai/opencli/errors';
 import { __test__ } from './image.js';
 
 describe('grok image helpers', () => {

@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { CliError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { CliError } from '@scopai/opencli/errors';
 import { loadXiaoyuzhouCredentials, requestXiaoyuzhouJson } from './auth.js';
 import { formatDuration, formatDate } from './utils.js';
 cli({

@@ -1,5 +1,5 @@
-import { cli } from '@jackwener/opencli/registry';
-import { EmptyResultError } from '@jackwener/opencli/errors';
+import { cli } from '@scopai/opencli/registry';
+import { EmptyResultError } from '@scopai/opencli/errors';
 import { fetchXueqiuJson, formatChinaDate } from './utils.js';
 cli({
     site: 'xueqiu',

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ArgumentError } from '@jackwener/opencli/errors';
-import { getRegistry } from '@jackwener/opencli/registry';
+import { ArgumentError } from '@scopai/opencli/errors';
+import { getRegistry } from '@scopai/opencli/registry';
 import { __test__ } from './create.js';
 
 const { parseCreateTitle, parseCreateEmoji, parseCreateProjectResult } = __test__;

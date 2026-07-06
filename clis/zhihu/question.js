@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { AuthRequiredError, CliError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError, CliError } from '@scopai/opencli/errors';
 import { stripHtml } from './text.js';
 
 function answerIdFromUrl(url) {

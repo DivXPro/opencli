@@ -531,7 +531,7 @@ export function validatePluginStructure(pluginDir: string): ValidationResult {
   if (hasTs) {
     const pkgJsonPath = path.join(pluginDir, 'package.json');
     if (!fs.existsSync(pkgJsonPath)) {
-      errors.push('Plugin contains .ts files but no package.json. A package.json with "type": "module" and "@jackwener/opencli" peer dependency is required for TS plugins.');
+      errors.push('Plugin contains .ts files but no package.json. A package.json with "type": "module" and "@scopai/opencli" peer dependency is required for TS plugins.');
     } else {
       try {
         const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
@@ -576,7 +576,7 @@ function installDependencies(dir: string): void {
 }
 
 function finalizePluginRuntime(pluginDir: string): void {
-  // Symlink host opencli so TS plugins resolve '@jackwener/opencli/registry'
+  // Symlink host opencli so TS plugins resolve '@scopai/opencli/registry'
   // against the running host, not a stale npm-published version.
   linkHostOpencli(pluginDir);
 
@@ -1392,14 +1392,14 @@ function parseSource(
 
 /**
  * Symlink the host opencli package into a plugin's node_modules.
- * This ensures TS plugins resolve '@jackwener/opencli/registry' against
+ * This ensures TS plugins resolve '@scopai/opencli/registry' against
  * the running host installation rather than a stale npm-published version.
  */
 function linkHostOpencli(pluginDir: string): void {
   try {
     const hostRoot = resolveHostOpencliRoot();
 
-    const targetLink = path.join(pluginDir, 'node_modules', '@jackwener', 'opencli');
+    const targetLink = path.join(pluginDir, 'node_modules', '@scopai', 'opencli');
 
     // Remove existing (npm-installed copy or stale symlink)
     if (fs.existsSync(targetLink)) {
@@ -1485,7 +1485,7 @@ function resolveHostOpencliRoot(startFile = fileURLToPath(import.meta.url)): str
     if (fs.existsSync(pkgPath)) {
       try {
         const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-        if (pkg?.name === '@jackwener/opencli') {
+        if (pkg?.name === '@scopai/opencli') {
           return dir;
         }
       } catch {

@@ -6,10 +6,10 @@
 // when a larger `--limit` is requested. Stays inside the browser, so the session
 // cookies + msToken go along automatically.
 
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import {
     EmptyResultError,
-} from '@jackwener/opencli/errors';
+} from '@scopai/opencli/errors';
 import {
     BROWSER_HELPERS,
     MAX_PAGES,

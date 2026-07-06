@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { CommandExecutionError, selectorError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError, selectorError } from '@scopai/opencli/errors';
 import { clickNewTaskScript, currentTaskStateScript, ensurePrompt, normalizeTimeout, sendTraePrompt } from './utils.js';
 
 export const newCommand = cli({

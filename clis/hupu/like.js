@@ -1,5 +1,5 @@
-import { CliError } from '@jackwener/opencli/errors';
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { postHupuJson } from './utils.js';
 cli({
     site: 'hupu',

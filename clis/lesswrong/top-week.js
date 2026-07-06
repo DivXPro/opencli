@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
+import { cli, Strategy } from '@scopai/opencli/registry';
 import { DOMAIN, SITE, daysAgo, gqlRequest } from './_helpers.js';
 cli({
     site: SITE,

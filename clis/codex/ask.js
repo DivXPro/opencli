@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { ArgumentError, selectorError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, selectorError } from '@scopai/opencli/errors';
 import { conversationSelectionArgs, openCodexConversation } from './sidebar.js';
 export const askCommand = cli({
     site: 'codex',
