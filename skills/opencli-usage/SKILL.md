@@ -8,11 +8,12 @@ allowed-tools: Bash(opencli:*), Read
 
 OpenCLI turns any website, Electron desktop app, or external CLI into a uniform `opencli <site> <command>` surface that agents can drive without screen-scraping. This skill is the orientation layer — once you know what you want to do, load one of the specialized skills below.
 
-## The three pillars
+## The capability pillars
 
-- **Adapter commands** — `opencli <site> <command> [...]`. Built-in adapters live in `clis/`, user adapters in `~/.opencli/clis/`. Each is backed by a strategy (`PUBLIC | COOKIE | INTERCEPT | UI | LOCAL`) that tells you whether a Chrome session is needed.
+- **Adapter commands** — `opencli <site> <command> [...]`. Built-in adapters live in `clis/`, user adapters in `~/.opencli/clis/`. Each is backed by a strategy (`PUBLIC | COOKIE | INTERCEPT | UI | LOCAL`) that tells you whether a Chrome session is needed. Adapters may also declare `listeners[]` to expose realtime streams (see Realtime listeners below).
 - **Browser driving** — `opencli browser *` subcommands (`open`, `state`, `click`, `type`, `select`, `find`, `extract`, `network`, …) for ad-hoc interaction and scraping when no adapter covers the task. See `opencli-browser`.
 - **Current-tab binding** — `opencli browser <session> bind` attaches the Chrome tab the user already opened/logged into to that browser session. Follow-up commands use `opencli browser <session> ...`. See `opencli-browser` before using it; bound sessions still block tab mutation.
+- **Realtime listeners** — `opencli listener *` (peer group to `browser`/`external`). For pages that keep emitting data after load (live comments, order feeds, appending lists): extension intercepts → daemon EventBus → CLI `stream`/`history` or HTTP `/listener/*` SSE. Per-`listenerId` isolation + dedup. Needs a live browser (same prereqs as browser driving). See `opencli-listener`.
 - **External CLI passthrough** — `opencli gh`, `opencli docker`, `opencli vercel`, etc. Managed via `opencli external install <name>` (auto-install from `external-clis.yaml`) or `opencli external register <name>` (bring your own).
 
 ## Install
@@ -151,6 +152,7 @@ opencli completion bash   # also: zsh, fish
 | If you're about to… | Load this skill |
 |---------------------|-----------------|
 | Drive a live browser ad-hoc (no adapter available, or prototyping) | `opencli-browser` |
+| Subscribe to realtime page events (live comments, order feeds, continuously updating lists) | `opencli-listener` |
 | Write a new adapter, or add a command to an existing site | `opencli-adapter-author` |
 | Fix a broken adapter after a command failure | `opencli-autofix` |
 | Route a search / lookup / research request to the right adapter | `smart-search` |

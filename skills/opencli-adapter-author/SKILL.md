@@ -230,6 +230,7 @@ DONE
 | `references/success-rate-pitfalls.md` | Step 7 / 11 踩坑前翻：11 种"verify 能过但数据是错的"静默失败（含 aria-label locale-dependence） |
 | `references/jsdom-fixture-pattern.md` | 当 adapter 走 `page.evaluate` 内 DOM 抽取、且 mocked-evaluate 单测漏 silent bug 时——把 HTML 冻进 `clis/<site>/__fixtures__/` 用 JSDOM 跑（含 fixture 创建 mandatory `awk 'NF>0'` 收紧 + reverse-validate 纪律） |
 | `references/typed-errors.md` | 写 `func` 主体之前必读：5 类 typed error 落点表（ArgumentError / EmptyResultError / CommandExecutionError / AuthRequiredError / TimeoutError）+ 三大 silent anti-pattern（silent-clamp / sentinel-row / generic CliError）的反例修法 |
+| `references/listeners.md` | 当 adapter 需要暴露**实时流**（live comments / 订单簿 / 不断 append 的列表）时翻：`listeners[]` 声明 schema、`source`/`pattern`/`selector`/`mutationOptions`/`outputSchema` 选法、消费侧验证流程。消费侧用法见 `opencli-listener` skill |
 
 ---
 
@@ -242,6 +243,7 @@ DONE
 - 已知失败按 [`references/typed-errors.md`](./references/typed-errors.md) 5-classification 抛对应 typed error；**不要** silent `return []`，**不要** silent `return [{sentinel}]`，**不要** `Math.max/min` silent clamp 外部参数
 - 写私人 adapter 用 `~/.opencli/clis/<site>/<name>.js`（免 build）；要提 PR 才 copy 到 `clis/<site>/<name>.js`
 - 站点记忆每轮回写：没记忆 → 用 skill → 产生记忆 → 下次变 5 分钟
+- **实时 listener 是可选能力**：仅当目标页加载后仍持续产出数据（直播弹幕 / 滚动订单簿 / append 列表）才在 `cli({...})` 里声明 `listeners[]`。一次性加载完的数据不要做成 listener——它会占住 tab + daemon ring buffer 却无收益。声明 schema + 验证流程见 `references/listeners.md`，消费侧（`opencli listener start/stream` / SSE）见 `opencli-listener` skill。
 - **调试过程中的原始 dump / 抓包 / HTML 样本只能落在 `~/.opencli/sites/<site>/fixtures/` 或 `/tmp/`。严禁在 repo 根目录、`clis/<site>/` 或当前工作目录留 `.dbg-*.html / raw-*.json / sample.*` 这类临时文件**（PR diff 会带上去，别人 review 时很烦）。
 - **JSDOM unit-test fixture（`clis/<site>/__fixtures__/<command>.html`）是上面那条的例外**——它是有意 commit 进 repo 的 review artifact，不是临时 dump。但因此 quality bar 要更高：必须按 `references/jsdom-fixture-pattern.md` 的 5 步做完（含 mandatory `awk 'NF>0'` 空白行收紧），并 reverse-validate 一道证明 regression guard 真能挂。
 
