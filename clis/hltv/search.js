@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@jackwener/opencli/registry';
-import { ArgumentError } from '@jackwener/opencli/errors';
+import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError } from '@scopai/opencli/errors';
 import { BASE, absolutizeUrl, assertRequiredFields, extractIdFromUrl, gotoAndWait, normalizeLimit } from './utils.js';
 
 const RESULT_TYPES = ['player', 'team', 'event', 'article'];
