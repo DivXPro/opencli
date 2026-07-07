@@ -1,6 +1,6 @@
 {
   "name": "@toy-box/opencli",
-  "version": "1.8.6-patch.0",
+  "version": "1.8.6-patch.1",
   "publishConfig": {
     "access": "public"
   },
