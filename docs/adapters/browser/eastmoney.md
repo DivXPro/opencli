@@ -8,19 +8,19 @@ Access 东方财富 (Eastmoney) stock-market data from the terminal.
 
 | Command | Description |
 |---------|-------------|
-| `opencli eastmoney hot-rank` | 东方财富热股榜 (Eastmoney hot-stock ranking) |
+| `toycli eastmoney hot-rank` | 东方财富热股榜 (Eastmoney hot-stock ranking) |
 
 ## Usage Examples
 
 ```bash
 # Top 20 hot stocks (default)
-opencli eastmoney hot-rank
+toycli eastmoney hot-rank
 
 # Top 50 hot stocks
-opencli eastmoney hot-rank --limit 50
+toycli eastmoney hot-rank --limit 50
 
 # JSON output
-opencli eastmoney hot-rank -f json
+toycli eastmoney hot-rank -f json
 ```
 
 ## Options

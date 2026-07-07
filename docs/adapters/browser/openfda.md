@@ -8,25 +8,25 @@ US Food & Drug Administration public data API. No API key required for modest re
 
 | Command | Description |
 |---------|-------------|
-| `opencli openfda drug-label <query>` | Search FDA-approved drug labels by brand or generic name |
-| `opencli openfda food-recall` | FDA food recall and enforcement actions, most recent first |
+| `toycli openfda drug-label <query>` | Search FDA-approved drug labels by brand or generic name |
+| `toycli openfda food-recall` | FDA food recall and enforcement actions, most recent first |
 
 ## Usage Examples
 
 ```bash
 # Drug label search
-opencli openfda drug-label aspirin
-opencli openfda drug-label lisinopril --limit 3
+toycli openfda drug-label aspirin
+toycli openfda drug-label lisinopril --limit 3
 
 # Recent food recalls (no filter — all recent)
-opencli openfda food-recall --limit 5
+toycli openfda food-recall --limit 5
 
 # Filter to Class I (most serious) recalls
-opencli openfda food-recall --classification "Class I"
+toycli openfda food-recall --classification "Class I"
 
 # Free-text Lucene search
-opencli openfda food-recall --query salmonella
-opencli openfda food-recall --query listeria --status Ongoing
+toycli openfda food-recall --query salmonella
+toycli openfda food-recall --query listeria --status Ongoing
 ```
 
 ## Output Columns

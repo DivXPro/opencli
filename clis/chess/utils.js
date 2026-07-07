@@ -5,7 +5,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const API_BASE = 'https://api.chess.com/pub';
-export const UA = 'Mozilla/5.0 (compatible; opencli/1.0)';
+export const UA = 'Mozilla/5.0 (compatible; toycli/1.0)';
 
 const USERNAME_RE = /^[a-zA-Z0-9_-]{3,25}$/;
 const GAME_URL_RE = /^https:\/\/www\.chess\.com\/game\/(live|daily)\/(\d+)/i;

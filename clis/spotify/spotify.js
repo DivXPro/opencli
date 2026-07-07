@@ -8,10 +8,10 @@ import { exec } from 'child_process';
 import { assertSpotifyCredentialsConfigured, getFirstSpotifyTrack, mapSpotifyTrackResults, parseDotEnv, resolveSpotifyCredentials, } from './utils.js';
 // ── Credentials ───────────────────────────────────────────────────────────────
 // Set SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET as environment variables,
-// or place them in ~/.opencli/spotify.env:
+// or place them in ~/.toycli/spotify.env:
 //   SPOTIFY_CLIENT_ID=your_id
 //   SPOTIFY_CLIENT_SECRET=your_secret
-const ENV_FILE = join(homedir(), '.opencli', 'spotify.env');
+const ENV_FILE = join(homedir(), '.toycli', 'spotify.env');
 function loadEnv() {
     if (!existsSync(ENV_FILE))
         return {};
@@ -29,7 +29,7 @@ const SCOPES = [
     'playlist-read-private',
 ].join(' ');
 // ── Token storage ─────────────────────────────────────────────────────────────
-const TOKEN_FILE = join(homedir(), '.opencli', 'spotify-tokens.json');
+const TOKEN_FILE = join(homedir(), '.toycli', 'spotify-tokens.json');
 function loadTokens() {
     try {
         return JSON.parse(readFileSync(TOKEN_FILE, 'utf-8'));
@@ -39,7 +39,7 @@ function loadTokens() {
     }
 }
 function saveTokens(tokens) {
-    mkdirSync(join(homedir(), '.opencli'), { recursive: true });
+    mkdirSync(join(homedir(), '.toycli'), { recursive: true });
     writeFileSync(TOKEN_FILE, JSON.stringify(tokens, null, 2));
 }
 async function refreshAccessToken(refreshToken) {
@@ -67,9 +67,9 @@ async function refreshAccessToken(refreshToken) {
 async function getToken() {
     const tokens = loadTokens();
     if (!tokens)
-        throw new CliError('AUTH_REQUIRED', 'Not authenticated. Run: opencli spotify auth');
+        throw new CliError('AUTH_REQUIRED', 'Not authenticated. Run: toycli spotify auth');
     if (!tokens.access_token || !tokens.refresh_token || !(tokens.expires_at > 0)) {
-        throw new CliError('AUTH_CORRUPTED', 'Token file is corrupted. Run: opencli spotify auth');
+        throw new CliError('AUTH_CORRUPTED', 'Token file is corrupted. Run: toycli spotify auth');
     }
     if (Date.now() > tokens.expires_at - 60_000)
         return refreshAccessToken(tokens.refresh_token);

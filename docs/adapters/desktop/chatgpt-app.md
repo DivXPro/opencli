@@ -1,6 +1,6 @@
 # ChatGPT App
 
-Control the **ChatGPT macOS Desktop App** directly from the terminal. OpenCLI supports two automation approaches for ChatGPT.
+Control the **ChatGPT macOS Desktop App** directly from the terminal. ToyCLI supports two automation approaches for ChatGPT.
 
 ## Approach 1: AppleScript (Default, No Setup)
 
@@ -11,14 +11,14 @@ The current built-in commands use native AppleScript automation — no extra lau
 2. Grant **Accessibility permissions** to your terminal app in **System Settings → Privacy & Security → Accessibility**.
 
 ### Commands
-- `opencli chatgpt-app status`: Check if the ChatGPT app is currently running.
-- `opencli chatgpt-app new`: Activate ChatGPT and press `Cmd+N` to start a new conversation.
-- `opencli chatgpt-app send "message"`: Copy your message to clipboard, activate ChatGPT, paste, and submit.
-- `opencli chatgpt-app send "message" --model thinking`: Switch model/mode first, then send the message.
-- `opencli chatgpt-app read`: Read the last visible message from the focused ChatGPT window via the Accessibility tree.
-- `opencli chatgpt-app ask "message"`: Send a prompt and wait for the visible reply in one shot.
-- `opencli chatgpt-app ask "message" --model instant`: Run a one-shot prompt using a specific model/mode.
-- `opencli chatgpt-app model thinking`: Switch the active ChatGPT model/mode without sending a message.
+- `toycli chatgpt-app status`: Check if the ChatGPT app is currently running.
+- `toycli chatgpt-app new`: Activate ChatGPT and press `Cmd+N` to start a new conversation.
+- `toycli chatgpt-app send "message"`: Copy your message to clipboard, activate ChatGPT, paste, and submit.
+- `toycli chatgpt-app send "message" --model thinking`: Switch model/mode first, then send the message.
+- `toycli chatgpt-app read`: Read the last visible message from the focused ChatGPT window via the Accessibility tree.
+- `toycli chatgpt-app ask "message"`: Send a prompt and wait for the visible reply in one shot.
+- `toycli chatgpt-app ask "message" --model instant`: Run a one-shot prompt using a specific model/mode.
+- `toycli chatgpt-app model thinking`: Switch the active ChatGPT model/mode without sending a message.
 
 Supported model choices: `auto`, `instant`, `thinking`, `5.2-instant`, `5.2-thinking`.
 
@@ -32,10 +32,10 @@ ChatGPT Desktop is also an Electron app and can be launched with a remote debugg
 ```
 
 ```bash
-export OPENCLI_CDP_ENDPOINT="http://127.0.0.1:9224"
+export TOYCLI_CDP_ENDPOINT="http://127.0.0.1:9224"
 ```
 
-> The CDP approach is primarily for advanced automation and future desktop-only commands. The built-in command set above still works in the default AppleScript path unless you explicitly route through `OPENCLI_CDP_ENDPOINT`.
+> The CDP approach is primarily for advanced automation and future desktop-only commands. The built-in command set above still works in the default AppleScript path unless you explicitly route through `TOYCLI_CDP_ENDPOINT`.
 
 ## How It Works
 

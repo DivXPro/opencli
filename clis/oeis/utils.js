@@ -5,7 +5,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const OEIS_BASE = 'https://oeis.org';
-const UA = 'opencli-oeis-adapter/1.0 (+https://github.com/jackwener/opencli; mailto:opencli@example.com)';
+const UA = 'toycli-oeis-adapter/1.0 (+https://github.com/toy-box/toycli; mailto:toycli@example.com)';
 
 // OEIS ids are A followed by 6 zero-padded digits (older entries use 6 by convention,
 // modern entries can be longer; OEIS itself accepts any digits after A).

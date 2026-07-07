@@ -38,7 +38,7 @@ export const extractDiffCommand = cli({
       })()
     `);
         if (diffs.length === 0) {
-            return [{ File: 'No diffs found', Diff: 'Try running opencli codex send "/review" first' }];
+            return [{ File: 'No diffs found', Diff: 'Try running toycli codex send "/review" first' }];
         }
         return diffs;
     },

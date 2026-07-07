@@ -111,7 +111,7 @@ export async function ensureBrowserBridgeReady(
     const reason = daemonVersion
       ? `v${daemonVersion} ≠ v${PKG_VERSION}`
       : `pre-version daemon, CLI is v${PKG_VERSION}`;
-    if (verbose && (process.env.OPENCLI_VERBOSE || process.stderr.isTTY)) {
+    if (verbose && (process.env.TOYCLI_VERBOSE || process.stderr.isTTY)) {
       process.stderr.write(`⚠️  Stale daemon detected (${reason}). Restarting...\n`);
     }
     const shutdownAccepted = await daemonLifecycleHooks.requestDaemonShutdown();
@@ -133,7 +133,7 @@ export async function ensureBrowserBridgeReady(
       throw new BrowserConnectError(
         'Stale daemon could not be replaced',
         `A stale daemon (${reason}) is running but did not shut down (graceful + SIGKILL both failed).\n` +
-        '  Run manually: opencli daemon stop',
+        '  Run manually: toycli daemon stop',
         'daemon-not-running',
       );
     }
@@ -149,13 +149,13 @@ export async function ensureBrowserBridgeReady(
   }
 
   if (staleDaemonReplaced || health.state === 'stopped') {
-    if (verbose && (process.env.OPENCLI_VERBOSE || process.stderr.isTTY)) {
+    if (verbose && (process.env.TOYCLI_VERBOSE || process.stderr.isTTY)) {
       process.stderr.write('⏳ Starting daemon...\n');
     }
     spawnedProcess = daemonLifecycleHooks.spawnDaemonProcess();
-  } else if (verbose && (process.env.OPENCLI_VERBOSE || process.stderr.isTTY)) {
+  } else if (verbose && (process.env.TOYCLI_VERBOSE || process.stderr.isTTY)) {
     process.stderr.write('⏳ Waiting for Chrome/Chromium extension to connect...\n');
-    process.stderr.write('   Make sure Chrome or Chromium is open and the OpenCLI extension is enabled.\n');
+    process.stderr.write('   Make sure Chrome or Chromium is open and the ToyCLI extension is enabled.\n');
   }
 
   const finalHealth = await waitForBridgeReady(getDaemonHealth, { timeoutMs, contextId });
@@ -167,8 +167,8 @@ function browserConnectErrorFromHealth(health: DaemonHealth, contextId?: string)
   if (health.state === 'profile-required') {
     return new BrowserConnectError(
       'Multiple Browser Bridge profiles are connected',
-      'Select one with --profile <name>, OPENCLI_PROFILE=<name>, or opencli profile use <name>.\n' +
-      'Run opencli profile list to see connected profiles.',
+      'Select one with --profile <name>, TOYCLI_PROFILE=<name>, or toycli profile use <name>.\n' +
+      'Run toycli profile list to see connected profiles.',
       'profile-required',
     );
   }
@@ -176,22 +176,22 @@ function browserConnectErrorFromHealth(health: DaemonHealth, contextId?: string)
     const label = contextId ?? health.status.contextId ?? 'unknown';
     return new BrowserConnectError(
       `Browser profile "${label}" is not connected`,
-      'Open the matching Chrome profile and make sure the OpenCLI extension is enabled, or choose another profile with opencli profile use <name>.',
+      'Open the matching Chrome profile and make sure the ToyCLI extension is enabled, or choose another profile with toycli profile use <name>.',
       'profile-disconnected',
     );
   }
   if (health.state === 'no-extension') {
     return new BrowserConnectError(
       'Browser Bridge extension not connected',
-      'Make sure Chrome/Chromium is open and the OpenCLI extension is enabled.\n' +
+      'Make sure Chrome/Chromium is open and the ToyCLI extension is enabled.\n' +
       'If not installed:\n' +
-      '  1. Download: https://github.com/scopai/opencli/releases\n' +
+      '  1. Download: https://github.com/toy-box/toycli/releases\n' +
       '  2. Open chrome://extensions → Developer Mode → Load unpacked',
       'extension-not-connected',
     );
   }
   return new BrowserConnectError(
-    'Failed to start opencli daemon',
+    'Failed to start toycli daemon',
     `Try running manually:\n  node ${resolveDaemonLaunchSpec().scriptPath}\nMake sure port ${DEFAULT_DAEMON_PORT} is available.`,
     'daemon-not-running',
   );

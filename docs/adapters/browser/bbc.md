@@ -6,23 +6,23 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli bbc news` | Latest BBC News headlines (top stories) |
-| `opencli bbc topic <topic>` | Latest headlines for a single BBC topic feed |
+| `toycli bbc news` | Latest BBC News headlines (top stories) |
+| `toycli bbc topic <topic>` | Latest headlines for a single BBC topic feed |
 
 ## Usage Examples
 
 ```bash
 # Top stories
-opencli bbc news --limit 5
+toycli bbc news --limit 5
 
 # Topic-scoped feeds (RSS at feeds.bbci.co.uk/news/<topic>/rss.xml)
-opencli bbc topic technology --limit 10
-opencli bbc topic world --limit 20
-opencli bbc topic business
-opencli bbc topic science_and_environment
+toycli bbc topic technology --limit 10
+toycli bbc topic world --limit 20
+toycli bbc topic business
+toycli bbc topic science_and_environment
 
 # JSON output
-opencli bbc topic technology -f json
+toycli bbc topic technology -f json
 ```
 
 ## Topics

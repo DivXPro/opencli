@@ -46,7 +46,7 @@ export async function dismissLoginModal(page) {
     ${IS_VISIBLE_JS}
     const modal = document.querySelector('[role=alert-biz-modal]');
     if (!modal || !isVisible(modal)) return { dismissed: false };
-    const close = modal.querySelector('[data-opencli-ref]:last-of-type')
+    const close = modal.querySelector('[data-toycli-ref]:last-of-type')
       || modal.querySelector('svg')?.closest('[role=button], button, div[class*="close"]');
     const closeCandidates = Array.from(modal.querySelectorAll('div, button, span'))
       .filter((node) => node instanceof HTMLElement && isVisible(node))

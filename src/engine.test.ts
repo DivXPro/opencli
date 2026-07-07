@@ -11,11 +11,11 @@ import { pathToFileURL } from 'node:url';
 describe('discoverClis', () => {
   it('handles non-existent directories gracefully', async () => {
     // Should not throw for missing directories
-    await expect(discoverClis(path.join(os.tmpdir(), 'nonexistent-opencli-test-dir'))).resolves.not.toThrow();
+    await expect(discoverClis(path.join(os.tmpdir(), 'nonexistent-toycli-test-dir'))).resolves.not.toThrow();
   });
 
   it('imports only CLI command modules during filesystem discovery', async () => {
-    const tempRoot = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-discovery-'));
+    const tempRoot = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-discovery-'));
     const siteDir = path.join(tempRoot, 'temp-site');
     const helperPath = path.join(siteDir, 'helper.js');
     const commandPath = path.join(siteDir, 'hello.js');
@@ -23,7 +23,7 @@ describe('discoverClis', () => {
     try {
       await fs.promises.mkdir(siteDir, { recursive: true });
       await fs.promises.writeFile(helperPath, `
-globalThis.__opencli_helper_loaded__ = true;
+globalThis.__toycli_helper_loaded__ = true;
 export const helper = true;
 `);
       await fs.promises.writeFile(commandPath, `
@@ -38,19 +38,19 @@ cli({
 });
 `);
 
-      delete (globalThis as { __opencli_helper_loaded__?: unknown }).__opencli_helper_loaded__;
+      delete (globalThis as { __toycli_helper_loaded__?: unknown }).__toycli_helper_loaded__;
       await discoverClis(tempRoot);
 
-      expect((globalThis as { __opencli_helper_loaded__?: unknown }).__opencli_helper_loaded__).toBeUndefined();
+      expect((globalThis as { __toycli_helper_loaded__?: unknown }).__toycli_helper_loaded__).toBeUndefined();
       expect(getRegistry().get('temp-site/hello')).toBeDefined();
     } finally {
-      delete (globalThis as { __opencli_helper_loaded__?: unknown }).__opencli_helper_loaded__;
+      delete (globalThis as { __toycli_helper_loaded__?: unknown }).__toycli_helper_loaded__;
       await fs.promises.rm(tempRoot, { recursive: true, force: true });
     }
   });
 
   it('falls back to filesystem discovery when the manifest is invalid', async () => {
-    const tempBuildRoot = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-manifest-fallback-'));
+    const tempBuildRoot = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-manifest-fallback-'));
     const distDir = path.join(tempBuildRoot, 'dist');
     const siteDir = path.join(distDir, 'fallback-site');
     const commandPath = path.join(siteDir, 'hello.js');
@@ -80,7 +80,7 @@ cli({
   });
 
   it('loads user CLI modules via package exports symlink', async () => {
-    const tempOpencliRoot = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-user-clis-'));
+    const tempOpencliRoot = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-user-clis-'));
     const userClisDir = path.join(tempOpencliRoot, 'clis');
     const siteDir = path.join(userClisDir, 'legacy-site');
     const commandPath = path.join(siteDir, 'hello.js');
@@ -116,7 +116,7 @@ cli({
 
 describe('ensureUserAdapters', () => {
   it('creates user clis directory without triggering full copy', async () => {
-    const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-ensure-'));
+    const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-ensure-'));
     const clisDir = path.join(tempDir, 'clis');
     try {
       // Patch USER_CLIS_DIR is not easy, so we test the function behavior indirectly:
@@ -132,7 +132,7 @@ describe('ensureUserAdapters', () => {
   });
 
   it('discoverClis handles empty user directory gracefully', async () => {
-    const emptyDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-empty-'));
+    const emptyDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-empty-'));
     try {
       // Should not throw for an empty directory (no adapters to discover)
       await expect(discoverClis(emptyDir)).resolves.not.toThrow();
@@ -175,7 +175,7 @@ browser: false
   });
 
   it('handles non-existent plugins directory gracefully', async () => {
-    // discoverPlugins should not throw if ~/.opencli/plugins/ does not exist
+    // discoverPlugins should not throw if ~/.toycli/plugins/ does not exist
     await expect(discoverPlugins()).resolves.not.toThrow();
   });
 

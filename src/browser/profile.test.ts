@@ -9,9 +9,9 @@ describe('profile selection (requirement vs preference)', () => {
   let configDir: string;
 
   beforeEach(() => {
-    configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-profile-test-'));
-    vi.stubEnv('OPENCLI_CONFIG_DIR', configDir);
-    vi.stubEnv('OPENCLI_PROFILE', '');
+    configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-profile-test-'));
+    vi.stubEnv('TOYCLI_CONFIG_DIR', configDir);
+    vi.stubEnv('TOYCLI_PROFILE', '');
   });
 
   afterEach(() => {
@@ -28,8 +28,8 @@ describe('profile selection (requirement vs preference)', () => {
     expect(resolveProfileSelection('work')).toEqual({ contextId: 'zvypsyje', source: 'explicit' });
   });
 
-  it('tags OPENCLI_PROFILE env as explicit', () => {
-    vi.stubEnv('OPENCLI_PROFILE', 'pavmrekj');
+  it('tags TOYCLI_PROFILE env as explicit', () => {
+    vi.stubEnv('TOYCLI_PROFILE', 'pavmrekj');
     expect(resolveProfileSelection()).toEqual({ contextId: 'pavmrekj', source: 'explicit' });
   });
 
@@ -39,7 +39,7 @@ describe('profile selection (requirement vs preference)', () => {
   });
 
   it('explicit argument beats env beats config default', () => {
-    vi.stubEnv('OPENCLI_PROFILE', 'from-env');
+    vi.stubEnv('TOYCLI_PROFILE', 'from-env');
     writeConfig({ version: 1, aliases: {}, defaultContextId: 'from-config' });
     expect(resolveProfileSelection('from-arg')).toEqual({ contextId: 'from-arg', source: 'explicit' });
     expect(resolveProfileSelection()).toEqual({ contextId: 'from-env', source: 'explicit' });

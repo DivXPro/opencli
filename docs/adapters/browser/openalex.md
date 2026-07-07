@@ -8,26 +8,26 @@ Search and inspect scholarly Works (papers, preprints, books) on OpenAlex withou
 
 | Command | Description |
 |---------|-------------|
-| `opencli openalex search <query>` | Search OpenAlex Works by keyword |
-| `opencli openalex work <id>` | Single Work — metadata + reconstructed abstract |
+| `toycli openalex search <query>` | Search OpenAlex Works by keyword |
+| `toycli openalex work <id>` | Single Work — metadata + reconstructed abstract |
 
 ## Usage Examples
 
 ```bash
 # Free-text search
-opencli openalex search transformers --limit 10
-opencli openalex search "open access scholarly" --limit 5
+toycli openalex search transformers --limit 10
+toycli openalex search "open access scholarly" --limit 5
 
 # Single Work by OpenAlex id (use `id` from search rows)
-opencli openalex work W2741809807
+toycli openalex work W2741809807
 
 # Single Work by DOI (raw or full URL)
-opencli openalex work 10.7717/peerj.4375
-opencli openalex work https://doi.org/10.7717/peerj.4375
+toycli openalex work 10.7717/peerj.4375
+toycli openalex work https://doi.org/10.7717/peerj.4375
 
 # JSON output
-opencli openalex search transformers -f json
-opencli openalex work W2741809807 -f json
+toycli openalex search transformers -f json
+toycli openalex work W2741809807 -f json
 ```
 
 ## Output Columns

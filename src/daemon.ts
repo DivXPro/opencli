@@ -1,5 +1,5 @@
 /**
- * opencli micro-daemon — HTTP + WebSocket bridge between CLI and Chrome Extension.
+ * toycli micro-daemon — HTTP + WebSocket bridge between CLI and Chrome Extension.
  *
  * Architecture:
  *   CLI → HTTP POST /command → daemon → WebSocket → Extension
@@ -7,7 +7,7 @@
  *
  * Security (defense-in-depth against browser-based CSRF):
  *   1. Origin check — reject HTTP/WS from non chrome-extension:// origins
- *   2. Custom header — require X-OpenCLI header (browsers can't send it
+ *   2. Custom header — require X-ToyCLI header (browsers can't send it
  *      without CORS preflight, which we deny)
  *   3. No CORS headers on command endpoints — only /ping is readable from the
  *      Browser Bridge extension origin so the extension can probe daemon reachability
@@ -15,9 +15,9 @@
  *   5. WebSocket verifyClient — reject upgrade before connection is established
  *
  * Lifecycle:
- *   - Auto-spawned by opencli on first browser command
+ *   - Auto-spawned by toycli on first browser command
  *   - Persistent — stays alive until explicit shutdown, SIGTERM, or uninstall
- *   - Listens on localhost:19825
+ *   - Listens on localhost:29825
  */
 
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
@@ -41,8 +41,8 @@ import { ListenerManager } from './listener/listener-manager.js';
 import type { ListenerEvent, ListenerState, ListenerSource } from './listener/types.js';
 
 const PORT = DEFAULT_DAEMON_PORT;
-if (!isIgnorableDaemonPortEnv(process.env.OPENCLI_DAEMON_PORT)) {
-  log.error(unsupportedDaemonPortEnvMessage(process.env.OPENCLI_DAEMON_PORT));
+if (!isIgnorableDaemonPortEnv(process.env.TOYCLI_DAEMON_PORT)) {
+  log.error(unsupportedDaemonPortEnvMessage(process.env.TOYCLI_DAEMON_PORT));
   process.exit(EXIT_CODES.USAGE_ERROR);
 }
 
@@ -134,7 +134,7 @@ function resolveExtensionConnection(contextId?: string, preferredContextId?: str
     staleDefaultWarned.add(route.fallbackFrom);
     log.warn(
       `[daemon] Default profile "${route.fallbackFrom}" is not connected; ` +
-      `using the only connected profile "${route.contextId}". Update the default with: opencli profile use <name>`,
+      `using the only connected profile "${route.contextId}". Update the default with: toycli profile use <name>`,
     );
   }
   const connection = extensionProfiles.get(route.contextId);
@@ -243,7 +243,7 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise
   const url = req.url ?? '/';
   const pathname = url.split('?')[0];
 
-  // Health-check endpoint — no X-OpenCLI header required.
+  // Health-check endpoint — no X-ToyCLI header required.
   // Used by the extension to silently probe daemon reachability before
   // attempting a WebSocket connection (avoids uncatchable ERR_CONNECTION_REFUSED).
   // Security note: this endpoint is reachable by any client that passes the
@@ -259,8 +259,8 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse): Promise
   // custom headers in "simple" requests, and our preflight returns no
   // Access-Control-Allow-Headers, so scripted fetch() from web pages is
   // blocked even if Origin check is somehow bypassed.
-  if (!req.headers['x-opencli']) {
-    jsonResponse(res, 403, { ok: false, error: 'Forbidden: missing X-OpenCLI header' });
+  if (!req.headers['x-toycli']) {
+    jsonResponse(res, 403, { ok: false, error: 'Forbidden: missing X-ToyCLI header' });
     return;
   }
 
@@ -570,7 +570,7 @@ const wss = new WebSocketServer({
   verifyClient: ({ req }: { req: IncomingMessage }) => {
     // Block browser-originated WebSocket connections.  Browsers don't
     // enforce CORS on WebSocket, so a malicious webpage could connect to
-    // ws://localhost:19825/ext and impersonate the Extension.  Real Chrome
+    // ws://localhost:29825/ext and impersonate the Extension.  Real Chrome
     // Extensions send origin chrome-extension://<id>.
     const origin = req.headers['origin'] as string | undefined;
     return !origin || origin.startsWith('chrome-extension://');

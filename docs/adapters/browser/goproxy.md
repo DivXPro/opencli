@@ -8,24 +8,24 @@ Fetch latest version + VCS origin metadata or list every published version tag f
 
 | Command | Description |
 |---------|-------------|
-| `opencli goproxy module <path>` | Latest version + VCS origin metadata for a Go module |
-| `opencli goproxy versions <path>` | Published version tags for a Go module (newest first) |
+| `toycli goproxy module <path>` | Latest version + VCS origin metadata for a Go module |
+| `toycli goproxy versions <path>` | Published version tags for a Go module (newest first) |
 
 ## Usage Examples
 
 ```bash
 # Latest released version of a module
-opencli goproxy module github.com/gin-gonic/gin
-opencli goproxy module golang.org/x/net
+toycli goproxy module github.com/gin-gonic/gin
+toycli goproxy module golang.org/x/net
 
 # Every published tag, semver-sorted (descending)
-opencli goproxy versions github.com/gin-gonic/gin
+toycli goproxy versions github.com/gin-gonic/gin
 
 # Larger window
-opencli goproxy versions github.com/spf13/cobra --limit 100
+toycli goproxy versions github.com/spf13/cobra --limit 100
 
 # Include publish times (one extra request per row)
-opencli goproxy versions golang.org/x/net --limit 10 --with-time
+toycli goproxy versions golang.org/x/net --limit 10 --with-time
 ```
 
 ## Output Columns

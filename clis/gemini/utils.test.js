@@ -30,13 +30,13 @@ function createPageMock() {
 }
 describe('sanitizeGeminiResponseText', () => {
     it('strips a prompt echo only when it appears as a prefixed block', () => {
-        const prompt = 'Reply with the word opencli';
-        const value = `Reply with the word opencli\n\nopencli`;
-        expect(sanitizeGeminiResponseText(value, prompt)).toBe('opencli');
+        const prompt = 'Reply with the word toycli';
+        const value = `Reply with the word toycli\n\ntoycli`;
+        expect(sanitizeGeminiResponseText(value, prompt)).toBe('toycli');
     });
     it('does not strip prompt text that appears later in a legitimate answer', () => {
-        const prompt = 'opencli';
-        const value = 'You asked about opencli, and opencli is the right keyword here.';
+        const prompt = 'toycli';
+        const value = 'You asked about toycli, and toycli is the right keyword here.';
         expect(sanitizeGeminiResponseText(value, prompt)).toBe(value);
     });
     it('removes known Gemini footer noise', () => {

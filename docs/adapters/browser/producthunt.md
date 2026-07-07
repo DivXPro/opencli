@@ -6,33 +6,33 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli producthunt posts` | Latest Product Hunt launches (optional category filter) |
-| `opencli producthunt today` | Today's Product Hunt launches (most recent day in feed) |
-| `opencli producthunt hot` | Today's top Product Hunt launches with vote counts |
-| `opencli producthunt browse <category>` | Best products in a Product Hunt category |
+| `toycli producthunt posts` | Latest Product Hunt launches (optional category filter) |
+| `toycli producthunt today` | Today's Product Hunt launches (most recent day in feed) |
+| `toycli producthunt hot` | Today's top Product Hunt launches with vote counts |
+| `toycli producthunt browse <category>` | Best products in a Product Hunt category |
 
 ## Usage Examples
 
 ```bash
 # Today's top launches with vote counts
-opencli producthunt hot --limit 10
+toycli producthunt hot --limit 10
 
 # Latest posts (RSS feed)
-opencli producthunt posts --limit 20
+toycli producthunt posts --limit 20
 
 # Filter by category
-opencli producthunt posts --category developer-tools --limit 10
+toycli producthunt posts --category developer-tools --limit 10
 
 # Today's launches only
-opencli producthunt today --limit 10
+toycli producthunt today --limit 10
 
 # Browse best products in a category
-opencli producthunt browse vibe-coding --limit 10
-opencli producthunt browse ai-agents --limit 10
-opencli producthunt browse developer-tools --limit 10
+toycli producthunt browse vibe-coding --limit 10
+toycli producthunt browse ai-agents --limit 10
+toycli producthunt browse developer-tools --limit 10
 
 # JSON output
-opencli producthunt hot -f json
+toycli producthunt hot -f json
 ```
 
 ## Category Slugs

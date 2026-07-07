@@ -33,7 +33,7 @@ function isTwitterHost(hostname) {
 export function parseTweetUrl(rawUrl) {
     const value = String(rawUrl ?? '').trim();
     if (!value) {
-        throw new ArgumentError('twitter tweet URL cannot be empty', 'Example: opencli twitter retweet https://x.com/jack/status/20');
+        throw new ArgumentError('twitter tweet URL cannot be empty', 'Example: toycli twitter retweet https://x.com/jack/status/20');
     }
     let parsed;
     try {

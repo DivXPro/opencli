@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * opencli — Make any website your CLI. AI-powered.
+ * toycli — Make any website your CLI. AI-powered.
  */
 
 // Ensure standard system paths are available for child processes.
@@ -29,7 +29,7 @@ const __dirname = path.dirname(__filename);
 // Adapters are JS-first and live at <package-root>/clis/.
 // Use findPackageRoot so the path works both in dev (src/main.ts) and prod (dist/src/main.js).
 const BUILTIN_CLIS = path.join(findPackageRoot(__filename), 'clis');
-const USER_CLIS = path.join(os.homedir(), '.opencli', 'clis');
+const USER_CLIS = path.join(os.homedir(), '.toycli', 'clis');
 
 // ── Ultra-fast path: lightweight commands bypass full discovery ──────────
 // These are high-frequency or trivial paths that must not pay the startup tax.
@@ -38,7 +38,7 @@ const argv = process.argv.slice(2);
 if (typeof (globalThis as { Bun?: unknown }).Bun === 'undefined' && !isSupportedNodeVersion(process.version)) {
   process.stderr.write(
     [
-      `OpenCLI requires Node.js >= ${MIN_SUPPORTED_NODE_MAJOR}.0.0.`,
+      `ToyCLI requires Node.js >= ${MIN_SUPPORTED_NODE_MAJOR}.0.0.`,
       `Current runtime: ${process.version}`,
       'Upgrade Node.js, then retry the same command.',
       '',
@@ -47,13 +47,13 @@ if (typeof (globalThis as { Bun?: unknown }).Bun === 'undefined' && !isSupported
   process.exit(EXIT_CODES.CONFIG_ERROR);
 }
 
-if (!isIgnorableDaemonPortEnv(process.env.OPENCLI_DAEMON_PORT)) {
-  process.stderr.write(`error: ${unsupportedDaemonPortEnvMessage(process.env.OPENCLI_DAEMON_PORT)}\n`);
+if (!isIgnorableDaemonPortEnv(process.env.TOYCLI_DAEMON_PORT)) {
+  process.stderr.write(`error: ${unsupportedDaemonPortEnvMessage(process.env.TOYCLI_DAEMON_PORT)}\n`);
   process.exit(EXIT_CODES.CONFIG_ERROR);
 }
 
 // Fast path: --version (only when it's the top-level intent, not passed to a subcommand)
-// e.g. `opencli --version` or `opencli -V`, but NOT `opencli gh --version`
+// e.g. `toycli --version` or `toycli -V`, but NOT `toycli gh --version`
 if (argv[0] === '--version' || argv[0] === '-V') {
   process.stdout.write(PKG_VERSION + '\n');
   process.exit(EXIT_CODES.SUCCESS);
@@ -109,7 +109,7 @@ installNodeNetwork();
 // Parallelise independent startup I/O:
 //  - Built-in adapter discovery has no dependency on user-dir setup.
 //  - ensureUserCliCompatShims and ensureUserAdapters operate on different paths
-//    (~/.opencli/node_modules/ vs ~/.opencli/clis/ + adapter-manifest.json).
+//    (~/.toycli/node_modules/ vs ~/.toycli/clis/ + adapter-manifest.json).
 //  - registerCommand() overwrites on name collision (see registry.ts), so
 //    user-CLI discovery MUST run after built-in discovery to preserve the
 //    intended override order (user adapters override built-in ones).
@@ -151,9 +151,9 @@ if (getCompIdx !== -1) {
   process.exit(EXIT_CODES.SUCCESS);
 }
 
-// Rewrite `opencli browser <session> <subcommand> ...` so commander (which
+// Rewrite `toycli browser <session> <subcommand> ...` so commander (which
 // can't combine a parent positional with subcommand dispatch) sees the internal
-// `--session <name>` flag form. Also refuses the retired `opencli browser
+// `--session <name>` flag form. Also refuses the retired `toycli browser
 // --session foo ...` user form with a friendly usage error.
 const { rewriteBrowserArgv, BrowserSessionArgvError, escapeLeadingDashPositional } = await import('./cli-argv-preprocess.js');
 try {

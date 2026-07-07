@@ -178,7 +178,7 @@ describe('claude ask --model handling', () => {
             new: false,
             model: 'opus',
             think: false,
-            __opencliOptionSources: { model: 'cli' },
+            __toycliOptionSources: { model: 'cli' },
         })).rejects.toMatchObject(new ArgumentError(
             'Cannot switch to opus model inside an existing conversation.',
             'Re-run with --new to start a fresh chat before selecting a model.',

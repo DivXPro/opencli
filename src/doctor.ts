@@ -1,5 +1,5 @@
 /**
- * opencli doctor — diagnose browser connectivity.
+ * toycli doctor — diagnose browser connectivity.
  *
  * Simplified for the daemon-based architecture.
  */
@@ -129,7 +129,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
       'This usually means the daemon crashed or exited right after serving the live probe.',
     );
   } else if (!daemonRunning) {
-    issues.push('Daemon is not running. It should start automatically when you run an opencli browser command.');
+    issues.push('Daemon is not running. It should start automatically when you run an toycli browser command.');
   }
   if (daemonStale && opts.cliVersion) {
     issues.push(staleDaemonIssue(health.status, opts.cliVersion));
@@ -143,19 +143,19 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
     if (health.state === 'profile-required') {
       issues.push(
         'Multiple Chrome profiles are connected to the daemon, but no default profile was selected.\n' +
-        '  Run opencli profile list, then opencli profile use <name>, or pass --profile <name>.',
+        '  Run toycli profile list, then toycli profile use <name>, or pass --profile <name>.',
       );
     } else if (health.state === 'profile-disconnected') {
       issues.push(
         `Selected browser profile is not connected: ${health.status?.contextId ?? 'unknown'}.\n` +
-        '  Open that Chrome profile and make sure the OpenCLI extension is enabled.',
+        '  Open that Chrome profile and make sure the ToyCLI extension is enabled.',
       );
     } else {
       issues.push(
         'Daemon is running but the Chrome/Chromium extension is not connected.\n' +
-        'If the extension is already installed, try: opencli daemon restart\n' +
+        'If the extension is already installed, try: toycli daemon restart\n' +
         'If the extension is not installed:\n' +
-        '  1. Download from https://github.com/scopai/opencli/releases\n' +
+        '  1. Download from https://github.com/toy-box/toycli/releases\n' +
         '  2. Open chrome://extensions/ → Enable Developer Mode\n' +
         '  3. Click "Load unpacked" → select the extension folder',
       );
@@ -165,7 +165,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
     issues.push(
       'Extension is connected but did not report a version.\n' +
       '  This usually means an outdated Browser Bridge extension.\n' +
-      '  Reload or reinstall the extension from: https://github.com/scopai/opencli/releases',
+      '  Reload or reinstall the extension from: https://github.com/toy-box/toycli/releases',
     );
   }
   if (!connectivity.ok) {
@@ -186,7 +186,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
     issues.push(
       `Default browser profile is stale: ${label} is not connected (the extension instance it names no longer exists).\n` +
       `  ${fallbackNote}\n` +
-      '  Refresh it with: opencli profile list, then opencli profile use <name>.',
+      '  Refresh it with: toycli profile list, then toycli profile use <name>.',
     );
   }
   const extensionCompatRange = health.status?.extensionCompatRange;
@@ -195,7 +195,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
       issues.push(
         `CLI version incompatible with extension: extension v${extensionVersion} requires CLI ${extensionCompatRange}, but CLI is v${opts.cliVersion}\n` +
         '  Update the CLI: npm install -g @toy-box/opencli\n' +
-        '  Or download a compatible extension from: https://github.com/scopai/opencli/releases',
+        '  Or download a compatible extension from: https://github.com/toy-box/toycli/releases',
       );
     }
   } else if (extensionVersion && opts.cliVersion) {
@@ -205,7 +205,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
     if (extMajor !== cliMajor) {
       issues.push(
         `Extension major version mismatch: extension v${extensionVersion} ≠ CLI v${opts.cliVersion}\n` +
-        '  Download the latest extension from: https://github.com/scopai/opencli/releases',
+        '  Download the latest extension from: https://github.com/toy-box/toycli/releases',
       );
     }
   }
@@ -215,7 +215,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
   if (extensionVersion && latestExtensionVersion && isNewerVersion(latestExtensionVersion, extensionVersion)) {
     issues.push(
       `Extension update available: v${extensionVersion} → v${latestExtensionVersion}\n` +
-      '  Download from: https://github.com/scopai/opencli/releases',
+      '  Download from: https://github.com/toy-box/toycli/releases',
     );
   }
   if (adapterShadows.length > 0) {
@@ -240,7 +240,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
 }
 
 export function renderBrowserDoctorReport(report: DoctorReport): string {
-  const lines = [`opencli v${report.cliVersion ?? 'unknown'} doctor` + ` (${getRuntimeLabel()})`, ''];
+  const lines = [`toycli v${report.cliVersion ?? 'unknown'} doctor` + ` (${getRuntimeLabel()})`, ''];
 
   // Daemon status
   const daemonIcon = report.daemonFlaky

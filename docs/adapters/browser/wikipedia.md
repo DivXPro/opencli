@@ -6,33 +6,33 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli wikipedia search` | Search Wikipedia articles |
-| `opencli wikipedia summary` | Get Wikipedia article summary |
-| `opencli wikipedia random` | Random Wikipedia article |
-| `opencli wikipedia trending` | Trending Wikipedia articles |
-| `opencli wikipedia page <title>` | Full plain-text article extract (optional paragraph cap) |
+| `toycli wikipedia search` | Search Wikipedia articles |
+| `toycli wikipedia summary` | Get Wikipedia article summary |
+| `toycli wikipedia random` | Random Wikipedia article |
+| `toycli wikipedia trending` | Trending Wikipedia articles |
+| `toycli wikipedia page <title>` | Full plain-text article extract (optional paragraph cap) |
 
 ## Usage Examples
 
 ```bash
 # Search articles
-opencli wikipedia search "quantum computing" --limit 10
+toycli wikipedia search "quantum computing" --limit 10
 
 # Get article summary
-opencli wikipedia summary "Artificial intelligence"
+toycli wikipedia summary "Artificial intelligence"
 
 # Get the full article body (plain text, no silent truncation)
-opencli wikipedia page "Transformer (deep learning architecture)"
+toycli wikipedia page "Transformer (deep learning architecture)"
 
 # Cap to first 3 paragraphs explicitly
-opencli wikipedia page "Photosynthesis" --paragraphs 3
+toycli wikipedia page "Photosynthesis" --paragraphs 3
 
 # Use with other languages
-opencli wikipedia search "人工智能" --lang zh
-opencli wikipedia page "人工智能" --lang zh --paragraphs 5
+toycli wikipedia search "人工智能" --lang zh
+toycli wikipedia page "人工智能" --lang zh --paragraphs 5
 
 # JSON output
-opencli wikipedia search "Rust" -f json
+toycli wikipedia search "Rust" -f json
 ```
 
 ## Notes

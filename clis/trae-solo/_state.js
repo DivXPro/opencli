@@ -8,7 +8,7 @@
 //   CREATE TABLE ItemTable (key TEXT UNIQUE ON CONFLICT REPLACE, value BLOB);
 //
 // We shell out to /usr/bin/sqlite3 (macOS ships it) so we avoid pulling a
-// native sqlite dep into OpenCLI. Reads only — writing would race with
+// native sqlite dep into ToyCLI. Reads only — writing would race with
 // Trae's own writer and corrupt the DB.
 
 import * as fs from 'node:fs';

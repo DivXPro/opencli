@@ -8,7 +8,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const OPENALEX_BASE = 'https://api.openalex.org';
-const UA = 'opencli-openalex-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-openalex-adapter (+https://github.com/toy-box/toycli)';
 
 // OpenAlex stable IDs: a single-letter prefix (`W` works, `A` authors, `S`
 // sources, `I` institutions…) + at least 4 digits. We accept just `W` here.

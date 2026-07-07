@@ -49,18 +49,18 @@ const DISGUISE_FN = `
 
 /**
  * Generate JavaScript source that installs a fetch/XHR interceptor.
- * Captured responses are pushed to `window.__opencli_intercepted`.
+ * Captured responses are pushed to `window.__toycli_intercepted`.
  *
  * @param patternExpr - JS expression resolving to a URL substring to match (e.g. a JSON.stringify'd string)
- * @param opts.arrayName - Global array name for captured data (default: '__opencli_intercepted')
- * @param opts.patchGuard - Global boolean name to prevent double-patching (default: '__opencli_interceptor_patched')
+ * @param opts.arrayName - Global array name for captured data (default: '__toycli_intercepted')
+ * @param opts.patchGuard - Global boolean name to prevent double-patching (default: '__toycli_interceptor_patched')
  */
 export function generateInterceptorJs(
   patternExpr: string,
   opts: { arrayName?: string; patchGuard?: string } = {},
 ): string {
-  const arr = opts.arrayName ?? '__opencli_intercepted';
-  const guard = opts.patchGuard ?? '__opencli_interceptor_patched';
+  const arr = opts.arrayName ?? '__toycli_intercepted';
+  const guard = opts.patchGuard ?? '__toycli_interceptor_patched';
 
   // Store the current pattern in a separate global so it can be updated
   // without re-patching fetch/XHR (the patchGuard only prevents double-patching).
@@ -121,7 +121,7 @@ export function generateInterceptorJs(
 /**
  * Generate JavaScript source to read and clear intercepted data.
  */
-export function generateReadInterceptedJs(arrayName: string = '__opencli_intercepted'): string {
+export function generateReadInterceptedJs(arrayName: string = '__toycli_intercepted'): string {
   return `
     () => {
       const data = window.${arrayName} || [];

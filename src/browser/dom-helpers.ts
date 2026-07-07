@@ -9,7 +9,7 @@
 function resolveElementJs(safeRef: string, selectorSet: string): string {
   return `
       const ref = ${safeRef};
-      let el = document.querySelector('[data-opencli-ref="' + ref + '"]');
+      let el = document.querySelector('[data-toycli-ref="' + ref + '"]');
       if (!el) el = document.querySelector('[data-ref="' + ref + '"]');
       if (!el && ref.match(/^[a-zA-Z#.\\[]/)) {
         try { el = document.querySelector(ref); } catch {}
@@ -206,7 +206,7 @@ export function waitForDomStableJs(maxMs: number, quietMs: number): string {
 }
 
 /**
- * Generate JS to wait until window.__opencli_xhr has ≥1 captured response.
+ * Generate JS to wait until window.__toycli_xhr has ≥1 captured response.
  * Polls every 100ms. Resolves 'captured' on success; rejects after maxMs.
  * Used after installInterceptor() + goto() instead of a fixed sleep.
  */
@@ -215,7 +215,7 @@ export function waitForCaptureJs(maxMs: number): string {
     new Promise((resolve, reject) => {
       const deadline = Date.now() + ${maxMs};
       const check = () => {
-        if ((window.__opencli_xhr || []).length > 0) return resolve('captured');
+        if ((window.__toycli_xhr || []).length > 0) return resolve('captured');
         if (Date.now() > deadline) return reject(new Error('No network capture within ${maxMs / 1000}s'));
         setTimeout(check, 100);
       };

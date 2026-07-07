@@ -362,9 +362,9 @@ function approvalPromptRowsExpression(kinds = TRAE_CN_APPROVAL_DEFAULT_KINDS, op
         const shouldClick = click && clicked < limit;
         let selector = candidate.selector;
         if (markCandidates) {
-          const marker = 'opencli-approval-' + rows.length + '-' + Math.random().toString(36).slice(2);
-          candidate.button.setAttribute('data-opencli-approval-id', marker);
-          selector = '[data-opencli-approval-id="' + marker + '"]';
+          const marker = 'toycli-approval-' + rows.length + '-' + Math.random().toString(36).slice(2);
+          candidate.button.setAttribute('data-toycli-approval-id', marker);
+          selector = '[data-toycli-approval-id="' + marker + '"]';
         }
         const row = {
           Status: shouldClick ? 'Approved' : 'Detected',

@@ -49,7 +49,7 @@ cli({
             resp = await fetch(url, {
                 headers: {
                     'Accept': 'application/json',
-                    'User-Agent': 'opencli/1.0 (+https://github.com/jackwener/opencli)',
+                    'User-Agent': 'toycli/1.0 (+https://github.com/toy-box/toycli)',
                 },
             });
         } catch (error) {

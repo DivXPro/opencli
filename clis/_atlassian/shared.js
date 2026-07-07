@@ -8,7 +8,7 @@ import {
     EmptyResultError,
 } from '@toy-box/opencli/errors';
 
-const USER_AGENT = 'opencli-atlassian-adapter (+https://github.com/jackwener/opencli)';
+const USER_AGENT = 'toycli-atlassian-adapter (+https://github.com/toy-box/toycli)';
 const DEPLOYMENTS = new Set(['cloud', 'datacenter', 'auto']);
 
 function firstEnv(names) {

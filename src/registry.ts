@@ -134,9 +134,9 @@ export type CliOptions = BrowserCliOptions | NonBrowserCliOptions;
 // Use globalThis to ensure a single shared registry across all module instances.
 // This is critical for TS plugins loaded via npm link / peerDependency — without
 // this, the plugin's import creates a separate module instance with its own Map.
-declare global { var __opencli_registry__: Map<string, CliCommand> | undefined; }
+declare global { var __toycli_registry__: Map<string, CliCommand> | undefined; }
 const _registry: Map<string, CliCommand> =
-  globalThis.__opencli_registry__ ??= new Map<string, CliCommand>();
+  globalThis.__toycli_registry__ ??= new Map<string, CliCommand>();
 
 export function cli(opts: CliOptions): CliCommand {
   const cmd: RawCliCommand = {
@@ -185,7 +185,7 @@ export function strategyLabel(cmd: CliCommand): string {
  * reads (`browser`, `navigateBefore`). After normalization, execution code
  * (resolvePreNav, shouldUseBrowserSession) never reads `cmd.strategy`.
  *
- * `strategy` itself is preserved as metadata for `opencli list`, cascade
+ * `strategy` itself is preserved as metadata for `toycli list`, cascade
  * probe, adapter generation, and human documentation.
  *
  * Override priority (highest wins):

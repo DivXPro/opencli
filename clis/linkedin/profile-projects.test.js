@@ -38,13 +38,13 @@ describe('linkedin profile-projects adapter', () => {
   });
 
   it('parses visible project text into fields', () => {
-    expect(parseProjectText(`OpenCLI Contributions
+    expect(parseProjectText(`ToyCLI Contributions
 Jan 2026 - Present
 Associated with Open Source
 Browser automation and CLI adapter work
 Skills: JavaScript, Browser Automation`, 'https://www.linkedin.com/in/me/', 0)).toMatchObject({
       rank: 1,
-      title: 'OpenCLI Contributions',
+      title: 'ToyCLI Contributions',
       date_range: 'Jan 2026 - Present',
       associated_with: 'Open Source',
       description: 'Browser automation and CLI adapter work',
@@ -103,8 +103,8 @@ Who your viewers also viewed`, 'https://www.linkedin.com/in/gauravsaxena1997/');
   });
 
   it('decodes LinkedIn safety redirect URLs', () => {
-    expect(decodeLinkedInSafetyUrl('https://www.linkedin.com/safety/go/?url=https%3A%2F%2Fgithub.com%2Fjackwener%2FOpenCLI&urlhash=x'))
-      .toBe('https://github.com/jackwener/OpenCLI');
+    expect(decodeLinkedInSafetyUrl('https://www.linkedin.com/safety/go/?url=https%3A%2F%2Fgithub.com%2Fjackwener%2FToyCLI&urlhash=x'))
+      .toBe('https://github.com/jackwener/ToyCLI');
     expect(decodeLinkedInSafetyUrl('https://www.linkedin.com/safety/go/?url=javascript%3Aalert(1)&urlhash=x'))
       .toBe('');
   });

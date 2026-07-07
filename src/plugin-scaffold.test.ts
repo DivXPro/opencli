@@ -19,13 +19,13 @@ describe('createPluginScaffold', () => {
   });
 
   it('creates all expected files', () => {
-    const dir = path.join(os.tmpdir(), `opencli-scaffold-${Date.now()}`);
+    const dir = path.join(os.tmpdir(), `toycli-scaffold-${Date.now()}`);
     createdDirs.push(dir);
 
     const result = createPluginScaffold('my-test', { dir });
     expect(result.name).toBe('my-test');
     expect(result.dir).toBe(dir);
-    expect(result.files).toContain('opencli-plugin.json');
+    expect(result.files).toContain('toycli-plugin.json');
     expect(result.files).toContain('package.json');
     expect(result.files).toContain('hello.ts');
     expect(result.files).toContain('greet.ts');
@@ -37,20 +37,20 @@ describe('createPluginScaffold', () => {
     }
   });
 
-  it('generates valid opencli-plugin.json', () => {
-    const dir = path.join(os.tmpdir(), `opencli-scaffold-${Date.now()}`);
+  it('generates valid toycli-plugin.json', () => {
+    const dir = path.join(os.tmpdir(), `toycli-scaffold-${Date.now()}`);
     createdDirs.push(dir);
 
     createPluginScaffold('test-manifest', { dir, description: 'Test desc' });
-    const manifest = JSON.parse(fs.readFileSync(path.join(dir, 'opencli-plugin.json'), 'utf-8'));
+    const manifest = JSON.parse(fs.readFileSync(path.join(dir, 'toycli-plugin.json'), 'utf-8'));
     expect(manifest.name).toBe('test-manifest');
     expect(manifest.version).toBe('0.1.0');
     expect(manifest.description).toBe('Test desc');
-    expect(manifest.opencli).toMatch(/^>=/);
+    expect(manifest.toycli).toMatch(/^>=/);
   });
 
   it('generates ESM package.json', () => {
-    const dir = path.join(os.tmpdir(), `opencli-scaffold-${Date.now()}`);
+    const dir = path.join(os.tmpdir(), `toycli-scaffold-${Date.now()}`);
     createdDirs.push(dir);
 
     createPluginScaffold('test-pkg', { dir });
@@ -60,7 +60,7 @@ describe('createPluginScaffold', () => {
   });
 
   it('generates a TS sample that matches the current plugin API', () => {
-    const dir = path.join(os.tmpdir(), `opencli-scaffold-${Date.now()}`);
+    const dir = path.join(os.tmpdir(), `toycli-scaffold-${Date.now()}`);
     createdDirs.push(dir);
 
     createPluginScaffold('test-ts', { dir });
@@ -74,13 +74,13 @@ describe('createPluginScaffold', () => {
   });
 
   it('documents a supported local install flow', () => {
-    const dir = path.join(os.tmpdir(), `opencli-scaffold-${Date.now()}`);
+    const dir = path.join(os.tmpdir(), `toycli-scaffold-${Date.now()}`);
     createdDirs.push(dir);
 
     createPluginScaffold('test-readme', { dir });
     const readme = fs.readFileSync(path.join(dir, 'README.md'), 'utf-8');
 
-    expect(readme).toContain(`opencli plugin install file://${dir}`);
+    expect(readme).toContain(`toycli plugin install file://${dir}`);
   });
 
   it('rejects invalid names', () => {
@@ -89,7 +89,7 @@ describe('createPluginScaffold', () => {
   });
 
   it('rejects non-empty directory', () => {
-    const dir = path.join(os.tmpdir(), `opencli-scaffold-${Date.now()}`);
+    const dir = path.join(os.tmpdir(), `toycli-scaffold-${Date.now()}`);
     createdDirs.push(dir);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'existing.txt'), 'x');

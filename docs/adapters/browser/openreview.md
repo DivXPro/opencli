@@ -8,35 +8,35 @@ OpenReview is the open peer-review platform used by ICLR, COLM, NeurIPS workshop
 
 | Command | Description |
 |---------|-------------|
-| `opencli openreview search <query>` | Full-text search across all OpenReview papers |
-| `opencli openreview venue <venue>` | List papers at a venue (e.g. `"ICLR 2024 oral"` or full invitation id) |
-| `opencli openreview author <profile>` | List submissions by an author profile id (e.g. `"~Yoshua_Bengio1"`), newest first |
-| `opencli openreview paper <id>` | Show full metadata (incl. abstract) for a single paper |
-| `opencli openreview reviews <forum>` | Show paper + threaded reviews/decisions/comments |
+| `toycli openreview search <query>` | Full-text search across all OpenReview papers |
+| `toycli openreview venue <venue>` | List papers at a venue (e.g. `"ICLR 2024 oral"` or full invitation id) |
+| `toycli openreview author <profile>` | List submissions by an author profile id (e.g. `"~Yoshua_Bengio1"`), newest first |
+| `toycli openreview paper <id>` | Show full metadata (incl. abstract) for a single paper |
+| `toycli openreview reviews <forum>` | Show paper + threaded reviews/decisions/comments |
 
 ## Usage Examples
 
 ```bash
 # Full-text search
-opencli openreview search "diffusion model" --limit 10
+toycli openreview search "diffusion model" --limit 10
 
 # Browse a venue by display name (matched against content.venue)
-opencli openreview venue "ICLR 2024 oral" --limit 20
+toycli openreview venue "ICLR 2024 oral" --limit 20
 
 # Browse a venue by full invitation id (use this when display names overlap)
-opencli openreview venue "ICLR.cc/2025/Conference/-/Submission" --limit 50 --offset 0
+toycli openreview venue "ICLR.cc/2025/Conference/-/Submission" --limit 50 --offset 0
 
 # Every submission by an author profile id (find it on the author's openreview.net profile URL)
-opencli openreview author "~Yoshua_Bengio1" --limit 20
+toycli openreview author "~Yoshua_Bengio1" --limit 20
 
 # Single-paper detail (full abstract)
-opencli openreview paper KS8mIvetg2
+toycli openreview paper KS8mIvetg2
 
 # Full review thread — paper + reviews + decision + author rebuttal
-opencli openreview reviews KS8mIvetg2 --max-length 4000
+toycli openreview reviews KS8mIvetg2 --max-length 4000
 
 # JSON output
-opencli openreview search "LLM" -f json
+toycli openreview search "LLM" -f json
 ```
 
 ## Output Columns

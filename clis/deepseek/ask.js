@@ -78,7 +78,7 @@ export const askCommand = cli({
         // an existing conversation. Skip it when we resumed a prior thread.
         const currentUrl = await page.evaluate('window.location.href') || '';
         const inConversation = currentUrl.includes('/a/chat/s/');
-        const modelExplicit = kwargs.__opencliOptionSources?.model === 'cli';
+        const modelExplicit = kwargs.__toycliOptionSources?.model === 'cli';
 
         if (inConversation && modelExplicit) {
             throw new CliError(

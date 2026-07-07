@@ -137,7 +137,7 @@ describe('deepseek sendWithFile', () => {
   });
 
   it('prefers page.setFileInput over base64-in-evaluate when supported', async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-deepseek-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-deepseek-'));
     tempDirs.push(dir);
     const filePath = path.join(dir, 'report.txt');
     fs.writeFileSync(filePath, 'hello');
@@ -158,7 +158,7 @@ describe('deepseek sendWithFile', () => {
   });
 
   it('fails closed when upload preview appears but send button never enables', async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-deepseek-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-deepseek-'));
     tempDirs.push(dir);
     const filePath = path.join(dir, 'report.txt');
     fs.writeFileSync(filePath, 'hello');
@@ -257,7 +257,7 @@ describe('deepseek sendWithFile Not allowed fallback', () => {
   });
 
   it('falls back to DataTransfer when setFileInput throws Not allowed', async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-deepseek-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-deepseek-'));
     tempDirs.push(dir);
     const filePath = path.join(dir, 'image.png');
     fs.writeFileSync(filePath, 'fake-png');
@@ -281,7 +281,7 @@ describe('deepseek sendWithFile Not allowed fallback', () => {
   });
 
   it('does not treat send-button enablement alone as image upload proof', async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-deepseek-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-deepseek-'));
     tempDirs.push(dir);
     const filePath = path.join(dir, 'image.png');
     fs.writeFileSync(filePath, 'fake-png');

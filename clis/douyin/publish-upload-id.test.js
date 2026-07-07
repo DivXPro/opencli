@@ -51,7 +51,7 @@ describe('douyin publish upload identifier handling', () => {
 
     await cmd.func({}, {
       video,
-      title: 'OpenCLI自测',
+      title: 'ToyCLI自测',
       schedule: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
       caption: '',
       visibility: 'private',
@@ -66,7 +66,7 @@ describe('douyin publish upload identifier handling', () => {
     const createCall = mocks.browserFetch.mock.calls.find((call) => String(call[2]).includes('/aweme/create_v2/'));
     expect(createCall?.[3]?.body.item.common.video_id).toBe('canonical-video-id');
     expect(createCall?.[3]?.body.item.common.video_id).not.toBe('object-key-returned-by-complete');
-    expect(createCall?.[3]?.body.item.common.text).toBe('OpenCLI自测');
+    expect(createCall?.[3]?.body.item.common.text).toBe('ToyCLI自测');
   });
 
   it('keeps title-prefixed publish text and hashtag offsets aligned for create_v2', async () => {
@@ -82,7 +82,7 @@ describe('douyin publish upload identifier handling', () => {
 
     await cmd.func({}, {
       video,
-      title: 'OpenCLI标题',
+      title: 'ToyCLI标题',
       schedule: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
       caption: '正文 #话题',
       visibility: 'private',
@@ -91,15 +91,15 @@ describe('douyin publish upload identifier handling', () => {
 
     const createCall = mocks.browserFetch.mock.calls.find((call) => String(call[2]).includes('/aweme/create_v2/'));
     const common = createCall?.[3]?.body.item.common;
-    expect(common.text).toBe('OpenCLI标题 正文 #话题');
+    expect(common.text).toBe('ToyCLI标题 正文 #话题');
     expect(common.caption).toBe('正文 #话题');
-    expect(common.item_title).toBe('OpenCLI标题');
+    expect(common.item_title).toBe('ToyCLI标题');
     const textExtra = JSON.parse(common.text_extra);
     expect(textExtra).toEqual([
       expect.objectContaining({
         hashtag_name: '话题',
-        start: 'OpenCLI标题 正文 '.length,
-        end: 'OpenCLI标题 正文 #话题'.length,
+        start: 'ToyCLI标题 正文 '.length,
+        end: 'ToyCLI标题 正文 #话题'.length,
       }),
     ]);
   });
@@ -125,7 +125,7 @@ describe('douyin publish upload identifier handling', () => {
 
     await cmd.func({}, {
       video,
-      title: 'OpenCLI自测',
+      title: 'ToyCLI自测',
       schedule: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
       visibility: 'public',
       caption: 'caption',
@@ -162,7 +162,7 @@ describe('douyin publish upload identifier handling', () => {
     await cmd.func(page, {
       video,
       cover,
-      title: 'OpenCLI自测',
+      title: 'ToyCLI自测',
       schedule: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
       caption: '',
       visibility: 'private',
@@ -195,7 +195,7 @@ describe('douyin publish upload identifier handling', () => {
     await expect(cmd.func(page, {
       video,
       cover,
-      title: 'OpenCLI自测',
+      title: 'ToyCLI自测',
       schedule: new Date(Date.now() + 3 * 60 * 60 * 1000).toISOString(),
       caption: '',
       visibility: 'private',

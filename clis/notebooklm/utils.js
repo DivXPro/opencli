@@ -23,14 +23,14 @@ export function parseNotebooklmIdFromUrl(url) {
 const NOTEBOOK_UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 function ensureNotebookUuid(candidate) {
     if (!NOTEBOOK_UUID_RE.test(candidate)) {
-        throw new CliError('NOTEBOOKLM_INVALID_NOTEBOOK', `NotebookLM notebook id "${candidate}" is not a valid UUID`, 'Pass a notebook id from `opencli notebooklm list` or a full notebook URL like https://notebooklm.google.com/notebook/<uuid>.');
+        throw new CliError('NOTEBOOKLM_INVALID_NOTEBOOK', `NotebookLM notebook id "${candidate}" is not a valid UUID`, 'Pass a notebook id from `toycli notebooklm list` or a full notebook URL like https://notebooklm.google.com/notebook/<uuid>.');
     }
     return candidate;
 }
 export function parseNotebooklmNotebookTarget(value) {
     const normalized = value.trim();
     if (!normalized) {
-        throw new CliError('NOTEBOOKLM_INVALID_NOTEBOOK', 'NotebookLM notebook id is required', 'Pass a notebook id from `opencli notebooklm list` or a full notebook URL.');
+        throw new CliError('NOTEBOOKLM_INVALID_NOTEBOOK', 'NotebookLM notebook id is required', 'Pass a notebook id from `toycli notebooklm list` or a full notebook URL.');
     }
     if (/^https?:\/\//i.test(normalized)) {
         let parsed;
@@ -41,7 +41,7 @@ export function parseNotebooklmNotebookTarget(value) {
             throw new CliError('NOTEBOOKLM_INVALID_NOTEBOOK', 'NotebookLM notebook URL is invalid', 'Pass a full NotebookLM notebook URL like https://notebooklm.google.com/notebook/<uuid>.');
         }
         if (parsed.protocol !== 'https:' || parsed.hostname !== NOTEBOOKLM_DOMAIN || parsed.username || parsed.password || parsed.port) {
-            throw new CliError('NOTEBOOKLM_INVALID_NOTEBOOK', 'NotebookLM notebook URL must be a canonical https://notebooklm.google.com URL', 'Pass a notebook id from `opencli notebooklm list` or a full NotebookLM notebook URL.');
+            throw new CliError('NOTEBOOKLM_INVALID_NOTEBOOK', 'NotebookLM notebook URL must be a canonical https://notebooklm.google.com URL', 'Pass a notebook id from `toycli notebooklm list` or a full NotebookLM notebook URL.');
         }
         const notebookId = parseNotebooklmIdFromUrl(normalized);
         if (!notebookId) {
@@ -55,7 +55,7 @@ export function parseNotebooklmNotebookTarget(value) {
     return ensureNotebookUuid(normalized);
 }
 export function getNotebooklmAuthuser() {
-    const v = process.env.OPENCLI_NOTEBOOKLM_AUTHUSER;
+    const v = process.env.TOYCLI_NOTEBOOKLM_AUTHUSER;
     return typeof v === 'string' && /^\d+$/.test(v) ? v : '';
 }
 export function requireNotebooklmExecute(value, action) {

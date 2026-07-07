@@ -6,40 +6,40 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli youtube search` | Search videos |
-| `opencli youtube video` | Get video metadata |
-| `opencli youtube transcript` | Get video transcript/subtitles |
-| `opencli youtube comments` | Get video comments |
-| `opencli youtube channel` | Get channel info and videos |
-| `opencli youtube playlist` | Get playlist video list |
-| `opencli youtube feed` | Homepage recommended videos |
-| `opencli youtube history` | Watch history |
-| `opencli youtube watch-later` | Watch Later queue |
-| `opencli youtube subscriptions` | List subscribed channels |
-| `opencli youtube like` | Like a video |
-| `opencli youtube unlike` | Remove like from a video |
-| `opencli youtube subscribe` | Subscribe to a channel |
-| `opencli youtube unsubscribe` | Unsubscribe from a channel |
+| `toycli youtube search` | Search videos |
+| `toycli youtube video` | Get video metadata |
+| `toycli youtube transcript` | Get video transcript/subtitles |
+| `toycli youtube comments` | Get video comments |
+| `toycli youtube channel` | Get channel info and videos |
+| `toycli youtube playlist` | Get playlist video list |
+| `toycli youtube feed` | Homepage recommended videos |
+| `toycli youtube history` | Watch history |
+| `toycli youtube watch-later` | Watch Later queue |
+| `toycli youtube subscriptions` | List subscribed channels |
+| `toycli youtube like` | Like a video |
+| `toycli youtube unlike` | Remove like from a video |
+| `toycli youtube subscribe` | Subscribe to a channel |
+| `toycli youtube unsubscribe` | Unsubscribe from a channel |
 
 ## Usage Examples
 
 ```bash
 # Read commands
-opencli youtube feed --limit 10
-opencli youtube history --limit 20
-opencli youtube watch-later --limit 50
-opencli youtube subscriptions --limit 30
+toycli youtube feed --limit 10
+toycli youtube history --limit 20
+toycli youtube watch-later --limit 50
+toycli youtube subscriptions --limit 30
 
 # Search and video info
-opencli youtube search "rust programming" --limit 5
-opencli youtube video "https://www.youtube.com/watch?v=xxx"
-opencli youtube transcript "https://www.youtube.com/watch?v=xxx"
+toycli youtube search "rust programming" --limit 5
+toycli youtube video "https://www.youtube.com/watch?v=xxx"
+toycli youtube transcript "https://www.youtube.com/watch?v=xxx"
 
 # Write commands (requires login)
-opencli youtube like "https://www.youtube.com/watch?v=xxx"
-opencli youtube unlike "videoId"
-opencli youtube subscribe "@ChannelHandle"
-opencli youtube unsubscribe "UCxxxxxxxxxxxxxx"
+toycli youtube like "https://www.youtube.com/watch?v=xxx"
+toycli youtube unlike "videoId"
+toycli youtube subscribe "@ChannelHandle"
+toycli youtube unsubscribe "UCxxxxxxxxxxxxxx"
 ```
 
 ## Prerequisites

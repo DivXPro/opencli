@@ -20,42 +20,42 @@ describe('waitForCaptureJs', () => {
     const code = waitForCaptureJs(1000);
     expect(typeof code).toBe('string');
     expect(code.length).toBeGreaterThan(0);
-    expect(code).toContain('__opencli_xhr');
+    expect(code).toContain('__toycli_xhr');
     expect(code).toContain('resolve');
     expect(code).toContain('reject');
   });
 
-  it('resolves "captured" when __opencli_xhr is populated before deadline', async () => {
+  it('resolves "captured" when __toycli_xhr is populated before deadline', async () => {
     const g = globalThis as unknown as Record<string, unknown>;
     const captured: unknown[] = [];
-    g.__opencli_xhr = captured;
+    g.__toycli_xhr = captured;
     g.window = g; // stub window for Node eval
     const code = waitForCaptureJs(1000);
     const promise = eval(code) as Promise<string>;
     captured.push({ data: 'test' });
     await expect(promise).resolves.toBe('captured');
-    delete g.__opencli_xhr;
+    delete g.__toycli_xhr;
     delete g.window;
   });
 
-  it('rejects when __opencli_xhr stays empty past deadline', async () => {
+  it('rejects when __toycli_xhr stays empty past deadline', async () => {
     const g = globalThis as unknown as Record<string, unknown>;
-    g.__opencli_xhr = [];
+    g.__toycli_xhr = [];
     g.window = g;
     const code = waitForCaptureJs(50); // 50ms timeout
     const promise = eval(code) as Promise<string>;
     await expect(promise).rejects.toThrow('No network capture within 0.05s');
-    delete g.__opencli_xhr;
+    delete g.__toycli_xhr;
     delete g.window;
   });
 
-  it('resolves immediately when __opencli_xhr already has data', async () => {
+  it('resolves immediately when __toycli_xhr already has data', async () => {
     const g = globalThis as unknown as Record<string, unknown>;
-    g.__opencli_xhr = [{ data: 'already here' }];
+    g.__toycli_xhr = [{ data: 'already here' }];
     g.window = g;
     const code = waitForCaptureJs(1000);
     await expect(eval(code) as Promise<string>).resolves.toBe('captured');
-    delete g.__opencli_xhr;
+    delete g.__toycli_xhr;
     delete g.window;
   });
 });

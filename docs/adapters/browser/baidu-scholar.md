@@ -6,13 +6,13 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli baidu-scholar search <query>` | Search Baidu Scholar papers by keyword |
+| `toycli baidu-scholar search <query>` | Search Baidu Scholar papers by keyword |
 
 ## Usage Examples
 
 ```bash
-opencli baidu-scholar search "大语言模型"
-opencli baidu-scholar search "检索增强生成" --limit 5
+toycli baidu-scholar search "大语言模型"
+toycli baidu-scholar search "检索增强生成" --limit 5
 ```
 
 ## Notes

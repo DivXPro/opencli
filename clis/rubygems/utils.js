@@ -7,7 +7,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const GEMS_BASE = 'https://rubygems.org/api/v1';
-const UA = 'opencli-rubygems-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-rubygems-adapter (+https://github.com/toy-box/toycli)';
 
 // RubyGems gem name pattern (mirrors the rubygems-server validation).
 const GEM_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;

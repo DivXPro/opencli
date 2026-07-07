@@ -67,7 +67,7 @@ describe('stepDownload', () => {
       page,
       {
         url: '${{ item.url }}',
-        dir: path.join(os.tmpdir(), 'opencli-download-test'),
+        dir: path.join(os.tmpdir(), 'toycli-download-test'),
         filename: '${{ index }}.txt',
         progress: false,
         concurrency: 1,
@@ -82,13 +82,13 @@ describe('stepDownload', () => {
     expect(mockHttpDownload).toHaveBeenNthCalledWith(
       1,
       'https://a.example/file-1.txt',
-      path.join(os.tmpdir(), 'opencli-download-test', '0.txt'),
+      path.join(os.tmpdir(), 'toycli-download-test', '0.txt'),
       expect.objectContaining({ cookies: 'sid=a.example' }),
     );
     expect(mockHttpDownload).toHaveBeenNthCalledWith(
       2,
       'https://b.example/file-2.txt',
-      path.join(os.tmpdir(), 'opencli-download-test', '1.txt'),
+      path.join(os.tmpdir(), 'toycli-download-test', '1.txt'),
       expect.objectContaining({ cookies: 'sid=b.example' }),
     );
   });
@@ -111,7 +111,7 @@ describe('stepDownload', () => {
       page,
       {
         url: '${{ item.url }}',
-        dir: '/tmp/opencli-download-test',
+        dir: '/tmp/toycli-download-test',
         filename: '${{ index }}.mp4',
         progress: false,
         concurrency: 1,

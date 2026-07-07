@@ -6,35 +6,35 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli archive search <query>` | Search Internet Archive items across books, movies, audio, software, and web |
-| `opencli archive item <identifier>` | Fetch metadata for a single Internet Archive item by identifier |
-| `opencli archive wayback <url>` | Look up the closest Wayback Machine snapshot for a URL |
-| `opencli archive snapshots <url>` | List Wayback Machine snapshots over time for a URL via the CDX API |
+| `toycli archive search <query>` | Search Internet Archive items across books, movies, audio, software, and web |
+| `toycli archive item <identifier>` | Fetch metadata for a single Internet Archive item by identifier |
+| `toycli archive wayback <url>` | Look up the closest Wayback Machine snapshot for a URL |
+| `toycli archive snapshots <url>` | List Wayback Machine snapshots over time for a URL via the CDX API |
 
 ## Usage Examples
 
 ```bash
 # Full-text search across all mediatypes (default sort by downloads)
-opencli archive search "machine learning" --limit 10
+toycli archive search "machine learning" --limit 10
 
 # Restrict to a mediatype
-opencli archive search "newton principia" --mediatype texts --limit 5
-opencli archive search "moon landing" --mediatype movies --sort date --limit 5
+toycli archive search "newton principia" --mediatype texts --limit 5
+toycli archive search "moon landing" --mediatype movies --sort date --limit 5
 
 # Single item metadata
-opencli archive item open-syllabus
-opencli archive item FinalFantasy2_356
+toycli archive item open-syllabus
+toycli archive item FinalFantasy2_356
 
 # Closest Wayback snapshot, optionally near a date
-opencli archive wayback wikipedia.org
-opencli archive wayback wikipedia.org --timestamp 2015
+toycli archive wayback wikipedia.org
+toycli archive wayback wikipedia.org --timestamp 2015
 
 # Wayback CDX history for a URL
-opencli archive snapshots wikipedia.org --limit 20
-opencli archive snapshots wikipedia.org --from 2010 --to 2015 --limit 50
+toycli archive snapshots wikipedia.org --limit 20
+toycli archive snapshots wikipedia.org --from 2010 --to 2015 --limit 50
 
 # JSON output
-opencli archive search "machine learning" -f json
+toycli archive search "machine learning" -f json
 ```
 
 ### `search` Options
@@ -46,7 +46,7 @@ opencli archive search "machine learning" -f json
 | `--sort` | `downloads` (default) / `date` / `addeddate` / `week` / `title` |
 | `--limit` | Max items (1-100, default: 20) |
 
-Returns rows with `rank, identifier, title, creator, date, mediatype, downloads, url`. The `identifier` round-trips into `opencli archive item <identifier>`.
+Returns rows with `rank, identifier, title, creator, date, mediatype, downloads, url`. The `identifier` round-trips into `toycli archive item <identifier>`.
 
 ### `item` Options
 

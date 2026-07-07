@@ -8,7 +8,7 @@ import { cli, Strategy } from '@toy-box/opencli/registry';
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const NVD_BASE = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
-const UA = 'opencli-nvd-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-nvd-adapter (+https://github.com/toy-box/toycli)';
 const CVE_ID = /^CVE-\d{4}-\d{4,}$/i;
 
 function requireCveId(value) {

@@ -6,7 +6,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const REST_COUNTRIES_BASE = 'https://restcountries.com/v3.1';
-const UA = 'opencli-rest-countries-adapter/1.0 (+https://github.com/jackwener/opencli; mailto:opencli@example.com)';
+const UA = 'toycli-rest-countries-adapter/1.0 (+https://github.com/toy-box/toycli; mailto:toycli@example.com)';
 
 // REST Countries valid region values; subregions are validated server-side.
 export const REST_COUNTRIES_REGIONS = new Set(['africa', 'americas', 'asia', 'europe', 'oceania', 'antarctic']);

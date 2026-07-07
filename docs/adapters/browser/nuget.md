@@ -8,21 +8,21 @@ Search the NuGet package index by keyword and fetch full version history for a p
 
 | Command | Description |
 |---------|-------------|
-| `opencli nuget search <query>` | Search NuGet packages by keyword |
-| `opencli nuget package <id>` | Full NuGet package version history (catalog entries) |
+| `toycli nuget search <query>` | Search NuGet packages by keyword |
+| `toycli nuget package <id>` | Full NuGet package version history (catalog entries) |
 
 ## Usage Examples
 
 ```bash
 # Keyword search
-opencli nuget search newtonsoft
-opencli nuget search "asp.net core" --limit 10
-opencli nuget search serilog --prerelease=true
+toycli nuget search newtonsoft
+toycli nuget search "asp.net core" --limit 10
+toycli nuget search serilog --prerelease=true
 
 # Full version history (id round-trips from search)
-opencli nuget package Newtonsoft.Json
-opencli nuget package Serilog
-opencli nuget package Microsoft.Extensions.Logging
+toycli nuget package Newtonsoft.Json
+toycli nuget package Serilog
+toycli nuget package Microsoft.Extensions.Logging
 ```
 
 ## Output Columns

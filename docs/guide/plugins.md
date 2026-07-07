@@ -1,62 +1,62 @@
 # Plugins
 
-OpenCLI supports community-contributed plugins. Install third-party adapters from GitHub, and they're automatically discovered alongside built-in commands.
+ToyCLI supports community-contributed plugins. Install third-party adapters from GitHub, and they're automatically discovered alongside built-in commands.
 
 ## Quick Start
 
 ```bash
 # Install a plugin
-opencli plugin install github:ByteYue/opencli-plugin-github-trending
+toycli plugin install github:ByteYue/toycli-plugin-github-trending
 
 # List installed plugins
-opencli plugin list
+toycli plugin list
 
 # Update one plugin
-opencli plugin update github-trending
+toycli plugin update github-trending
 
 # Update all installed plugins
-opencli plugin update --all
+toycli plugin update --all
 
 # Use the plugin (it's just a regular command)
-opencli github-trending repos --limit 10
+toycli github-trending repos --limit 10
 
 # Remove a plugin
-opencli plugin uninstall github-trending
+toycli plugin uninstall github-trending
 ```
 
 ## How Plugins Work
 
-Plugins live in `~/.opencli/plugins/<name>/`. Each subdirectory is scanned at startup for `.ts` or `.js` command files — the same formats used by built-in adapters.
+Plugins live in `~/.toycli/plugins/<name>/`. Each subdirectory is scanned at startup for `.ts` or `.js` command files — the same formats used by built-in adapters.
 
 ### Supported Source Formats
 
 ```bash
 # GitHub shorthand
-opencli plugin install github:user/repo
-opencli plugin install github:user/repo/subplugin   # install specific sub-plugin from monorepo
-opencli plugin install https://github.com/user/repo
+toycli plugin install github:user/repo
+toycli plugin install github:user/repo/subplugin   # install specific sub-plugin from monorepo
+toycli plugin install https://github.com/user/repo
 
 # Any git-cloneable URL
-opencli plugin install https://gitlab.example.com/team/repo.git
-opencli plugin install ssh://git@gitlab.example.com/team/repo.git
-opencli plugin install git@gitlab.example.com:team/repo.git
+toycli plugin install https://gitlab.example.com/team/repo.git
+toycli plugin install ssh://git@gitlab.example.com/team/repo.git
+toycli plugin install git@gitlab.example.com:team/repo.git
 
 # Local plugin (for development)
-opencli plugin install file:///path/to/plugin
-opencli plugin install /path/to/plugin
+toycli plugin install file:///path/to/plugin
+toycli plugin install /path/to/plugin
 ```
 
-The repo name prefix `opencli-plugin-` is automatically stripped for the local directory name. For example, `opencli-plugin-hot-digest` becomes `hot-digest`.
+The repo name prefix `toycli-plugin-` is automatically stripped for the local directory name. For example, `toycli-plugin-hot-digest` becomes `hot-digest`.
 
-## Plugin Manifest (`opencli-plugin.json`)
+## Plugin Manifest (`toycli-plugin.json`)
 
-Plugins can include an `opencli-plugin.json` manifest file at the repo root to declare metadata:
+Plugins can include an `toycli-plugin.json` manifest file at the repo root to declare metadata:
 
 ```json
 {
   "name": "my-plugin",
   "version": "1.0.0",
-  "opencli": ">=1.0.0",
+  "toycli": ">=1.0.0",
   "description": "My awesome plugin"
 }
 ```
@@ -65,7 +65,7 @@ Plugins can include an `opencli-plugin.json` manifest file at the repo root to d
 |-------|-------------|
 | `name` | Plugin name (overrides repo-derived name) |
 | `version` | Semantic version |
-| `opencli` | Required opencli version range (e.g. `>=1.0.0`, `^1.2.0`) |
+| `toycli` | Required toycli version range (e.g. `>=1.0.0`, `^1.2.0`) |
 | `description` | Human-readable description |
 | `plugins` | Monorepo sub-plugin declarations (see below) |
 
@@ -73,12 +73,12 @@ The manifest is optional — plugins without one continue to work exactly as bef
 
 ## Monorepo Plugins
 
-A single repository can contain multiple plugins by declaring a `plugins` field in `opencli-plugin.json`:
+A single repository can contain multiple plugins by declaring a `plugins` field in `toycli-plugin.json`:
 
 ```json
 {
   "version": "1.0.0",
-  "opencli": ">=1.0.0",
+  "toycli": ">=1.0.0",
   "description": "My plugin collection",
   "plugins": {
     "polymarket": {
@@ -90,7 +90,7 @@ A single repository can contain multiple plugins by declaring a `plugins` field 
       "path": "packages/defi",
       "description": "DeFi protocol data",
       "version": "0.8.0",
-      "opencli": ">=1.2.0"
+      "toycli": ">=1.2.0"
     },
     "experimental": {
       "path": "packages/experimental",
@@ -104,39 +104,39 @@ A single repository can contain multiple plugins by declaring a `plugins` field 
 
 ```bash
 # Install ALL enabled sub-plugins from a monorepo
-opencli plugin install github:user/opencli-plugins
+toycli plugin install github:user/toycli-plugins
 
 # Install a SPECIFIC sub-plugin
-opencli plugin install github:user/opencli-plugins/polymarket
+toycli plugin install github:user/toycli-plugins/polymarket
 ```
 
 ### How It Works
 
-- The monorepo is cloned once to `~/.opencli/monorepos/<repo>/`
-- Each sub-plugin gets a symlink in `~/.opencli/plugins/<name>/` pointing to its subdirectory
+- The monorepo is cloned once to `~/.toycli/monorepos/<repo>/`
+- Each sub-plugin gets a symlink in `~/.toycli/plugins/<name>/` pointing to its subdirectory
 - Command discovery works transparently — symlinks are scanned just like regular directories
 - Disabled sub-plugins (with `"disabled": true`) are skipped during install
-- Sub-plugins can specify their own `opencli` compatibility range
+- Sub-plugins can specify their own `toycli` compatibility range
 
 ### Updating
 
 Updating any sub-plugin from a monorepo pulls the entire repo and refreshes all sub-plugins:
 
 ```bash
-opencli plugin update polymarket   # updates the monorepo, refreshes all
+toycli plugin update polymarket   # updates the monorepo, refreshes all
 ```
 
 ### Uninstalling
 
 ```bash
-opencli plugin uninstall polymarket   # removes just this sub-plugin's symlink
+toycli plugin uninstall polymarket   # removes just this sub-plugin's symlink
 ```
 
 When the last sub-plugin from a monorepo is uninstalled, the monorepo clone is automatically cleaned up.
 
 ## Version Tracking
 
-OpenCLI records installed plugin versions in `~/.opencli/plugins.lock.json`. Each entry stores the plugin source, current git commit hash, install time, and last update time. `opencli plugin list` shows the short commit hash when version metadata is available.
+ToyCLI records installed plugin versions in `~/.toycli/plugins.lock.json`. Each entry stores the plugin source, current git commit hash, install time, and last update time. `toycli plugin list` shows the short commit hash when version metadata is available.
 
 ## Creating a Plugin
 
@@ -153,7 +153,7 @@ my-plugin/
 
 ```json
 {
-  "name": "opencli-plugin-my-plugin",
+  "name": "toycli-plugin-my-plugin",
   "version": "0.1.0",
   "type": "module",
   "peerDependencies": {
@@ -172,7 +172,7 @@ cli({
   name: 'my-command',
   description: 'My custom command',
   access: 'read', // 'read' | 'write'
-  example: 'opencli my-plugin my-command -f yaml',
+  example: 'toycli my-plugin my-command -f yaml',
   strategy: Strategy.PUBLIC,
   browser: false,
   args: [
@@ -192,7 +192,7 @@ cli({
 
 ### TS Plugin Install Lifecycle
 
-When you run `opencli plugin install`, TS plugins are automatically set up:
+When you run `toycli plugin install`, TS plugins are automatically set up:
 
 1. **Clone** — `git clone --depth 1` from GitHub
 2. **npm install** — Resolves regular dependencies
@@ -205,22 +205,22 @@ On startup, if both `my-command.ts` and `my-command.js` exist, the `.js` version
 
 | Repo | Type | Description |
 |------|------|-------------|
-| [opencli-plugin-github-trending](https://github.com/ByteYue/opencli-plugin-github-trending) | TS | GitHub Trending repositories |
-| [opencli-plugin-hot-digest](https://github.com/ByteYue/opencli-plugin-hot-digest) | TS | Multi-platform trending aggregator (zhihu, weibo, bilibili, v2ex, stackoverflow, reddit, linux-do) |
-| [opencli-plugin-juejin](https://github.com/Astro-Han/opencli-plugin-juejin) | TS | 稀土掘金 (Juejin) hot articles, categories, and article feed |
-| [opencli-plugin-rubysec](https://github.com/nullptrKey/opencli-plugin-rubysec) | TS | RubySec advisory archive and advisory article reader |
+| [toycli-plugin-github-trending](https://github.com/ByteYue/toycli-plugin-github-trending) | TS | GitHub Trending repositories |
+| [toycli-plugin-hot-digest](https://github.com/ByteYue/toycli-plugin-hot-digest) | TS | Multi-platform trending aggregator (zhihu, weibo, bilibili, v2ex, stackoverflow, reddit, linux-do) |
+| [toycli-plugin-juejin](https://github.com/Astro-Han/toycli-plugin-juejin) | TS | 稀土掘金 (Juejin) hot articles, categories, and article feed |
+| [toycli-plugin-rubysec](https://github.com/nullptrKey/toycli-plugin-rubysec) | TS | RubySec advisory archive and advisory article reader |
 
 ## Troubleshooting
 
 ### Command not found after install
 
-Restart opencli (or open a new terminal) — plugins are discovered at startup.
+Restart toycli (or open a new terminal) — plugins are discovered at startup.
 
 ### TS plugin import errors
 
 If you see `Cannot find module '@toy-box/opencli/registry'`, the host symlink may be broken. Reinstall the plugin:
 
 ```bash
-opencli plugin uninstall my-plugin
-opencli plugin install github:user/opencli-plugin-my-plugin
+toycli plugin uninstall my-plugin
+toycli plugin install github:user/toycli-plugin-my-plugin
 ```

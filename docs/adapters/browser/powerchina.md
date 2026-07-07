@@ -6,16 +6,16 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli powerchina search "<query>" --limit <n>` | Search PowerChina procurement notices with API-first extraction and browser fallback |
+| `toycli powerchina search "<query>" --limit <n>` | Search PowerChina procurement notices with API-first extraction and browser fallback |
 
 ## Usage Examples
 
 ```bash
 # Search by keyword
-opencli powerchina search "procurement" --limit 20 -f json
+toycli powerchina search "procurement" --limit 20 -f json
 
 # Search with another keyword
-opencli powerchina search "substation" --limit 10 -f json
+toycli powerchina search "substation" --limit 10 -f json
 ```
 
 ## Prerequisites

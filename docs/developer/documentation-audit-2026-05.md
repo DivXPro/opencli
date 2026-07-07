@@ -1,6 +1,6 @@
 # Documentation Audit — 2026-05
 
-This document reviews the current long-form docs, README surfaces, and developer guides in `opencli`. It focuses on stale facts, internal contradictions, and documentation structure that now causes drift.
+This document reviews the current long-form docs, README surfaces, and developer guides in `toycli`. It focuses on stale facts, internal contradictions, and documentation structure that now causes drift.
 
 ## Scope
 
@@ -243,7 +243,7 @@ Recommended fix:
 - Reframe the section as:
   - “Representative built-in commands”
   - “Sample sites”
-- Keep `opencli list` and `docs/adapters/index.md` as the full registry surface.
+- Keep `toycli list` and `docs/adapters/index.md` as the full registry surface.
 
 ### 8. `docs/comparison.md` contains stale scale claims
 

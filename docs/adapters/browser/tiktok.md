@@ -6,67 +6,67 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli tiktok profile` | Get user profile info |
-| `opencli tiktok search` | Search videos |
-| `opencli tiktok explore` | Trending videos from explore page |
-| `opencli tiktok user` | Get recent videos from a user via page-context APIs |
-| `opencli tiktok following` | List accounts you follow |
-| `opencli tiktok friends` | Friend suggestions |
-| `opencli tiktok live` | Browse live streams |
-| `opencli tiktok notifications` | Get notifications |
-| `opencli tiktok creator-videos` | List TikTok Studio creator videos and metrics |
-| `opencli tiktok like` | Like a video |
-| `opencli tiktok unlike` | Unlike a video |
-| `opencli tiktok save` | Add to Favorites |
-| `opencli tiktok unsave` | Remove from Favorites |
-| `opencli tiktok follow` | Follow a user |
-| `opencli tiktok unfollow` | Unfollow a user |
-| `opencli tiktok comment` | Comment on a video |
+| `toycli tiktok profile` | Get user profile info |
+| `toycli tiktok search` | Search videos |
+| `toycli tiktok explore` | Trending videos from explore page |
+| `toycli tiktok user` | Get recent videos from a user via page-context APIs |
+| `toycli tiktok following` | List accounts you follow |
+| `toycli tiktok friends` | Friend suggestions |
+| `toycli tiktok live` | Browse live streams |
+| `toycli tiktok notifications` | Get notifications |
+| `toycli tiktok creator-videos` | List TikTok Studio creator videos and metrics |
+| `toycli tiktok like` | Like a video |
+| `toycli tiktok unlike` | Unlike a video |
+| `toycli tiktok save` | Add to Favorites |
+| `toycli tiktok unsave` | Remove from Favorites |
+| `toycli tiktok follow` | Follow a user |
+| `toycli tiktok unfollow` | Unfollow a user |
+| `toycli tiktok comment` | Comment on a video |
 
 ## Usage Examples
 
 ```bash
 # View a user's profile
-opencli tiktok profile --username tiktok
+toycli tiktok profile --username tiktok
 
 # Search videos
-opencli tiktok search "cooking" --limit 10
+toycli tiktok search "cooking" --limit 10
 
 # Trending explore videos
-opencli tiktok explore --limit 20
+toycli tiktok explore --limit 20
 
 # Recent videos from a user
-opencli tiktok user dictogo --limit 20
+toycli tiktok user dictogo --limit 20
 
 # Browse live streams
-opencli tiktok live --limit 10
+toycli tiktok live --limit 10
 
 # List who you follow
-opencli tiktok following
+toycli tiktok following
 
 # List your TikTok Studio creator videos
-opencli tiktok creator-videos --limit 20
+toycli tiktok creator-videos --limit 20
 
 # Friend suggestions
-opencli tiktok friends --limit 10
+toycli tiktok friends --limit 10
 
 # Like/unlike a video
-opencli tiktok like "https://www.tiktok.com/@user/video/123"
-opencli tiktok unlike "https://www.tiktok.com/@user/video/123"
+toycli tiktok like "https://www.tiktok.com/@user/video/123"
+toycli tiktok unlike "https://www.tiktok.com/@user/video/123"
 
 # Save/unsave (Favorites)
-opencli tiktok save "https://www.tiktok.com/@user/video/123"
-opencli tiktok unsave "https://www.tiktok.com/@user/video/123"
+toycli tiktok save "https://www.tiktok.com/@user/video/123"
+toycli tiktok unsave "https://www.tiktok.com/@user/video/123"
 
 # Follow/unfollow
-opencli tiktok follow nasa
-opencli tiktok unfollow nasa
+toycli tiktok follow nasa
+toycli tiktok unfollow nasa
 
 # Comment on a video
-opencli tiktok comment "https://www.tiktok.com/@user/video/123" "Great!"
+toycli tiktok comment "https://www.tiktok.com/@user/video/123" "Great!"
 
 # JSON output
-opencli tiktok profile --username tiktok -f json
+toycli tiktok profile --username tiktok -f json
 ```
 
 ## Output
@@ -220,7 +220,7 @@ times out (server-fan-out semantics) — auto-retrying would double-post.
 **Follow / unfollow are `retryable=true`** because TikTok dedupes the relation
 flip server-side, so a transient blip can be safely retried.
 
-> Importing `retryable` as a first-class metadata layer in OpenCLI core is a
+> Importing `retryable` as a first-class metadata layer in ToyCLI core is a
 > candidate for follow-up — for now we keep the contract human-readable.
 
 ## Implementation Notes

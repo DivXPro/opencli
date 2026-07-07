@@ -6,31 +6,31 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli lobsters hot` | Hottest stories |
-| `opencli lobsters newest` | Latest stories |
-| `opencli lobsters active` | Most active discussions |
-| `opencli lobsters tag <tag>` | Stories by tag |
-| `opencli lobsters domain <domain>` | Stories submitted from a specific source domain |
-| `opencli lobsters read <short_id>` | Read a story and its comment tree |
+| `toycli lobsters hot` | Hottest stories |
+| `toycli lobsters newest` | Latest stories |
+| `toycli lobsters active` | Most active discussions |
+| `toycli lobsters tag <tag>` | Stories by tag |
+| `toycli lobsters domain <domain>` | Stories submitted from a specific source domain |
+| `toycli lobsters read <short_id>` | Read a story and its comment tree |
 
 ## Usage Examples
 
 ```bash
 # Quick start
-opencli lobsters hot --limit 10
+toycli lobsters hot --limit 10
 
 # Filter by tag
-opencli lobsters tag rust --limit 5
+toycli lobsters tag rust --limit 5
 
 # Stories from a specific source domain
-opencli lobsters domain github.com --limit 10
-opencli lobsters domain arxiv.org --limit 5
+toycli lobsters domain github.com --limit 10
+toycli lobsters domain arxiv.org --limit 5
 
 # Read a specific story (use the short_id surfaced as `id` in any listing)
-opencli lobsters read 6cmh6h --limit 25 --depth 2
+toycli lobsters read 6cmh6h --limit 25 --depth 2
 
 # JSON output
-opencli lobsters hot -f json
+toycli lobsters hot -f json
 ```
 
 ## Output Columns

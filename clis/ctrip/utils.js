@@ -43,7 +43,7 @@ export async function fetchSuggest(query, searchType) {
                     LocaleController: 'zh_cn',
                     Currency: 'CNY',
                     PageId: '102001',
-                    clientID: 'opencli-ctrip',
+                    clientID: 'toycli-ctrip',
                     group: 'ctrip',
                     Frontend: { sessionID: 1, pvid: 1 },
                     HotelExtension: { group: 'CTRIP', WebpSupport: false },

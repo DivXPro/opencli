@@ -1,5 +1,5 @@
 /**
- * Unified error types for opencli.
+ * Unified error types for toycli.
  *
  * All errors thrown by the framework should extend CliError so that
  * the top-level handler in commanderAdapter.ts can render consistent,
@@ -7,7 +7,7 @@
  *
  * ## Exit codes
  *
- * opencli follows Unix conventions (sysexits.h) for process exit codes:
+ * toycli follows Unix conventions (sysexits.h) for process exit codes:
  *
  *   0   Success
  *   1   Generic / unexpected error
@@ -56,7 +56,7 @@ export class CliError extends Error {
   }
 }
 
-const TRACE_RECEIPT_SYMBOL = Symbol.for('opencli.traceReceipt');
+const TRACE_RECEIPT_SYMBOL = Symbol.for('toycli.traceReceipt');
 
 export function attachTraceReceipt(err: unknown, receipt: ObservationTraceReceipt): void {
   if (!err || (typeof err !== 'object' && typeof err !== 'function')) return;
@@ -119,7 +119,7 @@ export class TimeoutError extends CliError {
     super(
       'TIMEOUT',
       `${label} timed out after ${seconds}s`,
-      hint ?? 'Try again, or increase timeout with --timeout <seconds> (or OPENCLI_BROWSER_COMMAND_TIMEOUT for the global default)',
+      hint ?? 'Try again, or increase timeout with --timeout <seconds> (or TOYCLI_BROWSER_COMMAND_TIMEOUT for the global default)',
       EXIT_CODES.TEMPFAIL,
     );
   }

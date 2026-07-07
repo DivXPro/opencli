@@ -6,30 +6,30 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli arxiv search <query>` | Search arXiv papers |
-| `opencli arxiv paper <id>` | Get arXiv paper details by ID |
-| `opencli arxiv recent <category>` | List recent submissions in a category |
-| `opencli arxiv author <name>` | List papers by a given author (newest first) |
+| `toycli arxiv search <query>` | Search arXiv papers |
+| `toycli arxiv paper <id>` | Get arXiv paper details by ID |
+| `toycli arxiv recent <category>` | List recent submissions in a category |
+| `toycli arxiv author <name>` | List papers by a given author (newest first) |
 
 ## Usage Examples
 
 ```bash
 # Search for papers
-opencli arxiv search "transformer attention" --limit 10
+toycli arxiv search "transformer attention" --limit 10
 
 # Get full paper details (full abstract, all authors, primary/all categories, pdf url)
-opencli arxiv paper 1706.03762
+toycli arxiv paper 1706.03762
 
 # Newest papers in a category, sorted by submitted date desc
-opencli arxiv recent cs.CL --limit 10
-opencli arxiv recent math.PR --limit 5
+toycli arxiv recent cs.CL --limit 10
+toycli arxiv recent math.PR --limit 5
 
 # Newest papers by an author (best-effort fuzzy match — try alternate spellings if empty)
-opencli arxiv author "Yoshua Bengio" --limit 20
-opencli arxiv author "Y Bengio" --limit 5
+toycli arxiv author "Yoshua Bengio" --limit 20
+toycli arxiv author "Y Bengio" --limit 5
 
 # JSON output
-opencli arxiv search "LLM" -f json
+toycli arxiv search "LLM" -f json
 ```
 
 ## Output Columns

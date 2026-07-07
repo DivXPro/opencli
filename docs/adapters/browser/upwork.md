@@ -6,34 +6,34 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli upwork search <query>` | Upwork keyword job search (logged-in browser session, US site) |
-| `opencli upwork feed [tab]` | Personalized jobs feed — `best-matches` (default) or `most-recent` |
-| `opencli upwork detail <id>` | Read the full Upwork job posting by ciphertext id |
+| `toycli upwork search <query>` | Upwork keyword job search (logged-in browser session, US site) |
+| `toycli upwork feed [tab]` | Personalized jobs feed — `best-matches` (default) or `most-recent` |
+| `toycli upwork detail <id>` | Read the full Upwork job posting by ciphertext id |
 
 ## Usage Examples
 
 ```bash
 # Search jobs by keyword (default 10 rows, sort by recency)
-opencli upwork search "python"
+toycli upwork search "python"
 
 # Filter and paginate
-opencli upwork search "react developer" --location "United States" --sort relevance --page 2 --per_page 25
+toycli upwork search "react developer" --location "United States" --sort relevance --page 2 --per_page 25
 
 # Personalized recommended feed (requires login)
-opencli upwork feed --limit 20
+toycli upwork feed --limit 20
 
 # Switch to the chronological feed
-opencli upwork feed most-recent --limit 10
+toycli upwork feed most-recent --limit 10
 
 # Full job posting (id is the ciphertext form from `search` / `feed`)
-opencli upwork detail "~022055006392174412621"
+toycli upwork detail "~022055006392174412621"
 
 # Detail also accepts the full /jobs/ URL
-opencli upwork detail "https://www.upwork.com/jobs/~022055006392174412621"
+toycli upwork detail "https://www.upwork.com/jobs/~022055006392174412621"
 
 # JSON output
-opencli upwork search "python" -f json
-opencli upwork detail "~022055006392174412621" -f json
+toycli upwork search "python" -f json
+toycli upwork detail "~022055006392174412621" -f json
 ```
 
 ## Output
@@ -87,7 +87,7 @@ Both commands return the same column set so feeds and search results can be comp
 ## Caveats
 
 - **Read-only.** No commands write to your Upwork account. There is no `apply` / `submit-proposal` / `withdraw` command — proposing for jobs is deliberately out of scope.
-- **No proposals command.** Listing your own submitted proposals is intentionally not shipped. Upwork's `lists` Vuex module is the right source, but verifying the field shape end-to-end requires an account with real proposals — once that data is available, see the field-map notes in `~/.opencli/sites/upwork/`.
+- **No proposals command.** Listing your own submitted proposals is intentionally not shipped. Upwork's `lists` Vuex module is the right source, but verifying the field shape end-to-end requires an account with real proposals — once that data is available, see the field-map notes in `~/.toycli/sites/upwork/`.
 - **Cloudflare** sits in front of every surface — all commands run through your logged-in browser session (`Strategy.COOKIE`, `browser: true`). Bare `fetch` returns a `__cf_bm` challenge. If the adapter sees the challenge page it raises `CommandExecutionError` with a hint to clear it in the connected browser.
 - **List data comes from SSR state, not DOM scraping.** Upwork's card class names change often; instead the adapter reads `window.__NUXT__.state.{jobsSearch,feedBestMatch,feedMostRecent}.jobs[]` directly. Detail reads from the Vuex store at `window.$nuxt.$store.state.jobDetails.{job,buyer}`. This is more durable but means UI freshness / DOM tweaks have no effect — what you see in the browser may briefly differ from what the adapter returns if Upwork re-hydrates mid-load.
 - **Login redirect** raises `AuthRequiredError` (exit 77), not an empty result.

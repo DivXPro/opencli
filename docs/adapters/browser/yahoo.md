@@ -6,7 +6,7 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli yahoo search <keyword>` | Search Yahoo (powered by Bing) and extract results from the page |
+| `toycli yahoo search <keyword>` | Search Yahoo (powered by Bing) and extract results from the page |
 
 ## What works today
 
@@ -26,16 +26,16 @@
 
 ```bash
 # Basic search
-opencli yahoo search "machine learning"
+toycli yahoo search "machine learning"
 
 # Limit results
-opencli yahoo search "machine learning" --limit 5
+toycli yahoo search "machine learning" --limit 5
 
 # Pagination (second page)
-opencli yahoo search "machine learning" --page 2
+toycli yahoo search "machine learning" --page 2
 
 # JSON output
-opencli yahoo search "machine learning" -f json
+toycli yahoo search "machine learning" -f json
 ```
 
 ## Prerequisites

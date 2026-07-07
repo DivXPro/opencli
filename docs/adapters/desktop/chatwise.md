@@ -14,25 +14,25 @@ Control the **ChatWise Desktop App** from the terminal via Chrome DevTools Proto
 ## Setup
 
 ```bash
-export OPENCLI_CDP_ENDPOINT="http://127.0.0.1:9228"
+export TOYCLI_CDP_ENDPOINT="http://127.0.0.1:9228"
 ```
 
 ## Commands
 
 ### Diagnostics
-- `opencli chatwise status`: Check CDP connection status.
-- `opencli chatwise screenshot`: Export DOM + accessibility snapshot.
+- `toycli chatwise status`: Check CDP connection status.
+- `toycli chatwise screenshot`: Export DOM + accessibility snapshot.
 
 ### Chat
-- `opencli chatwise new`: Start a new conversation (`Cmd+N`).
-- `opencli chatwise send "message"`: Send a message to the active chat.
-- `opencli chatwise read`: Read the current conversation.
-- `opencli chatwise ask "prompt"`: Send + wait for response + return it (one-shot).
+- `toycli chatwise new`: Start a new conversation (`Cmd+N`).
+- `toycli chatwise send "message"`: Send a message to the active chat.
+- `toycli chatwise read`: Read the current conversation.
+- `toycli chatwise ask "prompt"`: Send + wait for response + return it (one-shot).
 
 ### AI Features
-- `opencli chatwise model`: Get the current AI model.
-- `opencli chatwise model gpt-4`: Switch to a different model.
+- `toycli chatwise model`: Get the current AI model.
+- `toycli chatwise model gpt-4`: Switch to a different model.
 
 ### Organization
-- `opencli chatwise history`: List conversations from the sidebar.
-- `opencli chatwise export`: Export conversation as Markdown.
+- `toycli chatwise history`: List conversations from the sidebar.
+- `toycli chatwise export`: Export conversation as Markdown.

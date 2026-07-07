@@ -6,14 +6,14 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli gov-policy search <query>` | Search policy documents on gov.cn |
-| `opencli gov-policy recent` | List the latest State Council policy documents |
+| `toycli gov-policy search <query>` | Search policy documents on gov.cn |
+| `toycli gov-policy recent` | List the latest State Council policy documents |
 
 ## Usage Examples
 
 ```bash
-opencli gov-policy search "科技创新"
-opencli gov-policy recent --limit 10
+toycli gov-policy search "科技创新"
+toycli gov-policy recent --limit 10
 ```
 
 ## Notes

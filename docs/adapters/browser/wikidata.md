@@ -8,21 +8,21 @@ Search Wikidata items by keyword and fetch full entity detail by Q/P/L identifie
 
 | Command | Description |
 |---------|-------------|
-| `opencli wikidata search <query>` | Search Wikidata items by label / alias (returns Q-IDs) |
-| `opencli wikidata entity <id>` | Full entity detail: label, description, aliases, claim & sitelink counts |
+| `toycli wikidata search <query>` | Search Wikidata items by label / alias (returns Q-IDs) |
+| `toycli wikidata entity <id>` | Full entity detail: label, description, aliases, claim & sitelink counts |
 
 ## Usage Examples
 
 ```bash
 # Find Q-IDs by keyword
-opencli wikidata search einstein
-opencli wikidata search "san francisco" --limit 10
-opencli wikidata search 哈尔滨 --language zh
+toycli wikidata search einstein
+toycli wikidata search "san francisco" --limit 10
+toycli wikidata search 哈尔滨 --language zh
 
 # Entity detail (Q-IDs round-trip from search)
-opencli wikidata entity Q937           # Albert Einstein
-opencli wikidata entity Q90            # Paris
-opencli wikidata entity Q937 --language zh
+toycli wikidata entity Q937           # Albert Einstein
+toycli wikidata entity Q90            # Paris
+toycli wikidata entity Q937 --language zh
 ```
 
 ## Output Columns

@@ -8,62 +8,62 @@ Drive **Grok** (grok.com) chat from the terminal. All commands run through your 
 
 | Command | Description | Access |
 |---------|-------------|--------|
-| `opencli grok status` | Page availability, login state, current model and session | read |
-| `opencli grok history` | List recent conversations from the sidebar (requires login) | read |
-| `opencli grok read` | Read messages in the current conversation | read |
-| `opencli grok detail <id>` | Open a conversation by ID and read its messages | read |
-| `opencli grok export` | Export visible conversation history metadata from the history dialog | read |
-| `opencli grok export-all` | Export conversation metadata plus per-conversation transcript JSON | read |
-| `opencli grok ask <prompt>` | Send a prompt and wait for the assistant reply | write |
-| `opencli grok send <prompt>` | Fire-and-forget: send a prompt without waiting | write |
-| `opencli grok new` | Start a fresh conversation | write |
-| `opencli grok image <prompt>` | Generate images via Grok and return their URLs | write |
-| `opencli grok pin <id>` | Pin a conversation from the sidebar context menu | write |
-| `opencli grok unpin <id>` | Unpin a conversation from the sidebar context menu | write |
-| `opencli grok delete <id> --yes` | Delete a sidebar conversation after an explicit `--yes` confirmation | write |
+| `toycli grok status` | Page availability, login state, current model and session | read |
+| `toycli grok history` | List recent conversations from the sidebar (requires login) | read |
+| `toycli grok read` | Read messages in the current conversation | read |
+| `toycli grok detail <id>` | Open a conversation by ID and read its messages | read |
+| `toycli grok export` | Export visible conversation history metadata from the history dialog | read |
+| `toycli grok export-all` | Export conversation metadata plus per-conversation transcript JSON | read |
+| `toycli grok ask <prompt>` | Send a prompt and wait for the assistant reply | write |
+| `toycli grok send <prompt>` | Fire-and-forget: send a prompt without waiting | write |
+| `toycli grok new` | Start a fresh conversation | write |
+| `toycli grok image <prompt>` | Generate images via Grok and return their URLs | write |
+| `toycli grok pin <id>` | Pin a conversation from the sidebar context menu | write |
+| `toycli grok unpin <id>` | Unpin a conversation from the sidebar context menu | write |
+| `toycli grok delete <id> --yes` | Delete a sidebar conversation after an explicit `--yes` confirmation | write |
 
 ## Usage Examples
 
 ```bash
 # Sanity check
-opencli grok status
+toycli grok status
 
 # Recent conversations
-opencli grok history --limit 10
+toycli grok history --limit 10
 
 # Read the active conversation as markdown
-opencli grok read --markdown true
+toycli grok read --markdown true
 
 # Read a specific historical conversation by ID (or full URL)
-opencli grok detail 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
-opencli grok detail https://grok.com/c/7c4197f2-10a1-4ebb-a84a-fea89f4f1d06 --markdown true
+toycli grok detail 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
+toycli grok detail https://grok.com/c/7c4197f2-10a1-4ebb-a84a-fea89f4f1d06 --markdown true
 
 # Export loaded history metadata, then export transcripts from that manifest
-opencli grok export --limit 25 -f json > grok-history.json
-opencli grok export-all --manifestPath grok-history.json --limit 25 -f json > grok-transcripts.json
+toycli grok export --limit 25 -f json > grok-history.json
+toycli grok export-all --manifestPath grok-history.json --limit 25 -f json > grok-transcripts.json
 
 # Ask a question and wait for the reply
-opencli grok ask "Explain quantum computing in simple terms"
+toycli grok ask "Explain quantum computing in simple terms"
 
 # Ask in a brand-new chat
-opencli grok ask "Hello" --new true
+toycli grok ask "Hello" --new true
 
 # Fire-and-forget (don't wait for the reply)
-opencli grok send "continue the previous answer"
+toycli grok send "continue the previous answer"
 
 # Start a new conversation
-opencli grok new
+toycli grok new
 
 # Generate an image
-opencli grok image "a cyberpunk mechanical owl, neon purple and blue" --new true
+toycli grok image "a cyberpunk mechanical owl, neon purple and blue" --new true
 
 # Pin or unpin a conversation by ID (or full https://grok.com/c/<id> URL)
-opencli grok pin 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
-opencli grok unpin https://grok.com/c/7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
+toycli grok pin 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
+toycli grok unpin https://grok.com/c/7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
 
 # Preview then explicitly delete a conversation
-opencli grok delete 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
-opencli grok delete 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06 --yes true
+toycli grok delete 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06
+toycli grok delete 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06 --yes true
 ```
 
 ## Options
@@ -155,5 +155,5 @@ opencli grok delete 7c4197f2-10a1-4ebb-a84a-fea89f4f1d06 --yes true
 - `export-all` visits each conversation URL and records per-conversation `status`. A page with no visible transcript produces an `empty` row with an `error` message; malformed transcript rows produce a `failed` row; malformed history or manifest identity fails before export.
 - `pin`, `unpin`, and `delete` operate on conversations visible in the sidebar. `pin` / `unpin` verify the post-action context-menu state; `delete --yes` verifies the sidebar entry disappears before returning success.
 - `status` returns `Model` / `SessionId` as `null` when they cannot be detected (e.g. page still loading) rather than a string sentinel — branch on `null` in agent code.
-- DOM or product changes on Grok can break composer detection — `opencli grok status` is the quickest sanity check.
+- DOM or product changes on Grok can break composer detection — `toycli grok status` is the quickest sanity check.
 - `limit` is validated and rejected with `ArgumentError` if non-positive or above the documented max (`history` max 100); no silent clamp.

@@ -53,19 +53,19 @@ jobs:
         run: |
           EXT_VERSION=$(jq -r .version extension/package.json)
           cd extension-package
-          zip -r ../opencli-extension-v${EXT_VERSION}.zip .
+          zip -r ../toycli-extension-v${EXT_VERSION}.zip .
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3.0.0
         with:
           generate_release_notes: true
           files: |
-            opencli-extension-v*.zip
+            toycli-extension-v*.zip
 
       - name: Publish to npm
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # To re-enable: replace `jackwener/opencli-website` with your own
+      # To re-enable: replace `jackwener/toycli-website` with your own
       # docs site repo and add a `WEBSITE_DEPLOY_TOKEN` secret.

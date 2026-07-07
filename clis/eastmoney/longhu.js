@@ -1,7 +1,7 @@
 // eastmoney longhu — dragon & tiger list (龙虎榜).
 //
-//   opencli eastmoney longhu
-//   opencli eastmoney longhu --date 2025-12-10 --limit 20
+//   toycli eastmoney longhu
+//   toycli eastmoney longhu --date 2025-12-10 --limit 20
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

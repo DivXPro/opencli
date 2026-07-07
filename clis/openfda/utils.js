@@ -6,7 +6,7 @@
 import { ArgumentError, EmptyResultError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const OPENFDA_BASE = 'https://api.fda.gov';
-const UA = 'opencli-openfda/1.0';
+const UA = 'toycli-openfda/1.0';
 
 export function requireString(value, name) {
     if (typeof value !== 'string' || !value.trim()) {

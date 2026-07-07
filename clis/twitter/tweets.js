@@ -221,7 +221,7 @@ function normalizeLimit(rawLimit) {
     if (!Number.isInteger(limit) || limit < 1 || limit > MAX_TWEETS_LIMIT) {
         throw new ArgumentError(
             `twitter tweets --limit must be an integer between 1 and ${MAX_TWEETS_LIMIT}`,
-            `Example: opencli twitter tweets @jack --limit 250`
+            `Example: toycli twitter tweets @jack --limit 250`
         );
     }
     return limit;
@@ -232,7 +232,7 @@ function normalizePageDelaySeconds(rawDelay) {
     if (!Number.isInteger(delay) || delay < 0 || delay > 60) {
         throw new ArgumentError(
             'twitter tweets --page-delay must be an integer between 0 and 60 seconds',
-            'Example: opencli twitter tweets @jack --limit 250 --page-delay 2'
+            'Example: toycli twitter tweets @jack --limit 250 --page-delay 2'
         );
     }
     return delay;
@@ -259,7 +259,7 @@ cli({
         const rawUsername = String(kwargs.username ?? '').trim();
         let username = normalizeTwitterScreenName(rawUsername);
         if (rawUsername && !username) {
-            throw new ArgumentError('twitter tweets username must be a valid Twitter/X handle', 'Example: opencli twitter tweets @jack --limit 20');
+            throw new ArgumentError('twitter tweets username must be a valid Twitter/X handle', 'Example: toycli twitter tweets @jack --limit 20');
         }
         // When no username is given, detect the logged-in user (own tweets).
         // Mirrors the self-detection pattern used by twitter/profile and

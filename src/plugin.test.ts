@@ -47,25 +47,25 @@ const {
 
 describe('parseSource', () => {
   it('parses github:user/repo format', () => {
-    const result = _parseSource('github:ByteYue/opencli-plugin-github-trending');
+    const result = _parseSource('github:ByteYue/toycli-plugin-github-trending');
     expect(result).toEqual({
       type: 'git',
-      cloneUrl: 'https://github.com/ByteYue/opencli-plugin-github-trending.git',
+      cloneUrl: 'https://github.com/ByteYue/toycli-plugin-github-trending.git',
       name: 'github-trending',
     });
   });
 
   it('parses https URL format', () => {
-    const result = _parseSource('https://github.com/ByteYue/opencli-plugin-hot-digest');
+    const result = _parseSource('https://github.com/ByteYue/toycli-plugin-hot-digest');
     expect(result).toEqual({
       type: 'git',
-      cloneUrl: 'https://github.com/ByteYue/opencli-plugin-hot-digest.git',
+      cloneUrl: 'https://github.com/ByteYue/toycli-plugin-hot-digest.git',
       name: 'hot-digest',
     });
   });
 
-  it('strips opencli-plugin- prefix from name', () => {
-    const result = _parseSource('github:user/opencli-plugin-my-tool');
+  it('strips toycli-plugin- prefix from name', () => {
+    const result = _parseSource('github:user/toycli-plugin-my-tool');
     expect(result!.name).toBe('my-tool');
   });
 
@@ -80,7 +80,7 @@ describe('parseSource', () => {
   });
 
   it('parses file:// local plugin directories', () => {
-    const localDir = path.join(os.tmpdir(), 'opencli-plugin-test');
+    const localDir = path.join(os.tmpdir(), 'toycli-plugin-test');
     const fileUrl = pathToFileURL(localDir).href;
     const result = _parseSource(fileUrl);
     expect(result).toEqual({
@@ -100,18 +100,18 @@ describe('parseSource', () => {
     });
   });
 
-  it('strips opencli-plugin- prefix for local paths', () => {
-    const localDir = path.join(os.tmpdir(), 'opencli-plugin-foo');
+  it('strips toycli-plugin- prefix for local paths', () => {
+    const localDir = path.join(os.tmpdir(), 'toycli-plugin-foo');
     const result = _parseSource(localDir);
     expect(result!.name).toBe('foo');
   });
 
   // ── Generic git URL support ──
   it('parses ssh:// URLs', () => {
-    const result = _parseSource('ssh://git@gitlab.com/team/opencli-plugin-tools.git');
+    const result = _parseSource('ssh://git@gitlab.com/team/toycli-plugin-tools.git');
     expect(result).toEqual({
       type: 'git',
-      cloneUrl: 'ssh://git@gitlab.com/team/opencli-plugin-tools.git',
+      cloneUrl: 'ssh://git@gitlab.com/team/toycli-plugin-tools.git',
       name: 'tools',
     });
   });
@@ -134,21 +134,21 @@ describe('parseSource', () => {
     });
   });
 
-  it('parses git@ SCP-style URLs and strips opencli-plugin- prefix', () => {
-    const result = _parseSource('git@github.com:user/opencli-plugin-awesome.git');
+  it('parses git@ SCP-style URLs and strips toycli-plugin- prefix', () => {
+    const result = _parseSource('git@github.com:user/toycli-plugin-awesome.git');
     expect(result).toEqual({
       type: 'git',
-      cloneUrl: 'git@github.com:user/opencli-plugin-awesome.git',
+      cloneUrl: 'git@github.com:user/toycli-plugin-awesome.git',
       name: 'awesome',
     });
   });
 
   it('parses generic HTTPS git URLs (non-GitHub)', () => {
-    const result = _parseSource('https://codehub.example.com/Team/App/opencli-plugins-app.git');
+    const result = _parseSource('https://codehub.example.com/Team/App/toycli-plugins-app.git');
     expect(result).toEqual({
       type: 'git',
-      cloneUrl: 'https://codehub.example.com/Team/App/opencli-plugins-app.git',
-      name: 'opencli-plugins-app',
+      cloneUrl: 'https://codehub.example.com/Team/App/toycli-plugins-app.git',
+      name: 'toycli-plugins-app',
     });
   });
 
@@ -317,14 +317,14 @@ describe('lock file', () => {
   });
 
   it('migrates legacy string sources to structured sources on read', () => {
-    const legacyLocalPath = path.resolve(path.join(os.tmpdir(), 'opencli-legacy-local-plugin'));
+    const legacyLocalPath = path.resolve(path.join(os.tmpdir(), 'toycli-legacy-local-plugin'));
     fs.mkdirSync(path.dirname(getLockFilePath()), { recursive: true });
     fs.writeFileSync(getLockFilePath(), JSON.stringify({
       alpha: {
-        source: 'https://github.com/user/opencli-plugins.git',
+        source: 'https://github.com/user/toycli-plugins.git',
         commitHash: 'abc1234567890def',
         installedAt: '2025-01-01T00:00:00.000Z',
-        monorepo: { name: 'opencli-plugins', subPath: 'packages/alpha' },
+        monorepo: { name: 'toycli-plugins', subPath: 'packages/alpha' },
       },
       beta: {
         source: `local:${legacyLocalPath}`,
@@ -337,8 +337,8 @@ describe('lock file', () => {
       alpha: {
         source: {
           kind: 'monorepo',
-          url: 'https://github.com/user/opencli-plugins.git',
-          repoName: 'opencli-plugins',
+          url: 'https://github.com/user/toycli-plugins.git',
+          repoName: 'toycli-plugins',
           subPath: 'packages/alpha',
         },
         commitHash: 'abc1234567890def',
@@ -356,10 +356,10 @@ describe('lock file', () => {
     fs.mkdirSync(path.dirname(getLockFilePath()), { recursive: true });
     fs.writeFileSync(getLockFilePath(), JSON.stringify({
       alpha: {
-        source: 'https://github.com/user/opencli-plugins.git',
+        source: 'https://github.com/user/toycli-plugins.git',
         commitHash: 'abc1234567890def',
         installedAt: '2025-01-01T00:00:00.000Z',
-        monorepo: { name: 'opencli-plugins', subPath: 'packages/alpha' },
+        monorepo: { name: 'toycli-plugins', subPath: 'packages/alpha' },
       },
     }, null, 2));
 
@@ -369,8 +369,8 @@ describe('lock file', () => {
       alpha: {
         source: {
           kind: 'monorepo',
-          url: 'https://github.com/user/opencli-plugins.git',
-          repoName: 'opencli-plugins',
+          url: 'https://github.com/user/toycli-plugins.git',
+          repoName: 'toycli-plugins',
           subPath: 'packages/alpha',
         },
         commitHash: 'abc1234567890def',
@@ -406,7 +406,7 @@ describe('resolveHostOpencliRoot', () => {
   let tmpDir: string;
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-host-root-test-'));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-host-root-test-'));
   });
 
   afterEach(() => {
@@ -470,7 +470,7 @@ describe('listPlugins', () => {
   });
 
   it('prefers lockfile source for local symlink plugins', () => {
-    const localTarget = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-local-list-'));
+    const localTarget = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-local-list-'));
     const linkPath = path.join(PLUGINS_DIR, '__test-list-plugin__');
 
     fs.mkdirSync(PLUGINS_DIR, { recursive: true });
@@ -540,7 +540,7 @@ describe('updatePlugin', () => {
   });
 
   it('refreshes local plugins without running git pull', () => {
-    const localTarget = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-local-update-'));
+    const localTarget = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-local-update-'));
     const linkPath = path.join(PLUGINS_DIR, '__test-local-update__');
 
     fs.mkdirSync(PLUGINS_DIR, { recursive: true });
@@ -604,7 +604,7 @@ describe('installDependencies', () => {
   });
 
   it('throws when npm install fails', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-plugin-b-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-plugin-b-'));
     const failingDir = path.join(tmpDir, 'plugin-b');
     fs.mkdirSync(failingDir, { recursive: true });
     fs.writeFileSync(path.join(failingDir, 'package.json'), JSON.stringify({ name: 'plugin-b' }));
@@ -622,11 +622,11 @@ describe('postInstallMonorepoLifecycle', () => {
   beforeEach(() => {
     mockExecFileSync.mockClear();
     mockExecSync.mockClear();
-    repoDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-monorepo-'));
+    repoDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-monorepo-'));
     subDir = path.join(repoDir, 'packages', 'alpha');
     fs.mkdirSync(subDir, { recursive: true });
     fs.writeFileSync(path.join(repoDir, 'package.json'), JSON.stringify({
-      name: 'opencli-plugins',
+      name: 'toycli-plugins',
       private: true,
       workspaces: ['packages/*'],
     }));
@@ -652,7 +652,7 @@ describe('postInstallMonorepoLifecycle', () => {
   it('also installs dependencies in sub-plugins that declare their own production dependencies', () => {
     // Give the sub-plugin its own production dependencies
     fs.writeFileSync(path.join(subDir, 'package.json'), JSON.stringify({
-      name: 'opencli-plugin-alpha',
+      name: 'toycli-plugin-alpha',
       version: '1.0.0',
       type: 'module',
       dependencies: { undici: '^8.0.0' },
@@ -757,17 +757,17 @@ describe('updateAllPlugins', () => {
 
 describe('parseSource with monorepo subplugin', () => {
   it('parses github:user/repo/subplugin format', () => {
-    const result = _parseSource('github:ByteYue/opencli-plugins/polymarket');
+    const result = _parseSource('github:ByteYue/toycli-plugins/polymarket');
     expect(result).toEqual({
       type: 'git',
-      cloneUrl: 'https://github.com/ByteYue/opencli-plugins.git',
-      name: 'opencli-plugins',
+      cloneUrl: 'https://github.com/ByteYue/toycli-plugins.git',
+      name: 'toycli-plugins',
       subPlugin: 'polymarket',
     });
   });
 
-  it('strips opencli-plugin- prefix from repo name in subplugin format', () => {
-    const result = _parseSource('github:user/opencli-plugin-collection/defi');
+  it('strips toycli-plugin- prefix from repo name in subplugin format', () => {
+    const result = _parseSource('github:user/toycli-plugin-collection/defi');
     expect(result!.name).toBe('collection');
     expect(result!.subPlugin).toBe('defi');
   });
@@ -787,7 +787,7 @@ describe('isSymlinkSync', () => {
   let tmpDir: string;
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-symlink-test-'));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-symlink-test-'));
   });
 
   afterEach(() => {
@@ -819,7 +819,7 @@ describe('monorepo uninstall with symlink', () => {
   let monoDir: string;
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-mono-uninstall-'));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-mono-uninstall-'));
     pluginDir = path.join(PLUGINS_DIR, '__test-mono-sub__');
     monoDir = path.join(_getMonoreposDir(), '__test-mono__');
 
@@ -889,7 +889,7 @@ describe('monorepo uninstall with symlink', () => {
 });
 
 describe('listPlugins with monorepo metadata', () => {
-  const testSymlinkTarget = path.join(os.tmpdir(), 'opencli-list-mono-target');
+  const testSymlinkTarget = path.join(os.tmpdir(), 'toycli-list-mono-target');
   const testLink = path.join(PLUGINS_DIR, '__test-mono-list__');
 
   beforeEach(() => {
@@ -937,7 +937,7 @@ describe('installLocalPlugin', () => {
   const pluginName = '__test-local-plugin__';
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-local-install-'));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-local-install-'));
     fs.writeFileSync(path.join(tmpDir, 'hello.js'), 'cli({ site: "test", name: "hello", access: "read" })');
   });
 
@@ -988,18 +988,18 @@ describe('isLocalPluginSource', () => {
 
 describe('plugin source helpers', () => {
   it('formats local plugin sources consistently', () => {
-    const dir = path.join(os.tmpdir(), 'opencli-plugin-source');
+    const dir = path.join(os.tmpdir(), 'toycli-plugin-source');
     expect(_toLocalPluginSource(dir)).toBe(`local:${path.resolve(dir)}`);
   });
 
   it('serializes structured local sources consistently', () => {
-    const dir = path.join(os.tmpdir(), 'opencli-plugin-source');
+    const dir = path.join(os.tmpdir(), 'toycli-plugin-source');
     expect(_toStoredPluginSource({ kind: 'local', path: dir })).toBe(`local:${path.resolve(dir)}`);
   });
 
   it('prefers lockfile source over git remote lookup', () => {
-    const dir = path.join(os.tmpdir(), 'opencli-plugin-source');
-    const localPath = path.resolve(path.join(os.tmpdir(), 'opencli-plugin-source-local'));
+    const dir = path.join(os.tmpdir(), 'toycli-plugin-source');
+    const localPath = path.resolve(path.join(os.tmpdir(), 'toycli-plugin-source-local'));
     const source = _resolveStoredPluginSource({
       source: { kind: 'local', path: localPath },
       commitHash: 'local',
@@ -1009,12 +1009,12 @@ describe('plugin source helpers', () => {
   });
 
   it('returns structured monorepo sources unchanged', () => {
-    const dir = path.join(os.tmpdir(), 'opencli-plugin-source');
+    const dir = path.join(os.tmpdir(), 'toycli-plugin-source');
     const source = _resolvePluginSource({
       source: {
         kind: 'monorepo',
-        url: 'https://github.com/user/opencli-plugins.git',
-        repoName: 'opencli-plugins',
+        url: 'https://github.com/user/toycli-plugins.git',
+        repoName: 'toycli-plugins',
         subPath: 'packages/alpha',
       },
       commitHash: 'abcdef1234567890abcdef1234567890abcdef12',
@@ -1022,8 +1022,8 @@ describe('plugin source helpers', () => {
     }, dir);
     expect(source).toEqual({
       kind: 'monorepo',
-      url: 'https://github.com/user/opencli-plugins.git',
-      repoName: 'opencli-plugins',
+      url: 'https://github.com/user/toycli-plugins.git',
+      repoName: 'toycli-plugins',
       subPath: 'packages/alpha',
     });
   });
@@ -1031,8 +1031,8 @@ describe('plugin source helpers', () => {
 
 describe('moveDir', () => {
   it('cleans up destination when EXDEV fallback copy fails', () => {
-    const src = path.join(os.tmpdir(), 'opencli-move-src');
-    const dest = path.join(os.tmpdir(), 'opencli-move-dest');
+    const src = path.join(os.tmpdir(), 'toycli-move-src');
+    const dest = path.join(os.tmpdir(), 'toycli-move-dest');
     const renameErr = Object.assign(new Error('cross-device link not permitted'), { code: 'EXDEV' });
     const copyErr = new Error('copy failed');
     const renameSync = vi.fn(() => { throw renameErr; });
@@ -1047,11 +1047,11 @@ describe('moveDir', () => {
 });
 
 describe('installPlugin transactional staging', () => {
-  const standaloneSource = 'github:user/opencli-plugin-__test-transactional-standalone__';
+  const standaloneSource = 'github:user/toycli-plugin-__test-transactional-standalone__';
   const standaloneName = '__test-transactional-standalone__';
   const standaloneDir = path.join(PLUGINS_DIR, standaloneName);
-  const monorepoSource = 'github:user/opencli-plugins-__test-transactional__';
-  const monorepoRepoDir = path.join(_getMonoreposDir(), 'opencli-plugins-__test-transactional__');
+  const monorepoSource = 'github:user/toycli-plugins-__test-transactional__';
+  const monorepoRepoDir = path.join(_getMonoreposDir(), 'toycli-plugins-__test-transactional__');
   const monorepoLink = path.join(PLUGINS_DIR, 'alpha');
 
   beforeEach(() => {
@@ -1101,10 +1101,10 @@ describe('installPlugin transactional staging', () => {
         const alphaDir = path.join(cloneDir, 'packages', 'alpha');
         fs.mkdirSync(alphaDir, { recursive: true });
         fs.writeFileSync(path.join(cloneDir, 'package.json'), JSON.stringify({
-          name: 'opencli-plugins-__test-transactional__',
+          name: 'toycli-plugins-__test-transactional__',
           private: true,
         }));
-        fs.writeFileSync(path.join(cloneDir, 'opencli-plugin.json'), JSON.stringify({
+        fs.writeFileSync(path.join(cloneDir, 'toycli-plugin.json'), JSON.stringify({
           plugins: {
             alpha: { path: 'packages/alpha' },
           },
@@ -1157,7 +1157,7 @@ describe('installPlugin with existing monorepo', () => {
       private: true,
       workspaces: ['packages/*'],
     }));
-    fs.writeFileSync(path.join(repoDir, 'opencli-plugin.json'), JSON.stringify({
+    fs.writeFileSync(path.join(repoDir, 'toycli-plugin.json'), JSON.stringify({
       plugins: {
         [pluginName]: { path: `packages/${pluginName}` },
       },
@@ -1168,7 +1168,7 @@ describe('installPlugin with existing monorepo', () => {
       if (cmd === 'git' && Array.isArray(args) && args[0] === 'clone') {
         const cloneDir = String(args[4]);
         fs.mkdirSync(cloneDir, { recursive: true });
-        fs.writeFileSync(path.join(cloneDir, 'opencli-plugin.json'), JSON.stringify({
+        fs.writeFileSync(path.join(cloneDir, 'toycli-plugin.json'), JSON.stringify({
           plugins: {
             [pluginName]: { path: `packages/${pluginName}` },
           },
@@ -1224,7 +1224,7 @@ describe('updatePlugin transactional staging', () => {
     lock[standaloneName] = {
       source: {
         kind: 'git',
-        url: 'https://github.com/user/opencli-plugin-__test-transactional-update__.git',
+        url: 'https://github.com/user/toycli-plugin-__test-transactional-update__.git',
       },
       commitHash: 'oldhasholdhasholdhasholdhasholdhasholdh',
       installedAt: '2025-01-01T00:00:00.000Z',
@@ -1265,7 +1265,7 @@ describe('updatePlugin transactional staging', () => {
     lock[monorepoPluginName] = {
       source: {
         kind: 'monorepo',
-        url: 'https://github.com/user/opencli-plugins-__test-transactional-mono-update__.git',
+        url: 'https://github.com/user/toycli-plugins-__test-transactional-mono-update__.git',
         repoName: monorepoName,
         subPath: `packages/${monorepoPluginName}`,
       },
@@ -1280,10 +1280,10 @@ describe('updatePlugin transactional staging', () => {
         const alphaDir = path.join(cloneDir, 'packages', monorepoPluginName);
         fs.mkdirSync(alphaDir, { recursive: true });
         fs.writeFileSync(path.join(cloneDir, 'package.json'), JSON.stringify({
-          name: 'opencli-plugins-__test-transactional-mono-update__',
+          name: 'toycli-plugins-__test-transactional-mono-update__',
           private: true,
         }));
-        fs.writeFileSync(path.join(cloneDir, 'opencli-plugin.json'), JSON.stringify({
+        fs.writeFileSync(path.join(cloneDir, 'toycli-plugin.json'), JSON.stringify({
           plugins: {
             [monorepoPluginName]: { path: `packages/${monorepoPluginName}` },
           },
@@ -1318,7 +1318,7 @@ describe('updatePlugin transactional staging', () => {
     lock[monorepoPluginName] = {
       source: {
         kind: 'monorepo',
-        url: 'https://github.com/user/opencli-plugins-__test-transactional-mono-update__.git',
+        url: 'https://github.com/user/toycli-plugins-__test-transactional-mono-update__.git',
         repoName: monorepoName,
         subPath: 'packages/old-alpha',
       },
@@ -1332,7 +1332,7 @@ describe('updatePlugin transactional staging', () => {
         const cloneDir = String(args[4]);
         const movedDir = path.join(cloneDir, 'packages', 'moved-alpha');
         fs.mkdirSync(movedDir, { recursive: true });
-        fs.writeFileSync(path.join(cloneDir, 'opencli-plugin.json'), JSON.stringify({
+        fs.writeFileSync(path.join(cloneDir, 'toycli-plugin.json'), JSON.stringify({
           plugins: {
             [monorepoPluginName]: { path: 'packages/moved-alpha' },
           },
@@ -1367,7 +1367,7 @@ describe('updatePlugin transactional staging', () => {
     lock[monorepoPluginName] = {
       source: {
         kind: 'monorepo',
-        url: 'https://github.com/user/opencli-plugins-__test-transactional-mono-update__.git',
+        url: 'https://github.com/user/toycli-plugins-__test-transactional-mono-update__.git',
         repoName: monorepoName,
         subPath: 'packages/old-alpha',
       },
@@ -1380,7 +1380,7 @@ describe('updatePlugin transactional staging', () => {
       if (cmd === 'git' && Array.isArray(args) && args[0] === 'clone') {
         const cloneDir = String(args[4]);
         fs.mkdirSync(cloneDir, { recursive: true });
-        fs.writeFileSync(path.join(cloneDir, 'opencli-plugin.json'), JSON.stringify({
+        fs.writeFileSync(path.join(cloneDir, 'toycli-plugin.json'), JSON.stringify({
           plugins: {
             [monorepoPluginName]: { path: '../outside-alpha' },
           },
@@ -1412,7 +1412,7 @@ describe('updatePlugin transactional staging', () => {
     lock[monorepoPluginName] = {
       source: {
         kind: 'monorepo',
-        url: 'https://github.com/user/opencli-plugins-__test-transactional-mono-update__.git',
+        url: 'https://github.com/user/toycli-plugins-__test-transactional-mono-update__.git',
         repoName: monorepoName,
         subPath: 'packages/old-alpha',
       },
@@ -1426,7 +1426,7 @@ describe('updatePlugin transactional staging', () => {
         const cloneDir = String(args[4]);
         const movedDir = path.join(cloneDir, 'packages', 'moved-alpha');
         fs.mkdirSync(movedDir, { recursive: true });
-        fs.writeFileSync(path.join(cloneDir, 'opencli-plugin.json'), JSON.stringify({
+        fs.writeFileSync(path.join(cloneDir, 'toycli-plugin.json'), JSON.stringify({
           plugins: {
             [monorepoPluginName]: { path: 'packages/moved-alpha' },
           },

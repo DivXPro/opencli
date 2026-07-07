@@ -1,14 +1,14 @@
 ---
-name: opencli-listener
-description: Use when an agent needs to subscribe to realtime page events — live comments, order feeds, continuously updating lists, DOM mutations, or any data a page pushes after load. Covers `opencli listener start/stop/list/status/history/stream/restart`, the daemon `/listener/*` HTTP+SSE API, event types, tab-lifecycle stops, and the per-listenerId dedup model. For declaring listeners inside an adapter manifest, see opencli-adapter-author instead; for one-shot page inspection use opencli-browser.
-allowed-tools: Bash(opencli:*), Read
+name: toycli-listener
+description: Use when an agent needs to subscribe to realtime page events — live comments, order feeds, continuously updating lists, DOM mutations, or any data a page pushes after load. Covers `toycli listener start/stop/list/status/history/stream/restart`, the daemon `/listener/*` HTTP+SSE API, event types, tab-lifecycle stops, and the per-listenerId dedup model. For declaring listeners inside an adapter manifest, see toycli-adapter-author instead; for one-shot page inspection use toycli-browser.
+allowed-tools: Bash(toycli:*), Read
 ---
 
-# opencli-listener
+# toycli-listener
 
 Realtime listeners turn a page from a one-shot scrape into a continuous event stream. The Chrome extension intercepts network responses / DOM mutations / CDP events, pushes them as `listener-event` messages to the daemon's EventBus, and external apps (CLI, Wails, Python, shell) subscribe per `listenerId`. Data is isolated per listenerId — subscribers never see each other's traffic.
 
-This skill is for **consuming** listeners. If you are building a reusable adapter under `clis/<site>/` and want it to *expose* a listener, see `opencli-adapter-author` (it documents the `listeners` manifest field). For a single inspection of what a page is doing, `opencli browser network` in `opencli-browser` is cheaper than standing up a listener.
+This skill is for **consuming** listeners. If you are building a reusable adapter under `clis/<site>/` and want it to *expose* a listener, see `toycli-adapter-author` (it documents the `listeners` manifest field). For a single inspection of what a page is doing, `toycli browser network` in `toycli-browser` is cheaper than standing up a listener.
 
 ## When to use a listener vs `browser network`
 
@@ -21,10 +21,10 @@ This skill is for **consuming** listeners. If you are building a reusable adapte
 Chrome Extension (network / DOM / CDP listeners + tab lifecycle)
         │ WebSocket /ext
         ▼
-OpenCLI Daemon (EventBus per-listenerId ring buffer + ListenerManager dedup)
+ToyCLI Daemon (EventBus per-listenerId ring buffer + ListenerManager dedup)
         │ HTTP /listener/stream (SSE) · /listener/history · /listener/status
         ▼
-External Apps (opencli listener stream · curl · Wails · Python · shell)
+External Apps (toycli listener stream · curl · Wails · Python · shell)
 ```
 
 - The daemon buffers the last 1000 events per `listenerId` in a ring. New subscribers get history via `/listener/history`, then live events via `/listener/stream`.
@@ -33,10 +33,10 @@ External Apps (opencli listener stream · curl · Wails · Python · shell)
 ## Prerequisites
 
 ```bash
-opencli doctor
+toycli doctor
 ```
 
-Same as `opencli-browser`: daemon green + extension installed + Chrome running. Listeners do not work with `PUBLIC` / `LOCAL` adapters — they need the live browser. The `--url` page must be one you can already drive (logged in if the site requires it).
+Same as `toycli-browser`: daemon green + extension installed + Chrome running. Listeners do not work with `PUBLIC` / `LOCAL` adapters — they need the live browser. The `--url` page must be one you can already drive (logged in if the site requires it).
 
 ---
 
@@ -46,7 +46,7 @@ The `listener` group is a top-level command group, peer to `browser` / `external
 
 ```bash
 # Start a listener — opens (or reuses) a tab at --url and begins observing
-opencli listener start \
+toycli listener start \
   --site buyin --adapter live-products \
   --listener comments --source network \
   --url https://buyin.jinritemai.com/dashboard/live/control
@@ -54,22 +54,22 @@ opencli listener start \
 # optional: --selector ".comment-list" (dom: CSS selector to observe)
 
 # Stream events to stdout as JSONL (SSE) — blocks until you stop / listener dies
-opencli listener stream --listener comments
+toycli listener stream --listener comments
 
 # Print buffered history (no live tail) — useful to inspect without holding a stream
-opencli listener history --listener comments
-opencli listener history --listener comments --since 1700000000000   # epoch ms
+toycli listener history --listener comments
+toycli listener history --listener comments --since 1700000000000   # epoch ms
 
 # List ACTIVE listeners only
-opencli listener list
+toycli listener list
 # Show ALL listener states (active + stopped)
-opencli listener status
+toycli listener status
 
 # Stop a listener
-opencli listener stop --site buyin --adapter live-products --listener comments
+toycli listener stop --site buyin --adapter live-products --listener comments
 
 # Restart (stop + start) — use to refresh a stale tab or change --url
-opencli listener restart --site buyin --adapter live-products \
+toycli listener restart --site buyin --adapter live-products \
   --listener comments --source network \
   --url https://buyin.jinritemai.com/dashboard/live/control
 ```
@@ -90,8 +90,8 @@ opencli listener restart --site buyin --adapter live-products \
 ### Mental model
 
 1. **One page, one observer.** `--url` is the page the listener watches. For `network` source, `--pattern` narrows which responses get emitted (substring match on the request URL). For `dom` source, `--selector` picks the subtree; MutationObserver options come from the manifest's `mutationOptions` (defaults: childList + subtree).
-2. **`listenerId` is the routing key.** It must match the `id` of a `listeners[]` entry in the adapter manifest — that's what makes `opencli listener start --listener <id>` discoverable. If you start a listener without a matching manifest entry it still runs (the manifest is documentation + discovery, the daemon trusts the CLI args), but `opencli listener list` won't show a helpful description.
-3. **`stream` blocks.** It's an SSE subscription. In a script, pipe it: `opencli listener stream --listener comments | while read line; do ...; done`. In an agent, prefer `history` for bounded inspection and `stream` only when you genuinely need the tail.
+2. **`listenerId` is the routing key.** It must match the `id` of a `listeners[]` entry in the adapter manifest — that's what makes `toycli listener start --listener <id>` discoverable. If you start a listener without a matching manifest entry it still runs (the manifest is documentation + discovery, the daemon trusts the CLI args), but `toycli listener list` won't show a helpful description.
+3. **`stream` blocks.** It's an SSE subscription. In a script, pipe it: `toycli listener stream --listener comments | while read line; do ...; done`. In an agent, prefer `history` for bounded inspection and `stream` only when you genuinely need the tail.
 4. **History is bounded.** The daemon keeps the last 1000 events per `listenerId`. If you need more, drain `stream` yourself.
 
 ---
@@ -113,14 +113,14 @@ Daemon listens on `127.0.0.1:19825`. The same surface the CLI uses; useful for W
 ```bash
 # start (extension must be connected)
 curl -X POST http://127.0.0.1:19825/listener/start \
-  -H 'X-OpenCLI: 1' -H 'Content-Type: application/json' \
+  -H 'X-ToyCLI: 1' -H 'Content-Type: application/json' \
   -d '{"site":"buyin","adapter":"live-products","listenerId":"comments","source":"network","url":"https://buyin.jinritemai.com/dashboard/live/control","pattern":"comment/info"}'
 
 # stream
 curl -N http://127.0.0.1:19825/listener/stream?listenerId=comments
 ```
 
-> `X-OpenCLI` is a required custom header on POST endpoints (CSRF guard — browsers can't send it without a CORS preflight, which the daemon denies). The SSE `/stream` endpoint does not require the header (it sets `Access-Control-Allow-Origin` to the chrome-extension origin or `null`).
+> `X-ToyCLI` is a required custom header on POST endpoints (CSRF guard — browsers can't send it without a CORS preflight, which the daemon denies). The SSE `/stream` endpoint does not require the header (it sets `Access-Control-Allow-Origin` to the chrome-extension origin or `null`).
 
 ### Wails / Go
 
@@ -178,7 +178,7 @@ External apps decide whether to auto-reconnect on `stopped` — `POST /listener/
 
 ## Deduplication
 
-At most one active listener per `site/adapter:listenerId`. A second `start` with the same key does **not** open a second tab — the daemon returns `status: 'already-running'` and points at the existing `ListenerState`. To force a refresh, use `opencli listener restart` (stop + start), or `stop` then `start` with a new `--url`.
+At most one active listener per `site/adapter:listenerId`. A second `start` with the same key does **not** open a second tab — the daemon returns `status: 'already-running'` and points at the existing `ListenerState`. To force a refresh, use `toycli listener restart` (stop + start), or `stop` then `start` with a new `--url`.
 
 This is per-listenerId, not per-page: two different listenerIds on the same adapter can run simultaneously and each gets its own buffer + stream.
 
@@ -190,37 +190,37 @@ This is per-listenerId, not per-page: two different listenerIds on the same adap
 
 ```bash
 # 1. one-shot: which endpoint does the page hit?
-opencli browser b open "https://buyin.jinritemai.com/dashboard/live/control"
-opencli browser b network --filter "comment"
+toycli browser b open "https://buyin.jinritemai.com/dashboard/live/control"
+toycli browser b network --filter "comment"
 # -> find the comment/info request, note the URL substring
 
 # 2. confirm it fires more than once (live)
-opencli browser b wait time 5
-opencli browser b network --filter "comment"      # should show new entries
+toycli browser b wait time 5
+toycli browser b network --filter "comment"      # should show new entries
 
 # 3. only now escalate to a listener
-opencli listener start --site buyin --adapter live-products \
+toycli listener start --site buyin --adapter live-products \
   --listener comments --source network --pattern "comment/info" \
   --url "https://buyin.jinritemai.com/dashboard/live/control"
-opencli listener stream --listener comments
+toycli listener stream --listener comments
 ```
 
 ### Bounded history inspection (no live tail)
 
 ```bash
-opencli listener start ...                                   # leave it running
+toycli listener start ...                                   # leave it running
 # ... some time later, agent wants to reason over what happened ...
-opencli listener history --listener comments                 # last 1000 events
-opencli listener history --listener comments --since $(date +%s%3N)   # only this minute
+toycli listener history --listener comments                 # last 1000 events
+toycli listener history --listener comments --since $(date +%s%3N)   # only this minute
 ```
 
 ### Watch a DOM list that appends items
 
 ```bash
-opencli listener start --site foo --adapter feed --listener items \
+toycli listener start --site foo --adapter feed --listener items \
   --source dom --selector ".feed-item" \
   --url "https://foo.com/feed"
-opencli listener stream --listener items
+toycli listener stream --listener items
 ```
 
 The manifest's `mutationOptions` controls what triggers a `data` event (default `childList + subtree`). If you see no events, the page may be appending into a child node the default subtree covers — click around or check the adapter's `listeners[]` declaration.
@@ -231,7 +231,7 @@ The manifest's `mutationOptions` controls what triggers a `data` event (default 
 # in your consumer loop:
 #  on event.type === 'stopped':
 curl -X POST http://127.0.0.1:19825/listener/start \
-  -H 'X-OpenCLI: 1' -H 'Content-Type: application/json' \
+  -H 'X-ToyCLI: 1' -H 'Content-Type: application/json' \
   -d '{"site":"...","adapter":"...","listenerId":"...","source":"network","url":"...","pattern":"..."}'
 ```
 
@@ -243,21 +243,21 @@ curl -X POST http://127.0.0.1:19825/listener/start \
 - **`already-running` is not an error.** It means your `start` was a no-op. If you actually wanted a fresh tab, `restart` instead.
 - **History is capped at 1000 events per listenerId.** Long-running feeds will evict the oldest. If you need a complete log, drain `stream` to a file.
 - **`stream` holds a connection open.** In an agent, an unbounded `stream` command will block forever — wrap it with a timeout or pipe to a consumer that exits.
-- **Don't assume the manifest lists every listener.** `opencli listener start` works without a manifest entry (the daemon trusts your flags), but you lose the description in `list` and the discovery story. Adapter authors should declare listeners — see `opencli-adapter-author`.
+- **Don't assume the manifest lists every listener.** `toycli listener start` works without a manifest entry (the daemon trusts your flags), but you lose the description in `list` and the discovery story. Adapter authors should declare listeners — see `toycli-adapter-author`.
 - **The page must stay open.** Closing the tab / window stops the listener. If your consumer needs resilience, reconnect on `stopped` rather than treating it as fatal.
 
 ## Troubleshooting
 
 | symptom | fix |
 |---------|-----|
-| `start` returns 503 / `extension_not_connected` | `opencli doctor` — Chrome not running or extension not installed |
+| `start` returns 503 / `extension_not_connected` | `toycli doctor` — Chrome not running or extension not installed |
 | `start` returns `409 profile_required` | Multiple Browser Bridge profiles connected; pass `contextId` (CLI: `--profile`), same as browser commands |
-| `stream` connects but no `data` events | `--pattern`/`--selector` doesn't match what the page emits; open the URL in a real tab and `opencli browser <s> network` to confirm the endpoint, then narrow `--pattern` |
-| `stream` ends immediately | listener stopped — check `opencli listener status` for the `reason`; most likely `tab-closed` or `page-navigated` |
+| `stream` connects but no `data` events | `--pattern`/`--selector` doesn't match what the page emits; open the URL in a real tab and `toycli browser <s> network` to confirm the endpoint, then narrow `--pattern` |
+| `stream` ends immediately | listener stopped — check `toycli listener status` for the `reason`; most likely `tab-closed` or `page-navigated` |
 | `history` returns `[]` but you saw events earlier | older than the ring cap, or wrong `listenerId` (id is scoped to one adapter) |
 
 ## See also
 
-- `opencli-adapter-author` — declaring `listeners[]` in an adapter manifest (network pattern / dom selector / mutationOptions / outputSchema).
-- `opencli-browser` — one-shot `browser network` / `browser state` for inspecting a page before deciding to stand up a listener.
-- `opencli-usage` — top-level map of all opencli command groups.
+- `toycli-adapter-author` — declaring `listeners[]` in an adapter manifest (network pattern / dom selector / mutationOptions / outputSchema).
+- `toycli-browser` — one-shot `browser network` / `browser state` for inspecting a page before deciding to stand up a listener.
+- `toycli-usage` — top-level map of all toycli command groups.

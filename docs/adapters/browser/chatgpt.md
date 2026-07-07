@@ -6,60 +6,60 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli chatgpt ask <prompt>` | Send a prompt and wait for the visible response |
-| `opencli chatgpt send <prompt>` | Send a prompt without waiting |
-| `opencli chatgpt read` | Read the current conversation |
-| `opencli chatgpt history` | List visible conversation history links from the sidebar |
-| `opencli chatgpt detail <id-or-url>` | Open a conversation by `/c/<id>` and read it |
-| `opencli chatgpt deep-research-result <id-or-url>` | Read a completed Deep Research report from a conversation |
-| `opencli chatgpt new` | Start a new conversation |
-| `opencli chatgpt status` | Check page and login state |
-| `opencli chatgpt image <prompt>` | Generate images in ChatGPT web and optionally save them locally |
-| `opencli chatgpt model <level>` | Switch the ChatGPT web intelligence level |
+| `toycli chatgpt ask <prompt>` | Send a prompt and wait for the visible response |
+| `toycli chatgpt send <prompt>` | Send a prompt without waiting |
+| `toycli chatgpt read` | Read the current conversation |
+| `toycli chatgpt history` | List visible conversation history links from the sidebar |
+| `toycli chatgpt detail <id-or-url>` | Open a conversation by `/c/<id>` and read it |
+| `toycli chatgpt deep-research-result <id-or-url>` | Read a completed Deep Research report from a conversation |
+| `toycli chatgpt new` | Start a new conversation |
+| `toycli chatgpt status` | Check page and login state |
+| `toycli chatgpt image <prompt>` | Generate images in ChatGPT web and optionally save them locally |
+| `toycli chatgpt model <level>` | Switch the ChatGPT web intelligence level |
 
 ## Usage Examples
 
 ```bash
 # Ask and wait for the answer
-opencli chatgpt ask "Summarize the tradeoffs of browser session reuse"
+toycli chatgpt ask "Summarize the tradeoffs of browser session reuse"
 
 # Continue the same ChatGPT tab but do not wait for the answer
-opencli chatgpt send "Now turn that into a checklist"
+toycli chatgpt send "Now turn that into a checklist"
 
 # Read the current conversation
-opencli chatgpt read --markdown true
+toycli chatgpt read --markdown true
 
 # List recent visible conversations and read one by id or URL
-opencli chatgpt history --limit 10
-opencli chatgpt detail "https://chatgpt.com/c/<conversation-id>"
+toycli chatgpt history --limit 10
+toycli chatgpt detail "https://chatgpt.com/c/<conversation-id>"
 
 # Extract a completed Deep Research report
-opencli chatgpt deep-research-result "https://chatgpt.com/c/<conversation-id>" --wait true --timeout 600
+toycli chatgpt deep-research-result "https://chatgpt.com/c/<conversation-id>" --wait true --timeout 600
 
 # Start a fresh chat
-opencli chatgpt new
+toycli chatgpt new
 
 # Generate an image and save it to the default directory
-opencli chatgpt image "a cyberpunk city at night"
+toycli chatgpt image "a cyberpunk city at night"
 
 # Switch ChatGPT's intelligence level
-opencli chatgpt model fast
-opencli chatgpt model balanced
-opencli chatgpt model advanced
-opencli chatgpt model very-high
-opencli chatgpt model pro
+toycli chatgpt model fast
+toycli chatgpt model balanced
+toycli chatgpt model advanced
+toycli chatgpt model very-high
+toycli chatgpt model pro
 
 # Upload a local image, ask ChatGPT to edit it, and save the result
-opencli chatgpt image "make the background blue" --image ./cat.png
+toycli chatgpt image "make the background blue" --image ./cat.png
 
 # Upload multiple local images for a combined edit
-opencli chatgpt image "combine these into a poster" --image ./cat.png,./logo.png
+toycli chatgpt image "combine these into a poster" --image ./cat.png,./logo.png
 
 # Save to a custom output directory
-opencli chatgpt image "a robot sketching on paper" --op ~/Downloads/chatgpt-images
+toycli chatgpt image "a robot sketching on paper" --op ~/Downloads/chatgpt-images
 
 # Only generate in ChatGPT and print the conversation link
-opencli chatgpt image "a tiny watercolor fox" --sd true
+toycli chatgpt image "a tiny watercolor fox" --sd true
 ```
 
 ## Options

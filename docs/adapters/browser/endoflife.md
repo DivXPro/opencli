@@ -8,19 +8,19 @@ Look up release cycles and end-of-life / LTS / support dates for hundreds of pro
 
 | Command | Description |
 |---------|-------------|
-| `opencli endoflife product <name>` | Release cycles + EOL / LTS / support dates for one product |
+| `toycli endoflife product <name>` | Release cycles + EOL / LTS / support dates for one product |
 
 ## Usage Examples
 
 ```bash
 # Node.js cycles (newest first)
-opencli endoflife product nodejs
+toycli endoflife product nodejs
 
 # Python, JSON output for scripts
-opencli endoflife product python -f json
+toycli endoflife product python -f json
 
 # Ubuntu LTS schedule
-opencli endoflife product ubuntu
+toycli endoflife product ubuntu
 ```
 
 ## Output Columns

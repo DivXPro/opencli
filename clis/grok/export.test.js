@@ -102,7 +102,7 @@ describe('grok export-all command', () => {
     });
 
     function writeManifest(rows) {
-        tempDir = mkdtempSync(join(tmpdir(), 'opencli-grok-export-test-'));
+        tempDir = mkdtempSync(join(tmpdir(), 'toycli-grok-export-test-'));
         const path = join(tempDir, 'manifest.json');
         writeFileSync(path, JSON.stringify(rows), 'utf8');
         return path;

@@ -6,31 +6,31 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli tieba hot` | Read Tieba trending topics |
-| `opencli tieba posts <forum>` | List threads in one forum |
-| `opencli tieba search <keyword>` | Search threads across Tieba |
-| `opencli tieba read <thread-id>` | Read one thread page |
+| `toycli tieba hot` | Read Tieba trending topics |
+| `toycli tieba posts <forum>` | List threads in one forum |
+| `toycli tieba search <keyword>` | Search threads across Tieba |
+| `toycli tieba read <thread-id>` | Read one thread page |
 
 ## Usage Examples
 
 ```bash
 # Trending topics
-opencli tieba hot --limit 5
+toycli tieba hot --limit 5
 
 # List forum threads
-opencli tieba posts 李毅 --limit 10
+toycli tieba posts 李毅 --limit 10
 
 # Search Tieba
-opencli tieba search 编程 --limit 10
+toycli tieba search 编程 --limit 10
 
 # Read one thread
-opencli tieba read 10163164720 --limit 10
+toycli tieba read 10163164720 --limit 10
 
 # Read page 2 of a thread
-opencli tieba read 10163164720 --page 2 --limit 10
+toycli tieba read 10163164720 --page 2 --limit 10
 
 # JSON output
-opencli tieba hot -f json
+toycli tieba hot -f json
 ```
 
 ## Notes

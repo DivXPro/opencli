@@ -18,11 +18,11 @@ source: global
 
 ### action:open_submissions
 pre: on /user?id=<handle>
-do: opencli hackernews user <handle> || click `a[href^="submitted?id="]`
+do: toycli hackernews user <handle> || click `a[href^="submitted?id="]`
 post: URL → /submitted?id=<handle>，story list visible
 fail: redirect 404 (handle 不存在)
-recover: handle 不存在抛 CommandExecutionError; adapter_health_update: opencli hackernews user -> suspect
-evidence: opencli hackernews user <handle>
+recover: handle 不存在抛 CommandExecutionError; adapter_health_update: toycli hackernews user -> suspect
+evidence: toycli hackernews user <handle>
 
 ## Linked APIs
 

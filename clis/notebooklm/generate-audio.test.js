@@ -34,12 +34,12 @@ describe('notebooklm generate-audio', () => {
 
     it('parseAudioIdFromResult walks the tree for a UUID-shaped audio id', () => {
         const id = '38da0e55-2360-4d3e-8573-61b5a6c0c219';
-        expect(parseAudioIdFromResult([[id, 'opencli-audio-benjaminliu', 1]])).toBe(id);
+        expect(parseAudioIdFromResult([[id, 'toycli-audio-benjaminliu', 1]])).toBe(id);
         expect(parseAudioIdFromResult({ result: { audioId: id } })).toBe(id);
     });
 
     it('parseAudioIdFromResult ignores non-UUID strings', () => {
-        expect(parseAudioIdFromResult([[null, 'opencli-audio-benjaminliu', 1]])).toBe('');
+        expect(parseAudioIdFromResult([[null, 'toycli-audio-benjaminliu', 1]])).toBe('');
         expect(parseAudioIdFromResult({})).toBe('');
         expect(parseAudioIdFromResult([])).toBe('');
         expect(parseAudioIdFromResult(null)).toBe('');

@@ -142,8 +142,8 @@ function fixtureDocument() {
             thread({ threadId: 'local:stock-sync', hostId: 'local', kind: 'local', active: true }, '同步各仓库最新代码', '4 小时'),
             thread({ threadId: 'local:trading-agents' }, '借鉴 TradingAgents', '2 小时'),
         ]),
-        project('opencli', '/Users/youngcan/opencli', [
-            thread({ threadId: 'local:opencli-groups' }, '统一 opencli 二级命令分组', '1 天'),
+        project('toycli', '/Users/youngcan/toycli', [
+            thread({ threadId: 'local:toycli-groups' }, '统一 toycli 二级命令分组', '1 天'),
         ]),
     ]);
 }
@@ -169,13 +169,13 @@ describe('codex sidebar helpers', () => {
 
     it('flattens project rows with project filters', () => {
         const projects = collectCodexProjectsFromDocument(fixtureDocument());
-        const rows = flattenCodexProjects(projects, { project: 'opencli' });
+        const rows = flattenCodexProjects(projects, { project: 'toycli' });
 
         expect(rows).toEqual([
             expect.objectContaining({
-                Project: 'opencli',
+                Project: 'toycli',
                 Index: 1,
-                Title: '统一 opencli 二级命令分组',
+                Title: '统一 toycli 二级命令分组',
                 Updated: '1 天',
             }),
         ]);
@@ -194,16 +194,16 @@ describe('codex sidebar helpers', () => {
         projects.push({
             index: 3,
             project: 'nested',
-            projectPath: '/Users/youngcan/opencli/nested',
+            projectPath: '/Users/youngcan/toycli/nested',
             collapsed: false,
             conversations: [
                 { index: 1, title: 'Nested thread', updated: '', active: false, threadId: 'local:nested' },
             ],
         });
 
-        const rows = flattenCodexProjects(projects, { project: 'opencli' });
+        const rows = flattenCodexProjects(projects, { project: 'toycli' });
 
-        expect(rows.map(row => row.Project)).toEqual(['opencli']);
+        expect(rows.map(row => row.Project)).toEqual(['toycli']);
     });
 
     it('selects a conversation by project and title', () => {
@@ -252,15 +252,15 @@ describe('codex sidebar helpers', () => {
 
     it('selects a conversation by index within a project', () => {
         const result = selectCodexConversationInDocument({
-            project: '/Users/youngcan/opencli',
+            project: '/Users/youngcan/toycli',
             index: '1',
         }, fixtureDocument());
 
         expect(result).toMatchObject({
             ok: true,
-            project: 'opencli',
-            conversation: '统一 opencli 二级命令分组',
-            threadId: 'local:opencli-groups',
+            project: 'toycli',
+            conversation: '统一 toycli 二级命令分组',
+            threadId: 'local:toycli-groups',
         });
     });
 

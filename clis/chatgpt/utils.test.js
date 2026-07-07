@@ -1182,7 +1182,7 @@ describe('chatgpt generated image detection', () => {
 
 describe('chatgpt image upload helper', () => {
     it('validates local images without a browser page', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'cat.png');
         fs.writeFileSync(filePath, 'fake-png');
@@ -1195,7 +1195,7 @@ describe('chatgpt image upload helper', () => {
     });
 
     it('prefers Browser Bridge file input upload and waits for a preview', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'cat.png');
         fs.writeFileSync(filePath, 'fake-png');
@@ -1227,7 +1227,7 @@ describe('chatgpt image upload helper', () => {
     });
 
     it('rejects non-image extensions', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'report.pdf');
         fs.writeFileSync(filePath, 'fake');
@@ -1246,7 +1246,7 @@ describe('chatgpt image upload helper', () => {
     });
 
     it('passes a React-compatible change event in fallback upload', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'cat.png');
         fs.writeFileSync(filePath, 'fake-png');
@@ -1273,7 +1273,7 @@ describe('chatgpt image upload helper', () => {
     });
 
     it('does not treat generic upload controls as uploaded image previews', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'cat.png');
         fs.writeFileSync(filePath, 'fake-png');
@@ -1299,7 +1299,7 @@ describe('chatgpt image upload helper', () => {
     });
 
     it('accepts a real uploaded media preview even when the filename text is absent', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'cat.png');
         fs.writeFileSync(filePath, 'fake-png');
@@ -1389,7 +1389,7 @@ describe('chatgpt project navigation', () => {
 
 describe('chatgpt file path validation', () => {
     it('validates local files for project upload (any type)', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const pdfPath = path.join(dir, 'report.pdf');
         fs.writeFileSync(pdfPath, 'fake-pdf');
@@ -1534,7 +1534,7 @@ describe('chatgpt project file upload helper', () => {
     });
 
     it('projects file upload uses dialog file input selectors and waits for filename confirmation', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'report.pdf');
         fs.writeFileSync(filePath, 'fake-pdf');
@@ -1574,7 +1574,7 @@ describe('chatgpt project file upload helper', () => {
     });
 
     it('returns failure when project upload confirmation does not appear', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'missing-confirmation.pdf');
         fs.writeFileSync(filePath, 'fake-pdf');
@@ -1605,7 +1605,7 @@ describe('chatgpt project file upload helper', () => {
     });
 
     it('does not treat composer/body filename text as project knowledge confirmation', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'composer-only.pdf');
         fs.writeFileSync(filePath, 'fake-pdf');

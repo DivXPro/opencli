@@ -1,7 +1,7 @@
 // eastmoney money-flow — main-force net inflow ranking (沪深A今日/5日/10日).
 //
-//   opencli eastmoney money-flow
-//   opencli eastmoney money-flow --range 5d --limit 30
+//   toycli eastmoney money-flow
+//   toycli eastmoney money-flow --range 5d --limit 30
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

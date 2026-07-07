@@ -12,28 +12,28 @@ and `flights.ctrip.com`.
 
 | Command | Mode | Description |
 |---------|------|-------------|
-| `opencli ctrip search` | Public | Suggest cities, scenic spots, railway stations and landmarks |
-| `opencli ctrip hotel-suggest` | Public | Suggest cities, business areas and individual hotels |
-| `opencli ctrip hotel-search` | Browser (cookie) | List hotels for a city + check-in/out date range |
-| `opencli ctrip flight` | Browser (cookie) | One-way flight search by IATA route + departure date |
+| `toycli ctrip search` | Public | Suggest cities, scenic spots, railway stations and landmarks |
+| `toycli ctrip hotel-suggest` | Public | Suggest cities, business areas and individual hotels |
+| `toycli ctrip hotel-search` | Browser (cookie) | List hotels for a city + check-in/out date range |
+| `toycli ctrip flight` | Browser (cookie) | One-way flight search by IATA route + departure date |
 
 ## Usage Examples
 
 ```bash
 # Destination suggest
-opencli ctrip search 苏州 --limit 10
+toycli ctrip search 苏州 --limit 10
 
 # Hotel-context suggest (cities / business areas / hotels)
-opencli ctrip hotel-suggest 陆家嘴 --limit 5
+toycli ctrip hotel-suggest 陆家嘴 --limit 5
 
 # Hotel listing (city ID from `search` / `hotel-suggest`)
-opencli ctrip hotel-search 2 --checkin 2026-05-20 --checkout 2026-05-21 --limit 10
+toycli ctrip hotel-search 2 --checkin 2026-05-20 --checkout 2026-05-21 --limit 10
 
 # One-way flight search
-opencli ctrip flight BJS SHA --date 2026-05-20 --limit 20
+toycli ctrip flight BJS SHA --date 2026-05-20 --limit 20
 
 # JSON output
-opencli ctrip search 上海 -f json
+toycli ctrip search 上海 -f json
 ```
 
 ## Suggest Columns (`search` / `hotel-suggest`)

@@ -1,13 +1,13 @@
-# Connecting OpenCLI via CDP (Remote/Headless Servers)
+# Connecting ToyCLI via CDP (Remote/Headless Servers)
 
-If you cannot use the opencli Browser Bridge extension (e.g., in a remote headless server environment without a UI), OpenCLI provides an alternative: connecting directly to Chrome via **CDP (Chrome DevTools Protocol)**.
+If you cannot use the toycli Browser Bridge extension (e.g., in a remote headless server environment without a UI), ToyCLI provides an alternative: connecting directly to Chrome via **CDP (Chrome DevTools Protocol)**.
 
 Because CDP binds to `localhost` by default for security reasons, accessing it from a remote server requires an additional networking tunnel.
 
 This guide is broken down into three phases:
 1. **Preparation**: Start Chrome with CDP enabled locally.
 2. **Network Tunnels**: Expose that CDP port to your remote server using either **SSH Tunnels** or **Reverse Proxies**.
-3. **Execution**: Run OpenCLI on your server.
+3. **Execution**: Run ToyCLI on your server.
 
 ---
 
@@ -77,27 +77,27 @@ This will print a forwarding URL, such as `https://abcdef.ngrok.app`. **Copy thi
 
 ## Phase 3: Execution (Remote Server)
 
-Now switch to your **Remote Server** where OpenCLI is installed. 
+Now switch to your **Remote Server** where ToyCLI is installed. 
 
-Depending on the network tunnel method you chose in Phase 2, set the `OPENCLI_CDP_ENDPOINT` environment variable and run your commands.
+Depending on the network tunnel method you chose in Phase 2, set the `TOYCLI_CDP_ENDPOINT` environment variable and run your commands.
 
 ### If you used Method A (SSH Tunnel):
 
 ```bash
-export OPENCLI_CDP_ENDPOINT="http://localhost:9222"
-opencli doctor                    # Verify connection
-opencli bilibili hot --limit 5    # Test a command
+export TOYCLI_CDP_ENDPOINT="http://localhost:9222"
+toycli doctor                    # Verify connection
+toycli bilibili hot --limit 5    # Test a command
 ```
 
 ### If you used Method B (Reverse Proxy like ngrok):
 
 ```bash
 # Use the URL you copied from ngrok earlier
-export OPENCLI_CDP_ENDPOINT="https://abcdef.ngrok.app"
-opencli doctor                    # Verify connection
-opencli bilibili hot --limit 5    # Test a command
+export TOYCLI_CDP_ENDPOINT="https://abcdef.ngrok.app"
+toycli doctor                    # Verify connection
+toycli bilibili hot --limit 5    # Test a command
 ```
 
-> *Tip: If you provide a standard HTTP/HTTPS CDP endpoint, OpenCLI requests the `/json` target list and picks the most likely inspectable app/page target automatically. If multiple app targets exist, you can further narrow selection with `OPENCLI_CDP_TARGET` (for example `antigravity` or `codex`).*
+> *Tip: If you provide a standard HTTP/HTTPS CDP endpoint, ToyCLI requests the `/json` target list and picks the most likely inspectable app/page target automatically. If multiple app targets exist, you can further narrow selection with `TOYCLI_CDP_TARGET` (for example `antigravity` or `codex`).*
 
 If you plan to use this setup frequently, you can persist the environment variable by adding the `export` line to your `~/.bashrc` or `~/.zshrc` on the server.

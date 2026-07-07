@@ -6,7 +6,7 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli brave search <keyword>` | Search Brave Search and extract results from the page |
+| `toycli brave search <keyword>` | Search Brave Search and extract results from the page |
 
 ## What works today
 
@@ -25,16 +25,16 @@
 
 ```bash
 # Basic search
-opencli brave search "machine learning"
+toycli brave search "machine learning"
 
 # Limit results
-opencli brave search "machine learning" --limit 5
+toycli brave search "machine learning" --limit 5
 
 # Pagination (second page)
-opencli brave search "machine learning" --offset 1
+toycli brave search "machine learning" --offset 1
 
 # JSON output
-opencli brave search "machine learning" -f json
+toycli brave search "machine learning" -f json
 ```
 
 ## Prerequisites

@@ -21,7 +21,7 @@ import { normalizeTwitterScreenName, unwrapBrowserResult } from './shared.js';
  *
  * Note: Twitter does NOT render follower COUNTS in the list view, so the
  * `followers` column is omitted from the output schema. Use
- * `opencli twitter profile <user>` to read a per-user follower count.
+ * `toycli twitter profile <user>` to read a per-user follower count.
  */
 async function extractFollowersFromDOM(page) {
     const script = `() => {
@@ -106,7 +106,7 @@ cli({
         const rawUser = String(kwargs.user ?? '').trim();
         let targetUser = normalizeScreenName(rawUser);
         if (rawUser && !targetUser) {
-            throw new ArgumentError('twitter followers user must be a valid Twitter/X handle', 'Example: opencli twitter followers @elonmusk --limit 100');
+            throw new ArgumentError('twitter followers user must be a valid Twitter/X handle', 'Example: toycli twitter followers @elonmusk --limit 100');
         }
         if (!targetUser) {
             await page.goto('https://x.com/home');
@@ -126,7 +126,7 @@ cli({
             }
         }
         if (!targetUser) {
-            throw new ArgumentError('twitter followers user cannot be empty', 'Example: opencli twitter followers @elonmusk --limit 100');
+            throw new ArgumentError('twitter followers user cannot be empty', 'Example: toycli twitter followers @elonmusk --limit 100');
         }
 
         // 1. Navigate to profile page

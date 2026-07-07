@@ -58,7 +58,7 @@ async function main() {
     const tasks: BrowseTask[] = JSON.parse(readFileSync(TASKS_FILE, 'utf-8'));
     // Show only failing tasks
     for (const task of tasks) {
-      try { exec('opencli browser close'); } catch {}
+      try { exec('toycli browser close'); } catch {}
       let lastOutput = '';
       for (const step of task.steps) lastOutput = exec(step);
       const passed = lastOutput.trim().length > 0; // simplified check
@@ -83,7 +83,7 @@ async function main() {
 
   // Phase 1: Gather — run the task and capture output
   console.log('Phase 1: Gathering symptoms...');
-  try { exec('opencli browser close'); } catch {}
+  try { exec('toycli browser close'); } catch {}
 
   let lastOutput = '';
   for (let i = 0; i < task.steps.length; i++) {
@@ -120,11 +120,11 @@ ${lastOutput.slice(0, 500)}
 4. If CONFIRMED: describe the root cause and suggest a fix
 5. Output format: one line "HYPOTHESIS: ...", one line "RESULT: CONFIRMED|DISPROVEN|INCONCLUSIVE — ..."
 
-Do NOT fix the code — just diagnose. Use opencli browser commands to investigate.`;
+Do NOT fix the code — just diagnose. Use toycli browser commands to investigate.`;
 
     try {
       const result = execSync(
-        `claude -p --dangerously-skip-permissions --allowedTools "Bash(opencli:*),Bash(npm:*),Read,Grep,Glob" --output-format text --no-session-persistence "${prompt.replace(/"/g, '\\"')}"`,
+        `claude -p --dangerously-skip-permissions --allowedTools "Bash(toycli:*),Bash(npm:*),Read,Grep,Glob" --output-format text --no-session-persistence "${prompt.replace(/"/g, '\\"')}"`,
         { cwd: ROOT, timeout: 120_000, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
       ).trim();
 
@@ -152,11 +152,11 @@ Do NOT fix the code — just diagnose. Use opencli browser commands to investiga
     }
 
     // Re-run task for fresh output
-    try { exec('opencli browser close'); } catch {}
+    try { exec('toycli browser close'); } catch {}
     for (const step of task.steps) lastOutput = exec(step);
   }
 
-  try { exec('opencli browser close'); } catch {}
+  try { exec('toycli browser close'); } catch {}
   console.log(`\nDebug log saved to: ${DEBUG_LOG}\n`);
 }
 

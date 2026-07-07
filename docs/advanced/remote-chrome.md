@@ -1,6 +1,6 @@
 # Remote Chrome
 
-Run OpenCLI on a server or headless environment by connecting to a remote Chrome instance.
+Run ToyCLI on a server or headless environment by connecting to a remote Chrome instance.
 
 ## Use Cases
 
@@ -31,10 +31,10 @@ ssh -L 9222:127.0.0.1:9222 user@remote-host
 Use `127.0.0.1` instead of `localhost` in the SSH command to avoid IPv6 resolution issues that can cause timeouts.
 :::
 
-### 3. Configure OpenCLI
+### 3. Configure ToyCLI
 
 ```bash
-export OPENCLI_CDP_ENDPOINT="http://127.0.0.1:9222"
+export TOYCLI_CDP_ENDPOINT="http://127.0.0.1:9222"
 ```
 
 ### 4. Verify
@@ -44,7 +44,7 @@ export OPENCLI_CDP_ENDPOINT="http://127.0.0.1:9222"
 curl http://127.0.0.1:9222/json/version
 
 # Run a diagnostic
-opencli doctor
+toycli doctor
 ```
 
 ## CI/CD Integration

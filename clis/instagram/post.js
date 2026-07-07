@@ -12,7 +12,7 @@ const MAX_MEDIA_ITEMS = 10;
 const INSTAGRAM_PROTOCOL_TRACE_OUTPUT_PATH = '/tmp/instagram_post_protocol_trace.json';
 async function gotoInstagramHome(page, forceReload = false) {
     if (forceReload) {
-        await page.goto(`${INSTAGRAM_HOME_URL}?__opencli_reset=${Date.now()}`);
+        await page.goto(`${INSTAGRAM_HOME_URL}?__toycli_reset=${Date.now()}`);
         await page.wait({ time: 1 });
     }
     await page.goto(INSTAGRAM_HOME_URL);
@@ -429,10 +429,10 @@ async function findUploadSelectors(page, mediaItems) {
         .filter((el, index, arr) => arr.indexOf(el) === index);
       if (!ordered.length) return { ok: false };
 
-      document.querySelectorAll('[data-opencli-ig-upload-index]').forEach((el) => el.removeAttribute('data-opencli-ig-upload-index'));
+      document.querySelectorAll('[data-toycli-ig-upload-index]').forEach((el) => el.removeAttribute('data-toycli-ig-upload-index'));
       const selectors = ordered.map((input, index) => {
-        input.setAttribute('data-opencli-ig-upload-index', String(index));
-        return '[data-opencli-ig-upload-index="' + index + '"]';
+        input.setAttribute('data-toycli-ig-upload-index', String(index));
+        return '[data-toycli-ig-upload-index="' + index + '"]';
       });
       return { ok: true, selectors };
     })(${JSON.stringify(includesVideo)})
@@ -469,7 +469,7 @@ async function resolveUploadSelectors(page, mediaItems) {
     }
 }
 function extractSelectorIndex(selector) {
-    const match = selector.match(/data-opencli-ig-upload-index="(\d+)"/);
+    const match = selector.match(/data-toycli-ig-upload-index="(\d+)"/);
     if (!match)
         return null;
     const index = Number.parseInt(match[1] || '', 10);
@@ -496,7 +496,7 @@ async function injectImageViaBrowser(page, imagePaths, selector) {
             base64: fs.readFileSync(imagePath).toString('base64'),
         };
     });
-    const chunkKey = `__opencliInstagramUpload_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    const chunkKey = `__toycliInstagramUpload_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     const chunkSize = 256 * 1024;
     await page.evaluate(`
     (() => {
@@ -1421,7 +1421,7 @@ cli({
         const finalPreviewWaitSeconds = getFinalPreviewWaitSeconds(mediaItems);
         const preShareDelaySeconds = getPreShareDelaySeconds(mediaItems);
         const inlineUploadRetryBudget = getInlineUploadRetryBudget(mediaItems);
-        const protocolCaptureEnabled = process.env.OPENCLI_INSTAGRAM_CAPTURE === '1';
+        const protocolCaptureEnabled = process.env.TOYCLI_INSTAGRAM_CAPTURE === '1';
         const protocolCaptureData = [];
         const protocolCaptureErrors = [];
         const installProtocolCapture = async () => {

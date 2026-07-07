@@ -42,7 +42,7 @@ export interface NetworkCacheFile {
 }
 
 function getDefaultCacheDir(): string {
-    return process.env.OPENCLI_CACHE_DIR || path.join(os.homedir(), '.opencli', 'cache');
+    return process.env.TOYCLI_CACHE_DIR || path.join(os.homedir(), '.toycli', 'cache');
 }
 
 export function getCachePath(session: string, baseDir: string = getDefaultCacheDir()): string {

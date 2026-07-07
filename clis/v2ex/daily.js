@@ -16,8 +16,8 @@ cli({
     func: async (page) => {
         if (!page)
             throw new CommandExecutionError('Browser page required');
-        if (process.env.OPENCLI_VERBOSE) {
-            console.error('[opencli:v2ex] Navigating to /mission/daily');
+        if (process.env.TOYCLI_VERBOSE) {
+            console.error('[toycli:v2ex] Navigating to /mission/daily');
         }
         await page.goto('https://www.v2ex.com/mission/daily');
         // Cloudflare challenge bypass wait
@@ -26,8 +26,8 @@ cli({
             const title = await page.evaluate(`() => document.title`);
             if (!title?.includes('Just a moment'))
                 break;
-            if (process.env.OPENCLI_VERBOSE)
-                console.error('[opencli:v2ex] Waiting for Cloudflare...');
+            if (process.env.TOYCLI_VERBOSE)
+                console.error('[toycli:v2ex] Waiting for Cloudflare...');
         }
         // Evaluate DOM to find if we need to check in
         const checkResult = await page.evaluate(`
@@ -54,9 +54,9 @@ cli({
       }
     `);
         if (checkResult.error) {
-            if (process.env.OPENCLI_VERBOSE) {
-                console.error(`[opencli:v2ex:debug] Page Title: ${checkResult.debug_title}`);
-                console.error(`[opencli:v2ex:debug] Page Body: ${checkResult.debug_body}`);
+            if (process.env.TOYCLI_VERBOSE) {
+                console.error(`[toycli:v2ex:debug] Page Title: ${checkResult.debug_title}`);
+                console.error(`[toycli:v2ex:debug] Page Body: ${checkResult.debug_body}`);
             }
             throw new CommandExecutionError(checkResult.error);
         }
@@ -64,8 +64,8 @@ cli({
             return [{ status: '✅ 已签到', message: checkResult.message }];
         }
         // Perform check in
-        if (process.env.OPENCLI_VERBOSE) {
-            console.error(`[opencli:v2ex] Found check-in token: once=${checkResult.once}. Checking in...`);
+        if (process.env.TOYCLI_VERBOSE) {
+            console.error(`[toycli:v2ex] Found check-in token: once=${checkResult.once}. Checking in...`);
         }
         await page.goto(`https://www.v2ex.com/mission/daily/redeem?once=${checkResult.once}`);
         await new Promise(resolve => setTimeout(resolve, 3000)); // wait longer for redirect

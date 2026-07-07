@@ -42,7 +42,7 @@ describe('boss search', () => {
                         securityId: 'sec',
                         jobName: '前端开发实习生',
                         salaryDesc: '150-200/天',
-                        brandName: 'OpenCLI',
+                        brandName: 'ToyCLI',
                         cityName: '北京',
                         areaDistrict: '海淀区',
                         businessDistrict: '',

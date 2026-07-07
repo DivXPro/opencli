@@ -92,7 +92,7 @@ export type ObservationExportStatus = 'success' | 'failure';
 
 export interface ObservationTraceReceipt {
   schemaVersion: 1;
-  opencliVersion: string;
+  toycliVersion: string;
   traceId: string;
   traceDir: string;
   summaryPath: string;

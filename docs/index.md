@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: OpenCLI
+  name: ToyCLI
   text: Make any website or Electron App your CLI
   tagline: Zero risk · Reuse Chrome login · AI-powered discovery · Browser + Desktop automation
   actions:
@@ -11,7 +11,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View on GitHub
-      link: https://github.com/scopai/opencli
+      link: https://github.com/toy-box/toycli
 
 features:
   - icon: 🖥️

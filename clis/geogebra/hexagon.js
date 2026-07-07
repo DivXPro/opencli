@@ -17,7 +17,7 @@ cli({
   strategy: Strategy.PUBLIC,
   browser: true,
   navigateBefore: false,
-  example: 'opencli geogebra hexagon --size 3',
+  example: 'toycli geogebra hexagon --size 3',
   args: [
     { name: 'size', required: false, default: '2', help: 'Radius of the hexagon (default: 2)' },
   ],
@@ -45,7 +45,7 @@ cli({
 
     const objectCount = await ggbWaitForObjectCount(page, 7);
     const objects = await ggbListObjects(page);
-    const screenshotPath = path.join(os.tmpdir(), 'opencli-geogebra-hexagon.png');
+    const screenshotPath = path.join(os.tmpdir(), 'toycli-geogebra-hexagon.png');
     try {
       await page.screenshot({ path: screenshotPath });
     } catch (err) {

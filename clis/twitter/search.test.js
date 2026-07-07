@@ -165,7 +165,7 @@ describe('twitter search command', () => {
                 };
             }),
         };
-        const result = await command.func(page, { query: 'opencli', limit: 7 });
+        const result = await command.func(page, { query: 'toycli', limit: 7 });
         expect(result).toHaveLength(7);
         expect(result.map((row) => row.id)).toEqual(['1', '2', '3', '4', '5', '6', '7']);
         expect(page.evaluate).toHaveBeenCalledTimes(8);

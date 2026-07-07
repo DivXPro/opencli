@@ -6,16 +6,16 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli aibase news` | AIbase daily AI industry news |
+| `toycli aibase news` | AIbase daily AI industry news |
 
 ## Usage Examples
 
 ```bash
 # Latest AIbase daily news
-opencli aibase news --limit 20
+toycli aibase news --limit 20
 
 # JSON output
-opencli aibase news --limit 10 -f json
+toycli aibase news --limit 10 -f json
 ```
 
 ## Notes

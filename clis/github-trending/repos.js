@@ -135,7 +135,7 @@ cli({
         try {
             resp = await fetch(url, {
                 headers: {
-                    'User-Agent': 'Mozilla/5.0 (compatible; opencli/github-trending)',
+                    'User-Agent': 'Mozilla/5.0 (compatible; toycli/github-trending)',
                     Accept: 'text/html',
                 },
             });

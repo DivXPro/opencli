@@ -95,8 +95,8 @@ describe('browser helpers', () => {
     expect(target?.webSocketDebuggerUrl).toBe('ws://127.0.0.1:9224/app');
   });
 
-  it('honors OPENCLI_CDP_TARGET when multiple inspectable targets exist', () => {
-    vi.stubEnv('OPENCLI_CDP_TARGET', 'codex');
+  it('honors TOYCLI_CDP_TARGET when multiple inspectable targets exist', () => {
+    vi.stubEnv('TOYCLI_CDP_TARGET', 'codex');
 
     const target = cdpTest.selectCDPTarget([
       {

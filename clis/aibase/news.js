@@ -9,10 +9,10 @@ function normalizeLimit(value) {
     const raw = value ?? DEFAULT_LIMIT;
     const limit = Number(raw);
     if (!Number.isInteger(limit) || limit <= 0) {
-        throw new ArgumentError('limit must be a positive integer', `Example: opencli aibase news --limit ${DEFAULT_LIMIT}`);
+        throw new ArgumentError('limit must be a positive integer', `Example: toycli aibase news --limit ${DEFAULT_LIMIT}`);
     }
     if (limit > MAX_LIMIT) {
-        throw new ArgumentError(`limit must be <= ${MAX_LIMIT}`, `Example: opencli aibase news --limit ${MAX_LIMIT}`);
+        throw new ArgumentError(`limit must be <= ${MAX_LIMIT}`, `Example: toycli aibase news --limit ${MAX_LIMIT}`);
     }
     return limit;
 }

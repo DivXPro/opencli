@@ -63,7 +63,7 @@ export async function extractBookTitle(page) {
  * Clicks the three-dot menu to reveal download options.
  * NOTE: Z-Library download links redirect through /dl/<hash> URLs.
  * These require browser cookies and may not produce direct file downloads
- * in OpenCLI's browser automation. For actual file downloading,
+ * in ToyCLI's browser automation. For actual file downloading,
  * consider using Playwright's download event handling instead.
  */
 export async function extractFormats(page) {

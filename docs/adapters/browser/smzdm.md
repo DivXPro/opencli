@@ -6,19 +6,19 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli smzdm search` | |
+| `toycli smzdm search` | |
 
 ## Usage Examples
 
 ```bash
 # Quick start
-opencli smzdm search --limit 5
+toycli smzdm search --limit 5
 
 # JSON output
-opencli smzdm search -f json
+toycli smzdm search -f json
 
 # Verbose mode
-opencli smzdm search -v
+toycli smzdm search -v
 ```
 
 ## Prerequisites

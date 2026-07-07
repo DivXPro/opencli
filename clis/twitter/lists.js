@@ -124,7 +124,7 @@ export const command = cli({
         const ct0 = cookies.find((c) => c.name === 'ct0')?.value || null;
         if (!ct0)
             throw new AuthRequiredError('x.com', 'Not logged into x.com (no ct0 cookie)');
-        // opencli >=1.7.x wraps primitive page.evaluate returns as { session, data: <value> }.
+        // toycli >=1.7.x wraps primitive page.evaluate returns as { session, data: <value> }.
         const unwrap = (v) => (v && typeof v === 'object' && 'session' in v && 'data' in v ? v.data : v);
         const queryIdRaw = await page.evaluate(`async () => {
             try {

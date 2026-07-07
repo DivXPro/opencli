@@ -1,7 +1,7 @@
 // eastmoney convertible — on-market convertible bond listing.
 //
-//   opencli eastmoney convertible
-//   opencli eastmoney convertible --sort premium --limit 30
+//   toycli eastmoney convertible
+//   toycli eastmoney convertible --sort premium --limit 30
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

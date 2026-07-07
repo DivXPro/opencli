@@ -8,11 +8,11 @@ Read Jira issues, comments, attachments, and links through Atlassian REST APIs. 
 
 | Command | Description |
 |---------|-------------|
-| `opencli jira issue <KEY>` | Normalized issue context for agents |
-| `opencli jira search <JQL>` | Search issues with JQL |
-| `opencli jira comments <KEY>` | Issue comments as Markdown |
-| `opencli jira attachments <KEY>` | Issue attachment metadata |
-| `opencli jira links <KEY>` | Linked Jira issues |
+| `toycli jira issue <KEY>` | Normalized issue context for agents |
+| `toycli jira search <JQL>` | Search issues with JQL |
+| `toycli jira comments <KEY>` | Issue comments as Markdown |
+| `toycli jira attachments <KEY>` | Issue attachment metadata |
+| `toycli jira links <KEY>` | Linked Jira issues |
 
 ## Configuration
 
@@ -37,22 +37,22 @@ Cloud instances default to Jira REST API v3. Data Center instances use Jira REST
 
 ```bash
 # Full issue context, including description, comments, attachments, and links
-opencli jira issue PROJ-123 -f json
+toycli jira issue PROJ-123 -f json
 
 # Search with JQL
-opencli jira search "project = PROJ order by updated desc" --limit 20 -f json
+toycli jira search "project = PROJ order by updated desc" --limit 20 -f json
 
 # Focused reads
-opencli jira comments PROJ-123 -f json
-opencli jira attachments PROJ-123 -f json
-opencli jira links PROJ-123 -f json
+toycli jira comments PROJ-123 -f json
+toycli jira attachments PROJ-123 -f json
+toycli jira links PROJ-123 -f json
 ```
 
 ## Output Notes
 
 - `issue` returns an agent-friendly object with `key`, `summary`, `status`, `priority`, `description.markdown`, `comments`, `attachments`, `linkedIssues`, versions, components, and timestamps.
 - Jira Cloud ADF descriptions and comments are converted to Markdown.
-- Rendered Jira HTML from Data Center is converted through OpenCLI's Markdown converter.
+- Rendered Jira HTML from Data Center is converted through ToyCLI's Markdown converter.
 - Invalid issue keys fail early with `ArgumentError`.
 
 ## Custom Fields

@@ -6,22 +6,22 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli huodongxing events` | Search Huodongxing events by tag, city, date range, event type, and title keyword |
+| `toycli huodongxing events` | Search Huodongxing events by tag, city, date range, event type, and title keyword |
 
 ## Usage Examples
 
 ```bash
 # AI events across all cities for a date range
-opencli huodongxing events --tag AI --city 全部 --date 2026-06-09 --dateTo 2026-06-12
+toycli huodongxing events --tag AI --city 全部 --date 2026-06-09 --dateTo 2026-06-12
 
 # Offline events only
-opencli huodongxing events --tag AI --city 上海 --eventType 1
+toycli huodongxing events --tag AI --city 上海 --eventType 1
 
 # Online events only
-opencli huodongxing events --eventType 2 --qs Agentic --limit 10
+toycli huodongxing events --eventType 2 --qs Agentic --limit 10
 
 # JSON output
-opencli huodongxing events --tag AI --city 北京 -f json
+toycli huodongxing events --tag AI --city 北京 -f json
 ```
 
 ## Filters

@@ -8,28 +8,28 @@ Read-only adapter against the public Chess.com endpoints. `stats`, `games`, `gam
 
 | Command | Description |
 |---------|-------------|
-| `opencli chess stats <username>` | Player rating + win/loss/draw record across game kinds (rapid / blitz / bullet / daily / chess960) |
-| `opencli chess games <username>` | Recent games newest-first across one or more monthly archives |
-| `opencli chess game <game-url>` | Single-game detail (white, black, result, ECO, termination, ply count) by full game URL |
-| `opencli chess analyze <game-url>` | Open the game in Chess.com's analysis board in the bound browser session |
+| `toycli chess stats <username>` | Player rating + win/loss/draw record across game kinds (rapid / blitz / bullet / daily / chess960) |
+| `toycli chess games <username>` | Recent games newest-first across one or more monthly archives |
+| `toycli chess game <game-url>` | Single-game detail (white, black, result, ECO, termination, ply count) by full game URL |
+| `toycli chess analyze <game-url>` | Open the game in Chess.com's analysis board in the bound browser session |
 
 ## Usage Examples
 
 ```bash
 # Stats
-opencli chess stats hikaru
-opencli chess stats magnuscarlsen -f json
+toycli chess stats hikaru
+toycli chess stats magnuscarlsen -f json
 
 # Recent games (default 10, max 100)
-opencli chess games hikaru
-opencli chess games erik --limit 25
+toycli chess games hikaru
+toycli chess games erik --limit 25
 
 # Single-game detail from a game URL
-opencli chess game https://www.chess.com/game/live/168842570216
-opencli chess game https://www.chess.com/game/daily/947761777
+toycli chess game https://www.chess.com/game/live/168842570216
+toycli chess game https://www.chess.com/game/daily/947761777
 
 # Open in Chess.com analysis board (browser session required)
-opencli chess analyze https://www.chess.com/game/live/168842570216
+toycli chess analyze https://www.chess.com/game/live/168842570216
 ```
 
 ## Columns
@@ -102,7 +102,7 @@ Usernames are normalized to lowercase and matched against `^[a-zA-Z0-9_-]{3,25}$
 
 `game` uses `/callback/{live\|daily}/game/{id}` on `www.chess.com` (the same JSON the Chess.com web client hits when rendering a game page). The public REST surface at `api.chess.com/pub` has no single-game endpoint; the callback path is the cleanest way to honour "PGN for specific game" without DOM scraping.
 
-`analyze` is a thin wrapper around `page.goto('/analysis/game/<kind>/<id>')`. Requires a bound browser session; if you only need to open a URL, `opencli browser <session> open <url>` is the more general primitive.
+`analyze` is a thin wrapper around `page.goto('/analysis/game/<kind>/<id>')`. Requires a bound browser session; if you only need to open a URL, `toycli browser <session> open <url>` is the more general primitive.
 
 ## Out of Scope
 

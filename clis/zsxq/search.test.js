@@ -14,7 +14,7 @@ describe('zsxq search command', () => {
                 .mockResolvedValueOnce(true)
                 .mockResolvedValueOnce(null),
         };
-        await expect(command.func(mockPage, { keyword: 'opencli', limit: 20 })).rejects.toMatchObject({
+        await expect(command.func(mockPage, { keyword: 'toycli', limit: 20 })).rejects.toMatchObject({
             code: 'ARGUMENT',
             message: 'Cannot determine active group_id',
         });

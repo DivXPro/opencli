@@ -131,8 +131,8 @@ export function formatBrowserConnectError(kind: ConnectFailureKind, detail?: str
   switch (kind) {
     case 'daemon-not-running':
       return new BrowserConnectError(
-        'Cannot connect to opencli daemon.' + (detail ? `\n\n${detail}` : ''),
-        `Run \`opencli doctor\` to diagnose, or \`opencli daemon restart\` to force a fresh daemon. Default port is ${DEFAULT_DAEMON_PORT}.`,
+        'Cannot connect to toycli daemon.' + (detail ? `\n\n${detail}` : ''),
+        `Run \`toycli doctor\` to diagnose, or \`toycli daemon restart\` to force a fresh daemon. Default port is ${DEFAULT_DAEMON_PORT}.`,
         kind,
       );
     case 'extension-not-connected':

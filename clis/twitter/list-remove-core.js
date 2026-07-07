@@ -132,8 +132,8 @@ export async function listRemoveUser(page, kwargs) {
                 return null;
             };
             try {
-                if (!window.__opencliListMutations) {
-                    window.__opencliListMutations = [];
+                if (!window.__toycliListMutations) {
+                    window.__toycliListMutations = [];
                     const origFetch = window.fetch.bind(window);
                     window.fetch = async function(...args) {
                         const url = typeof args[0] === 'string' ? args[0] : (args[0] && args[0].url) || '';
@@ -141,17 +141,17 @@ export async function listRemoveUser(page, kwargs) {
                         let resp;
                         try { resp = await origFetch(...args); } catch (err) {
                             if (/ListAddMember|ListRemoveMember|lists\\/members\\/(create|destroy)/.test(url)) {
-                                window.__opencliListMutations.push({ url, method, status: 0, error: String(err), ts: Date.now() });
+                                window.__toycliListMutations.push({ url, method, status: 0, error: String(err), ts: Date.now() });
                             }
                             throw err;
                         }
                         if (/ListAddMember|ListRemoveMember|lists\\/members\\/(create|destroy)/.test(url)) {
-                            window.__opencliListMutations.push({ url, method, status: resp.status, ts: Date.now() });
+                            window.__toycliListMutations.push({ url, method, status: resp.status, ts: Date.now() });
                         }
                         return resp;
                     };
                 }
-                window.__opencliListMutations.length = 0;
+                window.__toycliListMutations.length = 0;
 
                 const caret = await waitFor(() => findOne('[data-testid="userActions"]'));
                 if (!caret) return { ok: false, message: 'Could not find user actions (…) button' };
@@ -231,7 +231,7 @@ export async function listRemoveUser(page, kwargs) {
                     rowClickY: Math.round(rowRect.top + rowRect.height / 2),
                     saveClickX: saveRect ? Math.round(saveRect.left + saveRect.width / 2) : null,
                     saveClickY: saveRect ? Math.round(saveRect.top + saveRect.height / 2) : null,
-                    mutationsBefore: window.__opencliListMutations.length,
+                    mutationsBefore: window.__toycliListMutations.length,
                 };
             } catch (e) {
                 return { ok: false, message: 'UI error: ' + (e?.message || String(e)) };

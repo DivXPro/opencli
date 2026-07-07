@@ -8,21 +8,21 @@ Fetch metadata for any IETF RFC by number — title, abstract, publishing workin
 
 | Command | Description |
 |---------|-------------|
-| `opencli rfc rfc <number>` | Single IETF RFC metadata (title, abstract, working group, authors, std level) |
+| `toycli rfc rfc <number>` | Single IETF RFC metadata (title, abstract, working group, authors, std level) |
 
 ## Usage Examples
 
 ```bash
 # Modern RFCs
-opencli rfc rfc 9000     # QUIC
-opencli rfc rfc 9110     # HTTP semantics
+toycli rfc rfc 9000     # QUIC
+toycli rfc rfc 9110     # HTTP semantics
 
 # Classic RFCs
-opencli rfc rfc 791      # IP
-opencli rfc rfc 2616     # HTTP/1.1 (now obsoleted by 9110)
+toycli rfc rfc 791      # IP
+toycli rfc rfc 2616     # HTTP/1.1 (now obsoleted by 9110)
 
 # Courtesy: "rfcN" prefix accepted
-opencli rfc rfc rfc9000
+toycli rfc rfc rfc9000
 ```
 
 ## Output Columns

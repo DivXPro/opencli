@@ -380,7 +380,7 @@ async function fetchDuckDuckGoIndexRows(query, limit) {
             const response = await fetch(url, {
                 headers: {
                     Accept: 'text/plain, text/markdown, */*',
-                    'User-Agent': 'opencli-jianyu-search/1.0',
+                    'User-Agent': 'toycli-jianyu-search/1.0',
                 },
             });
             if (!response.ok)

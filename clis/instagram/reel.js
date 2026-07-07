@@ -16,7 +16,7 @@ function requirePage(page) {
 }
 async function gotoInstagramHome(page, forceReload = false) {
     if (forceReload) {
-        await page.goto(`${INSTAGRAM_HOME_URL}?__opencli_reset=${Date.now()}`);
+        await page.goto(`${INSTAGRAM_HOME_URL}?__toycli_reset=${Date.now()}`);
         await page.wait({ time: 1 });
     }
     await page.goto(INSTAGRAM_HOME_URL);
@@ -56,7 +56,7 @@ function isRecoverableReelSessionError(error) {
 }
 function buildSafeTempVideoPath(filePath) {
     const ext = path.extname(filePath).toLowerCase() || '.mp4';
-    return path.join(os.tmpdir(), `opencli-instagram-video-real${ext}`);
+    return path.join(os.tmpdir(), `toycli-instagram-video-real${ext}`);
 }
 function prepareVideoUpload(filePath) {
     const baseName = path.basename(filePath);
@@ -178,8 +178,8 @@ async function resolveUploadSelectors(page) {
           if (input.disabled) continue;
           const accept = (input.getAttribute('accept') || '').toLowerCase();
           if (accept && !accept.includes('video') && !accept.includes('.mp4')) continue;
-          input.setAttribute('data-opencli-reel-upload-index', String(index));
-          selectors.push('[data-opencli-reel-upload-index="' + index + '"]');
+          input.setAttribute('data-toycli-reel-upload-index', String(index));
+          selectors.push('[data-toycli-reel-upload-index="' + index + '"]');
           index += 1;
         }
       }

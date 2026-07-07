@@ -1,12 +1,12 @@
 /**
  * CLI commands for realtime listener management:
- *   opencli listener start   — start a realtime listener
- *   opencli listener stop    — stop a running listener
- *   opencli listener list    — list active listeners
- *   opencli listener status  — show all listener states
- *   opencli listener history — print buffered events as JSONL
- *   opencli listener stream  — stream events as JSONL (SSE)
- *   opencli listener restart — stop then start a listener
+ *   toycli listener start   — start a realtime listener
+ *   toycli listener stop    — stop a running listener
+ *   toycli listener list    — list active listeners
+ *   toycli listener status  — show all listener states
+ *   toycli listener history — print buffered events as JSONL
+ *   toycli listener stream  — stream events as JSONL (SSE)
+ *   toycli listener restart — stop then start a listener
  */
 
 import {

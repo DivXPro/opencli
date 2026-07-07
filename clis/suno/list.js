@@ -1,7 +1,7 @@
 /**
- * `opencli suno list` — list recent clips in the user's library. Lets agents
+ * `toycli suno list` — list recent clips in the user's library. Lets agents
  * discover clip ids without needing to remember them, and feed them to
- * `opencli suno download`.
+ * `toycli suno download`.
  */
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';

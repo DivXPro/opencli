@@ -6,34 +6,34 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli amazon bestsellers [<best-sellers-url>]` | Read Amazon Best Sellers pages for ranked candidate discovery |
-| `opencli amazon search "<query>"` | Read Amazon search results for coarse filtering |
-| `opencli amazon product <asin-or-url>` | Read a product page with title, price, rating, breadcrumbs, and bullets |
-| `opencli amazon offer <asin-or-url>` | Read seller / fulfillment / buy-box facts from the product page |
-| `opencli amazon discussion <asin-or-url>` | Read review summary and sample customer reviews |
-| `opencli amazon movers-shakers [<url>]` | Amazon Movers & Shakers pages for short-term growth signals |
-| `opencli amazon new-releases [<url>]` | Amazon New Releases pages for early momentum discovery |
+| `toycli amazon bestsellers [<best-sellers-url>]` | Read Amazon Best Sellers pages for ranked candidate discovery |
+| `toycli amazon search "<query>"` | Read Amazon search results for coarse filtering |
+| `toycli amazon product <asin-or-url>` | Read a product page with title, price, rating, breadcrumbs, and bullets |
+| `toycli amazon offer <asin-or-url>` | Read seller / fulfillment / buy-box facts from the product page |
+| `toycli amazon discussion <asin-or-url>` | Read review summary and sample customer reviews |
+| `toycli amazon movers-shakers [<url>]` | Amazon Movers & Shakers pages for short-term growth signals |
+| `toycli amazon new-releases [<url>]` | Amazon New Releases pages for early momentum discovery |
 
 ## Usage Examples
 
 ```bash
 # Root Best Sellers page
-opencli amazon bestsellers https://www.amazon.com/Best-Sellers/zgbs --limit 10 -f json
+toycli amazon bestsellers https://www.amazon.com/Best-Sellers/zgbs --limit 10 -f json
 
 # Category-specific Best Sellers page
-opencli amazon bestsellers "<category-best-sellers-url>" --limit 50 -f json
+toycli amazon bestsellers "<category-best-sellers-url>" --limit 50 -f json
 
 # Search products
-opencli amazon search "desk shelf organizer" --limit 20 -f json
+toycli amazon search "desk shelf organizer" --limit 20 -f json
 
 # Validate one product
-opencli amazon product B0FJS72893 -f json
+toycli amazon product B0FJS72893 -f json
 
 # Validate seller / offer facts
-opencli amazon offer B0FJS72893 -f json
+toycli amazon offer B0FJS72893 -f json
 
 # Read review summary + samples
-opencli amazon discussion B0FJS72893 --limit 5 -f json
+toycli amazon discussion B0FJS72893 --limit 5 -f json
 ```
 
 ## Prerequisites
@@ -51,5 +51,5 @@ opencli amazon discussion B0FJS72893 --limit 5 -f json
 ## Troubleshooting
 
 - If Amazon shows a robot-check page, clear it in Chrome and retry.
-- If CDP is attached to the wrong tab, retry with `OPENCLI_CDP_TARGET=amazon.com`.
+- If CDP is attached to the wrong tab, retry with `TOYCLI_CDP_TARGET=amazon.com`.
 - Avoid running multiple Amazon browser commands in parallel against the same shared Chrome target.

@@ -82,7 +82,7 @@ describe('linkedin people-search command', () => {
         expect(normalizeProfileUrl('https://linkedin.com/in/bob-builder')).toBe('https://www.linkedin.com/in/bob-builder/');
         expect(normalizeProfileUrl('https://evil-linkedin.com/in/bob-builder')).toBe('');
         expect(normalizeProfileUrl('http://www.linkedin.com/in/bob-builder')).toBe('');
-        expect(normalizeProfileUrl('https://www.linkedin.com/company/opencli')).toBe('');
+        expect(normalizeProfileUrl('https://www.linkedin.com/company/toycli')).toBe('');
     });
 
     it('detects LinkedIn auth-wall URLs separately from CUL redirects', () => {

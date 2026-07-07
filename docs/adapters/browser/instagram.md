@@ -6,49 +6,49 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli instagram profile` | Get user profile info |
-| `opencli instagram search` | Search users |
-| `opencli instagram user` | Get recent posts from a user |
-| `opencli instagram explore` | Discover trending posts |
-| `opencli instagram followers` | List user's followers |
-| `opencli instagram following` | List user's following |
-| `opencli instagram saved` | Get your saved posts (or one collection) |
-| `opencli instagram collection-create` | Create a new saved-posts collection |
-| `opencli instagram collection-delete` | Delete a saved-posts collection by name or id |
+| `toycli instagram profile` | Get user profile info |
+| `toycli instagram search` | Search users |
+| `toycli instagram user` | Get recent posts from a user |
+| `toycli instagram explore` | Discover trending posts |
+| `toycli instagram followers` | List user's followers |
+| `toycli instagram following` | List user's following |
+| `toycli instagram saved` | Get your saved posts (or one collection) |
+| `toycli instagram collection-create` | Create a new saved-posts collection |
+| `toycli instagram collection-delete` | Delete a saved-posts collection by name or id |
 
 ## Usage Examples
 
 ```bash
 # View a user's profile
-opencli instagram profile nasa
+toycli instagram profile nasa
 
 # Search users
-opencli instagram search nasa --limit 5
+toycli instagram search nasa --limit 5
 
 # View a user's recent posts
-opencli instagram user nasa --limit 10
+toycli instagram user nasa --limit 10
 
 # Discover trending posts
-opencli instagram explore --limit 20
+toycli instagram explore --limit 20
 
 # List followers/following
-opencli instagram followers nasa --limit 20
-opencli instagram following nasa --limit 20
+toycli instagram followers nasa --limit 20
+toycli instagram following nasa --limit 20
 
 # Get your saved posts (default "All posts" feed)
-opencli instagram saved --limit 10
+toycli instagram saved --limit 10
 
 # Get posts from a specific collection (case-insensitive name match)
-opencli instagram saved --collection inspiration --limit 10
+toycli instagram saved --collection inspiration --limit 10
 
 # Create a new saved-posts collection
-opencli instagram collection-create "design refs"
+toycli instagram collection-create "design refs"
 
 # Delete a collection by name (or by numeric id, e.g. 17853899493659567)
-opencli instagram collection-delete "design refs"
+toycli instagram collection-delete "design refs"
 
 # JSON output
-opencli instagram profile nasa -f json
+toycli instagram profile nasa -f json
 ```
 
 ### Notes on collections

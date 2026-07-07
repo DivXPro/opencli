@@ -21,7 +21,7 @@ async function runAndRead(
   contentHtml: string,
   opts: { cleanSelectors?: string[] } = {},
 ): Promise<string> {
-  const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-article-'));
+  const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-article-'));
   tempDirs.push(tempDir);
   const result = await downloadArticle({
     title: 'Test Article',
@@ -37,7 +37,7 @@ async function runAndRead(
 
 describe('downloadArticle', () => {
   it('returns the saved markdown file path on success', async () => {
-    const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-article-'));
+    const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-article-'));
     tempDirs.push(tempDir);
 
     const result = await downloadArticle({
@@ -235,7 +235,7 @@ describe('downloadArticle', () => {
 
   describe('stdout mode', () => {
     it('writes markdown to process.stdout and skips file write', async () => {
-      const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-article-'));
+      const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-article-'));
       tempDirs.push(tempDir);
 
       const chunks: string[] = [];
@@ -269,7 +269,7 @@ describe('downloadArticle', () => {
     });
 
     it('keeps remote image URLs intact in stdout mode (no download)', async () => {
-      const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'opencli-article-'));
+      const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toycli-article-'));
       tempDirs.push(tempDir);
 
       const chunks: string[] = [];

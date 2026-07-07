@@ -7,7 +7,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const WIKIDATA_BASE = 'https://www.wikidata.org';
-const UA = 'opencli-wikidata-adapter/1.0 (+https://github.com/jackwener/opencli; mailto:opencli@example.com)';
+const UA = 'toycli-wikidata-adapter/1.0 (+https://github.com/toy-box/toycli; mailto:toycli@example.com)';
 
 // Q-ID = an item; P-ID = a property; L-ID = a lexeme. We accept all three so the
 // adapter can be reused for properties / lexemes without a separate command, but

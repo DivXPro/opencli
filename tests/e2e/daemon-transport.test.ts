@@ -30,7 +30,7 @@ const ROOT = path.resolve(__dirname, '../..');
 const DAEMON_ENTRY = path.join(ROOT, 'dist', 'src', 'daemon.js');
 const PORT = 19825;
 const BASE = `http://127.0.0.1:${PORT}`;
-const HEADERS = { 'X-OpenCLI': '1', 'Content-Type': 'application/json' };
+const HEADERS = { 'X-ToyCLI': '1', 'Content-Type': 'application/json' };
 
 type WireResult = {
   id?: string;
@@ -144,7 +144,7 @@ describe('daemon transport contracts (real daemon)', () => {
 
   beforeAll(async () => {
     if (await isPortBusy()) {
-      skipReason = `Port ${PORT} is already in use; stop the local opencli daemon before running this suite`;
+      skipReason = `Port ${PORT} is already in use; stop the local toycli daemon before running this suite`;
       if (process.env.CI === 'true') throw new Error(skipReason);
       return;
     }

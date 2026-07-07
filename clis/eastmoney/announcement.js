@@ -1,7 +1,7 @@
 // eastmoney announcement — listed company filings/announcements feed.
 //
-//   opencli eastmoney announcement
-//   opencli eastmoney announcement --market SHA --limit 30
+//   toycli eastmoney announcement
+//   toycli eastmoney announcement --market SHA --limit 30
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

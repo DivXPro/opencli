@@ -16,7 +16,7 @@ describe('apple-podcasts search command', () => {
                     {
                         collectionId: 42,
                         collectionName: 'Machine Learning Guide',
-                        artistName: 'OpenCLI',
+                        artistName: 'ToyCLI',
                         trackCount: 12,
                         primaryGenreName: 'Technology',
                     },
@@ -34,7 +34,7 @@ describe('apple-podcasts search command', () => {
             expect.objectContaining({
                 id: 42,
                 title: 'Machine Learning Guide',
-                author: 'OpenCLI',
+                author: 'ToyCLI',
                 episodes: 12,
                 genre: 'Technology',
                 url: '',

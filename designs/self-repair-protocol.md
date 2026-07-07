@@ -12,7 +12,7 @@
 
 ## Problem Statement
 
-When an AI agent uses `opencli <site> <command>` and the command fails because the site changed DOM, API, or response schema, the agent should automatically repair the adapter and retry without human intervention or pre-written spec files.
+When an AI agent uses `toycli <site> <command>` and the command fails because the site changed DOM, API, or response schema, the agent should automatically repair the adapter and retry without human intervention or pre-written spec files.
 
 From first principles, the agent needs five things:
 
@@ -31,7 +31,7 @@ The command itself is the spec. The trace artifact is the evidence channel.
 ### Core Protocol
 
 ```text
-Agent runs: opencli <site> <command> [args...]
+Agent runs: toycli <site> <command> [args...]
   -> Command succeeds -> continue task
   -> Command fails ->
       1. Re-run with --trace retain-on-failure to collect a trace artifact
@@ -51,7 +51,7 @@ Only modify the adapter file identified by `adapterSourcePath` in trace `summary
 That path may be:
 
 - `clis/<site>/*.js` — repo-local adapters in a source checkout
-- `~/.opencli/clis/<site>/*.js` — user-local adapters in npm install scenarios
+- `~/.toycli/clis/<site>/*.js` — user-local adapters in npm install scenarios
 
 The agent must use the trace summary path, not guess a repo-relative path. This matters for npm-installed users where `clis/` may not be in the working directory.
 
@@ -68,7 +68,7 @@ Never modify:
 | Signal | Meaning | Action |
 |--------|---------|--------|
 | Auth/login error | Not logged into site in Chrome | Tell user to log in, don't modify code |
-| Browser bridge not connected | Extension/daemon not running | Tell user to run `opencli doctor` |
+| Browser bridge not connected | Extension/daemon not running | Tell user to run `toycli doctor` |
 | CAPTCHA | Site requires human verification | Report, don't modify code |
 | Rate limited / IP blocked | Not an adapter issue | Report, wait and retry later |
 | Feature removed by site | Data no longer exists | Report, adapter may need deprecation |
@@ -89,16 +89,16 @@ Never modify:
 | Trace artifact output | Done | `src/observation/` |
 | Error envelope trace metadata | Done | `src/errors.ts`, `src/execution.ts` |
 | Adapter source resolution | Done | `src/adapter-source.ts` |
-| AutoFix skill protocol | Done | `skills/opencli-autofix/SKILL.md` |
+| AutoFix skill protocol | Done | `skills/toycli-autofix/SKILL.md` |
 
 ### Delivery Mechanism
 
-The `opencli-autofix` skill is the portable self-repair protocol. Any AI agent can load this skill to get the workflow.
+The `toycli-autofix` skill is the portable self-repair protocol. Any AI agent can load this skill to get the workflow.
 
 No separate diagnostic env var is required. The runtime has two control axes:
 
 ```text
--v / OPENCLI_VERBOSE              human-readable logs
+-v / TOYCLI_VERBOSE              human-readable logs
 --trace off|on|retain-on-failure  machine-readable browser evidence artifact
 ```
 
@@ -106,15 +106,15 @@ No separate diagnostic env var is required. The runtime has two control axes:
 
 ## The AutoFix Protocol
 
-The `opencli-autofix` skill instructs agents:
+The `toycli-autofix` skill instructs agents:
 
-1. When `opencli <site> <command>` fails, don't just report the error.
+1. When `toycli <site> <command>` fails, don't just report the error.
 2. Re-run with `--trace retain-on-failure`.
 3. Read the error envelope `trace.summaryPath`.
 4. Parse `summary.md` front matter for `adapterSourcePath`.
 5. Read and fix the adapter at that exact path.
 6. Retry the original command.
-7. If the retry passes, ask whether to file an upstream GitHub issue for `jackwener/OpenCLI`.
+7. If the retry passes, ask whether to file an upstream GitHub issue for `jackwener/ToyCLI`.
 8. If approved and `gh` is available, file the issue using a structured summary.
 9. Max 3 repair rounds, then stop.
 
@@ -124,7 +124,7 @@ The `opencli-autofix` skill instructs agents:
 
 PR #863 (spec/runner/incident framework) is not needed for Phase 1. It becomes useful later as a hardening layer:
 
-- Phase 1: self-repair via `opencli-autofix` skill and trace artifacts.
+- Phase 1: self-repair via `toycli-autofix` skill and trace artifacts.
 - Phase 2: high-frequency failures get hardened into command specs for offline regression testing and CI.
 
 The spec/runner framework is the asset layer. It turns ad-hoc repairs into reusable tests, but it is not the entry point.
@@ -133,19 +133,19 @@ The spec/runner framework is the asset layer. It turns ad-hoc repairs into reusa
 
 ## Usage
 
-No new commands. No new scripts. The agent loads the `opencli-autofix` skill and uses opencli normally:
+No new commands. No new scripts. The agent loads the `toycli-autofix` skill and uses toycli normally:
 
 ```bash
 # Agent runs a command as part of its task
-opencli weibo hot --limit 5 -f json
+toycli weibo hot --limit 5 -f json
 
 # If it fails, the agent automatically:
-# 1. Runs opencli weibo hot --limit 5 -f json --trace retain-on-failure 2>trace-error.yaml
+# 1. Runs toycli weibo hot --limit 5 -f json --trace retain-on-failure 2>trace-error.yaml
 # 2. Reads trace.summaryPath from trace-error.yaml
 # 3. Reads adapterSourcePath from summary.md
 # 4. Fixes the adapter at adapterSourcePath
-# 5. Retries: opencli weibo hot --limit 5 -f json
+# 5. Retries: toycli weibo hot --limit 5 -f json
 # 6. If retry passes, asks whether to file an upstream issue
-# 7. If approved, runs `gh issue create --repo jackwener/OpenCLI ...`
+# 7. If approved, runs `gh issue create --repo jackwener/ToyCLI ...`
 # 8. Continues with the task
 ```

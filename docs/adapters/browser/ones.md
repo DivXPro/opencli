@@ -6,14 +6,14 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli ones login` | Login via Project API (`auth/login`) |
-| `opencli ones me` | Current user profile (`users/me`) |
-| `opencli ones token-info` | Token/user/team summary (`auth/token_info`) |
-| `opencli ones tasks` | Team task list with status/project labels and hours |
-| `opencli ones my-tasks` | My tasks (`assign`/`field004`/`owner`/`both`) |
-| `opencli ones task` | Task detail by UUID (`team/:team/task/:id/info`) |
-| `opencli ones worklog` | Log/backfill hours (GraphQL `addManhour` first, then REST fallbacks) |
-| `opencli ones logout` | Logout (`auth/logout`) |
+| `toycli ones login` | Login via Project API (`auth/login`) |
+| `toycli ones me` | Current user profile (`users/me`) |
+| `toycli ones token-info` | Token/user/team summary (`auth/token_info`) |
+| `toycli ones tasks` | Team task list with status/project labels and hours |
+| `toycli ones my-tasks` | My tasks (`assign`/`field004`/`owner`/`both`) |
+| `toycli ones task` | Task detail by UUID (`team/:team/task/:id/info`) |
+| `toycli ones worklog` | Log/backfill hours (GraphQL `addManhour` first, then REST fallbacks) |
+| `toycli ones logout` | Logout (`auth/logout`) |
 
 ## Usage Examples
 
@@ -26,24 +26,24 @@ export ONES_BASE_URL=https://your-instance.example.com
 # export ONES_AUTH_TOKEN=...
 
 # Login/profile
-opencli ones login --email you@company.com --password 'your-password'
-opencli ones me
-opencli ones token-info
+toycli ones login --email you@company.com --password 'your-password'
+toycli ones me
+toycli ones token-info
 
 # Task lists
-opencli ones tasks <teamUUID> --limit 20
-opencli ones tasks <teamUUID> --project <projectUUID> --assign <userUUID>
-opencli ones my-tasks <teamUUID> --limit 100
-opencli ones my-tasks <teamUUID> --mode both
+toycli ones tasks <teamUUID> --limit 20
+toycli ones tasks <teamUUID> --project <projectUUID> --assign <userUUID>
+toycli ones my-tasks <teamUUID> --limit 100
+toycli ones my-tasks <teamUUID> --mode both
 
 # Task detail
-opencli ones task <taskUUID> --team <teamUUID>
+toycli ones task <taskUUID> --team <teamUUID>
 
 # Worklog: today / backfill
-opencli ones worklog <taskUUID> 2 --team <teamUUID>
-opencli ones worklog <taskUUID> 1.5 --team <teamUUID> --date 2026-03-23 --note "integration"
+toycli ones worklog <taskUUID> 2 --team <teamUUID>
+toycli ones worklog <taskUUID> 1.5 --team <teamUUID> --date 2026-03-23 --note "integration"
 
-opencli ones logout
+toycli ones logout
 ```
 
 ## Prerequisites

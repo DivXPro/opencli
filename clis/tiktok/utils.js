@@ -1,6 +1,6 @@
 // Shared TikTok adapter helpers.
 //
-// - Node-side: input validation (typed errors per OpenCLI rules).
+// - Node-side: input validation (typed errors per ToyCLI rules).
 // - Browser-side: a string template embedded into each `page.evaluate(...)` IIFE so
 //   the helpers run alongside the adapter-specific logic in the live page context.
 //   This keeps `findUniversalData / fetchJson / cleanText / asNumber / getCookie`
@@ -43,7 +43,7 @@ export function normalizeUsername(value) {
     if (!username) {
         throw new ArgumentError(
             'username is required',
-            'Example: opencli tiktok following <username>',
+            'Example: toycli tiktok following <username>',
         );
     }
     if (!/^[A-Za-z0-9._-]+$/.test(username)) {
@@ -84,7 +84,7 @@ export function requireCommentText(value) {
     if (!text) {
         throw new ArgumentError(
             'comment text is required',
-            'Example: opencli tiktok comment <url> "great video"',
+            'Example: toycli tiktok comment <url> "great video"',
         );
     }
     if (text.length > COMMENT_TEXT_MAX) {
@@ -106,7 +106,7 @@ export function parseTikTokVideoUrl(value) {
     if (!raw) {
         throw new ArgumentError(
             'video URL is required',
-            'Example: opencli tiktok comment https://www.tiktok.com/@user/video/1234567890 "..."',
+            'Example: toycli tiktok comment https://www.tiktok.com/@user/video/1234567890 "..."',
         );
     }
     let parsed;

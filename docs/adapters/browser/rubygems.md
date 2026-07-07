@@ -8,23 +8,23 @@ Search and inspect Ruby gems on the public RubyGems.org index without auth or br
 
 | Command | Description |
 |---------|-------------|
-| `opencli rubygems search <query>` | Search RubyGems.org gems by keyword |
-| `opencli rubygems gem <name>` | Single-gem metadata (version, downloads, license, links) |
+| `toycli rubygems search <query>` | Search RubyGems.org gems by keyword |
+| `toycli rubygems gem <name>` | Single-gem metadata (version, downloads, license, links) |
 
 ## Usage Examples
 
 ```bash
 # Search gems
-opencli rubygems search rails --limit 10
-opencli rubygems search redis --limit 5
+toycli rubygems search rails --limit 10
+toycli rubygems search redis --limit 5
 
 # Single-gem metadata (use `gem` from search rows)
-opencli rubygems gem rails
-opencli rubygems gem sidekiq
+toycli rubygems gem rails
+toycli rubygems gem sidekiq
 
 # JSON output
-opencli rubygems search rails -f json
-opencli rubygems gem rails -f json
+toycli rubygems search rails -f json
+toycli rubygems gem rails -f json
 ```
 
 ## Output Columns

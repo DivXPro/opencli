@@ -1,6 +1,6 @@
 # Exit Codes
 
-`opencli` follows Unix `sysexits.h` conventions so it integrates naturally with shell pipelines and CI scripts.
+`toycli` follows Unix `sysexits.h` conventions so it integrates naturally with shell pipelines and CI scripts.
 
 | Code | Meaning | When |
 |------|---------|------|
@@ -17,8 +17,8 @@
 ## Example: branch on exit code
 
 ```bash
-opencli spotify status || echo "exit $?"   # 69 if browser not running
+toycli spotify status || echo "exit $?"   # 69 if browser not running
 
-opencli gh issue list 2>/dev/null
-[ $? -eq 77 ] && opencli gh auth login      # auto-auth if not logged in
+toycli gh issue list 2>/dev/null
+[ $? -eq 77 ] && toycli gh auth login      # auto-auth if not logged in
 ```

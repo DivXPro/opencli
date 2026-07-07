@@ -2,7 +2,7 @@
  * Zhihu download — export articles to Markdown format.
  *
  * Usage:
- *   opencli zhihu download --url "https://zhuanlan.zhihu.com/p/xxx" --output ./zhihu
+ *   toycli zhihu download --url "https://zhuanlan.zhihu.com/p/xxx" --output ./zhihu
  */
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { downloadArticle } from '@toy-box/opencli/download/article-download';

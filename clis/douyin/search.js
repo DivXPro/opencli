@@ -6,7 +6,7 @@
  * Why not XHR interception:
  *   The `www.douyin.com/search/<q>?type=video` page renders results into
  *   `<ul data-e2e="scroll-list">` server-side during initial navigation
- *   and (for the OpenCLI-bridged browser context) does NOT fire a
+ *   and (for the ToyCLI-bridged browser context) does NOT fire a
  *   subsequent `/aweme/v1/web/general/search/single/` XHR — we confirmed
  *   this by `wait xhr "general/search/single"` timing out at 20s on a
  *   logged-in profile that has visible result cards in the DOM. Direct

@@ -496,7 +496,7 @@ describe('twitter extractCard', () => {
         const tweet = makeCardTweet({
             name: 'summary_large_image',
             bindings: [
-                strBinding('title', 'jackwener/OpenCLI'),
+                strBinding('title', 'jackwener/ToyCLI'),
                 strBinding('description', 'Make Any Website & Tool Your CLI'),
                 strBinding('domain', 'github.com'),
                 strBinding('card_url', 'https://t.co/abc'),
@@ -504,14 +504,14 @@ describe('twitter extractCard', () => {
                 imgBinding('photo_image_full_size_large', 'https://pbs.twimg.com/card_img/photo_large.jpg'),
                 imgBinding('summary_photo_image_large', 'https://pbs.twimg.com/card_img/summary_large.jpg'),
             ],
-            urls: [{ url: 'https://t.co/abc', expanded_url: 'https://github.com/jackwener/OpenCLI' }],
+            urls: [{ url: 'https://t.co/abc', expanded_url: 'https://github.com/jackwener/ToyCLI' }],
         });
         expect(extractCard(tweet)).toEqual({
             name: 'summary_large_image',
-            title: 'jackwener/OpenCLI',
+            title: 'jackwener/ToyCLI',
             description: 'Make Any Website & Tool Your CLI',
             image_url: 'https://pbs.twimg.com/card_img/thumb_large.jpg',
-            url: 'https://github.com/jackwener/OpenCLI',
+            url: 'https://github.com/jackwener/ToyCLI',
             domain: 'github.com',
         });
     });
@@ -566,16 +566,16 @@ describe('twitter extractCard', () => {
         const tweet = makeCardTweet({
             name: 'summary_large_image',
             bindings: [
-                strBinding('title', 'OpenCLI release'),
+                strBinding('title', 'ToyCLI release'),
                 strBinding('card_url', 'https://t.co/card123'),
             ],
             urls: [
                 { url: 'https://t.co/unrelated', expanded_url: 'https://example.com/unrelated' },
-                { url: 'https://t.co/card123', expanded_url: 'https://github.com/jackwener/OpenCLI/releases' },
+                { url: 'https://t.co/card123', expanded_url: 'https://github.com/jackwener/ToyCLI/releases' },
             ],
         });
         const card = extractCard(tweet);
-        expect(card.url).toBe('https://github.com/jackwener/OpenCLI/releases');
+        expect(card.url).toBe('https://github.com/jackwener/ToyCLI/releases');
         expect(card.domain).toBe('github.com');
     });
 

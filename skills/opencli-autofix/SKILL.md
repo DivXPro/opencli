@@ -1,23 +1,23 @@
 ---
-name: opencli-autofix
-description: Automatically fix broken OpenCLI adapters when commands fail. Load this skill when an opencli command fails — it guides you through collecting a trace artifact, patching the adapter, retrying, and filing an upstream GitHub issue after a verified fix. Works with any AI agent.
-allowed-tools: Bash(opencli:*), Bash(gh:*), Read, Edit, Write
+name: toycli-autofix
+description: Automatically fix broken ToyCLI adapters when commands fail. Load this skill when an toycli command fails — it guides you through collecting a trace artifact, patching the adapter, retrying, and filing an upstream GitHub issue after a verified fix. Works with any AI agent.
+allowed-tools: Bash(toycli:*), Bash(gh:*), Read, Edit, Write
 ---
 
-# OpenCLI AutoFix — Automatic Adapter Self-Repair
+# ToyCLI AutoFix — Automatic Adapter Self-Repair
 
-When an `opencli` command fails because a website changed its DOM, API, or response schema, **automatically diagnose, fix the adapter, and retry** — don't just report the error.
+When an `toycli` command fails because a website changed its DOM, API, or response schema, **automatically diagnose, fix the adapter, and retry** — don't just report the error.
 
 ## Safety Boundaries
 
 **Before starting any repair, check these hard stops:**
 
 - **`AUTH_REQUIRED`** (exit code 77) — **STOP.** Do not modify code. Tell the user to log into the site in Chrome.
-- **`BROWSER_CONNECT`** (exit code 69) — **STOP.** Do not modify code. Tell the user to run `opencli doctor`.
+- **`BROWSER_CONNECT`** (exit code 69) — **STOP.** Do not modify code. Tell the user to run `toycli doctor`.
 - **CAPTCHA / rate limiting** — **STOP.** Not an adapter issue.
 
 **Scope constraint:**
-- **Only modify the file at `adapterSourcePath` in the trace `summary.md` front matter** — this is the authoritative adapter location (may be `clis/<site>/` in repo or `~/.opencli/clis/<site>/` for npm installs)
+- **Only modify the file at `adapterSourcePath` in the trace `summary.md` front matter** — this is the authoritative adapter location (may be `clis/<site>/` in repo or `~/.toycli/clis/<site>/` for npm installs)
 - **Never modify** `src/`, `extension/`, `tests/`, `package.json`, or `tsconfig.json`
 
 **Retry budget:** Max **3 repair rounds** per failure. If 3 rounds of diagnose → fix → retry don't resolve it, stop and report what was tried.
@@ -25,12 +25,12 @@ When an `opencli` command fails because a website changed its DOM, API, or respo
 ## Prerequisites
 
 ```bash
-opencli doctor    # Verify extension + daemon connectivity
+toycli doctor    # Verify extension + daemon connectivity
 ```
 
 ## When to Use This Skill
 
-Use when `opencli <site> <command>` fails with repairable errors:
+Use when `toycli <site> <command>` fails with repairable errors:
 - **SELECTOR** — element not found (DOM changed)
 - **EMPTY_RESULT** — no data returned (API response changed)
 - **API_ERROR** / **NETWORK** — endpoint moved or broke
@@ -42,8 +42,8 @@ Use when `opencli <site> <command>` fails with repairable errors:
 
 `EMPTY_RESULT` — and sometimes a structurally-valid `SELECTOR` that returns nothing — is often **not an adapter bug**. Platforms actively degrade results under anti-scrape heuristics, and a "not found" response from the site doesn't mean the content is actually missing. Rule this out **before** committing to a repair round:
 
-- **Retry with an alternative query or entry point.** If `opencli xiaohongshu search "X"` returns 0 but `opencli xiaohongshu search "X 攻略"` returns 20, the adapter is fine — the platform was shaping results for the first query.
-- **Spot-check in a normal Chrome tab.** If the data is visible in the user's own browser but the adapter comes back empty, the issue is usually authentication state, rate limiting, or a soft block — not a code bug. The fix is `opencli doctor` / re-login, not editing source.
+- **Retry with an alternative query or entry point.** If `toycli xiaohongshu search "X"` returns 0 but `toycli xiaohongshu search "X 攻略"` returns 20, the adapter is fine — the platform was shaping results for the first query.
+- **Spot-check in a normal Chrome tab.** If the data is visible in the user's own browser but the adapter comes back empty, the issue is usually authentication state, rate limiting, or a soft block — not a code bug. The fix is `toycli doctor` / re-login, not editing source.
 - **Look for soft 404s.** Sites like xiaohongshu / weibo / douyin return HTTP 200 with an empty payload instead of a real 404 when an item is hidden or deleted. The snapshot will look structurally correct. A retry 2-3 seconds later often distinguishes "temporarily hidden" from "actually gone".
 - **"0 results" from a search is an answer.** If the adapter successfully reached the search endpoint, got an HTTP 200, and the platform returned `results: []`, that is a valid answer — report it to the user as "no matches for this query" rather than patching the adapter.
 
@@ -54,7 +54,7 @@ Only proceed to Step 1 if the empty/selector-missing result is **reproducible ac
 Run the failing command with failure-retained trace enabled:
 
 ```bash
-opencli <site> <command> [args...] --trace retain-on-failure 2>trace-error.yaml
+toycli <site> <command> [args...] --trace retain-on-failure 2>trace-error.yaml
 ```
 
 On failure, stderr contains the normal error envelope plus a small `trace` block:
@@ -66,11 +66,11 @@ error:
   message: "Could not find element: .old-selector"
 trace:
   schemaVersion: 1
-  opencliVersion: "..."
+  toycliVersion: "..."
   traceId: "..."
-  dir: "/path/to/.opencli/profiles/default/traces/..."
-  summaryPath: "/path/to/.opencli/profiles/default/traces/.../summary.md"
-  receiptPath: "/path/to/.opencli/profiles/default/traces/.../receipt.json"
+  dir: "/path/to/.toycli/profiles/default/traces/..."
+  summaryPath: "/path/to/.toycli/profiles/default/traces/.../summary.md"
+  receiptPath: "/path/to/.toycli/profiles/default/traces/.../receipt.json"
 ```
 
 Read `summaryPath` first. It is the LLM-oriented entry point and includes front matter:
@@ -78,7 +78,7 @@ Read `summaryPath` first. It is the LLM-oriented entry point and includes front 
 ```yaml
 ---
 schemaVersion: 1
-opencliVersion: "..."
+toycliVersion: "..."
 traceId: "..."
 status: failure
 site: "example"
@@ -126,13 +126,13 @@ Read the trace summary and the adapter source. Classify the root cause:
 
 ## Step 3: Explore the Current Website
 
-Use `opencli browser` to inspect the live website. **Never use the broken adapter** — it will just fail again.
+Use `toycli browser` to inspect the live website. **Never use the broken adapter** — it will just fail again.
 
 ### DOM changed (SELECTOR errors)
 
 ```bash
 # Open the page and inspect current DOM
-opencli browser open https://example.com/target-page && opencli browser state
+toycli browser open https://example.com/target-page && toycli browser state
 
 # Look for elements that match the adapter's intent
 # Compare the snapshot with what the adapter expects
@@ -142,21 +142,21 @@ opencli browser open https://example.com/target-page && opencli browser state
 
 ```bash
 # Open page with network interceptor, then trigger the action manually
-opencli browser open https://example.com/target-page && opencli browser state
+toycli browser open https://example.com/target-page && toycli browser state
 
 # Interact to trigger API calls
-opencli browser click <N> && opencli browser network
+toycli browser click <N> && toycli browser network
 
 # Narrow to the request you care about by the fields its body should have
-opencli browser network --filter author,text,likes
+toycli browser network --filter author,text,likes
 
 # Inspect specific API response (key is the `key` field from the default JSON output)
-opencli browser network --detail <key>
+toycli browser network --detail <key>
 ```
 
 ## Step 4: Patch the Adapter
 
-Read the adapter source file at `adapterSourcePath` from the trace summary front matter and make targeted fixes. This path is authoritative — it may be in the repo (`clis/`) or user-local (`~/.opencli/clis/`).
+Read the adapter source file at `adapterSourcePath` from the trace summary front matter and make targeted fixes. This path is authoritative — it may be in the repo (`clis/`) or user-local (`~/.toycli/clis/`).
 
 Use the `Read` tool on the exact path from summary.md front matter.
 
@@ -193,20 +193,20 @@ Use the `Read` tool on the exact path from summary.md front matter.
 3. **Prefer API over DOM scraping** — if you discover a JSON API during exploration, switch to it
 4. **Use `@toy-box/opencli/*` imports only** — never add third-party package imports
 5. **Test after patching** — run the command again to verify
-6. **Never relax `verify/<cmd>.json` fixtures to silence a failure.** A failing `patterns` / `notEmpty` / `mustNotContain` / `mustBeTruthy` rule means the adapter's output is broken. Tighten the adapter so it produces correct values; do not loosen the fixture to accept the broken values. The one legitimate reason to edit a fixture during repair is when the **site itself** changed shape (e.g. URL format migration) — in that case update the fixture and note the change in `~/.opencli/sites/<site>/notes.md`. Otherwise editing the fixture is covering up a silent correctness regression.
+6. **Never relax `verify/<cmd>.json` fixtures to silence a failure.** A failing `patterns` / `notEmpty` / `mustNotContain` / `mustBeTruthy` rule means the adapter's output is broken. Tighten the adapter so it produces correct values; do not loosen the fixture to accept the broken values. The one legitimate reason to edit a fixture during repair is when the **site itself** changed shape (e.g. URL format migration) — in that case update the fixture and note the change in `~/.toycli/sites/<site>/notes.md`. Otherwise editing the fixture is covering up a silent correctness regression.
 
 ## Step 5: Verify the Fix
 
 ```bash
 # Run the command normally
-opencli <site> <command> [args...]
+toycli <site> <command> [args...]
 ```
 
 If it still fails, go back to Step 1 and collect a fresh trace. You have a budget of **3 repair rounds** (trace → fix → retry). If the same error persists after a fix, try a different approach. After 3 rounds, stop and report what was tried.
 
 ## Step 6: File an Upstream Issue
 
-If the retry **passes**, the local adapter has drifted from upstream. File a GitHub issue so the fix flows back to `jackwener/OpenCLI`.
+If the retry **passes**, the local adapter has drifted from upstream. File a GitHub issue so the fix flows back to `jackwener/ToyCLI`.
 
 **Do NOT file for:**
 - `AUTH_REQUIRED`, `BROWSER_CONNECT`, `ARGUMENT`, `CONFIG` — environment/usage issues, not adapter bugs
@@ -223,12 +223,12 @@ If the retry **passes**, the local adapter has drifted from upstream. File a Git
 
 ```markdown
 ## Summary
-OpenCLI autofix repaired this adapter locally, and the retry passed.
+ToyCLI autofix repaired this adapter locally, and the retry passed.
 
 ## Adapter
 - Site: `<site>`
 - Command: `<command>`
-- OpenCLI version: `<version from opencli --version>`
+- ToyCLI version: `<version from toycli --version>`
 
 ## Original failure
 - Error code: `<error_code>`
@@ -243,7 +243,7 @@ OpenCLI autofix repaired this adapter locally, and the retry passed.
 <1-2 sentence description of what you changed and why>
 ~~~
 
-_Issue filed by OpenCLI autofix after a verified local repair._
+_Issue filed by ToyCLI autofix after a verified local repair._
 ```
 
 2. **Ask the user before filing.** Show them the draft title and body. Only proceed if they confirm.
@@ -251,7 +251,7 @@ _Issue filed by OpenCLI autofix after a verified local repair._
 3. If the user approves and `gh auth status` succeeds:
 
 ```bash
-gh issue create --repo jackwener/OpenCLI \
+gh issue create --repo jackwener/ToyCLI \
   --title "[autofix] <site>/<command>: <error_code>" \
   --body "<the body above>"
 ```
@@ -268,30 +268,30 @@ If `gh` is not installed or not authenticated, tell the user and skip — do not
 **Soft stops (report after attempting):**
 - **3 repair rounds exhausted** — stop, report what was tried and what failed
 - **Feature completely removed** — the data no longer exists
-- **Major redesign** — needs full adapter rewrite via `opencli-adapter-author` skill
+- **Major redesign** — needs full adapter rewrite via `toycli-adapter-author` skill
 
 In all stop cases, clearly communicate the situation to the user rather than making futile patches.
 
 ## Example Repair Session
 
 ```
-1. User runs: opencli zhihu hot
+1. User runs: toycli zhihu hot
    → Fails: SELECTOR "Could not find element: .HotList-item"
 
-2. AI runs: opencli zhihu hot --trace retain-on-failure 2>trace-error.yaml
+2. AI runs: toycli zhihu hot --trace retain-on-failure 2>trace-error.yaml
    → Gets trace summary with final state and failed action evidence
 
 3. AI reads summary/state: page loaded but uses ".HotItem" instead of ".HotList-item"
 
-4. AI explores: opencli browser open https://www.zhihu.com/hot && opencli browser state
+4. AI explores: toycli browser open https://www.zhihu.com/hot && toycli browser state
    → Confirms new class name ".HotItem" with child ".HotItem-content"
 
 5. AI patches: Edit adapter at `adapterSourcePath` — replace ".HotList-item" with ".HotItem"
 
-6. AI verifies: opencli zhihu hot
+6. AI verifies: toycli zhihu hot
    → Success: returns hot topics
 
 7. AI prepares upstream issue draft, shows it to the user
 
-8. User approves → AI runs: gh issue create --repo jackwener/OpenCLI --title "[autofix] zhihu/hot: SELECTOR" --body "..."
+8. User approves → AI runs: gh issue create --repo jackwener/ToyCLI --title "[autofix] zhihu/hot: SELECTOR" --body "..."
 ```

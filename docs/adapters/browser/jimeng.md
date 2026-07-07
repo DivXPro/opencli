@@ -6,23 +6,23 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli jimeng generate` | 即梦AI 文生图 — 输入 prompt 生成图片 |
-| `opencli jimeng history` | 查看生成历史 |
+| `toycli jimeng generate` | 即梦AI 文生图 — 输入 prompt 生成图片 |
+| `toycli jimeng history` | 查看生成历史 |
 
 ## Usage Examples
 
 ```bash
 # Generate an image
-opencli jimeng generate --prompt "一只在星空下的猫"
+toycli jimeng generate --prompt "一只在星空下的猫"
 
 # Use a specific model
-opencli jimeng generate --prompt "cyberpunk city" --model high_aes_general_v50
+toycli jimeng generate --prompt "cyberpunk city" --model high_aes_general_v50
 
 # Set custom wait timeout
-opencli jimeng generate --prompt "sunset landscape" --wait 60
+toycli jimeng generate --prompt "sunset landscape" --wait 60
 
 # View generation history
-opencli jimeng history --limit 10
+toycli jimeng history --limit 10
 ```
 
 ### Options (generate)

@@ -16,7 +16,7 @@ cli({
     func: async (kwargs) => {
         const count = Math.min(kwargs.limit || 20, 50);
         const resp = await fetch('https://www.36kr.com/feed', {
-            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; opencli/1.0)' },
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; toycli/1.0)' },
         });
         if (!resp.ok)
             return [];

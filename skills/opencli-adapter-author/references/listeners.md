@@ -1,8 +1,8 @@
 # 声明 Realtime Listener（adapter manifest 侧）
 
-本文档只讲一件事：在 adapter 的 `cli({...})` 里声明 `listeners[]`，让 `opencli listener start --listener <id>` 能发现并描述你的实时流。
+本文档只讲一件事：在 adapter 的 `cli({...})` 里声明 `listeners[]`，让 `toycli listener start --listener <id>` 能发现并描述你的实时流。
 
-消费侧（启动 / 流式 / HTTP API / 事件类型）见 `skills/opencli-listener/SKILL.md`。本文不重复。
+消费侧（启动 / 流式 / HTTP API / 事件类型）见 `skills/toycli-listener/SKILL.md`。本文不重复。
 
 ---
 
@@ -19,9 +19,9 @@
 先在交互式 shell 里验证数据确实持续到达：
 
 ```bash
-opencli browser b open "<url>"
-opencli browser b wait time 5
-opencli browser b network --filter "<关键字>"     # 应能看到新的条目
+toycli browser b open "<url>"
+toycli browser b wait time 5
+toycli browser b network --filter "<关键字>"     # 应能看到新的条目
 ```
 
 确认持续产出后再回来写 listener。
@@ -44,7 +44,7 @@ interface ListenerDeclaration {
   selector?: string;
   /** source=dom：MutationObserver options 覆盖。默认 {childList:true, subtree:true}。 */
   mutationOptions?: { childList?: boolean; subtree?: boolean; characterData?: boolean; attributes?: boolean };
-  /** 人类可读描述，`opencli listener list <site>` 会展示。必填，否则发现体验很差。 */
+  /** 人类可读描述，`toycli listener list <site>` 会展示。必填，否则发现体验很差。 */
   description?: string;
   /** 可选的"输出形状"提示（仅文档用途，daemon 不校验）。给消费者一个 data 字段速查。 */
   outputSchema?: Record<string, string>;
@@ -107,7 +107,7 @@ cli({
 
 ## 消费侧调用如何回填到声明
 
-`opencli listener start --site buyin --adapter live-products --listener comments ...` 时：
+`toycli listener start --site buyin --adapter live-products --listener comments ...` 时：
 
 1. daemon 用 `<site>/<adapter>:<listenerId>` 做 dedup key（不查 manifest，纯信任 CLI 参数）。
 2. 扩展端按 `source` 分发：
@@ -115,35 +115,35 @@ cli({
    - `dom` → 注入 MutationObserver 观察 `selector`，按 `mutationOptions` 触发
 3. 事件流回 daemon EventBus，per-`listenerId` ring buffer（1000 条），消费者经 SSE/`history` 取走。
 
-也就是说：**manifest 的 `listeners[]` 只是发现 + 描述的契约，daemon 不用它做路由**。但如果你不声明，`opencli listener list` 就没有 description，下游 agent 也不知道这个 adapter 能听什么。因此**公开 adapter 必须声明**，私人 adapter 强烈建议声明。
+也就是说：**manifest 的 `listeners[]` 只是发现 + 描述的契约，daemon 不用它做路由**。但如果你不声明，`toycli listener list` 就没有 description，下游 agent 也不知道这个 adapter 能听什么。因此**公开 adapter 必须声明**，私人 adapter 强烈建议声明。
 
 ---
 
 ## 验证 listener-enabled adapter
 
-`opencli browser verify <site>/<name>` 目前只验证 `func` 一次命令，**不**启动 listener。listener 要单独验证：
+`toycli browser verify <site>/<name>` 目前只验证 `func` 一次命令，**不**启动 listener。listener 要单独验证：
 
 ```bash
 # 1. 先确认扩展+daemon 通
-opencli doctor
+toycli doctor
 
 # 2. 站点侦察确认 endpoint 持续产出（见上文 wait→network 流程）
 
 # 3. 启动 listener，看 status 进入 running
-opencli listener start --site <site> --adapter <adapter> \
+toycli listener start --site <site> --adapter <adapter> \
   --listener <id> --source <network|dom> \
   [--pattern ... | --selector ...] --url <page-url>
-opencli listener list                       # 应看到该 listener，status=running
+toycli listener list                       # 应看到该 listener，status=running
 
 # 4. 在该 tab 上手动触发一次数据产出（刷新 / 发评论 / 等 5s）
 #    然后 history 应非空
-opencli listener history --listener <id>
+toycli listener history --listener <id>
 
 # 5. stream 一把，确认 data 事件 JSON 结构跟 outputSchema 对得上
-opencli listener stream --listener <id>     # 5~10s 后 Ctrl-C
+toycli listener stream --listener <id>     # 5~10s 后 Ctrl-C
 
 # 6. 收尾
-opencli listener stop --site <site> --adapter <adapter> --listener <id>
+toycli listener stop --site <site> --adapter <adapter> --listener <id>
 ```
 
 肉眼核对 `history` 里一条事件的 `data` 字段和 `outputSchema` 是否一致；不一致就回 adapter 改 `outputSchema`（schema 只是文档，不会假装校验，错了消费者会按错形状写下游逻辑）。
@@ -154,8 +154,8 @@ opencli listener stop --site <site> --adapter <adapter> --listener <id>
 
 | 现象 | 原因 | 修法 |
 |------|------|------|
-| `listener list` 显示该 listener 但 description 空 | 没写 `description` | 补上，`opencli listener list` 是 agent 发现入口 |
-| 启动了但 `history` 永 `[]` | `pattern`/`selector` 没命中页面真实产出 | 先 `opencli browser <s> network` 看真实 URL；DOM 类用 `browser find --css <sel>` 验证选择器 |
+| `listener list` 显示该 listener 但 description 空 | 没写 `description` | 补上，`toycli listener list` 是 agent 发现入口 |
+| 启动了但 `history` 永 `[]` | `pattern`/`selector` 没命中页面真实产出 | 先 `toycli browser <s> network` 看真实 URL；DOM 类用 `browser find --css <sel>` 验证选择器 |
 | `outputSchema` 跟实际 event.data 对不上 | 抄了旧接口字段 / 站点换版 | 用 `history` 抓一条 raw event，照着修 schema |
 | 同一 id 起第二次得到 `already-running` 而非新 stream | 1 个 listenerId 只允许 1 个活动实例（dedup） | 要换页就 `restart`，要并列就换 `id` |
 | 公开 adapter 里声明了 `cdp`/`console` | CLI `start` 只放行 network/dom | 暂移除，等 CLI 放行后再加 |
@@ -164,7 +164,7 @@ opencli listener stop --site <site> --adapter <adapter> --listener <id>
 
 ## 与站点记忆的回写
 
-按 `site-memory.md` 的 schema，新增 listener 后往 `~/.opencli/sites/<site>/notes.md` 顶部追加一段：
+按 `site-memory.md` 的 schema，新增 listener 后往 `~/.toycli/sites/<site>/notes.md` 顶部追加一段：
 
 ```
 ## YYYY-MM-DD by <agent>

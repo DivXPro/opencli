@@ -19,7 +19,7 @@ import { homedir } from 'node:os';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TASKS_FILE = join(__dirname, 'save-tasks.json');
 const RESULTS_DIR = join(__dirname, 'results');
-const USER_CLIS_DIR = join(homedir(), '.opencli', 'clis');
+const USER_CLIS_DIR = join(homedir(), '.toycli', 'clis');
 
 interface SaveTask {
   name: string;
@@ -80,10 +80,10 @@ function judge(criteria: JudgeCriteria, output: string): boolean {
 
 const PROJECT_ROOT = join(__dirname, '..');
 
-/** Run a command, using the local built entrypoint instead of global opencli for consistency */
+/** Run a command, using the local built entrypoint instead of global toycli for consistency */
 function runCommand(cmd: string, timeout = 30000): string {
   // Use local build so tests always run against the current source
-  const localCmd = cmd.replace(/^opencli /, `node dist/src/main.js `);
+  const localCmd = cmd.replace(/^toycli /, `node dist/src/main.js `);
   try {
     return execSync(localCmd, {
       cwd: PROJECT_ROOT,
@@ -121,7 +121,7 @@ function runTask(task: SaveTask): TaskResult {
 
   try {
     // Phase 1: init — create scaffold
-    const initOutput = runCommand(`opencli browser init ${site}/${command}`);
+    const initOutput = runCommand(`toycli browser init ${site}/${command}`);
     if (!existsSync(adapterPath)) {
       return {
         name: task.name, phase: 'init', passed: false,
@@ -143,7 +143,7 @@ function runTask(task: SaveTask): TaskResult {
 
     // Phase 3: verify — run the adapter via browser verify
     const verifyOutput = runCommand(
-      `opencli browser verify ${site}/${command}`,
+      `toycli browser verify ${site}/${command}`,
       45000, // longer timeout for network calls
     );
 

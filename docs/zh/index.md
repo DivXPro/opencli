@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: OpenCLI
+  name: ToyCLI
   text: 让任何网站或 Electron 应用成为你的 CLI
   tagline: 零风险 · 复用 Chrome 登录态 · AI 驱动发现 · 浏览器 + 桌面自动化
   actions:
@@ -11,7 +11,7 @@ hero:
       link: /zh/guide/getting-started
     - theme: alt
       text: 在 GitHub 查看
-      link: https://github.com/scopai/opencli
+      link: https://github.com/toy-box/toycli
 
 features:
   - icon: 🖥️

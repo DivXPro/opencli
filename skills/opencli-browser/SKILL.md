@@ -1,21 +1,21 @@
 ---
-name: opencli-browser
-description: Use when an agent needs to drive a real Chrome window via opencli — inspect a page, fill forms, click through logged-in flows, or extract data ad-hoc. Covers the selector-first target contract, compound form fields, stale-ref handling, network capture, and the agent-native envelopes the CLI returns. Not for writing adapters — see opencli-adapter-author for that.
-allowed-tools: Bash(opencli:*), Read, Edit, Write
+name: toycli-browser
+description: Use when an agent needs to drive a real Chrome window via toycli — inspect a page, fill forms, click through logged-in flows, or extract data ad-hoc. Covers the selector-first target contract, compound form fields, stale-ref handling, network capture, and the agent-native envelopes the CLI returns. Not for writing adapters — see toycli-adapter-author for that.
+allowed-tools: Bash(toycli:*), Read, Edit, Write
 ---
 
-# opencli-browser
+# toycli-browser
 
 The first reader of this CLI is an agent, not a human. Every subcommand returns a structured envelope that tells you exactly what matched, how confident the match is, and what to do if it didn't. Lean on those envelopes — do not guess.
 
-This skill is for **driving a live browser** to accomplish an agent task. If you are building a reusable adapter under `~/.opencli/clis/<site>/` use `opencli-adapter-author` instead.
+This skill is for **driving a live browser** to accomplish an agent task. If you are building a reusable adapter under `~/.toycli/clis/<site>/` use `toycli-adapter-author` instead.
 
 ---
 
 ## Prerequisites
 
 ```bash
-opencli doctor
+toycli doctor
 ```
 
 Until `doctor` is green, nothing else will work. Typical failures: Chrome not running, extension not installed, debug port blocked by 1Password / other extensions. The doctor output tells you which.
@@ -24,27 +24,27 @@ Until `doctor` is green, nothing else will work. Typical failures: Chrome not ru
 
 ## Session lifecycle
 
-- `opencli browser *` commands require a `<session>` positional immediately after `browser`. Use the same session name for a multi-step flow; use a different name to isolate parallel browser work.
-- Use a stable session name for any multi-command or human-paced browser workflow. Example: `opencli browser fb-yaya-warmup open https://example.com`, then reuse `opencli browser fb-yaya-warmup state`, `extract`, `click`, etc.
-- Owned browser sessions keep a tab lease alive between calls. Release it with `opencli browser <session> close` or let the idle timeout expire.
-- `opencli browser <session> bind` binds the Chrome tab you already have open to that session. Use this for logged-in pages, SSO flows, or pages you manually positioned before handing control to the agent.
-- `--window foreground|background` (or `OPENCLI_WINDOW=foreground|background`) chooses whether OpenCLI creates/focuses a foreground browser window or uses a background browser window for owned sessions.
+- `toycli browser *` commands require a `<session>` positional immediately after `browser`. Use the same session name for a multi-step flow; use a different name to isolate parallel browser work.
+- Use a stable session name for any multi-command or human-paced browser workflow. Example: `toycli browser fb-yaya-warmup open https://example.com`, then reuse `toycli browser fb-yaya-warmup state`, `extract`, `click`, etc.
+- Owned browser sessions keep a tab lease alive between calls. Release it with `toycli browser <session> close` or let the idle timeout expire.
+- `toycli browser <session> bind` binds the Chrome tab you already have open to that session. Use this for logged-in pages, SSO flows, or pages you manually positioned before handing control to the agent.
+- `--window foreground|background` (or `TOYCLI_WINDOW=foreground|background`) chooses whether ToyCLI creates/focuses a foreground browser window or uses a background browser window for owned sessions.
 
 ### Bind Tab
 
 ```bash
-opencli browser gmail bind
-opencli browser gmail state
-opencli browser gmail click "Search"
-opencli browser gmail network
-opencli browser gmail unbind
+toycli browser gmail bind
+toycli browser gmail state
+toycli browser gmail click "Search"
+toycli browser gmail network
+toycli browser gmail unbind
 ```
 
-Binding never owns the user window and never closes the user tab. It fails closed if the tab is closed or becomes non-debuggable. Re-run `opencli browser <session> bind` when you switch to a different real tab.
+Binding never owns the user window and never closes the user tab. It fails closed if the tab is closed or becomes non-debuggable. Re-run `toycli browser <session> bind` when you switch to a different real tab.
 
-Navigation is allowed on bound sessions because the session now represents explicit agent ownership of that tab. Tab mutation (`tab new`, `tab select`, `tab close`) is still blocked for bound sessions. Use an owned session when you want OpenCLI to manage tab lifecycle.
+Navigation is allowed on bound sessions because the session now represents explicit agent ownership of that tab. Tab mutation (`tab new`, `tab select`, `tab close`) is still blocked for bound sessions. Use an owned session when you want ToyCLI to manage tab lifecycle.
 
-Bound sessions have no OpenCLI idle-close timer; the binding lasts until `unbind`, tab close, window close, or daemon restart.
+Bound sessions have no ToyCLI idle-close timer; the binding lasts until `unbind`, tab close, window close, or daemon restart.
 
 ---
 
@@ -60,7 +60,7 @@ Bound sessions have no OpenCLI idle-close timer; the binding lasts until `unbind
 ## Critical rules
 
 1. **Always inspect before you act.** Run `state` or `find` first. Never hard-code a ref or selector from memory across sessions — indices are per-snapshot.
-2. **Prefer site adapters before raw browser driving.** If `opencli <site> <command>` already covers the task, use that adapter command first (`opencli facebook notifications`, `opencli reddit read`, `opencli chatgpt model <level>`, etc.). Use `opencli browser ...` only for gaps, debugging, or one-off UI flows the adapter does not expose.
+2. **Prefer site adapters before raw browser driving.** If `toycli <site> <command>` already covers the task, use that adapter command first (`toycli facebook notifications`, `toycli reddit read`, `toycli chatgpt model <level>`, etc.). Use `toycli browser ...` only for gaps, debugging, or one-off UI flows the adapter does not expose.
 3. **Prefer numeric ref over CSS once you have it.** Numeric refs survive mild DOM shifts because the CLI fingerprints each tagged element. A CSS selector written by hand will break the first time the site re-renders.
 4. **Read `match_level` after every write.** `exact` = all good. `stable` = the element is the same but some soft attrs drifted — your action still applied. `reidentified` = the original ref was gone and the CLI found a unique replacement; double-check you hit the right element.
 5. **Use the `compound` field for form controls.** Do not regex-guess a date format, do not `state` twice to get the full `<select>` options list. The compound envelope has the format string, full option list up to 50, `options_total` for overflow, and `accept`/`multiple` for `<input type=file>`.
@@ -74,7 +74,7 @@ Bound sessions have no OpenCLI idle-close timer; the binding lasts until `unbind
 
 ## Sitemaps
 
-If `browser open` or `browser analyze` returns `sitemap.available: true`, switch to `opencli-browser-sitemap` before continuing a multi-step site flow. The sitemap is prior context for pages, actions, workflows, APIs, and pitfalls; it is not truth. If the browser state disagrees with the sitemap, trust the browser and mark the sitemap stale via `opencli-sitemap-author`.
+If `browser open` or `browser analyze` returns `sitemap.available: true`, switch to `toycli-browser-sitemap` before continuing a multi-step site flow. The sitemap is prior context for pages, actions, workflows, APIs, and pitfalls; it is not truth. If the browser state disagrees with the sitemap, trust the browser and mark the sitemap stale via `toycli-sitemap-author`.
 
 ---
 
@@ -189,7 +189,7 @@ state, elapsedMs}` on success and a JSON error envelope on timeout/failure.
 
 ### Extract
 
-- **`web read --url <url>`** — One-shot Markdown reader for arbitrary pages. It expands relevant same-origin iframes by default, so old iframe-shell sites work better than with a top-document-only scrape. Use `--frames all-same-origin` when completeness matters more than Markdown noise. For AJAX shell pages use `opencli web read --url <url> --wait-for "<selector>" --wait-until networkidle --diagnose`; diagnostics show frame URLs, empty containers, and API-like XHRs. If the value you need is table/API data, switch to `browser network` or a dedicated adapter instead of relying on Markdown.
+- **`web read --url <url>`** — One-shot Markdown reader for arbitrary pages. It expands relevant same-origin iframes by default, so old iframe-shell sites work better than with a top-document-only scrape. Use `--frames all-same-origin` when completeness matters more than Markdown noise. For AJAX shell pages use `toycli web read --url <url> --wait-for "<selector>" --wait-until networkidle --diagnose`; diagnostics show frame URLs, empty containers, and API-like XHRs. If the value you need is table/API data, switch to `browser network` or a dedicated adapter instead of relying on Markdown.
 - **`browser eval <js> [--frame N]`** — Run an expression in the page (or in a cross-origin frame via `--frame`). Wrap in an IIFE and return JSON. Read-only: no `document.forms[0].submit()`, no clicks, no navigations. If the result is a string, stdout is the raw string; otherwise it's JSON.
 - **`browser extract [--selector <css>] [--chunk-size N] [--start N]`** — Markdown extraction of long-form content with a continuation cursor. Returns `{url, title, selector, total_chars, chunk_size, start, end, next_start_char, content}`. Loop on `next_start_char` until it is `null`. Auto-scopes to `<main>`/`<article>`/`<body>` if you don't pass `--selector`.
 
@@ -204,7 +204,7 @@ browser network --raw                  # full bodies inline — large; use spari
 browser network --ttl <ms>             # cache TTL (default 24h)
 ```
 
-List entries look like `{key, method, status, url, ct, size, shape, body_truncated?}`. Detail envelope is `{key, url, method, status, ct, size, shape, body, body_truncated?, body_full_size?, body_truncation_reason}`. Cache lives in `~/.opencli/cache/browser-network/` so you can re-inspect without re-triggering the request.
+List entries look like `{key, method, status, url, ct, size, shape, body_truncated?}`. Detail envelope is `{key, url, method, status, ct, size, shape, body, body_truncated?, body_full_size?, body_truncation_reason}`. Cache lives in `~/.toycli/cache/browser-network/` so you can re-inspect without re-triggering the request.
 
 Default output keeps JSON/XML/plain-text and JS-like API responses, then drops obvious static assets and telemetry by URL. If an expected endpoint is missing, run `browser network --all` once and check whether an unusual content type or URL filter hid it.
 
@@ -307,9 +307,9 @@ Rule of thumb: **one `state` per page transition, one `find` per follow-up query
 **Good — one shell, live session:**
 
 ```bash
-opencli browser hn open "https://news.ycombinator.com" \
-  && opencli browser hn state \
-  && opencli browser hn click 3
+toycli browser hn open "https://news.ycombinator.com" \
+  && toycli browser hn state \
+  && toycli browser hn click 3
 ```
 
 **Bad — each line is a fresh shell, refs from call 1 are already forgotten when call 2 runs.** (Only a problem if you rely on shell-scoped state; browser refs themselves persist in-page, but interleaving unrelated shells invites races.) Prefer `&&` when the steps are meant to be atomic.
@@ -323,24 +323,24 @@ opencli browser hn open "https://news.ycombinator.com" \
 ### Fill a login form
 
 ```bash
-opencli browser login open "https://example.com/login"
-opencli browser login state                          # find [N] for email, password, submit
-opencli browser login type 4 "me@example.com"
-opencli browser login type 5 "hunter2"
-opencli browser login get value 4                    # verify (autocomplete can eat chars)
-opencli browser login click 6                        # submit
-opencli browser login wait selector "[data-testid=account-menu]" --timeout 15000
-opencli browser login state                          # fresh refs on the logged-in page
+toycli browser login open "https://example.com/login"
+toycli browser login state                          # find [N] for email, password, submit
+toycli browser login type 4 "me@example.com"
+toycli browser login type 5 "hunter2"
+toycli browser login get value 4                    # verify (autocomplete can eat chars)
+toycli browser login click 6                        # submit
+toycli browser login wait selector "[data-testid=account-menu]" --timeout 15000
+toycli browser login state                          # fresh refs on the logged-in page
 ```
 
 ### Pick from a long dropdown
 
 ```bash
-opencli browser form state                          # sidebar shows [12] <select name=country>
-opencli browser form find --css "select[name=country]"
+toycli browser form state                          # sidebar shows [12] <select name=country>
+toycli browser form find --css "select[name=country]"
 # the compound.options_total is 137, but compound.current is "" — unselected.
-opencli browser form select 12 "Uruguay"
-opencli browser form get value 12                   # { value: "uy", match_level: "exact" }
+toycli browser form select 12 "Uruguay"
+toycli browser form get value 12                   # { value: "uy", match_level: "exact" }
 ```
 
 ### Pick from a custom React dropdown
@@ -349,13 +349,13 @@ Use this for Radix, shadcn, Material UI, Mercury-style category fields, and
 other controls that are not native `<select>`.
 
 ```bash
-opencli browser mercury state                          # find category trigger ref
+toycli browser mercury state                          # find category trigger ref
 # If the trigger/option is not clear, use AX:
-opencli browser mercury state --source ax              # look for combobox/button/listbox/option names
-opencli browser mercury click 7                        # click category trigger
-opencli browser mercury state --source ax              # fresh refs after the portal/listbox opens
-opencli browser mercury click 12                       # click option
-opencli browser mercury get text 7                     # verify visible selected label
+toycli browser mercury state --source ax              # look for combobox/button/listbox/option names
+toycli browser mercury click 7                        # click category trigger
+toycli browser mercury state --source ax              # fresh refs after the portal/listbox opens
+toycli browser mercury click 12                       # click option
+toycli browser mercury get text 7                     # verify visible selected label
 ```
 
 Do not use `browser select` on these widgets. `browser select` is only for
@@ -368,7 +368,7 @@ When deciding whether AX refs are better for a page, collect metrics without
 sharing page contents:
 
 ```bash
-opencli browser compare state --compare-sources
+toycli browser compare state --compare-sources
 ```
 
 Report `sources.dom.refs`, `sources.ax.refs`, `frame_sections`,
@@ -378,28 +378,28 @@ arguing that AX should become the default on a site.
 ### Scrape a list via network instead of DOM
 
 ```bash
-opencli browser hn open "https://news.ycombinator.com"
-opencli browser hn network --filter "title,score"
+toycli browser hn open "https://news.ycombinator.com"
+toycli browser hn network --filter "title,score"
 # -> find the /topstories entry, note its key
-opencli browser hn network --detail topstories-a1b2
+toycli browser hn network --detail topstories-a1b2
 ```
 
 ### Read a long article in chunks
 
 ```bash
-opencli browser article open "https://blog.example.com/long-post"
-opencli browser article extract --chunk-size 8000
+toycli browser article open "https://blog.example.com/long-post"
+toycli browser article extract --chunk-size 8000
 # -> content + next_start_char: 8000
-opencli browser article extract --start 8000 --chunk-size 8000
+toycli browser article extract --start 8000 --chunk-size 8000
 # ...until next_start_char is null
 ```
 
 ### Cross-origin iframe
 
 ```bash
-opencli browser checkout frames
+toycli browser checkout frames
 # -> [{"index": 0, "url": "https://checkout.stripe.com/...", ...}]
-opencli browser checkout eval "(() => document.querySelector('input[name=cardnumber]')?.value)()" --frame 0
+toycli browser checkout eval "(() => document.querySelector('input[name=cardnumber]')?.value)()" --frame 0
 ```
 
 `browser state --source ax` may omit cross-origin iframe contents or fail to
@@ -425,20 +425,20 @@ normal DOM `state`, or navigate/bind directly to the iframe URL when possible.
 
 | symptom | fix |
 |---------|-----|
-| `opencli doctor` red: "Browser not connected" | Start Chrome with `--remote-debugging-port=9222`, or install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/opencli/ildkmabpimmkaediidaifkhjpohdnifk). |
+| `toycli doctor` red: "Browser not connected" | Start Chrome with `--remote-debugging-port=9222`, or install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/toycli/ildkmabpimmkaediidaifkhjpohdnifk). |
 | `attach failed: chrome-extension://...` | Disable 1Password / other CDP-hungry extensions temporarily. |
 | `selector_not_found` right after `state` | Page mutated. `wait selector "..."` then retry. |
 | `stale_ref` across every command | You are reusing refs from a prior page. Re-`state`. |
 | `click` succeeds but nothing happens | The element is probably a decorative wrapper stealing clicks from the real target. `find --css "..."` with a narrower selector and retry on the inner element. |
 | `type` appears to finish but value is wrong | Autocomplete, masked input, or React controlled re-render. Verify with `get value`. Add `keys Enter` or re-type. |
 | Giant `get html` output | Pass `--selector` + `--as json --depth 3 --children-max 20 --text-max 200`. |
-| Network cache seems stale | Bump `--ttl` down, or let it expire. The cache lives at `~/.opencli/cache/browser-network/`. |
+| Network cache seems stale | Bump `--ttl` down, or let it expire. The cache lives at `~/.toycli/cache/browser-network/`. |
 
 ---
 
 ## See also
 
-- `opencli-adapter-author` — turning what you just figured out into a reusable `~/.opencli/clis/<site>/<command>.js`.
-- `opencli-browser-sitemap` — consuming site sitemap context while driving a browser task.
-- `opencli-sitemap-author` — creating or updating sitemap knowledge when you discover a durable path or stale entry.
-- `opencli-autofix` — when an existing adapter breaks, this skill walks you through `--trace retain-on-failure` evidence and filing a fix.
+- `toycli-adapter-author` — turning what you just figured out into a reusable `~/.toycli/clis/<site>/<command>.js`.
+- `toycli-browser-sitemap` — consuming site sitemap context while driving a browser task.
+- `toycli-sitemap-author` — creating or updating sitemap knowledge when you discover a durable path or stale entry.
+- `toycli-autofix` — when an existing adapter breaks, this skill walks you through `--trace retain-on-failure` evidence and filing a fix.

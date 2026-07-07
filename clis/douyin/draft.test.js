@@ -9,7 +9,7 @@ import { createPageMock } from '../test-utils.js';
 // ─── Shared test helpers ────────────────────────────────────────────
 const tempDirs = [];
 function createTempVideo(name = 'demo.mp4') {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-douyin-draft-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-douyin-draft-'));
     tempDirs.push(dir);
     const filePath = path.join(dir, name);
     fs.writeFileSync(filePath, Buffer.from([0, 0, 0, 20, 102, 116, 121, 112]));
@@ -134,7 +134,7 @@ describe('douyin draft registration', () => {
         const rows = await cmd.func(page, {
             video: videoPath,
             title: '最小修复验证',
-            caption: 'opencli draft e2e',
+            caption: 'toycli draft e2e',
             cover: '',
             visibility: 'friends',
         });
@@ -218,7 +218,7 @@ describe('douyin draft registration', () => {
             undefined,
             1,
             { ok: false, reason: 'cover-input-pending' },
-            { ok: true, selector: '[data-opencli-cover-input="1"]' },
+            { ok: true, selector: '[data-toycli-cover-input="1"]' },
             '快速检测检测中',
             '快速检测重新检测',
             true,
@@ -237,7 +237,7 @@ describe('douyin draft registration', () => {
             visibility: 'public',
         });
         expect(page.setFileInput).toHaveBeenNthCalledWith(1, [videoPath], 'input[type="file"]');
-        expect(page.setFileInput).toHaveBeenNthCalledWith(2, [coverPath], '[data-opencli-cover-input="1"]');
+        expect(page.setFileInput).toHaveBeenNthCalledWith(2, [coverPath], '[data-toycli-cover-input="1"]');
         const shortWaitCalls = page.wait.mock.calls.filter(([arg]) => JSON.stringify(arg) === JSON.stringify({ time: 0.5 }));
         expect(shortWaitCalls).toHaveLength(2);
         const evaluateCalls = page.evaluate.mock.calls.map((args) => String(args[0]));
@@ -264,7 +264,7 @@ describe('douyin draft registration', () => {
             { href: 'https://creator.douyin.com/creator-micro/content/post/video?enter_from=publish_page', ready: true, bodyText: '' },
             undefined,
             1,
-            { ok: true, selector: '[data-opencli-cover-input="1"]' },
+            { ok: true, selector: '[data-toycli-cover-input="1"]' },
             '快速检测重新检测',
             '快速检测重新检测',
             '快速检测重新检测',
@@ -303,7 +303,7 @@ describe('douyin draft registration', () => {
             { href: 'https://creator.douyin.com/creator-micro/content/post/video?enter_from=publish_page', ready: true, bodyText: '' },
             undefined,
             1,
-            { ok: true, selector: '[data-opencli-cover-input="1"]' },
+            { ok: true, selector: '[data-toycli-cover-input="1"]' },
             '快速检测重新检测',
             '快速检测重新检测',
             '快速检测检测中',

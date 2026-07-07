@@ -137,7 +137,7 @@ describe('generateSnapshotJs', () => {
     expect(js).toContain('AD_PATTERNS');
 
     // data-ref annotation
-    expect(js).toContain('data-opencli-ref');
+    expect(js).toContain('data-toycli-ref');
 
     // Hidden elements report
     expect(js).toContain('hiddenInteractives');
@@ -146,7 +146,7 @@ describe('generateSnapshotJs', () => {
     // Incremental diff
     expect(js).toContain('hashElement');
     expect(js).toContain('currentHashes');
-    expect(js).toContain('__opencli_prev_hashes');
+    expect(js).toContain('__toycli_prev_hashes');
 
     // Table serialization
     expect(js).toContain('serializeTable');
@@ -241,9 +241,9 @@ describe('scrollToRefJs', () => {
     expect(() => new Function(js)).not.toThrow();
   });
 
-  it('targets data-opencli-ref', () => {
+  it('targets data-toycli-ref', () => {
     const js = scrollToRefJs('7');
-    expect(js).toContain('data-opencli-ref');
+    expect(js).toContain('data-toycli-ref');
     expect(js).toContain('scrollIntoView');
     expect(js).toContain('"7"');
   });
@@ -299,9 +299,9 @@ describe('getFormStateJs', () => {
     expect(js).toContain('••••');
   });
 
-  it('includes data-opencli-ref in output', () => {
+  it('includes data-toycli-ref in output', () => {
     const js = getFormStateJs();
-    expect(js).toContain('data-opencli-ref');
+    expect(js).toContain('data-toycli-ref');
   });
 });
 

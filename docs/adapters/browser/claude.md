@@ -6,40 +6,40 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli claude ask <prompt>` | Send a prompt and get the response |
-| `opencli claude send <prompt>` | Send a prompt without waiting for the response |
-| `opencli claude new` | Start a new conversation |
-| `opencli claude status` | Check login state and page availability |
-| `opencli claude read` | Read the current conversation |
-| `opencli claude history` | List recent conversations from `/recents` |
-| `opencli claude detail <id>` | Open a conversation by ID and read its messages |
+| `toycli claude ask <prompt>` | Send a prompt and get the response |
+| `toycli claude send <prompt>` | Send a prompt without waiting for the response |
+| `toycli claude new` | Start a new conversation |
+| `toycli claude status` | Check login state and page availability |
+| `toycli claude read` | Read the current conversation |
+| `toycli claude history` | List recent conversations from `/recents` |
+| `toycli claude detail <id>` | Open a conversation by ID and read its messages |
 
 ## Usage Examples
 
 ```bash
 # Ask a question
-opencli claude ask "explain quicksort in 3 sentences"
+toycli claude ask "explain quicksort in 3 sentences"
 
 # Start a new chat before asking
-opencli claude ask "hello" --new
+toycli claude ask "hello" --new
 
 # Pick the model (default: sonnet; opus is paid-tier)
-opencli claude ask "quick summary" --model haiku
+toycli claude ask "quick summary" --model haiku
 
 # Enable Adaptive thinking
-opencli claude ask "prove that sqrt(2) is irrational" --think
+toycli claude ask "prove that sqrt(2) is irrational" --think
 
 # Attach a file (image / PDF / text, up to ~1 MB raw)
-opencli claude ask "describe this image" --file ./photo.png
+toycli claude ask "describe this image" --file ./photo.png
 
 # Combine modes
-opencli claude ask "what does this PDF cover?" --file ./paper.pdf --think --new
+toycli claude ask "what does this PDF cover?" --file ./paper.pdf --think --new
 
 # Custom timeout (default: 120s)
-opencli claude ask "write a long essay" --timeout 240
+toycli claude ask "write a long essay" --timeout 240
 
 # JSON output
-opencli claude ask "hello" -f json
+toycli claude ask "hello" -f json
 ```
 
 ### Options (ask)

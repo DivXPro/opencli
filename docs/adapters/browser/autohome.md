@@ -11,8 +11,8 @@ rating).
 
 | Command | Description |
 |---------|-------------|
-| `opencli autohome brand <品牌>` | A brand's car series + 厂商指导价 (guide price) |
-| `opencli autohome score <series_id>` | 口碑 rating: overall + per-dimension + 故障率PPH + competitors |
+| `toycli autohome brand <品牌>` | A brand's car series + 厂商指导价 (guide price) |
+| `toycli autohome score <series_id>` | 口碑 rating: overall + per-dimension + 故障率PPH + competitors |
 
 `score` takes a **series_id** from `brand` (the `series_id` column) or a
 `https://k.autohome.com.cn/<id>` URL.
@@ -21,15 +21,15 @@ rating).
 
 ```bash
 # A brand's whole lineup with guide prices
-opencli autohome brand 宝马
-opencli autohome brand 比亚迪 --limit 80
-opencli autohome brand 理想
+toycli autohome brand 宝马
+toycli autohome brand 比亚迪 --limit 80
+toycli autohome brand 理想
 
 # Owner-rating summary for a series
-opencli autohome score 6548        # 宝马X5
+toycli autohome score 6548        # 宝马X5
 
 # JSON output
-opencli autohome brand 丰田 -f json
+toycli autohome brand 丰田 -f json
 ```
 
 ## Output Columns

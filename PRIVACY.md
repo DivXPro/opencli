@@ -1,10 +1,10 @@
-# Privacy Policy — OpenCLI Browser Extension
+# Privacy Policy — ToyCLI Browser Extension
 
 **Last updated**: 2026-03-25
 
 ## What the extension does
 
-The OpenCLI Browser Extension is a bridge between the [OpenCLI](https://github.com/scopai/opencli) command-line tool and your Chrome browser. It receives commands from a **locally running daemon** process via WebSocket (`localhost` only) and executes them in **isolated Chrome windows** that are separate from your normal browsing session.
+The ToyCLI Browser Extension is a bridge between the [ToyCLI](https://github.com/toy-box/toycli) command-line tool and your Chrome browser. It receives commands from a **locally running daemon** process via WebSocket (`localhost` only) and executes them in **isolated Chrome windows** that are separate from your normal browsing session.
 
 ## Data collection
 
@@ -27,7 +27,7 @@ The extension does **NOT** collect, store, transmit, or sell any personal data. 
 ## Data flow
 
 ```
-User's terminal (opencli CLI)
+User's terminal (toycli CLI)
     ↓ (spawns)
 Local daemon process (localhost:19825)
     ↓ (WebSocket, localhost only)
@@ -49,9 +49,9 @@ This extension does not integrate with, send data to, or receive data from any t
 ## Open source
 
 This extension is fully open source. You can audit the complete source code at:
-https://github.com/scopai/opencli/tree/main/extension
+https://github.com/toy-box/toycli/tree/main/extension
 
 ## Contact
 
 For privacy questions or concerns, please open an issue at:
-https://github.com/scopai/opencli/issues
+https://github.com/toy-box/toycli/issues

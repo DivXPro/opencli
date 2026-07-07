@@ -7,7 +7,7 @@ export const newCommand = cli({
   name: 'new',
   access: 'write',
   description: 'Start a new Trae CN task in the current workspace, optionally sending the first prompt',
-  example: 'OPENCLI_CDP_ENDPOINT=http://127.0.0.1:39240 OPENCLI_CDP_TARGET=talk opencli trae-cn new "请执行你的任务" -f json',
+  example: 'TOYCLI_CDP_ENDPOINT=http://127.0.0.1:39240 TOYCLI_CDP_TARGET=talk toycli trae-cn new "请执行你的任务" -f json',
   domain: 'localhost',
   strategy: Strategy.UI,
   browser: true,

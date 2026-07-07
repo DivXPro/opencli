@@ -6,7 +6,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const GOPROXY_BASE = 'https://proxy.golang.org';
-const UA = 'opencli-goproxy-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-goproxy-adapter (+https://github.com/toy-box/toycli)';
 
 // Module paths look like host/path/...; conservative shape: at least one slash,
 // host segment is alnum + dots, path segments are alnum + dashes/dots/underscores/slashes.

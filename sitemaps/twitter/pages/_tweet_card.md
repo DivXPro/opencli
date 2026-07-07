@@ -29,17 +29,17 @@ do: click article a[href*="/status/"] || evaluate href then goto
 post: URL -> /<handle>/status/<id>
 fail: stays on listing | modal not nav | 404
 recover: goto explicit URL; if 404 mark tweet stale
-evidence: opencli browser click + state
+evidence: toycli browser click + state
 ```
 
 ```yaml
 ### action:like_tweet
 pre: card visible AND tweet_url known (or extract via article a[href*="/status/"])
-do: opencli twitter like <tweet-url> || click [data-testid="like"] in card scope
+do: toycli twitter like <tweet-url> || click [data-testid="like"] in card scope
 post: card testid like -> unlike, icon red
 fail: testid unchanged | login modal | wrong card flipped (scope missing)
-recover: adapter_health_update: opencli twitter like -> suspect; dom_click in card scope; rollback via [data-testid="unlike"]
-evidence: opencli twitter like
+recover: adapter_health_update: toycli twitter like -> suspect; dom_click in card scope; rollback via [data-testid="unlike"]
+evidence: toycli twitter like
 ```
 
 ```yaml
@@ -49,27 +49,27 @@ do: click [data-testid="reply"] in card scope
 post: composer shown, [data-testid="tweetTextarea_0"] focused, URL unchanged
 fail: login modal | composer not appearing
 recover: keyboard `r` if tweet focused; or goto status page use reply CTA
-evidence: opencli browser click
+evidence: toycli browser click
 ```
 
 ```yaml
 ### action:repost_tweet
 pre: card visible AND tweet_url known
-do: opencli twitter retweet <tweet-url> || click [data-testid="retweet"] in card then [data-testid="retweetConfirm"]
+do: toycli twitter retweet <tweet-url> || click [data-testid="retweet"] in card then [data-testid="retweetConfirm"]
 post: card testid retweet -> unretweet
 fail: confirm menu missing | testid unchanged
-recover: adapter_health_update: opencli twitter retweet -> suspect; dom_click confirm flow; rollback via [data-testid="unretweet"] + confirm
-evidence: opencli twitter retweet
+recover: adapter_health_update: toycli twitter retweet -> suspect; dom_click confirm flow; rollback via [data-testid="unretweet"] + confirm
+evidence: toycli twitter retweet
 ```
 
 ```yaml
 ### action:bookmark_tweet
 pre: card visible AND tweet_url known
-do: opencli twitter bookmark <tweet-url> || click [data-testid="bookmark"] in card scope
+do: toycli twitter bookmark <tweet-url> || click [data-testid="bookmark"] in card scope
 post: card testid bookmark -> removeBookmark, toast "Added to your Bookmarks"
 fail: testid unchanged | toast missing
-recover: adapter_health_update: opencli twitter bookmark -> suspect; dom_click + verify toast
-evidence: opencli twitter bookmark
+recover: adapter_health_update: toycli twitter bookmark -> suspect; dom_click + verify toast
+evidence: toycli twitter bookmark
 ```
 
 ## Notes

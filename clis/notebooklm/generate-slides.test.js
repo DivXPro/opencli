@@ -46,12 +46,12 @@ describe('notebooklm generate-slides', () => {
 
     it('parseSlidesIdFromResult finds a UUID-shaped slides id anywhere in the tree', () => {
         const id = '1f8ada7d-cb33-49a4-8498-c5b81c1a899d';
-        expect(parseSlidesIdFromResult([[id, 'opencli-slides-test']])).toBe(id);
+        expect(parseSlidesIdFromResult([[id, 'toycli-slides-test']])).toBe(id);
         expect(parseSlidesIdFromResult({ artifactId: id })).toBe(id);
     });
 
     it('parseSlidesIdFromResult ignores non-UUID strings and empty inputs', () => {
-        expect(parseSlidesIdFromResult([[null, 'opencli-slides-test']])).toBe('');
+        expect(parseSlidesIdFromResult([[null, 'toycli-slides-test']])).toBe('');
         expect(parseSlidesIdFromResult({})).toBe('');
         expect(parseSlidesIdFromResult([])).toBe('');
         expect(parseSlidesIdFromResult(null)).toBe('');

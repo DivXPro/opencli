@@ -6,21 +6,21 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli apple-podcasts search` | |
-| `opencli apple-podcasts episodes` | |
-| `opencli apple-podcasts top` | |
+| `toycli apple-podcasts search` | |
+| `toycli apple-podcasts episodes` | |
+| `toycli apple-podcasts top` | |
 
 ## Usage Examples
 
 ```bash
 # Quick start
-opencli apple-podcasts search --limit 5
+toycli apple-podcasts search --limit 5
 
 # JSON output
-opencli apple-podcasts search -f json
+toycli apple-podcasts search -f json
 
 # Verbose mode
-opencli apple-podcasts search -v
+toycli apple-podcasts search -v
 ```
 
 ## Prerequisites

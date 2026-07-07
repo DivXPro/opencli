@@ -35,7 +35,7 @@ export function listOpenCliSkills(packageRoot?: string): OpenCliSkillInfo[] {
   if (!fs.existsSync(skillsRoot)) return [];
 
   return fs.readdirSync(skillsRoot, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith('opencli-'))
+    .filter((entry) => entry.isDirectory() && entry.name.startsWith('toycli-'))
     .map((entry) => readSkillInfo(skillsRoot, entry.name))
     .filter((entry): entry is OpenCliSkillInfo => entry !== null)
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -43,24 +43,24 @@ export function listOpenCliSkills(packageRoot?: string): OpenCliSkillInfo[] {
 
 export function readOpenCliSkill(target: string, relpath = '', packageRoot?: string): OpenCliSkillReadResult {
   const { name, pathInSkill } = parseSkillTarget(target, relpath);
-  if (!name.startsWith('opencli-')) {
-    throw new ArgumentError(`Unknown OpenCLI skill: ${name}`, 'Run "opencli skills list" to see available OpenCLI skills.');
+  if (!name.startsWith('toycli-')) {
+    throw new ArgumentError(`Unknown ToyCLI skill: ${name}`, 'Run "toycli skills list" to see available ToyCLI skills.');
   }
 
   const skillsRoot = getSkillsRoot(packageRoot);
   const skillRoot = path.join(skillsRoot, name);
   if (!isDirectory(skillRoot) || !fs.existsSync(path.join(skillRoot, 'SKILL.md'))) {
-    throw new ArgumentError(`Unknown OpenCLI skill: ${name}`, 'Run "opencli skills list" to see available OpenCLI skills.');
+    throw new ArgumentError(`Unknown ToyCLI skill: ${name}`, 'Run "toycli skills list" to see available ToyCLI skills.');
   }
 
   const relativePath = normalizeSkillPath(pathInSkill || 'SKILL.md');
   const absolutePath = path.resolve(skillRoot, relativePath);
   const relativeToRoot = path.relative(skillRoot, absolutePath);
   if (relativeToRoot.startsWith('..') || path.isAbsolute(relativeToRoot)) {
-    throw new ArgumentError(`Invalid skill path: ${relativePath}`, 'Skill paths must stay inside the selected OpenCLI skill.');
+    throw new ArgumentError(`Invalid skill path: ${relativePath}`, 'Skill paths must stay inside the selected ToyCLI skill.');
   }
   if (!fs.existsSync(absolutePath) || !fs.statSync(absolutePath).isFile()) {
-    throw new ArgumentError(`Skill file not found: ${name}/${relativePath}`, 'Run "opencli skills list <skill>" is not supported yet; read SKILL.md or a known references/... file.');
+    throw new ArgumentError(`Skill file not found: ${name}/${relativePath}`, 'Run "toycli skills list <skill>" is not supported yet; read SKILL.md or a known references/... file.');
   }
 
   return {
@@ -104,7 +104,7 @@ function normalizeSkillPath(raw: string): string {
     throw new ArgumentError('Skill path must be non-empty.');
   }
   if (normalized.startsWith('/') || normalized.split('/').some((part) => part === '..')) {
-    throw new ArgumentError(`Invalid skill path: ${raw}`, 'Use a path relative to an OpenCLI skill directory.');
+    throw new ArgumentError(`Invalid skill path: ${raw}`, 'Use a path relative to an ToyCLI skill directory.');
   }
   return path.posix.normalize(normalized);
 }

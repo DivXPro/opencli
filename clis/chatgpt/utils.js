@@ -1,6 +1,6 @@
 /**
  * ChatGPT web browser automation helpers.
- * Cross-platform: works on Linux/macOS/Windows via OpenCLI's CDP browser automation.
+ * Cross-platform: works on Linux/macOS/Windows via ToyCLI's CDP browser automation.
  */
 
 import { htmlToMarkdown } from '@toy-box/opencli/utils';
@@ -60,7 +60,7 @@ const CHATGPT_MODEL_ALIASES = Object.fromEntries(Object.entries(CHATGPT_MODEL_TA
 export const CHATGPT_MODEL_CHOICES = Object.keys(CHATGPT_MODEL_ALIASES);
 
 function debugChatGPTModel(message) {
-    if (process?.env?.OPENCLI_CHATGPT_MODEL_DEBUG) {
+    if (process?.env?.TOYCLI_CHATGPT_MODEL_DEBUG) {
         console.error(`[chatgpt/model] ${message}`);
     }
 }
@@ -107,7 +107,7 @@ function isSameChatGPTConversation(currentUrl, expectedUrl) {
 }
 
 function buildComposerLocatorScript() {
-    const markerAttr = 'data-opencli-chatgpt-composer';
+    const markerAttr = 'data-toycli-chatgpt-composer';
     return `
       const isVisible = (el) => {
         if (!(el instanceof HTMLElement)) return false;
@@ -153,7 +153,7 @@ export function requireNonEmptyPrompt(prompt, commandName) {
     if (!text) {
         throw new ArgumentError(
             `${commandName} prompt cannot be empty`,
-            `Example: opencli ${commandName} "hello"`,
+            `Example: toycli ${commandName} "hello"`,
         );
     }
     return text;
@@ -251,7 +251,7 @@ export function parseChatGPTConversationId(value) {
         }
         throw new ArgumentError(
             'chatgpt detail requires a conversation id or chatgpt.com /c/<id> URL',
-            'Example: opencli chatgpt detail https://chatgpt.com/c/123e4567-e89b-12d3-a456-426614174000',
+            'Example: toycli chatgpt detail https://chatgpt.com/c/123e4567-e89b-12d3-a456-426614174000',
         );
     }
     const pathMatch = raw.match(/^\/(?:g\/g-p-[^/]+\/)?c\/([A-Za-z0-9_-]{8,})(?:[?#].*)?$/);
@@ -259,7 +259,7 @@ export function parseChatGPTConversationId(value) {
     if (/^[A-Za-z0-9_-]{8,}$/.test(raw)) return raw;
     throw new ArgumentError(
         'chatgpt detail requires a conversation id or chatgpt.com /c/<id> URL',
-        'Example: opencli chatgpt detail 123e4567-e89b-12d3-a456-426614174000',
+        'Example: toycli chatgpt detail 123e4567-e89b-12d3-a456-426614174000',
     );
 }
 
@@ -904,7 +904,7 @@ export function parseChatGPTProjectId(value) {
         if (id) return id;
         throw new ArgumentError(
             'chatgpt project commands require a chatgpt.com project id or /g/g-p-<id> URL',
-            'Example: opencli chatgpt project-file-add report.pdf --id 12345678',
+            'Example: toycli chatgpt project-file-add report.pdf --id 12345678',
         );
     }
     // Accept project slug pattern: g-p-{hex_id}-{slug} or just hex id
@@ -913,7 +913,7 @@ export function parseChatGPTProjectId(value) {
     if (/^[a-f0-9]{8,}$/i.test(raw)) return raw.toLowerCase();
     throw new ArgumentError(
         'chatgpt project commands require a project id or /g/g-p-<id> URL',
-        'Example: opencli chatgpt project-file-add report.pdf --id 12345678',
+        'Example: toycli chatgpt project-file-add report.pdf --id 12345678',
     );
 }
 

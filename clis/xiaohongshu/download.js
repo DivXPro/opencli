@@ -2,7 +2,7 @@
  * Xiaohongshu download — download images and videos from a note.
  *
  * Usage:
- *   opencli xiaohongshu download <signed-note-url-or-shortlink> --output ./xhs
+ *   toycli xiaohongshu download <signed-note-url-or-shortlink> --output ./xhs
  *
  * Accepts a full xiaohongshu.com URL with xsec_token or an xhslink short link.
  */

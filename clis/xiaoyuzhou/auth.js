@@ -15,7 +15,7 @@ function getNowMs() {
 }
 
 export function getXiaoyuzhouCredentialFile() {
-    return path.join(os.homedir(), '.opencli', 'xiaoyuzhou.json');
+    return path.join(os.homedir(), '.toycli', 'xiaoyuzhou.json');
 }
 
 function createXiaoyuzhouAuthError(message) {

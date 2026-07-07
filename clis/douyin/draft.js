@@ -144,10 +144,10 @@ async function prepareCustomCoverInput(page) {
       }
 
       document
-        .querySelectorAll('[data-opencli-cover-input="1"]')
-        .forEach((el) => el.removeAttribute('data-opencli-cover-input'));
-      target.setAttribute('data-opencli-cover-input', '1');
-      return { ok: true, selector: '[data-opencli-cover-input="1"]' };
+        .querySelectorAll('[data-toycli-cover-input="1"]')
+        .forEach((el) => el.removeAttribute('data-toycli-cover-input'));
+      target.setAttribute('data-toycli-cover-input', '1');
+      return { ok: true, selector: '[data-toycli-cover-input="1"]' };
     }`));
         if (result?.ok && result.selector) {
             return result.selector;

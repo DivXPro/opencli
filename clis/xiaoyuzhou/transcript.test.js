@@ -54,7 +54,7 @@ describe('xiaoyuzhou transcript', () => {
             credentials: { access_token: 'access-1', refresh_token: 'refresh-1' },
             data: {
                 title: 'Transcript Episode',
-                podcast: { title: 'OpenCLI FM' },
+                podcast: { title: 'ToyCLI FM' },
                 transcript: { mediaId: 'media-123' },
             },
         })
@@ -87,7 +87,7 @@ describe('xiaoyuzhou transcript', () => {
         expect(mockWriteFileSync).toHaveBeenNthCalledWith(2, '/tmp/xiaoyuzhou-transcripts/ep123/transcript.txt', 'hello\nworld', 'utf-8');
         expect(result).toEqual([{
                 title: 'Transcript Episode',
-                podcast: 'OpenCLI FM',
+                podcast: 'ToyCLI FM',
                 status: 'success',
                 segments: '2',
                 json_file: '/tmp/xiaoyuzhou-transcripts/ep123/transcript.json',
@@ -101,7 +101,7 @@ describe('xiaoyuzhou transcript', () => {
             credentials: { access_token: 'access-1', refresh_token: 'refresh-1' },
             data: {
                 title: 'Transcript Episode',
-                podcast: { title: 'OpenCLI FM' },
+                podcast: { title: 'ToyCLI FM' },
                 media: { id: 'media-456' },
             },
         })
@@ -129,7 +129,7 @@ describe('xiaoyuzhou transcript', () => {
             credentials: { access_token: 'access-1', refresh_token: 'refresh-1' },
             data: {
                 title: 'Transcript Episode',
-                podcast: { title: 'OpenCLI FM' },
+                podcast: { title: 'ToyCLI FM' },
                 transcript: { mediaId: 'media-123' },
             },
         })
@@ -155,7 +155,7 @@ describe('xiaoyuzhou transcript', () => {
             credentials: { access_token: 'access-1', refresh_token: 'refresh-1' },
             data: {
                 title: 'Transcript Episode',
-                podcast: { title: 'OpenCLI FM' },
+                podcast: { title: 'ToyCLI FM' },
                 transcript: { mediaId: 'media-123' },
             },
         })

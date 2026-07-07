@@ -58,7 +58,7 @@ describe('xiaoyuzhou download', () => {
             credentials: {},
             data: {
                 title: 'Hello World',
-                podcast: { title: 'OpenCLI FM' },
+                podcast: { title: 'ToyCLI FM' },
                 media: {
                     source: {
                         url: 'https://media.xyzcdn.net/audio/hello-world.mp3?sign=abc',
@@ -84,7 +84,7 @@ describe('xiaoyuzhou download', () => {
         });
         expect(result).toEqual([{
                 title: 'Hello World',
-                podcast: 'OpenCLI FM',
+                podcast: 'ToyCLI FM',
                 status: 'success',
                 size: '1234 B',
                 file: '/tmp/xiaoyuzhou-test/ep123/ep123_Hello_World.mp3',
@@ -96,7 +96,7 @@ describe('xiaoyuzhou download', () => {
             credentials: {},
             data: {
                 title: 'Lossless Episode',
-                podcast: { title: 'OpenCLI FM' },
+                podcast: { title: 'ToyCLI FM' },
                 media: {
                     source: {
                         url: 'https://media.xyzcdn.net/audio/lossless.m4a',
@@ -120,7 +120,7 @@ describe('xiaoyuzhou download', () => {
             credentials: {},
             data: {
                 title: 'No Audio',
-                podcast: { title: 'OpenCLI FM' },
+                podcast: { title: 'ToyCLI FM' },
                 media: {},
             },
         });

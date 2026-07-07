@@ -6,7 +6,7 @@
 import { ArgumentError, EmptyResultError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const WTTR_BASE = 'https://wttr.in';
-const UA = 'opencli-wttr/1.0';
+const UA = 'toycli-wttr/1.0';
 
 export function requireString(value, name) {
     if (typeof value !== 'string' || !value.trim()) {

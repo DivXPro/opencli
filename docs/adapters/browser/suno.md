@@ -8,10 +8,10 @@ Generate music with [Suno](https://suno.com) (V5.5 `chirp-fenix` by default) and
 
 | Command | Description |
 |---------|-------------|
-| `opencli suno status` | Show login state, plan, credit breakdown, captcha readiness |
-| `opencli suno list` | List recent clips in your library (id, title, status, created_at, link) |
-| `opencli suno generate [prompt]` | Generate a song (Simple or Custom mode) and download clips locally |
-| `opencli suno download <clip>` | Download an existing clip by UUID or `/song/<id>` URL |
+| `toycli suno status` | Show login state, plan, credit breakdown, captcha readiness |
+| `toycli suno list` | List recent clips in your library (id, title, status, created_at, link) |
+| `toycli suno generate [prompt]` | Generate a song (Simple or Custom mode) and download clips locally |
+| `toycli suno download <clip>` | Download an existing clip by UUID or `/song/<id>` URL |
 
 Each `generate` request returns 2 candidate clips by design (Suno's native A/B). Both are downloaded.
 
@@ -19,32 +19,32 @@ Each `generate` request returns 2 candidate clips by design (Suno's native A/B).
 
 ```bash
 # Quick health check — plan, credits, captcha
-opencli suno status
+toycli suno status
 
 # Browse the library (id you can feed to `download`)
-opencli suno list --limit 20
+toycli suno list --limit 20
 
 # Simple mode — Suno picks lyrics, tags, and title
-opencli suno generate "lo-fi study beat, 80 bpm, vinyl crackle" --instrumental true
+toycli suno generate "lo-fi study beat, 80 bpm, vinyl crackle" --instrumental true
 
 # Custom mode — full control over lyrics, style, and exclusions
-opencli suno generate \
+toycli suno generate \
   --lyrics "[Verse]\nNight rain on the window..." \
   --tags "synthwave, 100 BPM, analog pad" \
   --negative-tags "vocals, drums" \
   --title "Night Rain"
 
 # Dial in the web UI's "Weirdness" + "Style Influence" sliders
-opencli suno generate "post-rock crescendo" --weirdness 0.74 --style-weight 0.57
+toycli suno generate "post-rock crescendo" --weirdness 0.74 --style-weight 0.57
 
 # Generate but skip the download (you only want the Suno links + clip ids)
-opencli suno generate "ambient drone" --sd true
+toycli suno generate "ambient drone" --sd true
 
 # Download an existing clip in MP3 + metadata (default)
-opencli suno download a1b2c3d4-1111-2222-3333-444444444444
+toycli suno download a1b2c3d4-1111-2222-3333-444444444444
 
 # Same, but also pull WAV (charged by Suno — must confirm)
-opencli suno download a1b2c3d4-1111-2222-3333-444444444444 \
+toycli suno download a1b2c3d4-1111-2222-3333-444444444444 \
   --formats mp3,wav,metadata --confirm-paid true
 ```
 
@@ -81,7 +81,7 @@ opencli suno download a1b2c3d4-1111-2222-3333-444444444444 \
 
 ## Auth notes
 
-The Suno studio API (`studio-api-prod.suno.com`) requires three things on every request: a Clerk JWT, an anti-replay `browser-token`, and a persistent `device-id`. The OpenCLI bridge's `credentials: 'include'` cross-origin fetch drops Suno's session cookie due to third-party-cookie isolation in the evaluate context, so this adapter explicitly reads `await window.Clerk.session.getToken()` and forwards it as `Authorization: Bearer`. `browser-token` is generated per request (a base64-encoded `{ timestamp }` object) and `device-id` is read from the `suno_device_id` cookie that Suno's frontend writes on first load.
+The Suno studio API (`studio-api-prod.suno.com`) requires three things on every request: a Clerk JWT, an anti-replay `browser-token`, and a persistent `device-id`. The ToyCLI bridge's `credentials: 'include'` cross-origin fetch drops Suno's session cookie due to third-party-cookie isolation in the evaluate context, so this adapter explicitly reads `await window.Clerk.session.getToken()` and forwards it as `Authorization: Bearer`. `browser-token` is generated per request (a base64-encoded `{ timestamp }` object) and `device-id` is read from the `suno_device_id` cookie that Suno's frontend writes on first load.
 
 ## Prerequisites
 

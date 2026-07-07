@@ -121,7 +121,7 @@ cli({
     strategy: Strategy.COOKIE,
     browser: true,
     args: [
-        { name: 'listId', positional: true, type: 'string', required: true, help: 'Numeric ID of a Twitter/X list (e.g. from `opencli twitter lists`)' },
+        { name: 'listId', positional: true, type: 'string', required: true, help: 'Numeric ID of a Twitter/X list (e.g. from `toycli twitter lists`)' },
         { name: 'limit', type: 'int', default: 50 },
         { name: 'top-by-engagement', type: 'int', default: 0, help: 'When set to N>0, re-rank the list timeline by weighted engagement (likes×1 + retweets×3 + replies×2 + bookmarks×5 + log10(views+1)×0.5) and return the top N. Default 0 keeps the list\'s native (recency) ordering.' },
     ],
@@ -129,14 +129,14 @@ cli({
     func: async (page, kwargs) => {
         const listId = String(kwargs.listId || '').trim();
         if (!listId || !/^\d+$/.test(listId)) {
-            throw new CommandExecutionError(`Invalid listId: ${JSON.stringify(kwargs.listId)}. Expected a numeric ID (see \`opencli twitter lists\`).`);
+            throw new CommandExecutionError(`Invalid listId: ${JSON.stringify(kwargs.listId)}. Expected a numeric ID (see \`toycli twitter lists\`).`);
         }
         const limit = kwargs.limit || 50;
         const cookies = await page.getCookies({ url: 'https://x.com' });
         const ct0 = cookies.find((c) => c.name === 'ct0')?.value || null;
         if (!ct0)
             throw new AuthRequiredError('x.com', 'Not logged into x.com (no ct0 cookie)');
-        // opencli >=1.7.x wraps primitive page.evaluate returns as { session, data: <value> }.
+        // toycli >=1.7.x wraps primitive page.evaluate returns as { session, data: <value> }.
         // Without unwrap, the string queryId becomes "[object Object]" when interpolated into the URL,
         // causing HTTP 400 "queryId may have expired".
         const unwrap = (v) => (v && typeof v === 'object' && 'session' in v && 'data' in v ? v.data : v);

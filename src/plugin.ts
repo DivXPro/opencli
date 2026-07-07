@@ -1,8 +1,8 @@
 /**
  * Plugin management: install, uninstall, and list plugins.
  *
- * Plugins live in ~/.opencli/plugins/<name>/.
- * Monorepo clones live in ~/.opencli/monorepos/<repo-name>/.
+ * Plugins live in ~/.toycli/plugins/<name>/.
+ * Monorepo clones live in ~/.toycli/monorepos/<repo-name>/.
  * Install source format: "github:user/repo", "github:user/repo/subplugin",
  * "https://github.com/user/repo", "file:///local/plugin", or a local directory path.
  */
@@ -34,12 +34,12 @@ function getHomeDir(): string {
 
 /** Path to the lock file that tracks installed plugin versions. */
 export function getLockFilePath(): string {
-  return path.join(getHomeDir(), '.opencli', 'plugins.lock.json');
+  return path.join(getHomeDir(), '.toycli', 'plugins.lock.json');
 }
 
-/** Monorepo clones directory: ~/.opencli/monorepos/ */
+/** Monorepo clones directory: ~/.toycli/monorepos/ */
 export function getMonoreposDir(): string {
-  return path.join(getHomeDir(), '.opencli', 'monorepos');
+  return path.join(getHomeDir(), '.toycli', 'monorepos');
 }
 
 export type PluginSourceRecord =
@@ -63,7 +63,7 @@ export interface PluginInfo {
   installedAt?: string;
   /** If from a monorepo, the monorepo name. */
   monorepoName?: string;
-  /** Description from opencli-plugin.json. */
+  /** Description from toycli-plugin.json. */
   description?: string;
 }
 
@@ -195,7 +195,7 @@ function resolveStoredPluginSource(lockEntry: LockEntry | undefined, pluginDir: 
 /**
  * Move a directory, with EXDEV fallback.
  * fs.renameSync fails when source and destination are on different
- * filesystems (e.g. /tmp → ~/.opencli). In that case we copy then remove.
+ * filesystems (e.g. /tmp → ~/.toycli). In that case we copy then remove.
  */
 type MoveDirFsOps = Pick<typeof fs, 'renameSync' | 'cpSync' | 'rmSync'>;
 
@@ -227,7 +227,7 @@ function createSiblingTempPath(dest: string, kind: 'tmp' | 'bak'): string {
 function cloneRepoToTemp(cloneUrl: string): string {
   const tmpCloneDir = path.join(
     os.tmpdir(),
-    `opencli-clone-${process.pid}-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    `toycli-clone-${process.pid}-${Date.now()}-${Math.random().toString(16).slice(2)}`,
   );
 
   try {
@@ -576,7 +576,7 @@ function installDependencies(dir: string): void {
 }
 
 function finalizePluginRuntime(pluginDir: string): void {
-  // Symlink host opencli so TS plugins resolve '@toy-box/opencli/registry'
+  // Symlink host toycli so TS plugins resolve '@toy-box/opencli/registry'
   // against the running host, not a stale npm-published version.
   linkHostOpencli(pluginDir);
 
@@ -711,9 +711,9 @@ export function installPlugin(source: string): string | string[] {
     const manifest = readPluginManifest(tmpCloneDir);
 
     // Check top-level compatibility
-    if (manifest?.opencli && !checkCompatibility(manifest.opencli)) {
+    if (manifest?.toycli && !checkCompatibility(manifest.toycli)) {
       throw new Error(
-        `Plugin requires opencli ${manifest.opencli}, but current version is incompatible.`
+        `Plugin requires toycli ${manifest.toycli}, but current version is incompatible.`
       );
     }
 
@@ -737,7 +737,7 @@ function installSinglePlugin(
   const targetDir = path.join(PLUGINS_DIR, pluginName);
 
   if (fs.existsSync(targetDir)) {
-    throw new PluginError(`Plugin "${pluginName}" is already installed at ${targetDir}`, 'Use "opencli plugin uninstall" first, or pick a different name.');
+    throw new PluginError(`Plugin "${pluginName}" is already installed at ${targetDir}`, 'Use "toycli plugin uninstall" first, or pick a different name.');
   }
 
   ensureStandalonePluginReady(cloneDir);
@@ -772,10 +772,10 @@ function installLocalPlugin(localPath: string, name: string): string {
 
   const manifest = readPluginManifest(localPath);
 
-  if (manifest?.opencli && !checkCompatibility(manifest.opencli)) {
+  if (manifest?.toycli && !checkCompatibility(manifest.toycli)) {
     throw new PluginError(
-      `Plugin requires opencli ${manifest.opencli}, but current version is incompatible.`,
-      'Upgrade opencli to a compatible version.',
+      `Plugin requires toycli ${manifest.toycli}, but current version is incompatible.`,
+      'Upgrade toycli to a compatible version.',
     );
   }
 
@@ -783,7 +783,7 @@ function installLocalPlugin(localPath: string, name: string): string {
   const targetDir = path.join(PLUGINS_DIR, pluginName);
 
   if (fs.existsSync(targetDir)) {
-    throw new PluginError(`Plugin "${pluginName}" is already installed at ${targetDir}`, 'Use "opencli plugin uninstall" first, or pick a different name.');
+    throw new PluginError(`Plugin "${pluginName}" is already installed at ${targetDir}`, 'Use "toycli plugin uninstall" first, or pick a different name.');
   }
 
   const validation = validatePluginStructure(localPath);
@@ -878,8 +878,8 @@ function installMonorepo(
 
   for (const { name, entry } of pluginsToInstall) {
     // Check sub-plugin level compatibility (overrides top-level)
-    if (entry.opencli && !checkCompatibility(entry.opencli)) {
-      log.warn(`Skipping "${name}": requires opencli ${entry.opencli}`);
+    if (entry.toycli && !checkCompatibility(entry.toycli)) {
+      log.warn(`Skipping "${name}": requires toycli ${entry.toycli}`);
       continue;
     }
 
@@ -978,8 +978,8 @@ function collectUpdatedMonorepoPlugins(
     if (!manifestEntry || manifestEntry.disabled) {
       throw new Error(`Installed sub-plugin "${pluginName}" no longer exists in ${cloneUrl}`);
     }
-    if (manifestEntry.opencli && !checkCompatibility(manifestEntry.opencli)) {
-      throw new Error(`Sub-plugin "${pluginName}" requires opencli ${manifestEntry.opencli}`);
+    if (manifestEntry.toycli && !checkCompatibility(manifestEntry.toycli)) {
+      throw new Error(`Sub-plugin "${pluginName}" requires toycli ${manifestEntry.toycli}`);
     }
 
     const subDir = resolveRepoContainedPath(tmpCloneDir, manifestEntry.path);
@@ -1118,9 +1118,9 @@ export function updatePlugin(name: string): void {
         throw new Error(`Updated source is no longer a monorepo: ${cloneUrl}`);
       }
 
-      if (manifest.opencli && !checkCompatibility(manifest.opencli)) {
+      if (manifest.toycli && !checkCompatibility(manifest.toycli)) {
         throw new Error(
-          `Plugin requires opencli ${manifest.opencli}, but current version is incompatible.`
+          `Plugin requires toycli ${manifest.toycli}, but current version is incompatible.`
         );
       }
 
@@ -1160,9 +1160,9 @@ export function updatePlugin(name: string): void {
       throw new Error(`Updated source is now a monorepo: ${cloneUrl}`);
     }
 
-    if (manifest?.opencli && !checkCompatibility(manifest.opencli)) {
+    if (manifest?.toycli && !checkCompatibility(manifest.toycli)) {
       throw new Error(
-        `Plugin requires opencli ${manifest.opencli}, but current version is incompatible.`
+        `Plugin requires toycli ${manifest.toycli}, but current version is incompatible.`
       );
     }
 
@@ -1203,7 +1203,7 @@ export function updateAllPlugins(): UpdateResult[] {
 
 /**
  * List all installed plugins.
- * Reads opencli-plugin.json for description/version when available.
+ * Reads toycli-plugin.json for description/version when available.
  */
 export function listPlugins(): PluginInfo[] {
   if (!fs.existsSync(PLUGINS_DIR)) return [];
@@ -1294,7 +1294,7 @@ function parseSource(
       return {
         type: 'local',
         localPath,
-        name: path.basename(localPath).replace(/^opencli-plugin-/, ''),
+        name: path.basename(localPath).replace(/^toycli-plugin-/, ''),
       };
     } catch {
       return null;
@@ -1306,7 +1306,7 @@ function parseSource(
     return {
       type: 'local',
       localPath,
-      name: path.basename(localPath).replace(/^opencli-plugin-/, ''),
+      name: path.basename(localPath).replace(/^toycli-plugin-/, ''),
     };
   }
 
@@ -1316,7 +1316,7 @@ function parseSource(
   );
   if (githubSubMatch) {
     const [, user, repo, sub] = githubSubMatch;
-    const name = repo.replace(/^opencli-plugin-/, '');
+    const name = repo.replace(/^toycli-plugin-/, '');
     return {
       type: 'git',
       cloneUrl: `https://github.com/${user}/${repo}.git`,
@@ -1329,7 +1329,7 @@ function parseSource(
   const githubMatch = source.match(/^github:([\w.-]+)\/([\w.-]+)$/);
   if (githubMatch) {
     const [, user, repo] = githubMatch;
-    const name = repo.replace(/^opencli-plugin-/, '');
+    const name = repo.replace(/^toycli-plugin-/, '');
     return {
       type: 'git',
       cloneUrl: `https://github.com/${user}/${repo}.git`,
@@ -1343,7 +1343,7 @@ function parseSource(
   );
   if (urlMatch) {
     const [, user, repo] = urlMatch;
-    const name = repo.replace(/^opencli-plugin-/, '');
+    const name = repo.replace(/^toycli-plugin-/, '');
     return {
       type: 'git',
       cloneUrl: `https://github.com/${user}/${repo}.git`,
@@ -1359,7 +1359,7 @@ function parseSource(
     const pathPart = sshUrlMatch[1];
     const segments = pathPart.split('/');
     const repoSegment = segments.pop()!;
-    const name = repoSegment.replace(/^opencli-plugin-/, '');
+    const name = repoSegment.replace(/^toycli-plugin-/, '');
     return { type: 'git', cloneUrl: source, name };
   }
 
@@ -1369,7 +1369,7 @@ function parseSource(
     const pathPart = scpMatch[1];
     const segments = pathPart.split('/');
     const repoSegment = segments.pop()!;
-    const name = repoSegment.replace(/^opencli-plugin-/, '');
+    const name = repoSegment.replace(/^toycli-plugin-/, '');
     return { type: 'git', cloneUrl: source, name };
   }
 
@@ -1381,7 +1381,7 @@ function parseSource(
     const pathPart = genericHttpMatch[1];
     const segments = pathPart.split('/');
     const repoSegment = segments.pop()!;
-    const name = repoSegment.replace(/^opencli-plugin-/, '');
+    const name = repoSegment.replace(/^toycli-plugin-/, '');
     // Ensure clone URL ends with .git
     const cloneUrl = source.endsWith('.git') ? source : `${source}.git`;
     return { type: 'git', cloneUrl, name };
@@ -1391,7 +1391,7 @@ function parseSource(
 }
 
 /**
- * Symlink the host opencli package into a plugin's node_modules.
+ * Symlink the host toycli package into a plugin's node_modules.
  * This ensures TS plugins resolve '@toy-box/opencli/registry' against
  * the running host installation rather than a stale npm-published version.
  */
@@ -1413,9 +1413,9 @@ function linkHostOpencli(pluginDir: string): void {
     // 'dir' symlink on other platforms.
     const linkType = isWindows ? 'junction' : 'dir';
     fs.symlinkSync(hostRoot, targetLink, linkType);
-    log.debug(`Linked host opencli into plugin: ${targetLink} → ${hostRoot}`);
+    log.debug(`Linked host toycli into plugin: ${targetLink} → ${hostRoot}`);
   } catch (err) {
-    log.warn(`Failed to link host opencli into plugin: ${getErrorMessage(err)}`);
+    log.warn(`Failed to link host toycli into plugin: ${getErrorMessage(err)}`);
   }
 }
 
@@ -1503,7 +1503,7 @@ function resolveHostOpencliRoot(startFile = fileURLToPath(import.meta.url)): str
 
 /**
  * Transpile TS plugin files to JS so they work in production mode.
- * Uses esbuild from the host opencli's node_modules for fast single-file transpilation.
+ * Uses esbuild from the host toycli's node_modules for fast single-file transpilation.
  */
 function transpilePluginTs(pluginDir: string): void {
   try {
@@ -1512,7 +1512,7 @@ function transpilePluginTs(pluginDir: string): void {
     if (!esbuildBin) {
       log.warn(
         'esbuild not found. TS plugin files will not be transpiled and may fail to load. ' +
-        'Install esbuild (`npm i -g esbuild`) or ensure it is available in the opencli host node_modules.'
+        'Install esbuild (`npm i -g esbuild`) or ensure it is available in the toycli host node_modules.'
       );
       return;
     }

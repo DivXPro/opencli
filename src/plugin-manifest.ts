@@ -1,5 +1,5 @@
 /**
- * Plugin manifest: reads and validates opencli-plugin.json files.
+ * Plugin manifest: reads and validates toycli-plugin.json files.
  *
  * Supports two modes:
  * 1. Single plugin: repo root IS the plugin directory.
@@ -17,8 +17,8 @@ export interface SubPluginEntry {
   path: string;
   version?: string;
   description?: string;
-  /** Semver range for opencli compatibility (overrides top-level). */
-  opencli?: string;
+  /** Semver range for toycli compatibility (overrides top-level). */
+  toycli?: string;
   /** When true, this sub-plugin is skipped during install. */
   disabled?: boolean;
 }
@@ -28,20 +28,20 @@ export interface PluginManifest {
   name?: string;
   /** Semantic version of the plugin (single-plugin mode). */
   version?: string;
-  /** Semver range for opencli compatibility, e.g. ">=1.0.0". */
-  opencli?: string;
+  /** Semver range for toycli compatibility, e.g. ">=1.0.0". */
+  toycli?: string;
   /** Human-readable description. */
   description?: string;
   /** Monorepo sub-plugins. Key = logical plugin name. */
   plugins?: Record<string, SubPluginEntry>;
 }
 
-export const MANIFEST_FILENAME = 'opencli-plugin.json';
+export const MANIFEST_FILENAME = 'toycli-plugin.json';
 
 // ── Read / Validate ─────────────────────────────────────────────────────────
 
 /**
- * Read and parse opencli-plugin.json from a directory.
+ * Read and parse toycli-plugin.json from a directory.
  * Returns null if the file does not exist or is unparseable.
  */
 export function readPluginManifest(dir: string): PluginManifest | null {
@@ -85,7 +85,7 @@ export function getEnabledPlugins(
 // ── Version compatibility ───────────────────────────────────────────────────
 
 /**
- * Check if the current opencli version satisfies a semver range string.
+ * Check if the current toycli version satisfies a semver range string.
  *
  * Supports a simplified subset of semver ranges:
  *   ">=1.0.0"   – greater than or equal

@@ -13,7 +13,7 @@ cli({
   strategy: Strategy.PUBLIC,
   browser: true,
   navigateBefore: false,
-  example: 'opencli geogebra triangle --size 4',
+  example: 'toycli geogebra triangle --size 4',
   args: [
     { name: 'size', required: false, default: '2', help: 'Side length of the triangle (default: 2)' },
   ],
@@ -43,7 +43,7 @@ cli({
 
     const objectCount = await ggbWaitForObjectCount(page, 5);
     const objects = await ggbListObjects(page);
-    const screenshotPath = path.join(os.tmpdir(), 'opencli-geogebra-triangle.png');
+    const screenshotPath = path.join(os.tmpdir(), 'toycli-geogebra-triangle.png');
     try {
       await page.screenshot({ path: screenshotPath });
     } catch (err) {

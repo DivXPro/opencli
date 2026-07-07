@@ -57,7 +57,7 @@ describe('xiaohongshu publish', () => {
     it('uses native insertText for contenteditable title fields when available', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const insertText = vi.fn().mockResolvedValue(undefined);
@@ -74,14 +74,14 @@ describe('xiaohongshu publish', () => {
                 return false;
             if (code.includes('const sels =') && code.includes('for (const sel of sels)'))
                 return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, sel: '[contenteditable="true"][placeholder*="标题"]', kind: 'contenteditable' }
                     : { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' };
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"prepare"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"prepare"'))
                 return { ok: true };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"verify"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"verify"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, actual: '标题走原生输入' }
                     : { ok: true, actual: '正文也走原生输入' };
@@ -120,7 +120,7 @@ describe('xiaohongshu publish', () => {
     it('aborts when the title does not stick after filling', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const insertText = vi.fn().mockResolvedValue(undefined);
@@ -137,11 +137,11 @@ describe('xiaohongshu publish', () => {
                 return false;
             if (code.includes('const sels =') && code.includes('for (const sel of sels)'))
                 return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"'))
                 return { ok: true, sel: '[contenteditable="true"][placeholder*="标题"]', kind: 'contenteditable' };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"prepare"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"prepare"'))
                 return { ok: true };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"verify"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"verify"'))
                 return { ok: false, actual: '' };
             if (code.includes('(function(selectors, text)'))
                 return { ok: true, sel: '[contenteditable="true"][placeholder*="标题"]', kind: 'contenteditable', actual: '' };
@@ -167,7 +167,7 @@ describe('xiaohongshu publish', () => {
     it('falls back to in-page insertion when contenteditable native insertText fails', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const insertText = vi.fn().mockRejectedValue(new Error('insertText returned no inserted flag'));
@@ -184,14 +184,14 @@ describe('xiaohongshu publish', () => {
                 return false;
             if (code.includes('const sels =') && code.includes('for (const sel of sels)'))
                 return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, sel: '[contenteditable="true"][placeholder*="标题"]', kind: 'contenteditable' }
                     : { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' };
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"prepare"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"prepare"'))
                 return { ok: true };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"apply"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"apply"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, actual: '原生失败后回退' }
                     : { ok: true, actual: '正文也回退' };
@@ -224,7 +224,7 @@ describe('xiaohongshu publish', () => {
     it('aborts when an input title does not stick after filling', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const page = createConditionalPageMock((code) => {
@@ -240,11 +240,11 @@ describe('xiaohongshu publish', () => {
                 return false;
             if (code.includes('const sels =') && code.includes('for (const sel of sels)'))
                 return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"'))
                 return code.includes('input[maxlength')
                     ? { ok: true, sel: 'input[maxlength="20"]', kind: 'input' }
                     : { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"apply"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"apply"'))
                 return code.includes('input[maxlength')
                     ? { ok: false, actual: '' }
                     : { ok: true, actual: '正文' };
@@ -267,7 +267,7 @@ describe('xiaohongshu publish', () => {
     it('prefers CDP setFileInput upload when the page supports it', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const setFileInput = vi.fn().mockResolvedValue(undefined);
@@ -308,7 +308,7 @@ describe('xiaohongshu publish', () => {
     it('falls back to DataTransfer upload when CDP file injection is blocked by Chrome', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const setFileInput = vi.fn().mockRejectedValue(new Error('Chrome Not allowed'));
@@ -350,7 +350,7 @@ describe('xiaohongshu publish', () => {
     it('fails fast when only a generic file input exists on the page', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const setFileInput = vi.fn().mockResolvedValue(undefined);
@@ -375,7 +375,7 @@ describe('xiaohongshu publish', () => {
     it('selects the image-text tab and publishes successfully', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const page = createPageMock([
@@ -420,7 +420,7 @@ describe('xiaohongshu publish', () => {
         // (the primary #1606 fix). Without this case the fix's main path is uncovered.
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const page = createPageMock([
@@ -459,7 +459,7 @@ describe('xiaohongshu publish', () => {
     it('fails early with a clear error when still on the video page', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const page = createPageMock([
@@ -482,7 +482,7 @@ describe('xiaohongshu publish', () => {
     it('waits for the image-text surface to appear after clicking the tab', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const page = createPageMock([
@@ -519,7 +519,7 @@ describe('xiaohongshu publish', () => {
     it('treats 保存成功 on the draft list as a successful draft save', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const page = createConditionalPageMock((code) => {
@@ -535,12 +535,12 @@ describe('xiaohongshu publish', () => {
                 return false;
             if (code.includes('const sels =') && code.includes('for (const sel of sels)'))
                 return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) {
                 return code.includes('[contenteditable="true"][class*="content"]')
                     ? { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' }
                     : { ok: true, sel: 'input[placeholder*="标题"]', kind: 'input' };
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"apply"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"apply"')) {
                 return code.includes('[contenteditable="true"][class*="content"]')
                     ? { ok: true, actual: '停留在发布页也算成功' }
                     : { ok: true, actual: '草稿成功提示' };
@@ -571,7 +571,7 @@ describe('xiaohongshu publish', () => {
     it('fails when publish success cannot be verified', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const page = createConditionalPageMock((code) => {
@@ -587,12 +587,12 @@ describe('xiaohongshu publish', () => {
                 return false;
             if (code.includes('const sels =') && code.includes('for (const sel of sels)'))
                 return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) {
                 return code.includes('[contenteditable="true"][class*="content"]')
                     ? { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' }
                     : { ok: true, sel: 'input[placeholder*="标题"]', kind: 'input' };
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"apply"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"apply"')) {
                 return code.includes('[contenteditable="true"][class*="content"]')
                     ? { ok: true, actual: '发布提示不该复用草稿成功' }
                     : { ok: true, actual: '发布成功提示' };
@@ -617,7 +617,7 @@ describe('xiaohongshu publish', () => {
     it('attaches topics via Enter to accept the inline suggestion (shadow-DOM dropdown)', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const insertText = vi.fn().mockResolvedValue(undefined);
@@ -653,18 +653,18 @@ describe('xiaohongshu publish', () => {
             }
             // Body-scoped chip-marker postcondition. Each topic checks count
             // before and after Enter; simulate one new marker after selection.
-            if (code.includes('__opencli_xhs_topic_marker_count')) {
+            if (code.includes('__toycli_xhs_topic_marker_count')) {
                 markerChecks += 1;
                 return markerChecks % 2 === 1 ? 0 : 1;
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, sel: '[contenteditable="true"][placeholder*="标题"]', kind: 'contenteditable' }
                     : { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' };
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"prepare"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"prepare"'))
                 return { ok: true };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"verify"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"verify"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, actual: '带话题的标题' }
                     : { ok: true, actual: '带话题的正文' };
@@ -711,7 +711,7 @@ describe('xiaohongshu publish', () => {
     it('fails typed when XHS does not render the topic chip marker after Enter', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const insertText = vi.fn().mockResolvedValue(undefined);
@@ -733,17 +733,17 @@ describe('xiaohongshu publish', () => {
             if (code.includes('node.isContentEditable') && code.includes('selectNodeContents'))
                 return true;
             // Chip marker count does not increase → topic attachment failed.
-            if (code.includes('__opencli_xhs_topic_marker_count')) {
+            if (code.includes('__toycli_xhs_topic_marker_count')) {
                 return 0;
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, sel: '[contenteditable="true"][placeholder*="标题"]', kind: 'contenteditable' }
                     : { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' };
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"prepare"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"prepare"'))
                 return { ok: true };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"verify"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"verify"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, actual: '话题失败标题' }
                     : { ok: true, actual: '话题失败正文' };
@@ -777,7 +777,7 @@ describe('xiaohongshu publish', () => {
     it('does not accept a pre-existing topic marker as proof of a new attached topic', async () => {
         const cmd = getRegistry().get('xiaohongshu/publish');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-publish-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-publish-'));
         const imagePath = path.join(tempDir, 'demo.jpg');
         fs.writeFileSync(imagePath, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         const insertText = vi.fn().mockResolvedValue(undefined);
@@ -799,17 +799,17 @@ describe('xiaohongshu publish', () => {
                 return true;
             // Existing marker before selection, but Enter does not attach a new
             // entity; count remains unchanged and must fail.
-            if (code.includes('__opencli_xhs_topic_marker_count')) {
+            if (code.includes('__toycli_xhs_topic_marker_count')) {
                 return 1;
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, sel: '[contenteditable="true"][placeholder*="标题"]', kind: 'contenteditable' }
                     : { ok: true, sel: '[contenteditable="true"][class*="content"]', kind: 'contenteditable' };
             }
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"prepare"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"prepare"'))
                 return { ok: true };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"verify"')) {
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"verify"')) {
                 return code.includes('[contenteditable="true"][placeholder*="标题"]')
                     ? { ok: true, actual: '已有话题标题' }
                     : { ok: true, actual: '已有话题正文 #AI[话题]' };
@@ -855,7 +855,7 @@ describe('xiaohongshu publish 文字配图 validation', () => {
 
     it('rejects .gif appended images in text-image mode', async () => {
         const cmd = getCmd();
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-cardgif-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-cardgif-'));
         const gifPath = path.join(tempDir, 'a.gif');
         fs.writeFileSync(gifPath, Buffer.from([0x47, 0x49, 0x46]));
         const page = createPageMock([]);
@@ -872,14 +872,14 @@ describe('xiaohongshu publish 文字配图 validation', () => {
         const cmd = getCmd();
         const page = createPageMock([]);
         await expect(
-            cmd.func(page, { title: 't', content: 'c', images: '/tmp/opencli-xhs-missing.jpg' })
+            cmd.func(page, { title: 't', content: 'c', images: '/tmp/toycli-xhs-missing.jpg' })
         ).rejects.toThrow(ArgumentError);
         expect(page.goto).not.toHaveBeenCalled();
     });
 
     it('throws ArgumentError for unsupported image extensions before navigating', async () => {
         const cmd = getCmd();
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-badext-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-badext-'));
         const txtPath = path.join(tempDir, 'a.txt');
         fs.writeFileSync(txtPath, 'not an image');
         const page = createPageMock([]);
@@ -903,38 +903,38 @@ describe('xiaohongshu publish 文字配图 flow', () => {
             if (code.includes('hasTitleInput') && code.includes('hasVideoSurface'))
                 return { state: 'image_surface', hasTitleInput: false, hasImageInput: true, hasVideoSurface: false };
             // text-image entry click
-            if (code.includes('__opencli_xhs_click_label')) {
+            if (code.includes('__toycli_xhs_click_label')) {
                 capture.clicks.push(code.match(/wantLabel:\s*"([^"]+)"/)?.[1] ?? 'unknown');
                 return { ok: true };
             }
             // focus active card
-            if (code.includes('__opencli_xhs_focus_card'))
+            if (code.includes('__toycli_xhs_focus_card'))
                 return { ok: true };
             // new-card render poll after 再写一张
-            if (code.includes('__opencli_xhs_card_count'))
+            if (code.includes('__toycli_xhs_card_count'))
                 return { ok: true, count: 9, activeEmpty: true };
             // 预览图片 step readiness poll after 生成图片
-            if (code.includes('__opencli_xhs_preview_ready'))
+            if (code.includes('__toycli_xhs_preview_ready'))
                 return { ok: true };
             // verify a card is non-empty
-            if (code.includes('__opencli_xhs_card_text'))
+            if (code.includes('__toycli_xhs_card_text'))
                 return { ok: true, text: 'non-empty' };
             // preview style options present — `found` mirrors the live reader,
             // which reports whether the requested style is among the on-page options.
-            if (code.includes('__opencli_xhs_card_styles')) {
+            if (code.includes('__toycli_xhs_card_styles')) {
                 const styles = ['基础', '插图', '美漫', '备忘', '边框', '清新'];
                 const want = code.match(/const want = "([^"]+)"/)?.[1] ?? '';
                 return { ok: true, styles, found: styles.includes(want) };
             }
-            if (code.includes('__opencli_xhs_composer_media_count'))
+            if (code.includes('__toycli_xhs_composer_media_count'))
                 return { ok: true, count: 9 };
             // wait-for-edit-form poll
             if (code.includes('const sels =') && code.includes('for (const sel of sels)'))
                 return true;
             // fill title/content locate+apply
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"'))
                 return { ok: true, sel: 'x', kind: 'input' };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"apply"'))
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"apply"'))
                 return { ok: true, actual: code.includes('标题') ? 't' : 'c' };
             if (code.includes('xhs-publish-btn'))
                 return { ok: true, via: 'method', name: '_onPublish' };
@@ -955,7 +955,7 @@ describe('xiaohongshu publish 文字配图 flow', () => {
         expect(capture.clicks).toContain('生成图片');
         expect(capture.clicks).toContain('下一步');
         const mediaCountCode = page.evaluate.mock.calls.map((args) => String(args[0]))
-            .find((code) => code.includes('__opencli_xhs_composer_media_count'));
+            .find((code) => code.includes('__toycli_xhs_composer_media_count'));
         expect(mediaCountCode).toContain('.find((el) => visibleBox(el))');
         expect(mediaCountCode).toContain('if (!visibleMedia(el)) continue');
         expect(rows[0].status).toContain('发布成功');
@@ -1010,7 +1010,7 @@ describe('xiaohongshu publish 文字配图 flow', () => {
         const cmd = getCmd();
         const insertText = vi.fn().mockResolvedValue(undefined);
         const setFileInput = vi.fn().mockResolvedValue(undefined);
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-xhs-cardimg-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-xhs-cardimg-'));
         const jpg = path.join(tempDir, 'extra.jpg');
         fs.writeFileSync(jpg, Buffer.from([0xff, 0xd8, 0xff, 0xd9]));
         // base page walker + a file-input selector probe for uploadImages()
@@ -1021,17 +1021,17 @@ describe('xiaohongshu publish 文字配图 flow', () => {
                 return { ok: true, target: '上传图文', text: '上传图文' };
             if (code.includes('hasTitleInput') && code.includes('hasVideoSurface'))
                 return { state: 'image_surface', hasTitleInput: false, hasImageInput: true, hasVideoSurface: false };
-            if (code.includes('__opencli_xhs_click_label')) return { ok: true };
-            if (code.includes('__opencli_xhs_focus_card')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
-            if (code.includes('__opencli_xhs_preview_ready')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_text')) return { ok: true, text: 'x' };
-            if (code.includes('__opencli_xhs_composer_media_count')) return { ok: true, count: 2 };
+            if (code.includes('__toycli_xhs_click_label')) return { ok: true };
+            if (code.includes('__toycli_xhs_focus_card')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
+            if (code.includes('__toycli_xhs_preview_ready')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_text')) return { ok: true, text: 'x' };
+            if (code.includes('__toycli_xhs_composer_media_count')) return { ok: true, count: 2 };
             if (code.includes('document.querySelector(sels)') && code.includes('return el ? sels : null')) return IMAGE_INPUT_SELECTOR_RESULT;
             if (code.includes('[class*="upload"][class*="progress"]')) return false;
             if (code.includes('const sels =') && code.includes('for (const sel of sels)')) return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) return { ok: true, sel: 'x', kind: 'input' };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"apply"')) return { ok: true, actual: code.includes('标题') ? 't' : 'c' };
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) return { ok: true, sel: 'x', kind: 'input' };
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"apply"')) return { ok: true, actual: code.includes('标题') ? 't' : 'c' };
             if (code.includes('xhs-publish-btn')) return { ok: true, via: 'method', name: '_onPublish' };
             if (code.includes('successMarkers') || code.includes('发布成功')) return '发布成功';
             return null;
@@ -1051,11 +1051,11 @@ describe('xiaohongshu publish 文字配图 flow', () => {
             if (code.includes("const targets = ['上传图文', '图文', '图片']")) return { ok: true, target: '上传图文', text: '上传图文' };
             if (code.includes('hasTitleInput') && code.includes('hasVideoSurface'))
                 return { state: 'image_surface', hasTitleInput: false, hasImageInput: true, hasVideoSurface: false };
-            if (code.includes('__opencli_xhs_click_label')) return { ok: true };
-            if (code.includes('__opencli_xhs_focus_card')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
-            if (code.includes('__opencli_xhs_preview_ready')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_text')) return { ok: false, text: '' }; // stays empty
+            if (code.includes('__toycli_xhs_click_label')) return { ok: true };
+            if (code.includes('__toycli_xhs_focus_card')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
+            if (code.includes('__toycli_xhs_preview_ready')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_text')) return { ok: false, text: '' }; // stays empty
             return null;
         }, { insertText });
         await expect(
@@ -1074,23 +1074,23 @@ describe('xiaohongshu publish 文字配图 flow', () => {
                 return { ok: true, target: '上传图文', text: '上传图文' };
             if (code.includes('hasTitleInput') && code.includes('hasVideoSurface'))
                 return { state: 'image_surface', hasTitleInput: false, hasImageInput: true, hasVideoSurface: false };
-            if (code.includes('__opencli_xhs_click_label')) {
+            if (code.includes('__toycli_xhs_click_label')) {
                 capture.clicks.push(code.match(/wantLabel:\s*"([^"]+)"/)?.[1] ?? 'unknown');
                 return { ok: true };
             }
-            if (code.includes('__opencli_xhs_focus_card')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
-            if (code.includes('__opencli_xhs_preview_ready')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_text')) return { ok: true, text: 'x' };
-            if (code.includes('__opencli_xhs_card_styles')) {
+            if (code.includes('__toycli_xhs_focus_card')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
+            if (code.includes('__toycli_xhs_preview_ready')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_text')) return { ok: true, text: 'x' };
+            if (code.includes('__toycli_xhs_card_styles')) {
                 const styles = ['基础', '插图', '美漫', '备忘', '边框', '清新'];
                 const want = code.match(/const want = "([^"]+)"/)?.[1] ?? '';
                 return { ok: true, styles, found: styles.includes(want) };
             }
-            if (code.includes('__opencli_xhs_composer_media_count')) return { ok: true, count: 1 };
+            if (code.includes('__toycli_xhs_composer_media_count')) return { ok: true, count: 1 };
             if (code.includes('const sels =') && code.includes('for (const sel of sels)')) return true;
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"locate"')) return { ok: true, sel: 'x', kind: 'input' };
-            if (code.includes('__opencli_xhs_fill_phase') && code.includes('"apply"')) return { ok: true, actual: code.includes('标题') ? 't' : 'c' };
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"locate"')) return { ok: true, sel: 'x', kind: 'input' };
+            if (code.includes('__toycli_xhs_fill_phase') && code.includes('"apply"')) return { ok: true, actual: code.includes('标题') ? 't' : 'c' };
             if (code.includes('xhs-publish-btn')) return { ok: true, via: 'method', name: '_onPublish' };
             if (code.includes('successMarkers') || code.includes('发布成功')) return '发布成功';
             return null;
@@ -1121,15 +1121,15 @@ describe('xiaohongshu publish 文字配图 flow', () => {
             if (code.includes("const targets = ['上传图文', '图文', '图片']")) return { ok: true, target: '上传图文', text: '上传图文' };
             if (code.includes('hasTitleInput') && code.includes('hasVideoSurface'))
                 return { state: 'image_surface', hasTitleInput: false, hasImageInput: true, hasVideoSurface: false };
-            if (code.includes('__opencli_xhs_click_label')) {
+            if (code.includes('__toycli_xhs_click_label')) {
                 capture.clicks.push(code.match(/wantLabel:\s*"([^"]+)"/)?.[1] ?? 'unknown');
                 return { ok: true };
             }
-            if (code.includes('__opencli_xhs_focus_card')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
-            if (code.includes('__opencli_xhs_preview_ready')) return { ok: true };
-            if (code.includes('__opencli_xhs_card_text')) return { ok: true, text: 'x' };
-            if (code.includes('__opencli_xhs_composer_media_count')) return { ok: true, count: 0 };
+            if (code.includes('__toycli_xhs_focus_card')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_count')) return { ok: true, count: 9, activeEmpty: true };
+            if (code.includes('__toycli_xhs_preview_ready')) return { ok: true };
+            if (code.includes('__toycli_xhs_card_text')) return { ok: true, text: 'x' };
+            if (code.includes('__toycli_xhs_composer_media_count')) return { ok: true, count: 0 };
             if (code.includes('const sels =') && code.includes('for (const sel of sels)')) return true;
             return null;
         }, { insertText });

@@ -319,7 +319,7 @@ describe('/status endpoint', () => {
 });
 ```
 
-Note: The `/status` and `/shutdown` endpoints run inside the daemon process, which makes them hard to unit test in isolation. They are integration-tested via the `opencli daemon status/stop` commands in Task 6.
+Note: The `/status` and `/shutdown` endpoints run inside the daemon process, which makes them hard to unit test in isolation. They are integration-tested via the `toycli daemon status/stop` commands in Task 6.
 
 - [ ] **Step 2: Enhance the existing `/status` endpoint**
 
@@ -417,9 +417,9 @@ Create `src/commands/daemon.ts`:
 ```typescript
 /**
  * CLI commands for daemon lifecycle management:
- *   opencli daemon status  — show daemon state
- *   opencli daemon stop    — graceful shutdown
- *   opencli daemon restart — stop + respawn
+ *   toycli daemon status  — show daemon state
+ *   toycli daemon stop    — graceful shutdown
+ *   toycli daemon restart — stop + respawn
  */
 
 import chalk from 'chalk';
@@ -444,7 +444,7 @@ async function fetchStatus(): Promise<DaemonStatus | null> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 2000);
     const res = await fetch(`${DAEMON_URL}/status`, {
-      headers: { 'X-OpenCLI': '1' },
+      headers: { 'X-ToyCLI': '1' },
       signal: controller.signal,
     });
     clearTimeout(timer);
@@ -461,7 +461,7 @@ async function requestShutdown(): Promise<boolean> {
     const timer = setTimeout(() => controller.abort(), 5000);
     const res = await fetch(`${DAEMON_URL}/shutdown`, {
       method: 'POST',
-      headers: { 'X-OpenCLI': '1' },
+      headers: { 'X-ToyCLI': '1' },
       signal: controller.signal,
     });
     clearTimeout(timer);
@@ -558,7 +558,7 @@ Add the daemon subcommand group before the `// ── External CLIs` section (ar
 
 ```typescript
   // ── Built-in: daemon ──────────────────────────────────────────────────────
-  const daemonCmd = program.command('daemon').description('Manage the opencli daemon');
+  const daemonCmd = program.command('daemon').description('Manage the toycli daemon');
   daemonCmd
     .command('status')
     .description('Show daemon status')
@@ -585,7 +585,7 @@ Expected: No errors
 
 ```bash
 git add src/commands/daemon.ts src/cli.ts
-git commit -m "feat(daemon): add opencli daemon status/stop/restart commands"
+git commit -m "feat(daemon): add toycli daemon status/stop/restart commands"
 ```
 
 ---
@@ -738,9 +738,9 @@ private async _ensureDaemon(timeoutSeconds?: number): Promise<void> {
 
   // Daemon running but no extension — wait for extension with progress
   if (await isDaemonRunning()) {
-    if (process.env.OPENCLI_VERBOSE || process.stderr.isTTY) {
+    if (process.env.TOYCLI_VERBOSE || process.stderr.isTTY) {
       process.stderr.write('⏳ Waiting for Chrome extension to connect...\n');
-      process.stderr.write('   Make sure Chrome is open and the OpenCLI extension is enabled.\n');
+      process.stderr.write('   Make sure Chrome is open and the ToyCLI extension is enabled.\n');
     }
     const deadline = Date.now() + timeoutMs;
     while (Date.now() < deadline) {
@@ -749,7 +749,7 @@ private async _ensureDaemon(timeoutSeconds?: number): Promise<void> {
     }
     throw new Error(
       'Daemon is running but the Browser Extension is not connected.\n' +
-      'Please install and enable the opencli Browser Bridge extension in Chrome.',
+      'Please install and enable the toycli Browser Bridge extension in Chrome.',
     );
   }
 
@@ -761,7 +761,7 @@ private async _ensureDaemon(timeoutSeconds?: number): Promise<void> {
   const isTs = fs.existsSync(daemonTs);
   const daemonPath = isTs ? daemonTs : daemonJs;
 
-  if (process.env.OPENCLI_VERBOSE || process.stderr.isTTY) {
+  if (process.env.TOYCLI_VERBOSE || process.stderr.isTTY) {
     process.stderr.write('⏳ Starting daemon...\n');
   }
 
@@ -786,12 +786,12 @@ private async _ensureDaemon(timeoutSeconds?: number): Promise<void> {
   if (await isDaemonRunning()) {
     throw new Error(
       'Daemon is running but the Browser Extension is not connected.\n' +
-      'Please install and enable the opencli Browser Bridge extension in Chrome.',
+      'Please install and enable the toycli Browser Bridge extension in Chrome.',
     );
   }
 
   throw new Error(
-    'Failed to start opencli daemon. Try running manually:\n' +
+    'Failed to start toycli daemon. Try running manually:\n' +
     `  node ${daemonPath}\n` +
     `Make sure port ${DEFAULT_DAEMON_PORT} is available.`,
   );

@@ -32,7 +32,7 @@ const GEMINI_COMPOSER_SELECTORS = [
     '[aria-label="Enter a prompt for Gemini"]',
     '[aria-label*="prompt for Gemini"]',
 ];
-const GEMINI_COMPOSER_MARKER_ATTR = 'data-opencli-gemini-composer';
+const GEMINI_COMPOSER_MARKER_ATTR = 'data-toycli-gemini-composer';
 const GEMINI_COMPOSER_PREPARE_ATTEMPTS = 4;
 const GEMINI_COMPOSER_PREPARE_WAIT_SECONDS = 1;
 function isObjectRecord(value) {
@@ -1447,8 +1447,8 @@ function exportGeminiDeepResearchReportScript(maxWaitMs) {
         exportDocs: ['export to docs', 'export to google docs', 'export to doc', '导出到 docs', '导出到文档', '导出到 google docs'],
       };
 
-      const recorderKey = '__opencliGeminiExportUrls';
-      const patchedKey = '__opencliGeminiExportPatched';
+      const recorderKey = '__toycliGeminiExportUrls';
+      const patchedKey = '__toycliGeminiExportPatched';
       const trace = [];
       const tracePush = (step, detail = '') => {
         const entry = detail ? step + ':' + detail : step;
@@ -1651,7 +1651,7 @@ function exportGeminiDeepResearchReportScript(maxWaitMs) {
         const originalXhrOpen = XMLHttpRequest.prototype.open;
         XMLHttpRequest.prototype.open = function(method, url, ...rest) {
           try { push('xhr', url); } catch {}
-          try { this.__opencliReqUrl = String(url || ''); } catch {}
+          try { this.__toycliReqUrl = String(url || ''); } catch {}
           return originalXhrOpen.call(this, method, url, ...rest);
         };
         const originalXhrSend = XMLHttpRequest.prototype.send;
@@ -1661,7 +1661,7 @@ function exportGeminiDeepResearchReportScript(maxWaitMs) {
               try {
                 const embeddedUrls = extractUrlsFromText(this.responseText || '');
                 for (const embeddedUrl of embeddedUrls) push('xhr-body', embeddedUrl);
-                const reqUrl = String(this.__opencliReqUrl || '');
+                const reqUrl = String(this.__toycliReqUrl || '');
                 if (isDriveDocCreateRequest(reqUrl)) {
                   const docIds = extractDocsIdsFromText(this.responseText || '');
                   for (const docId of docIds) {

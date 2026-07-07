@@ -8,61 +8,61 @@ Pure HTTP adapter against WeRead's **official Agent Gateway** (`https://i.weread
 
 | Command | Description |
 |---------|-------------|
-| `opencli weread-official search <keyword>` | Search the WeRead store via `/store/search` (9 scope codes) |
-| `opencli weread-official shelf` | Sync your shelf — books, albums, and the `文章收藏` (article) entry |
-| `opencli weread-official book <bookId>` | Book metadata + chapter list + reading progress (3-in-1) |
-| `opencli weread-official notes [bookId]` | Notebook overview, or merged highlights + thoughts for a specific book |
-| `opencli weread-official review <bookId>` | Browse public reviews of a book |
-| `opencli weread-official readdata` | Reading statistics: time, streak, preferences, top books |
-| `opencli weread-official discover [bookId]` | Personalized recommendations (no bookId) or similar books (with bookId) |
-| `opencli weread-official list-apis` | List every `api_name` supported by the gateway (meta endpoint) |
+| `toycli weread-official search <keyword>` | Search the WeRead store via `/store/search` (9 scope codes) |
+| `toycli weread-official shelf` | Sync your shelf — books, albums, and the `文章收藏` (article) entry |
+| `toycli weread-official book <bookId>` | Book metadata + chapter list + reading progress (3-in-1) |
+| `toycli weread-official notes [bookId]` | Notebook overview, or merged highlights + thoughts for a specific book |
+| `toycli weread-official review <bookId>` | Browse public reviews of a book |
+| `toycli weread-official readdata` | Reading statistics: time, streak, preferences, top books |
+| `toycli weread-official discover [bookId]` | Personalized recommendations (no bookId) or similar books (with bookId) |
+| `toycli weread-official list-apis` | List every `api_name` supported by the gateway (meta endpoint) |
 
 ## Usage Examples
 
 ```bash
 # Search
-opencli weread-official search "三体"
-opencli weread-official search "刘慈欣" --scope author --count 20
-opencli weread-official search "AI" --scope ebook --max-idx 20   # next page
+toycli weread-official search "三体"
+toycli weread-official search "刘慈欣" --scope author --count 20
+toycli weread-official search "AI" --scope ebook --max-idx 20   # next page
 
 # Shelf — books + albums + article-bookmark entry
-opencli weread-official shelf
+toycli weread-official shelf
 
 # Book detail (info + chapters + progress)
-opencli weread-official book 3300045871
-opencli weread-official book 3300045871 --no-chapters   # skip chapter list
-opencli weread-official book 3300045871 --no-progress   # skip reading progress
+toycli weread-official book 3300045871
+toycli weread-official book 3300045871 --no-chapters   # skip chapter list
+toycli weread-official book 3300045871 --no-progress   # skip reading progress
 
 # Notebook overview (all books you've annotated)
-opencli weread-official notes
-opencli weread-official notes --last-sort 1748563200    # next page cursor
+toycli weread-official notes
+toycli weread-official notes --last-sort 1748563200    # next page cursor
 
 # Merged highlights + thoughts for a specific book
-opencli weread-official notes 3300045871
+toycli weread-official notes 3300045871
 
 # Public reviews of a book
-opencli weread-official review 3300045871
-opencli weread-official review 3300045871 --type recommend --count 20
-opencli weread-official review 3300045871 --type newest
+toycli weread-official review 3300045871
+toycli weread-official review 3300045871 --type recommend --count 20
+toycli weread-official review 3300045871 --type newest
 
 # Reading statistics
-opencli weread-official readdata --mode weekly
-opencli weread-official readdata --mode monthly
-opencli weread-official readdata --mode annually
-opencli weread-official readdata --mode overall
-opencli weread-official readdata --mode weekly --base-time 1748563200
+toycli weread-official readdata --mode weekly
+toycli weread-official readdata --mode monthly
+toycli weread-official readdata --mode annually
+toycli weread-official readdata --mode overall
+toycli weread-official readdata --mode weekly --base-time 1748563200
 
 # Discover — personalized recommendations
-opencli weread-official discover --count 20
+toycli weread-official discover --count 20
 
 # Discover — books similar to a given one
-opencli weread-official discover 3300045871 --count 20
+toycli weread-official discover 3300045871 --count 20
 
 # Meta — list every gateway endpoint
-opencli weread-official list-apis
+toycli weread-official list-apis
 
 # JSON output (useful for piping into other tools)
-opencli weread-official book 3300045871 -f json
+toycli weread-official book 3300045871 -f json
 ```
 
 ### Search Scopes

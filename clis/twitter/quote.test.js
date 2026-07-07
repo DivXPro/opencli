@@ -68,7 +68,7 @@ describe('twitter quote command', () => {
     it('uploads a local image through the quote composer when --image is provided', async () => {
         const cmd = getRegistry().get('twitter/quote');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-twitter-quote-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-twitter-quote-'));
         const imagePath = path.join(tempDir, 'banner.png');
         fs.writeFileSync(imagePath, Buffer.from([0x89, 0x50, 0x4e, 0x47]));
         const setFileInput = vi.fn().mockResolvedValue(undefined);
@@ -127,7 +127,7 @@ describe('twitter quote command', () => {
         expect(fetchMock).toHaveBeenCalledWith('https://example.com/banner');
         expect(setFileInput).toHaveBeenCalledTimes(1);
         const uploadedPath = setFileInput.mock.calls[0][0][0];
-        expect(uploadedPath).toMatch(/opencli-twitter-.*\/image\.png$/);
+        expect(uploadedPath).toMatch(/toycli-twitter-.*\/image\.png$/);
         // Per-call tmp dir is removed in the adapter's finally block.
         expect(fs.existsSync(uploadedPath)).toBe(false);
         expect(result).toEqual([

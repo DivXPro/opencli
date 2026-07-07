@@ -7,8 +7,8 @@
  * tiles (see #1612).
  *
  * Usage:
- *   opencli twitter download elonmusk --limit 50 --output ./twitter
- *   opencli twitter download --tweet-url https://x.com/xxx/status/123 --output ./twitter
+ *   toycli twitter download elonmusk --limit 50 --output ./twitter
+ *   toycli twitter download --tweet-url https://x.com/xxx/status/123 --output ./twitter
  */
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { ArgumentError, AuthRequiredError, CliError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
@@ -331,7 +331,7 @@ cli({
             const limit = requireLimit(kwargs.limit);
             const username = normalizeTwitterScreenName(rawUsername);
             if (!username) {
-                throw new ArgumentError('twitter download username must be a valid Twitter/X handle', 'Example: opencli twitter download @jack --limit 20');
+                throw new ArgumentError('twitter download username must be a valid Twitter/X handle', 'Example: toycli twitter download @jack --limit 20');
             }
             return downloadUserMedia(page, username, limit, output);
         }

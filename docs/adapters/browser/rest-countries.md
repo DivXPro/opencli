@@ -8,21 +8,21 @@ Look up countries by name (substring match) and list every country in a region. 
 
 | Command | Description |
 |---------|-------------|
-| `opencli rest-countries country <name>` | Look up countries by common / official name |
-| `opencli rest-countries region <region>` | List every country in a region |
+| `toycli rest-countries country <name>` | Look up countries by common / official name |
+| `toycli rest-countries region <region>` | List every country in a region |
 
 ## Usage Examples
 
 ```bash
 # Name search (substring, returns 1 or many)
-opencli rest-countries country japan
-opencli rest-countries country "united kingdom"
-opencli rest-countries country guinea          # matches Guinea, Guinea-Bissau, etc.
+toycli rest-countries country japan
+toycli rest-countries country "united kingdom"
+toycli rest-countries country guinea          # matches Guinea, Guinea-Bissau, etc.
 
 # Region listing (sorted by population desc)
-opencli rest-countries region europe
-opencli rest-countries region asia --limit 20
-opencli rest-countries region oceania
+toycli rest-countries region europe
+toycli rest-countries region asia --limit 20
+toycli rest-countries region oceania
 ```
 
 ## Output Columns

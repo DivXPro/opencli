@@ -59,7 +59,7 @@ function parseMaxScrolls(value) {
 function buildThreadSnapshotScript(maxScrolls) {
   const scrolls = maxScrolls;
   return String.raw`(async () => {
-    const marker = '__OPENCLI_LINKEDIN_THREAD_SNAPSHOT__';
+    const marker = '__TOYCLI_LINKEDIN_THREAD_SNAPSHOT__';
     void marker;
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     const clean = (s) => String(s || '').replace(/[\u00a0\u202f]/g, ' ').replace(/\s+/g, ' ').trim();

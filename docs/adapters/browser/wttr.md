@@ -8,25 +8,25 @@ Global weather lookup from `wttr.in` — no auth, no signup. Covers any city / l
 
 | Command | Description |
 |---------|-------------|
-| `opencli wttr current <location>` | Current weather conditions (single row) |
-| `opencli wttr forecast <location>` | Multi-day forecast (1–3 days, free-tier max) |
+| `toycli wttr current <location>` | Current weather conditions (single row) |
+| `toycli wttr forecast <location>` | Multi-day forecast (1–3 days, free-tier max) |
 
 ## Usage Examples
 
 ```bash
 # Current conditions by city name
-opencli wttr current Tokyo
-opencli wttr current "New York"
+toycli wttr current Tokyo
+toycli wttr current "New York"
 
 # By lat,lon
-opencli wttr current "37.7749,-122.4194"
+toycli wttr current "37.7749,-122.4194"
 
 # By airport ICAO
-opencli wttr current KSFO
+toycli wttr current KSFO
 
 # 3-day forecast
-opencli wttr forecast Paris
-opencli wttr forecast Paris --days 2
+toycli wttr forecast Paris
+toycli wttr forecast Paris --days 2
 ```
 
 ## Output Columns

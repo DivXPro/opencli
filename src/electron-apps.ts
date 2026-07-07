@@ -2,7 +2,7 @@
  * Electron app registry — maps site names to launch metadata.
  *
  * Builtin apps are defined here. User-defined apps are loaded
- * from ~/.opencli/apps.yaml (additive only, does not override builtins).
+ * from ~/.toycli/apps.yaml (additive only, does not override builtins).
  */
 
 import * as fs from 'node:fs';
@@ -84,7 +84,7 @@ function ensureLoaded(): Record<string, ElectronAppEntry> {
 
   let userApps: Record<string, ElectronAppEntry> | undefined;
   try {
-    const yamlPath = path.join(os.homedir(), '.opencli', 'apps.yaml');
+    const yamlPath = path.join(os.homedir(), '.toycli', 'apps.yaml');
     if (fs.existsSync(yamlPath)) {
       const content = fs.readFileSync(yamlPath, 'utf-8');
       const parsed = yaml.load(content) as { apps?: Record<string, ElectronAppEntry> };

@@ -5,7 +5,7 @@ import { log } from '@toy-box/opencli/logger';
 function validatePositiveInt(value, name) {
   const n = Number(value);
   if (!Number.isInteger(n) || n <= 0) {
-    throw new ArgumentError(`zhihu collections --${name} must be a positive integer`, 'Example: opencli zhihu collections --limit 20');
+    throw new ArgumentError(`zhihu collections --${name} must be a positive integer`, 'Example: toycli zhihu collections --limit 20');
   }
   return n;
 }

@@ -6,23 +6,23 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli taobao search <query>` | Search Taobao products |
-| `opencli taobao detail <id>` | Fetch product details |
-| `opencli taobao reviews <id>` | Fetch product reviews |
-| `opencli taobao cart` | View cart items |
-| `opencli taobao add-cart <id>` | Add a product to cart |
+| `toycli taobao search <query>` | Search Taobao products |
+| `toycli taobao detail <id>` | Fetch product details |
+| `toycli taobao reviews <id>` | Fetch product reviews |
+| `toycli taobao cart` | View cart items |
+| `toycli taobao add-cart <id>` | Add a product to cart |
 
 ## Usage Examples
 
 ```bash
 # Search products
-opencli taobao search "机械键盘" --limit 5
+toycli taobao search "机械键盘" --limit 5
 
 # Fetch product details
-opencli taobao detail 827563850178
+toycli taobao detail 827563850178
 
 # Dry-run add to cart
-opencli taobao add-cart 827563850178 --spec "红色 XL" --dry-run
+toycli taobao add-cart 827563850178 --spec "红色 XL" --dry-run
 ```
 
 ## Prerequisites

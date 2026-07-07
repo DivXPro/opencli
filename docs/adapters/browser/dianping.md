@@ -6,32 +6,32 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli dianping search "<keyword>" --city <name-or-id> --limit <n>` | Search shops/restaurants on `www.dianping.com` |
-| `opencli dianping shop <shop_id>` | Read shop detail by shop id (alias: `detail`) |
+| `toycli dianping search "<keyword>" --city <name-or-id> --limit <n>` | Search shops/restaurants on `www.dianping.com` |
+| `toycli dianping shop <shop_id>` | Read shop detail by shop id (alias: `detail`) |
 
 ## Usage Examples
 
 ```bash
 # Search "火锅" in 北京 (top 5 results, table view)
-opencli dianping search 火锅 --city beijing --limit 5
+toycli dianping search 火锅 --city beijing --limit 5
 
 # JSON output
-opencli dianping search 火锅 --city 北京 --limit 5 -f json
+toycli dianping search 火锅 --city 北京 --limit 5 -f json
 
 # Search using a numeric cityId (path segment in dianping URLs)
-opencli dianping search 火锅 --city 2
+toycli dianping search 火锅 --city 2
 
 # Search using the cookie's currently-selected city (omit --city)
-opencli dianping search 火锅
+toycli dianping search 火锅
 
 # Read a shop detail by id
-opencli dianping shop GxJZ4urc9TnKE3kY
+toycli dianping shop GxJZ4urc9TnKE3kY
 
 # `detail` alias works the same way
-opencli dianping detail GxJZ4urc9TnKE3kY -f json
+toycli dianping detail GxJZ4urc9TnKE3kY -f json
 
 # Pass a full /shop/<id> URL — the id segment is auto-extracted
-opencli dianping shop https://www.dianping.com/shop/GxJZ4urc9TnKE3kY
+toycli dianping shop https://www.dianping.com/shop/GxJZ4urc9TnKE3kY
 ```
 
 ## Prerequisites

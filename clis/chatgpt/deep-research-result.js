@@ -36,18 +36,18 @@ export const deepResearchResultCommand = cli({
         const timeout = requirePositiveInt(
             Number(kwargs.timeout ?? 120),
             'chatgpt deep-research-result --timeout',
-            'Example: opencli chatgpt deep-research-result <id> --wait true --timeout 600',
+            'Example: toycli chatgpt deep-research-result <id> --wait true --timeout 600',
         );
         const stableSeconds = requireNonNegativeInt(
             Number(kwargs.stable ?? 6),
             'chatgpt deep-research-result --stable',
-            'Example: opencli chatgpt deep-research-result <id> --wait true --stable 6',
+            'Example: toycli chatgpt deep-research-result <id> --wait true --stable 6',
         );
         const targetUrl = `${CHATGPT_URL}/c/${id}`;
         await page.readNetworkCapture?.().catch(() => []);
         const currentUrl = await currentChatGPTUrl(page).catch(() => '');
         if (currentUrl.startsWith(targetUrl)) {
-            await page.goto(`${CHATGPT_URL}/?opencli_dr_result=${Date.now()}`, { waitUntil: 'none' });
+            await page.goto(`${CHATGPT_URL}/?toycli_dr_result=${Date.now()}`, { waitUntil: 'none' });
             await page.wait(1);
         }
         await page.startNetworkCapture?.('/backend-api/conversation/').catch(() => false);

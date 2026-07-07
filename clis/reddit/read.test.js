@@ -112,8 +112,8 @@ describe('reddit read adapter', () => {
         it('accepts bare ids, t3 fullnames, and exact reddit post URLs', () => {
             expect(normalizeRedditPostId('1AbC23')).toBe('1abc23');
             expect(normalizeRedditPostId('t3_1AbC23')).toBe('1abc23');
-            expect(normalizeRedditPostId('https://www.reddit.com/r/opencli/comments/1abc23/title_slug/?sort=top')).toBe('1abc23');
-            expect(normalizeRedditPostId('https://www.reddit.com/r/opencli/comments/1abc23/title_slug/okf3s7u/?context=3')).toBe('1abc23');
+            expect(normalizeRedditPostId('https://www.reddit.com/r/toycli/comments/1abc23/title_slug/?sort=top')).toBe('1abc23');
+            expect(normalizeRedditPostId('https://www.reddit.com/r/toycli/comments/1abc23/title_slug/okf3s7u/?context=3')).toBe('1abc23');
             expect(normalizeRedditPostId('https://old.reddit.com/comments/1abc23/title_slug/')).toBe('1abc23');
         });
 
@@ -121,10 +121,10 @@ describe('reddit read adapter', () => {
             for (const bad of [
                 '',
                 't1_okf3s7u',
-                'https://reddit.com.evil.com/r/opencli/comments/1abc23/title_slug/',
-                'http://www.reddit.com/r/opencli/comments/1abc23/title_slug/',
-                'https://www.reddit.com/r/opencli/comments/',
-                'https://www.reddit.com/r/opencli/comments/1abc23/title_slug/okf3s7u/evil',
+                'https://reddit.com.evil.com/r/toycli/comments/1abc23/title_slug/',
+                'http://www.reddit.com/r/toycli/comments/1abc23/title_slug/',
+                'https://www.reddit.com/r/toycli/comments/',
+                'https://www.reddit.com/r/toycli/comments/1abc23/title_slug/okf3s7u/evil',
                 'not/a/post',
             ]) {
                 expect(() => normalizeRedditPostId(bad)).toThrow(ArgumentError);

@@ -46,21 +46,21 @@ describe('brave search', () => {
   it('rejects empty query, invalid limit, and invalid offset before navigation', async () => {
     const page = createPageMock();
     await expect(command.func(page, { keyword: '', limit: 5 })).rejects.toMatchObject({ code: 'ARGUMENT' });
-    await expect(command.func(page, { keyword: 'opencli', limit: 19 })).rejects.toMatchObject({ code: 'ARGUMENT' });
-    await expect(command.func(page, { keyword: 'opencli', limit: 5, offset: -1 })).rejects.toMatchObject({ code: 'ARGUMENT' });
+    await expect(command.func(page, { keyword: 'toycli', limit: 19 })).rejects.toMatchObject({ code: 'ARGUMENT' });
+    await expect(command.func(page, { keyword: 'toycli', limit: 5, offset: -1 })).rejects.toMatchObject({ code: 'ARGUMENT' });
     expect(page.goto).not.toHaveBeenCalled();
   });
 
   it('unwraps browser envelopes and returns ranked HTTPS rows', async () => {
     const page = createPageMock({
       session: 'site:brave',
-      data: [['OpenCLI', 'https://github.com/jackwener/OpenCLI', 'CLI browser tooling']],
+      data: [['ToyCLI', 'https://github.com/jackwener/ToyCLI', 'CLI browser tooling']],
     });
 
-    await expect(command.func(page, { keyword: 'opencli', limit: 1, offset: 1 })).resolves.toEqual([{
+    await expect(command.func(page, { keyword: 'toycli', limit: 1, offset: 1 })).resolves.toEqual([{
       rank: 19,
-      title: 'OpenCLI',
-      url: 'https://github.com/jackwener/OpenCLI',
+      title: 'ToyCLI',
+      url: 'https://github.com/jackwener/ToyCLI',
       snippet: 'CLI browser tooling',
     }]);
   });
@@ -68,7 +68,7 @@ describe('brave search', () => {
   it('fails typed instead of silently returning [] for malformed extraction payloads', async () => {
     const page = createPageMock({ rows: [] });
 
-    await expect(command.func(page, { keyword: 'opencli', limit: 1 })).rejects.toMatchObject({
+    await expect(command.func(page, { keyword: 'toycli', limit: 1 })).rejects.toMatchObject({
       code: 'COMMAND_EXEC',
       message: expect.stringContaining('payload shape'),
     });

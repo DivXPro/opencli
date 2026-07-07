@@ -5,8 +5,8 @@
 ## 快速开始
 
 ```bash
-git clone git@github.com:<your-username>/opencli.git
-cd opencli
+git clone git@github.com:<your-username>/toycli.git
+cd toycli
 npm install
 npm run build
 npx tsc --noEmit

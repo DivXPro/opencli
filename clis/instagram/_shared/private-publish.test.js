@@ -5,7 +5,7 @@ import { afterAll, describe, expect, it } from 'vitest';
 import { buildConfigureBody, buildConfigureSidecarPayload, buildConfigureToStoryPhotoPayload, buildConfigureToStoryVideoPayload, deriveInstagramJazoest, derivePrivateApiContextFromCapture, extractInstagramRuntimeInfo, getInstagramFeedNormalizedDimensions, getInstagramStoryNormalizedDimensions, isInstagramFeedAspectRatioAllowed, isInstagramStoryAspectRatioAllowed, publishStoryViaPrivateApi, publishMediaViaPrivateApi, publishImagesViaPrivateApi, readImageAsset, resolveInstagramPrivatePublishConfig, } from './private-publish.js';
 const tempDirs = [];
 function createTempFile(name, bytes) {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-instagram-private-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-instagram-private-'));
     tempDirs.push(dir);
     const filePath = path.join(dir, name);
     fs.writeFileSync(filePath, bytes);

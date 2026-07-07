@@ -9,7 +9,7 @@ import './story.js';
 import { createPageMock } from '../test-utils.js';
 const tempDirs = [];
 function createTempFile(name, bytes = Buffer.from('story-media')) {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-instagram-story-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-instagram-story-'));
     tempDirs.push(dir);
     const filePath = path.join(dir, name);
     fs.writeFileSync(filePath, bytes);

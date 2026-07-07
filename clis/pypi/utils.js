@@ -4,7 +4,7 @@ import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box
 
 export const PYPI_BASE = 'https://pypi.org';
 export const PYPISTATS_BASE = 'https://pypistats.org';
-const UA = 'opencli-pypi-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-pypi-adapter (+https://github.com/toy-box/toycli)';
 
 // PEP 508 / PEP 426 normalized name: letters, digits, "._-", with leading-letter rule relaxed by PyPI.
 const PKG_NAME = /^[A-Za-z0-9]([A-Za-z0-9._-]*[A-Za-z0-9])?$/;

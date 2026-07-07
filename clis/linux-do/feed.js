@@ -31,7 +31,7 @@ function getHomeDir() {
     return process.env.HOME || process.env.USERPROFILE || os.homedir();
 }
 function getLinuxDoCacheDir() {
-    return testCacheDirOverride ?? path.join(getHomeDir(), '.opencli', 'cache', 'linux-do');
+    return testCacheDirOverride ?? path.join(getHomeDir(), '.toycli', 'cache', 'linux-do');
 }
 function getMetadataCachePath(name) {
     return path.join(getLinuxDoCacheDir(), `${name}.json`);
@@ -250,7 +250,7 @@ async function resolveTag(page, value) {
     const liveTag = findMatchingTag(await fetchLiveTags(page), value);
     if (liveTag)
         return liveTag;
-    throw new ArgumentError(`Unknown tag: ${value}`, 'Use "opencli linux-do tags" to list available tags');
+    throw new ArgumentError(`Unknown tag: ${value}`, 'Use "toycli linux-do tags" to list available tags');
 }
 /**
  * 解析分类，并补齐父分类信息。
@@ -259,7 +259,7 @@ async function resolveCategory(page, value) {
     const liveCategory = findMatchingCategory(await fetchLiveCategories(page), value);
     if (liveCategory)
         return liveCategory;
-    throw new ArgumentError(`Unknown category: ${value}`, 'Use "opencli linux-do categories" to list available categories');
+    throw new ArgumentError(`Unknown category: ${value}`, 'Use "toycli linux-do categories" to list available categories');
 }
 /**
  * 将命令参数转换为最终请求地址

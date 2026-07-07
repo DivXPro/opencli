@@ -11,7 +11,7 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { CommandExecutionError } from '@toy-box/opencli/errors';
 const PART_SIZE = 5 * 1024 * 1024; // 5 MB minimum per TOS/S3 spec
-const RESUME_DIR = path.join(os.homedir(), '.opencli', 'douyin-resume');
+const RESUME_DIR = path.join(os.homedir(), '.toycli', 'douyin-resume');
 // ── Resume file helpers ──────────────────────────────────────────────────────
 function getResumeFilePath(filePath) {
     const hash = crypto.createHash('sha256').update(filePath).digest('hex');

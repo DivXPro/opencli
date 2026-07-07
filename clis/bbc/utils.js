@@ -2,7 +2,7 @@
 import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const BBC_FEED_BASE = 'https://feeds.bbci.co.uk/news';
-const UA = 'opencli-bbc-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-bbc-adapter (+https://github.com/toy-box/toycli)';
 
 const HTML_ENTITIES = {
     '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&apos;': "'", '&#39;': "'", '&nbsp;': ' ',

@@ -1,6 +1,6 @@
 # Typed Error Conventions
 
-OpenCLI 用 5 类 typed error 让 agent 能从 exit code 直接分辨"参数错 / 没数据 / 接口挂 / 要登录 / 超时"。silent `return []` / silent `return [{sentinel}]` / scalar sentinel (`'-'`) / `Math.max/min` silent clamp / `CliError('HTTP_ERROR')` 这些"绿但错"的写法都被 audit gate 抓得越来越紧（[`scripts/check-typed-error-lint.mjs`](../../../scripts/check-typed-error-lint.mjs) 的 baseline JSON 只能减不能加，新违例必须立刻收掉）。
+ToyCLI 用 5 类 typed error 让 agent 能从 exit code 直接分辨"参数错 / 没数据 / 接口挂 / 要登录 / 超时"。silent `return []` / silent `return [{sentinel}]` / scalar sentinel (`'-'`) / `Math.max/min` silent clamp / `CliError('HTTP_ERROR')` 这些"绿但错"的写法都被 audit gate 抓得越来越紧（[`scripts/check-typed-error-lint.mjs`](../../../scripts/check-typed-error-lint.mjs) 的 baseline JSON 只能减不能加，新违例必须立刻收掉）。
 
 每条 rule 都挂了真实 anti-pattern 反例（PR #1329 三轮迭代是主要素材库）。
 
@@ -24,7 +24,7 @@ OpenCLI 用 5 类 typed error 让 agent 能从 exit code 直接分辨"参数错 
 
 ## 2. Anti-pattern A：silent-clamp 不止 limit
 
-**反例**（PR #1329 R3 codex-mini0 直接修，commit `c40daf7`；pre-fix lines: [`thread page/limit/contentLimit`](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/thread.js#L37-L39), [`notifications limit`](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/notifications.js#L41), [`qwen ask timeout`](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/ask.js#L42), [`qwen image timeout`](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/image.js#L119), [`qwen history API page_size`](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/utils.js#L311)）：
+**反例**（PR #1329 R3 codex-mini0 直接修，commit `c40daf7`；pre-fix lines: [`thread page/limit/contentLimit`](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/thread.js#L37-L39), [`notifications limit`](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/notifications.js#L41), [`qwen ask timeout`](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/ask.js#L42), [`qwen image timeout`](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/image.js#L119), [`qwen history API page_size`](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/utils.js#L311)）：
 
 ```js
 // ❌ silent clamp — 200 当 100，0/-1 当 1，timeout=5 当 15
@@ -74,7 +74,7 @@ const contentLimit = normalizePositiveInteger(args.contentLimit, 400, 'contentLi
 
 ## 3. Anti-pattern B：sentinel row / scalar sentinel 吞 empty / unknown / failure
 
-**反例 1**（PR #1329 R3 修掉的，[`clis/1point3acres/notifications.js` before](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/notifications.js#L35-L37)）：
+**反例 1**（PR #1329 R3 修掉的，[`clis/1point3acres/notifications.js` before](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/notifications.js#L35-L37)）：
 
 ```js
 // ❌ "暂时没有提醒内容" 是 empty result，不是一行业务数据
@@ -83,7 +83,7 @@ if (/暂时没有提醒内容/.test(html)) {
 }
 ```
 
-**反例 2**（[`clis/1point3acres/search.js` before](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/search.js#L52-L60)）：
+**反例 2**（[`clis/1point3acres/search.js` before](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/search.js#L52-L60)）：
 
 ```js
 // ❌ "抱歉" hint 是搜索无结果，不是 rank=0 的伪结果行
@@ -96,7 +96,7 @@ if (items.length === 0) {
 }
 ```
 
-**反例 3**（[`clis/qwen/history.js` before](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/history.js#L44-L51)）：
+**反例 3**（[`clis/qwen/history.js` before](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/history.js#L44-L51)）：
 
 ```js
 // ❌ API failure 不是 conversation 的一行
@@ -105,7 +105,7 @@ if (!result.ok && !result.sessions.length) {
 }
 ```
 
-**反例 4**（[`clis/qwen/image.js` before](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/image.js#L160-L164)）：
+**反例 4**（[`clis/qwen/image.js` before](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/qwen/image.js#L160-L164)）：
 
 ```js
 // ❌ 单张图片 fetch 失败，伪装成 "⚠️ fetch-failed" 状态行继续
@@ -134,7 +134,7 @@ if (!asset?.ok) {
 }
 ```
 
-**反例 5：scalar sentinel**（PR #1329 R2 修掉的，[`clis/qwen/status.js` before](https://github.com/jackwener/OpenCLI/blob/42e5303c792d9f71d9a30dde2e391405e03661e7/clis/qwen/status.js#L24-L29)）：
+**反例 5：scalar sentinel**（PR #1329 R2 修掉的，[`clis/qwen/status.js` before](https://github.com/jackwener/ToyCLI/blob/42e5303c792d9f71d9a30dde2e391405e03661e7/clis/qwen/status.js#L24-L29)）：
 
 ```js
 // ❌ '-' 会被下游当成真实 model/session id 字符串
@@ -182,7 +182,7 @@ if (items.length === 0) throw new EmptyResultError('site command', `optional con
 
 ## 5. Anti-pattern D：generic `CliError('CODE')` 隐藏分类
 
-**反例**（PR #1329 R3 修掉的，[`clis/coingecko/top.js` before](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/coingecko/top.js#L36-L38), [`clis/1point3acres/thread.js` before](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/thread.js#L45-L46), [`clis/1point3acres/user.js` before](https://github.com/jackwener/OpenCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/user.js#L35-L36)）：
+**反例**（PR #1329 R3 修掉的，[`clis/coingecko/top.js` before](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/coingecko/top.js#L36-L38), [`clis/1point3acres/thread.js` before](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/thread.js#L45-L46), [`clis/1point3acres/user.js` before](https://github.com/jackwener/ToyCLI/blob/2b8609b82fccaf98505c5b1b1859e3ffdaa1a55c/clis/1point3acres/user.js#L35-L36)）：
 
 ```js
 // ❌ 都是 exit 1，agent 无法区分服务失败 vs 空结果 vs bad args
@@ -209,7 +209,7 @@ if (!/id="postlist"/.test(html)) throw new EmptyResultError('1point3acres thread
 
 ## 6. Verify fixture 怎么挡这三类
 
-新写 fixture 时（`~/.opencli/sites/<site>/verify/<cmd>.json`）：
+新写 fixture 时（`~/.toycli/sites/<site>/verify/<cmd>.json`）：
 
 - **rowCount.min ≥ 1**：保证 sentinel-row 不能伪装通过
 - **patterns**：核心 id 列加 `^\d+$` 类正则，挡 `tid: ''` / `pid: ''` 之类空字符串污染

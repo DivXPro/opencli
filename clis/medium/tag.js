@@ -95,7 +95,7 @@ cli({
         try {
             resp = await fetch(url, {
                 headers: {
-                    'user-agent': 'opencli-medium-adapter (+https://github.com/jackwener/opencli)',
+                    'user-agent': 'toycli-medium-adapter (+https://github.com/toy-box/toycli)',
                     accept: 'application/rss+xml, application/xml',
                 },
             });

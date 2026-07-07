@@ -6,41 +6,41 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli hupu hot` | Read Hupu hot threads |
-| `opencli hupu search <keyword>` | Search Hupu threads by keyword |
-| `opencli hupu detail <tid>` | Read one thread and optional hot replies |
-| `opencli hupu mentions` | Read replies that mentioned you |
-| `opencli hupu reply <tid> <text>` | Reply to a thread or quote one reply |
-| `opencli hupu like <tid> <pid>` | Like one reply |
-| `opencli hupu unlike <tid> <pid>` | Cancel like on one reply |
+| `toycli hupu hot` | Read Hupu hot threads |
+| `toycli hupu search <keyword>` | Search Hupu threads by keyword |
+| `toycli hupu detail <tid>` | Read one thread and optional hot replies |
+| `toycli hupu mentions` | Read replies that mentioned you |
+| `toycli hupu reply <tid> <text>` | Reply to a thread or quote one reply |
+| `toycli hupu like <tid> <pid>` | Like one reply |
+| `toycli hupu unlike <tid> <pid>` | Cancel like on one reply |
 
 ## Usage Examples
 
 ```bash
 # Hot threads
-opencli hupu hot --limit 5
+toycli hupu hot --limit 5
 
 # Search threads
-opencli hupu search 湖人 --limit 10
+toycli hupu search 湖人 --limit 10
 
 # Read one thread and include hot replies
-opencli hupu detail 638234927 --replies true
+toycli hupu detail 638234927 --replies true
 
 # Read mentions that replied to you
-opencli hupu mentions --limit 20
+toycli hupu mentions --limit 20
 
 # Reply to the thread
-opencli hupu reply 638234927 "hello from opencli" --topic_id 502
+toycli hupu reply 638234927 "hello from toycli" --topic_id 502
 
 # Quote one hot reply by pid
-opencli hupu reply 638234927 "replying to this comment" --topic_id 502 --quote_id 174908
+toycli hupu reply 638234927 "replying to this comment" --topic_id 502 --quote_id 174908
 
 # Like / unlike one reply
-opencli hupu like 638234927 174908 --fid 4860
-opencli hupu unlike 638234927 174908 --fid 4860
+toycli hupu like 638234927 174908 --fid 4860
+toycli hupu unlike 638234927 174908 --fid 4860
 
 # JSON output
-opencli hupu detail 638234927 -f json
+toycli hupu detail 638234927 -f json
 ```
 
 ## Notes

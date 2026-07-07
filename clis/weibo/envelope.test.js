@@ -39,14 +39,14 @@ describe('weibo read adapters Browser Bridge envelopes', () => {
     )).resolves.toHaveLength(1);
 
     await expect(getRegistry().get('weibo/hot').func(
-      makePage([envelope([{ rank: 1, word: 'opencli', hot_value: 1, category: '', label: '', url: 'https://s.weibo.com/weibo?q=opencli' }])]),
+      makePage([envelope([{ rank: 1, word: 'toycli', hot_value: 1, category: '', label: '', url: 'https://s.weibo.com/weibo?q=toycli' }])]),
       { limit: 1 },
     )).resolves.toHaveLength(1);
 
     await expect(getRegistry().get('weibo/search').func(
-      makePage([envelope([{ id: 'm1', title: 'OpenCLI', author: 'a', time: '', url: 'https://weibo.com/1/m1' }])]),
-      { keyword: 'opencli', limit: 1 },
-    )).resolves.toEqual([{ rank: 1, id: 'm1', title: 'OpenCLI', author: 'a', time: '', url: 'https://weibo.com/1/m1' }]);
+      makePage([envelope([{ id: 'm1', title: 'ToyCLI', author: 'a', time: '', url: 'https://weibo.com/1/m1' }])]),
+      { keyword: 'toycli', limit: 1 },
+    )).resolves.toEqual([{ rank: 1, id: 'm1', title: 'ToyCLI', author: 'a', time: '', url: 'https://weibo.com/1/m1' }]);
 
     await expect(getRegistry().get('weibo/favorites').func(
       makePage([envelope('123456'), envelope([{ text: '作者A\n这是一条收藏微博', url: 'https://weibo.com/123/AbCd1' }])]),

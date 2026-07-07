@@ -30,7 +30,7 @@ function mockReq(opts: {
     method: opts.method ?? 'GET',
     url: opts.url ?? '/',
     headers: {
-      'x-opencli': '1',
+      'x-toycli': '1',
       ...opts.headers,
     },
     destroy: vi.fn(),
@@ -192,7 +192,7 @@ describe('daemon command dispatch', () => {
     expect(route).toMatchObject({ ok: false, errorCode: 'profile_required' });
     if (!route.ok) {
       expect(route.error).toContain('zvypsyje');
-      expect(route.errorHint).toContain('opencli profile use');
+      expect(route.errorHint).toContain('toycli profile use');
     }
   });
 

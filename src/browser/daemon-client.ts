@@ -1,5 +1,5 @@
 /**
- * HTTP client for communicating with the opencli daemon.
+ * HTTP client for communicating with the toycli daemon.
  *
  * Provides a typed send() function that posts a Command and returns a Result.
  */
@@ -14,7 +14,7 @@ import { ensureBrowserBridgeReady } from './daemon-lifecycle.js';
 import { isPreDispatchError } from './bridge-readiness.js';
 import {
   DAEMON_PORT,
-  OPENCLI_HEADERS,
+  TOYCLI_HEADERS,
   fetchDaemonStatus,
   getDaemonHealth,
   requestDaemon,
@@ -158,7 +158,7 @@ export interface DaemonCommand {
   idleTimeout?: number;
   /** Frame index for cross-frame operations (0-based, from 'frames' action) */
   frameIndex?: number;
-  /** Browser profile/context REQUIRED for this command (--profile / OPENCLI_PROFILE). Fails loud when offline. */
+  /** Browser profile/context REQUIRED for this command (--profile / TOYCLI_PROFILE). Fails loud when offline. */
   contextId?: string;
   /**
    * Browser profile/context PREFERRED for this command (persisted config
@@ -236,7 +236,7 @@ async function sendCommandRaw(
 ): Promise<DaemonResult> {
   const timeoutSeconds = effectiveCommandTimeoutSeconds(params);
   const deadlineAt = Date.now() + timeoutSeconds * 1000;
-  const rawWindowMode = process.env.OPENCLI_WINDOW;
+  const rawWindowMode = process.env.TOYCLI_WINDOW;
   const envWindowMode = rawWindowMode === 'foreground' || rawWindowMode === 'background'
     ? rawWindowMode
     : undefined;
@@ -457,11 +457,11 @@ export async function getListenerHistory(listenerId: string, since?: number): Pr
 
 /**
  * Subscribe to the SSE stream for a listener. Returns an async generator
- * that yields parsed event objects. Used by `opencli listener stream`.
+ * that yields parsed event objects. Used by `toycli listener stream`.
  */
 export async function* streamListenerEvents(listenerId: string): AsyncGenerator<Record<string, unknown>> {
   const res = await fetch(`http://127.0.0.1:${DAEMON_PORT}/listener/stream?listenerId=${encodeURIComponent(listenerId)}`, {
-    headers: OPENCLI_HEADERS,
+    headers: TOYCLI_HEADERS,
   });
   if (!res.ok || !res.body) throw new Error(`listener stream failed: HTTP ${res.status}`);
   const reader = res.body.getReader();

@@ -1,13 +1,13 @@
-# Contributing to OpenCLI
+# Contributing to ToyCLI
 
-Thanks for your interest in contributing to OpenCLI.
+Thanks for your interest in contributing to ToyCLI.
 
 ## Quick Start
 
 ```bash
 # 1. Fork & clone
-git clone git@github.com:<your-username>/opencli.git
-cd opencli
+git clone git@github.com:<your-username>/toycli.git
+cd toycli
 
 # 2. Install dependencies
 npm install
@@ -19,7 +19,7 @@ npm run build
 npx tsc --noEmit
 npm test
 
-# 5. Link globally (optional, for testing `opencli` command)
+# 5. Link globally (optional, for testing `toycli` command)
 npm link
 ```
 
@@ -102,26 +102,26 @@ cli({
 });
 ```
 
-Install the [`opencli-adapter-author` skill](./skills/opencli-adapter-author/SKILL.md) if you need the full adapter workflow — recon → API discovery → field decoding → `opencli browser verify`.
+Install the [`toycli-adapter-author` skill](./skills/toycli-adapter-author/SKILL.md) if you need the full adapter workflow — recon → API discovery → field decoding → `toycli browser verify`.
 
 ### Validate Your Adapter
 
 ```bash
 # Validate adapter
-opencli validate
+toycli validate
 
 # Test your command
-opencli <site> <command> --limit 3 -f json
+toycli <site> <command> --limit 3 -f json
 
 # Verbose mode for debugging
-opencli <site> <command> -v
+toycli <site> <command> -v
 ```
 
 ## Arg Design Convention
 
 Use **positional** for the primary, required argument of a command (the "what" — query, symbol, id, url, username). Use **named options** (`--flag`) for secondary/optional configuration (limit, format, sort, page, filters, language, date).
 
-**Rule of thumb**: Think about how the user will type the command. `opencli xueqiu stock SH600519` is more natural than `opencli xueqiu stock --symbol SH600519`.
+**Rule of thumb**: Think about how the user will type the command. `toycli xueqiu stock SH600519` is more natural than `toycli xueqiu stock --symbol SH600519`.
 
 | Arg type | Positional? | Examples |
 |----------|-------------|----------|
@@ -187,7 +187,7 @@ Common scopes: site name (`twitter`, `reddit`) or module name (`browser`, `pipel
    npx tsc --noEmit           # Type check
    npm test                   # Default local gate: unit + extension + adapter
    npm run test:adapter       # Adapter-only project (optional while iterating on adapters)
-   opencli validate           # Adapter validation
+   toycli validate           # Adapter validation
    ```
 4. Commit using conventional commit format
 5. Push and open a PR

@@ -8,19 +8,19 @@ Fetch a single CVE record from the NIST National Vulnerability Database via the 
 
 | Command | Description |
 |---------|-------------|
-| `opencli nvd cve <id>` | Fetch a CVE detail (description, CVSS, CWE, KEV flag) |
+| `toycli nvd cve <id>` | Fetch a CVE detail (description, CVSS, CWE, KEV flag) |
 
 ## Usage Examples
 
 ```bash
 # Log4Shell
-opencli nvd cve CVE-2021-44228
+toycli nvd cve CVE-2021-44228
 
 # Heartbleed
-opencli nvd cve CVE-2014-0160
+toycli nvd cve CVE-2014-0160
 
 # JSON output for downstream tooling
-opencli nvd cve CVE-2021-44228 -f json
+toycli nvd cve CVE-2021-44228 -f json
 ```
 
 ## Output Columns

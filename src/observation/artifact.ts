@@ -17,7 +17,7 @@ export interface ExportObservationOptions {
 }
 
 function baseOpenCliDir(): string {
-  return process.env.OPENCLI_CONFIG_DIR || path.join(os.homedir(), '.opencli');
+  return process.env.TOYCLI_CONFIG_DIR || path.join(os.homedir(), '.toycli');
 }
 
 function safeSegment(value: string | undefined): string {
@@ -106,7 +106,7 @@ export function buildTraceReceipt(
   const createdAt = opts.createdAt ?? new Date().toISOString();
   return {
     schemaVersion: 1,
-    opencliVersion: PKG_VERSION,
+    toycliVersion: PKG_VERSION,
     traceId: result.traceId,
     traceDir: result.dir,
     summaryPath: result.summaryPath,
@@ -170,7 +170,7 @@ function renderSummary(
   const lines = [
     '---',
     'schemaVersion: 1',
-    `opencliVersion: ${yamlScalar(PKG_VERSION)}`,
+    `toycliVersion: ${yamlScalar(PKG_VERSION)}`,
     `traceId: ${yamlScalar(session.id)}`,
     `status: ${opts.status}`,
     `contextId: ${yamlScalar(session.scope.contextId ?? 'default')}`,
@@ -190,12 +190,12 @@ function renderSummary(
     ] : []),
     '---',
     '',
-    '# OpenCLI Trace Summary',
+    '# ToyCLI Trace Summary',
     '',
     '## How To Use',
     '',
     '- Start with this summary, then inspect `trace.jsonl` only when the evidence below is insufficient.',
-    '- For adapter repair policy and retry limits, use the `opencli-autofix` skill.',
+    '- For adapter repair policy and retry limits, use the `toycli-autofix` skill.',
     '- `adapterSourcePathExists: false` means the path is a best-effort hint, not a confirmed editable file.',
     '',
     '## Error',

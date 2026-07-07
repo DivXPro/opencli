@@ -6,10 +6,10 @@
 
 | Command | Description | Mode |
 |---------|-------------|------|
-| `opencli sinafinance news` | 新浪财经 7×24 小时实时快讯 | 🌐 Public |
-| `opencli sinafinance rolling-news` | 新浪财经滚动新闻 | 🔐 Browser |
-| `opencli sinafinance stock` | 新浪财经行情（A股/港股/美股） | 🌐 Public |
-| `opencli sinafinance stock-rank` | 新浪财经热搜榜 | 🔐 Browser |
+| `toycli sinafinance news` | 新浪财经 7×24 小时实时快讯 | 🌐 Public |
+| `toycli sinafinance rolling-news` | 新浪财经滚动新闻 | 🔐 Browser |
+| `toycli sinafinance stock` | 新浪财经行情（A股/港股/美股） | 🌐 Public |
+| `toycli sinafinance stock-rank` | 新浪财经热搜榜 | 🔐 Browser |
 
 ## Usage Examples
 
@@ -17,66 +17,66 @@
 
 ```bash
 # Latest financial news
-opencli sinafinance news --limit 20
+toycli sinafinance news --limit 20
 
 # Filter by type
-opencli sinafinance news --type 1   # A股
-opencli sinafinance news --type 2   # 宏观
-opencli sinafinance news --type 6   # 国际
+toycli sinafinance news --type 1   # A股
+toycli sinafinance news --type 2   # 宏观
+toycli sinafinance news --type 6   # 国际
 
 # JSON output
-opencli sinafinance news -f json
+toycli sinafinance news -f json
 ```
 
 ### rolling-news - 滚动新闻
 
 ```bash
 # Rolling news feed
-opencli sinafinance rolling-news
+toycli sinafinance rolling-news
 
 # JSON output
-opencli sinafinance rolling-news -f json
+toycli sinafinance rolling-news -f json
 ```
 
 ### stock - 股票行情
 
 ```bash
 # Search and view A-share stock
-opencli sinafinance stock 贵州茅台 --market cn
+toycli sinafinance stock 贵州茅台 --market cn
 
 # Search and view HK stock
-opencli sinafinance stock 腾讯控股 --market hk
+toycli sinafinance stock 腾讯控股 --market hk
 
 # Search and view US stock
-opencli sinafinance stock aapl --market us
+toycli sinafinance stock aapl --market us
 
 # Auto-detect market (searches cn, hk, us in order)
-opencli sinafinance stock 招商证券
+toycli sinafinance stock 招商证券
 
 # JSON output
-opencli sinafinance stock 贵州茅台 -f json
+toycli sinafinance stock 贵州茅台 -f json
 ```
 
 ### stock-rank - 热搜榜
 
 ```bash
 # Default A股热搜榜
-opencli sinafinance stock-rank
+toycli sinafinance stock-rank
 
 # 港股热搜榜
-opencli sinafinance stock-rank --market hk
+toycli sinafinance stock-rank --market hk
 
 # 美股热搜榜
-opencli sinafinance stock-rank --market us
+toycli sinafinance stock-rank --market us
 
 # 外汇热搜榜
-opencli sinafinance stock-rank --market ft
+toycli sinafinance stock-rank --market ft
 
 # 期货热搜榜
-opencli sinafinance stock-rank --market wh
+toycli sinafinance stock-rank --market wh
 
 # JSON output
-opencli sinafinance stock-rank -f json
+toycli sinafinance stock-rank -f json
 ```
 
 ## Options

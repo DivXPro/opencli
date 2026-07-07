@@ -18,8 +18,8 @@ cli({
     func: async (page, kwargs) => {
         if (!page)
             throw new CommandExecutionError('Browser page required');
-        if (process.env.OPENCLI_VERBOSE) {
-            console.error('[opencli:v2ex] Navigating to /notifications');
+        if (process.env.TOYCLI_VERBOSE) {
+            console.error('[toycli:v2ex] Navigating to /notifications');
         }
         await page.goto('https://www.v2ex.com/notifications');
         await new Promise(r => setTimeout(r, 1500)); // waitForLoadState doesn't always work robustly

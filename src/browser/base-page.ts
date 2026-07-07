@@ -497,7 +497,7 @@ export abstract class BasePage implements IPage {
     const cdp = (this as IPage).cdp;
     if (typeof cdp !== 'function') return false;
 
-    const markerAttr = 'data-opencli-cdp-target';
+    const markerAttr = 'data-toycli-cdp-target';
     const markerValue = `${Date.now().toString(36)}-${++this._cdpTargetMarkerSeq}`;
     const selector = `[${markerAttr}="${markerValue}"]`;
     let marked = false;
@@ -702,7 +702,7 @@ export abstract class BasePage implements IPage {
       throw new TargetError({
         code: 'not_checkable',
         message: `Target "${ref}" is not a checkbox, radio, switch, or aria-checked control.`,
-        hint: 'Use `opencli browser state` or `browser find` to pick an input[type=checkbox], input[type=radio], or role=checkbox/switch target.',
+        hint: 'Use `toycli browser state` or `browser find` to pick an input[type=checkbox], input[type=radio], or role=checkbox/switch target.',
       });
     }
     if (before.disabled) {
@@ -776,7 +776,7 @@ export abstract class BasePage implements IPage {
       });
     }
     const resolved = await runResolve(this, ref, opts);
-    const markerAttr = 'data-opencli-upload-target';
+    const markerAttr = 'data-toycli-upload-target';
     const markerValue = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
     const selector = `[${markerAttr}="${markerValue}"]`;
     let marked = false;
@@ -803,7 +803,7 @@ export abstract class BasePage implements IPage {
         throw new TargetError({
           code: 'not_file_input',
           message: `Target "${ref}" is not an input[type=file].`,
-          hint: 'Use `opencli browser find --css "input[type=file]"` or inspect `compound` output from browser state/find.',
+          hint: 'Use `toycli browser find --css "input[type=file]"` or inspect `compound` output from browser state/find.',
         });
       }
       if (files.length > 1 && !info?.multiple) {
@@ -864,7 +864,7 @@ export abstract class BasePage implements IPage {
       (() => {
         const el = window.__resolved;
         if (!el) throw new Error('No resolved drag source');
-        window.__opencli_drag_source = el;
+        window.__toycli_drag_source = el;
         if (${sourceScrolled ? 'false' : 'true'}) el.scrollIntoView({ behavior: 'instant', block: 'center' });
         const rect = el.getBoundingClientRect();
         const w = Math.round(rect.width);
@@ -886,7 +886,7 @@ export abstract class BasePage implements IPage {
       const targetScrolled = await this.tryCdpOnResolvedElement('DOM.scrollIntoViewIfNeeded');
       const endpoints = await this.evaluate(`
         (() => {
-          const sourceEl = window.__opencli_drag_source;
+          const sourceEl = window.__toycli_drag_source;
           const targetEl = window.__resolved;
           if (!sourceEl) throw new Error('No resolved drag source');
           if (!targetEl) throw new Error('No resolved drag target');
@@ -932,7 +932,7 @@ export abstract class BasePage implements IPage {
         target_match_level: targetResolved.match_level,
       };
     } finally {
-      await this.evaluate('delete window.__opencli_drag_source').catch(() => {});
+      await this.evaluate('delete window.__toycli_drag_source').catch(() => {});
     }
   }
 
@@ -959,7 +959,7 @@ export abstract class BasePage implements IPage {
       throw new TargetError({
         code: 'not_editable',
         message: `Target "${ref}" is not a fillable input, textarea, or contenteditable element.`,
-        hint: 'Use `opencli browser state` to pick an editable target, or use `browser type` for keyboard-like interactions.',
+        hint: 'Use `toycli browser state` to pick an editable target, or use `browser type` for keyboard-like interactions.',
       });
     }
 
@@ -1092,7 +1092,7 @@ export abstract class BasePage implements IPage {
       const result = await this.evaluate(snapshotJs);
       // Read back the hashes stored by the snapshot for next diff
       try {
-        const hashes = await this.evaluate('window.__opencli_prev_hashes') as string | null;
+        const hashes = await this.evaluate('window.__toycli_prev_hashes') as string | null;
         this._prevSnapshotHashes = typeof hashes === 'string' ? hashes : null;
       } catch {
         // Non-fatal: diff is best-effort
@@ -1144,14 +1144,14 @@ export abstract class BasePage implements IPage {
   async installInterceptor(pattern: string): Promise<void> {
     const { generateInterceptorJs } = await import('../interceptor.js');
     await this.evaluate(generateInterceptorJs(JSON.stringify(pattern), {
-      arrayName: '__opencli_xhr',
-      patchGuard: '__opencli_interceptor_patched',
+      arrayName: '__toycli_xhr',
+      patchGuard: '__toycli_interceptor_patched',
     }));
   }
 
   async getInterceptedRequests(): Promise<unknown[]> {
     const { generateReadInterceptedJs } = await import('../interceptor.js');
-    const result = await this.evaluate(generateReadInterceptedJs('__opencli_xhr'));
+    const result = await this.evaluate(generateReadInterceptedJs('__toycli_xhr'));
     return Array.isArray(result) ? result : [];
   }
 

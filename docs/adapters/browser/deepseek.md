@@ -6,64 +6,64 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli deepseek ask <prompt>` | Send a prompt and get the response |
-| `opencli deepseek new` | Start a new conversation |
-| `opencli deepseek status` | Check login state and page availability |
-| `opencli deepseek read` | Read the current conversation |
-| `opencli deepseek history` | List conversation history from sidebar |
-| `opencli deepseek detail <id>` | Read a specific conversation by ID or URL |
-| `opencli deepseek send <id> <prompt>` | Send a prompt to a specific conversation without waiting for a response |
+| `toycli deepseek ask <prompt>` | Send a prompt and get the response |
+| `toycli deepseek new` | Start a new conversation |
+| `toycli deepseek status` | Check login state and page availability |
+| `toycli deepseek read` | Read the current conversation |
+| `toycli deepseek history` | List conversation history from sidebar |
+| `toycli deepseek detail <id>` | Read a specific conversation by ID or URL |
+| `toycli deepseek send <id> <prompt>` | Send a prompt to a specific conversation without waiting for a response |
 
 ## Usage Examples
 
 ```bash
 # Ask a question
-opencli deepseek ask "explain quicksort in 3 sentences"
+toycli deepseek ask "explain quicksort in 3 sentences"
 
 # Start a new chat before asking
-opencli deepseek ask "hello" --new
+toycli deepseek ask "hello" --new
 
 # Use Expert model instead of Instant
-opencli deepseek ask "prove that sqrt(2) is irrational" --model expert
+toycli deepseek ask "prove that sqrt(2) is irrational" --model expert
 
 # Use Vision model with an image
-opencli deepseek ask "describe this image" --model vision --file ./image.png
+toycli deepseek ask "describe this image" --model vision --file ./image.png
 
 # Enable DeepThink mode
-opencli deepseek ask "prove that sqrt(2) is irrational" --think
+toycli deepseek ask "prove that sqrt(2) is irrational" --think
 
 # Enable web search
-opencli deepseek ask "latest news about AI" --search
+toycli deepseek ask "latest news about AI" --search
 
 # Attach a file
-opencli deepseek ask "summarize this document" --file ./report.pdf
+toycli deepseek ask "summarize this document" --file ./report.pdf
 
 # Combine modes
-opencli deepseek ask "what happened today?" --model expert --think --search --new
+toycli deepseek ask "what happened today?" --model expert --think --search --new
 
 # Custom timeout (default: 120s)
-opencli deepseek ask "write a long essay" --timeout 180
+toycli deepseek ask "write a long essay" --timeout 180
 
 # JSON output
-opencli deepseek ask "hello" -f json
+toycli deepseek ask "hello" -f json
 
 # Check login status
-opencli deepseek status
+toycli deepseek status
 
 # Start a fresh conversation
-opencli deepseek new
+toycli deepseek new
 
 # Read current conversation
-opencli deepseek read
+toycli deepseek read
 
 # List recent conversations
-opencli deepseek history --limit 10
+toycli deepseek history --limit 10
 
 # Read a specific conversation by UUID or /a/chat/s/<id> URL
-opencli deepseek detail 749e6bbd-6a45-4440-beaa-ae5238bf06d8
+toycli deepseek detail 749e6bbd-6a45-4440-beaa-ae5238bf06d8
 
 # Send to a specific existing conversation
-opencli deepseek send 749e6bbd-6a45-4440-beaa-ae5238bf06d8 "continue from the last answer"
+toycli deepseek send 749e6bbd-6a45-4440-beaa-ae5238bf06d8 "continue from the last answer"
 ```
 
 ### Options (ask)

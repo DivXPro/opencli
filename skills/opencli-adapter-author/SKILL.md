@@ -1,14 +1,14 @@
 ---
-name: opencli-adapter-author
-description: Use when writing an OpenCLI adapter for a new site or adding a new command to an existing site. Guides end-to-end from first recon through field decoding, adapter coding, and verify. Replaces opencli-oneshot / opencli-explorer. For ad-hoc browser driving (no adapter), see opencli-browser instead; for a top-level orientation to opencli, see opencli-usage.
-allowed-tools: Bash(opencli:*), Read, Edit, Write, Grep
+name: toycli-adapter-author
+description: Use when writing an ToyCLI adapter for a new site or adding a new command to an existing site. Guides end-to-end from first recon through field decoding, adapter coding, and verify. Replaces toycli-oneshot / toycli-explorer. For ad-hoc browser driving (no adapter), see toycli-browser instead; for a top-level orientation to toycli, see toycli-usage.
+allowed-tools: Bash(toycli:*), Read, Edit, Write, Grep
 ---
 
-# opencli-adapter-author
+# toycli-adapter-author
 
-你是要给一个站点写 adapter 的 agent。这份 skill 目标：**从零到通过 `opencli browser verify` 的 30 分钟内闭环**。
+你是要给一个站点写 adapter 的 agent。这份 skill 目标：**从零到通过 `toycli browser verify` 的 30 分钟内闭环**。
 
-全程用现有工具：`opencli browser *` / `opencli doctor` / `opencli browser init` / `opencli browser verify`。没有新命令。
+全程用现有工具：`toycli browser *` / `toycli doctor` / `toycli browser init` / `toycli browser verify`。没有新命令。
 
 调试浏览器型 adapter 时，优先直接带上 `--trace on --keep-tab true --window foreground`。`--trace on` 每轮都落 trace artifact，`summary.md` 是失败/成功复盘入口；`--keep-tab true --window foreground` 让 tab lease 保留且浏览器窗口在前台，方便核对最终页面状态。
 
@@ -54,7 +54,7 @@ Strategy classes:
 | `COOKIE_API` | stable | Node-side `fetch` + `page.getCookies()` / header helper 能拿数据 | cookie/CSRF 来源清楚，replay 非空 |
 | `UI_SELECTOR` | visible-ui | publish/upload/click/表单，或页面语义比内部接口更稳 | selector 有语义锚点；错误路径是 typed error |
 | `DOM_STATE` | visible-ui | 数据在 hydration state / bootstrap JSON / SSR HTML 里 | state key / script JSON / HTML 结构明确 |
-| `PAGE_FETCH` | internal-unstable | 只能在页面上下文 `fetch` 才能复用 same-origin/session/runtime | `opencli browser eval fetch(...)` 非空；必须解释为什么避不开内部接口 |
+| `PAGE_FETCH` | internal-unstable | 只能在页面上下文 `fetch` 才能复用 same-origin/session/runtime | `toycli browser eval fetch(...)` 非空；必须解释为什么避不开内部接口 |
 | `INTERCEPT` | internal-unstable | 请求签名复杂，但页面自己能自然发出请求 | 触发 UI 后能截到目标 response；必须解释为什么 UI/DOM 不够 |
 
 选择规则：优先 `PUBLIC_API` / `COOKIE_API`。如果 UI/DOM 语义稳定，不要强行升级到 `PAGE_FETCH` / `INTERCEPT`。只有公开/官方接口不可用、UI/DOM 无法表达目标数据或操作时，才承担无契约内部接口的维护成本。
@@ -68,14 +68,14 @@ START
   │
   ▼
 ┌──────────────────────────┐
-│ opencli doctor 通？      │── no ──→ 修桥接（doctor 输出里的提示）
+│ toycli doctor 通？      │── no ──→ 修桥接（doctor 输出里的提示）
 └──────────────────────────┘
   │ yes
   ▼
 ┌────────────────────────────────────────────────────┐
 │ 读站点记忆：                                        │
-│   1. ~/.opencli/sites/<site>/endpoints.json         │
-│   2. ~/.opencli/sites/<site>/notes.md               │
+│   1. ~/.toycli/sites/<site>/endpoints.json         │
+│   2. ~/.toycli/sites/<site>/notes.md               │
 │   3. references/site-memory/<site>.md               │
 └────────────────────────────────────────────────────┘
   │ 命中 endpoint + 字段 → 直接跳到【endpoint 验证】（不跳写 adapter！memory 可能过期）
@@ -110,14 +110,14 @@ START
   │
   ▼
 ┌──────────────────────────┐
-│ opencli browser init      │  生成 ~/.opencli/clis/<site>/<name>.js 骨架
+│ toycli browser init      │  生成 ~/.toycli/clis/<site>/<name>.js 骨架
 │ 复制最像的邻居 adapter    │
 │ 改 name / URL / 映射三处  │
 └──────────────────────────┘
   │
   ▼
 ┌──────────────────────────┐
-│ opencli browser verify    │── 失败 ──→ autofix skill，用 --trace retain-on-failure 回对应步骤
+│ toycli browser verify    │── 失败 ──→ autofix skill，用 --trace retain-on-failure 回对应步骤
 └──────────────────────────┘
   │ 成功
   ▼
@@ -127,7 +127,7 @@ START
   │ 对得上
   ▼
 ┌──────────────────────────┐
-│ 回写 ~/.opencli/sites/   │  endpoints / field-map / notes / fixtures
+│ 回写 ~/.toycli/sites/   │  endpoints / field-map / notes / fixtures
 └──────────────────────────┘
   │
   ▼
@@ -139,14 +139,14 @@ DONE
 ## Runbook（一步一步勾选）
 
 ```
-[ ] 1. opencli doctor 返回 "Everything looks good"
+[ ] 1. toycli doctor 返回 "Everything looks good"
 [ ] 2. 读站点记忆：
-       [ ] ~/.opencli/sites/<site>/endpoints.json 存在？里面有想要的 endpoint？
+       [ ] ~/.toycli/sites/<site>/endpoints.json 存在？里面有想要的 endpoint？
        [ ] references/site-memory/<site>.md 存在？看"已知 endpoint"节
        [ ] 命中后：**跳到第 5（endpoint 验证） + 第 7（字段核对）**，不能直接跳第 9 写 adapter
        [ ] memory 写入超过 30 天（看 `verified_at`）→ 当作过期，按冷启动走 Step 3 → 4
 [ ] 3. 侦察（site-recon.md）：
-       [ ] **首选**：`opencli browser analyze <url>` 一步拿 pattern + 反爬 + 最近 adapter + next step
+       [ ] **首选**：`toycli browser analyze <url>` 一步拿 pattern + 反爬 + 最近 adapter + next step
        [ ] `analyze` 结论模糊时再手跑：`open` → `wait time 2` (或 `wait xhr <regex>`) → `network`
        [ ] 定 Pattern（A / B / C / D / E）
 [ ] 4. API 发现（api-discovery.md）按 Pattern 选 §：
@@ -173,21 +173,21 @@ DONE
        [ ] 类型 / 单位 / 百分比格式清楚
        [ ] 顺序：识别列 → 业务数字 → metadata
 [ ] 9. 写 adapter（adapter-template.md）：
-       [ ] opencli browser init <site>/<name>
+       [ ] toycli browser init <site>/<name>
        [ ] 找同站点或同类型最像的 adapter，cp 过来
        [ ] 改 name / URL / 字段映射
-[ ] 10. opencli browser verify <site>/<name>
-        [ ] 首轮通过后立刻 `--write-fixture` 生成 `~/.opencli/sites/<site>/verify/<cmd>.json` 种子
+[ ] 10. toycli browser verify <site>/<name>
+        [ ] 首轮通过后立刻 `--write-fixture` 生成 `~/.toycli/sites/<site>/verify/<cmd>.json` 种子
         [ ] 手改种子：加 `patterns`（URL / 日期 / ID 格式）+ `notEmpty`（核心字段）+ 收紧 `rowCount`
-        [ ] 再跑一次 `opencli browser verify <site>/<name>`，确认 ✓ matches fixture
+        [ ] 再跑一次 `toycli browser verify <site>/<name>`，确认 ✓ matches fixture
 [ ] 11. 字段值 vs 网页肉眼比对（别只看 "Adapter works!"）
 [ ] 12. 回写站点记忆（**verify 通过 + 肉眼比对对得上之后**，schema 见 `references/site-memory.md`）：
         [ ] `endpoints.json`：以 endpoint 的短名为 key，value = `{url, method, params.{required,optional}, response, verified_at: YYYY-MM-DD, notes}`
         [ ] `field-map.json`：只追加新代号。key = 字段代号，value = `{meaning, verified_at: YYYY-MM-DD, source}`；**已存在的 key 不要覆盖**，有冲突先和网页肉眼值对齐再写
         [ ] `notes.md`：顶部追加一段 `## YYYY-MM-DD by <agent/user>`，写本次写 adapter 时遇到的新坑 / 新结论
-        [ ] `verify/<cmd>.json`：**必填。** `opencli browser verify` 的期望值（args / rowCount / columns / types / patterns / notEmpty），Step 10 已经让你生成了，这里只是 checklist
+        [ ] `verify/<cmd>.json`：**必填。** `toycli browser verify` 的期望值（args / rowCount / columns / types / patterns / notEmpty），Step 10 已经让你生成了，这里只是 checklist
         [ ] `fixtures/<cmd>-<YYYYMMDDHHMM>.json`：存一份该 endpoint 的完整响应样本（去掉 cookie / token / 用户私有字段再存），给后续字段对比 / 离线 replay 用
-        [ ] 调试过程中如果在 repo / adapter 目录 dump 过临时文件（`.dbg-*.html` / `raw-*.json` / 等），**在 commit 前清干净**——这些本来就该落在 `~/.opencli/sites/<site>/fixtures/` 或 `/tmp/`
+        [ ] 调试过程中如果在 repo / adapter 目录 dump 过临时文件（`.dbg-*.html` / `raw-*.json` / 等），**在 commit 前清干净**——这些本来就该落在 `~/.toycli/sites/<site>/fixtures/` 或 `/tmp/`
 ```
 
 ---
@@ -225,12 +225,12 @@ DONE
 | `references/field-decode-playbook.md` | Step 7 字段不在词典时 |
 | `references/output-design.md` | Step 8 命名 / 类型 / 顺序 |
 | `references/adapter-template.md` | Step 9 文件结构 + 活例子 `convertible.js` |
-| `references/site-memory.md` | 总览：in-repo 种子 + 本地 `~/.opencli/sites/` 的两层结构 |
+| `references/site-memory.md` | 总览：in-repo 种子 + 本地 `~/.toycli/sites/` 的两层结构 |
 | `references/site-memory/<site>.md` | Step 2 读站点公共知识（eastmoney / xueqiu / bilibili / tonghuashun 已铺） |
 | `references/success-rate-pitfalls.md` | Step 7 / 11 踩坑前翻：11 种"verify 能过但数据是错的"静默失败（含 aria-label locale-dependence） |
 | `references/jsdom-fixture-pattern.md` | 当 adapter 走 `page.evaluate` 内 DOM 抽取、且 mocked-evaluate 单测漏 silent bug 时——把 HTML 冻进 `clis/<site>/__fixtures__/` 用 JSDOM 跑（含 fixture 创建 mandatory `awk 'NF>0'` 收紧 + reverse-validate 纪律） |
 | `references/typed-errors.md` | 写 `func` 主体之前必读：5 类 typed error 落点表（ArgumentError / EmptyResultError / CommandExecutionError / AuthRequiredError / TimeoutError）+ 三大 silent anti-pattern（silent-clamp / sentinel-row / generic CliError）的反例修法 |
-| `references/listeners.md` | 当 adapter 需要暴露**实时流**（live comments / 订单簿 / 不断 append 的列表）时翻：`listeners[]` 声明 schema、`source`/`pattern`/`selector`/`mutationOptions`/`outputSchema` 选法、消费侧验证流程。消费侧用法见 `opencli-listener` skill |
+| `references/listeners.md` | 当 adapter 需要暴露**实时流**（live comments / 订单簿 / 不断 append 的列表）时翻：`listeners[]` 声明 schema、`source`/`pattern`/`selector`/`mutationOptions`/`outputSchema` 选法、消费侧验证流程。消费侧用法见 `toycli-listener` skill |
 
 ---
 
@@ -241,17 +241,17 @@ DONE
 - **中间解析对象 key 不能跟 `columns` 任一项重叠**（否则 silent-column-drop audit 误判，PR #1329 R1 真踩过；改成专属命名 + push row 时 destructure aliasing）
 - **`browser:` field 决定 func 签名**：`browser:false → (args)`，`browser:true → (page, args)`。搞反时 `args` 实际是 debug flag，所有外部参数 silent fallback 到 default（PR #1329 upstream 之前 8 个 non-browser adapter 全踩过这个）
 - 已知失败按 [`references/typed-errors.md`](./references/typed-errors.md) 5-classification 抛对应 typed error；**不要** silent `return []`，**不要** silent `return [{sentinel}]`，**不要** `Math.max/min` silent clamp 外部参数
-- 写私人 adapter 用 `~/.opencli/clis/<site>/<name>.js`（免 build）；要提 PR 才 copy 到 `clis/<site>/<name>.js`
+- 写私人 adapter 用 `~/.toycli/clis/<site>/<name>.js`（免 build）；要提 PR 才 copy 到 `clis/<site>/<name>.js`
 - 站点记忆每轮回写：没记忆 → 用 skill → 产生记忆 → 下次变 5 分钟
-- **实时 listener 是可选能力**：仅当目标页加载后仍持续产出数据（直播弹幕 / 滚动订单簿 / append 列表）才在 `cli({...})` 里声明 `listeners[]`。一次性加载完的数据不要做成 listener——它会占住 tab + daemon ring buffer 却无收益。声明 schema + 验证流程见 `references/listeners.md`，消费侧（`opencli listener start/stream` / SSE）见 `opencli-listener` skill。
-- **调试过程中的原始 dump / 抓包 / HTML 样本只能落在 `~/.opencli/sites/<site>/fixtures/` 或 `/tmp/`。严禁在 repo 根目录、`clis/<site>/` 或当前工作目录留 `.dbg-*.html / raw-*.json / sample.*` 这类临时文件**（PR diff 会带上去，别人 review 时很烦）。
+- **实时 listener 是可选能力**：仅当目标页加载后仍持续产出数据（直播弹幕 / 滚动订单簿 / append 列表）才在 `cli({...})` 里声明 `listeners[]`。一次性加载完的数据不要做成 listener——它会占住 tab + daemon ring buffer 却无收益。声明 schema + 验证流程见 `references/listeners.md`，消费侧（`toycli listener start/stream` / SSE）见 `toycli-listener` skill。
+- **调试过程中的原始 dump / 抓包 / HTML 样本只能落在 `~/.toycli/sites/<site>/fixtures/` 或 `/tmp/`。严禁在 repo 根目录、`clis/<site>/` 或当前工作目录留 `.dbg-*.html / raw-*.json / sample.*` 这类临时文件**（PR diff 会带上去，别人 review 时很烦）。
 - **JSDOM unit-test fixture（`clis/<site>/__fixtures__/<command>.html`）是上面那条的例外**——它是有意 commit 进 repo 的 review artifact，不是临时 dump。但因此 quality bar 要更高：必须按 `references/jsdom-fixture-pattern.md` 的 5 步做完（含 mandatory `awk 'NF>0'` 空白行收紧），并 reverse-validate 一道证明 regression guard 真能挂。
 
 ---
 
 ## 卡住了
 
-- 诊断类：`opencli doctor` → 看 `notes.md` → 搜 autofix skill
+- 诊断类：`toycli doctor` → 看 `notes.md` → 搜 autofix skill
 - 字段解码类：`field-decode-playbook.md` 全三节走完 → 先输出 raw 迭代
 - endpoint 找不到：api-discovery §5 intercept 兜底
 

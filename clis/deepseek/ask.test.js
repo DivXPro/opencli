@@ -235,7 +235,7 @@ describe('deepseek ask conversation resume', () => {
       model: 'expert',
       think: false,
       search: false,
-      __opencliOptionSources: { model: 'cli' },
+      __toycliOptionSources: { model: 'cli' },
     })).rejects.toMatchObject(new CliError(
       'ARGUMENT',
       'Cannot switch to expert model inside an existing conversation.',

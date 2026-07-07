@@ -1,12 +1,12 @@
 # Comparison Guide
 
-OpenCLI occupies a specific niche in the browser automation ecosystem. This guide honestly evaluates where opencli excels, where it's a viable option, and where other tools are a better fit.
+ToyCLI occupies a specific niche in the browser automation ecosystem. This guide honestly evaluates where toycli excels, where it's a viable option, and where other tools are a better fit.
 
 ## At a Glance
 
 | Tool | Approach | Best for |
 |------|----------|----------|
-| **opencli** | Pre-built TypeScript adapters | Deterministic site commands, broad platform coverage, desktop apps |
+| **toycli** | Pre-built TypeScript adapters | Deterministic site commands, broad platform coverage, desktop apps |
 | **Browser-Use** | LLM-driven browser control | General-purpose AI browser automation |
 | **Crawl4AI** | Async web crawler | Large-scale data crawling |
 | **Firecrawl** | Scraping API / self-hosted | Clean markdown extraction, managed or self-hosted infrastructure |
@@ -22,12 +22,12 @@ OpenCLI occupies a specific niche in the browser automation ecosystem. This guid
 
 | Tool | Fit | Notes |
 |------|-----|-------|
-| **opencli** | Best | One command, structured JSON output, zero runtime cost. Runs in cron/CI without tokens or API keys. |
+| **toycli** | Best | One command, structured JSON output, zero runtime cost. Runs in cron/CI without tokens or API keys. |
 | Crawl4AI | Good | Strong for large-scale crawling, but requires writing extraction logic per site. |
 | Firecrawl | Viable | Managed service with clean output, but costs scale with volume. |
 | Browser-Use / Stagehand | Poor | LLM inference on every run is slow, expensive, and non-deterministic for repeated tasks. |
 
-**Why opencli wins here:** A command like `opencli bilibili hot -f json` returns the same structured schema every time, costs nothing to run, and finishes in seconds. For recurring data extraction from known sites, pre-built adapters beat LLM-driven approaches on cost, speed, and reliability.
+**Why toycli wins here:** A command like `toycli bilibili hot -f json` returns the same structured schema every time, costs nothing to run, and finishes in seconds. For recurring data extraction from known sites, pre-built adapters beat LLM-driven approaches on cost, speed, and reliability.
 
 ### 2. AI Agent Site Operations
 
@@ -35,12 +35,12 @@ OpenCLI occupies a specific niche in the browser automation ecosystem. This guid
 
 | Tool | Fit | Notes |
 |------|-----|-------|
-| **opencli** | Best | Structured JSON output, fast deterministic execution, hundreds of commands ready to use. |
+| **toycli** | Best | Structured JSON output, fast deterministic execution, hundreds of commands ready to use. |
 | agent-browser | Good | Token-efficient browser primitives, but requires LLM reasoning for every step. |
 | Browser-Use | Viable | General-purpose, but each operation costs tokens and takes 10-60s. |
 | Stagehand | Viable | Good DX, but same LLM-per-action cost model. |
 
-**Why opencli wins here:** When your agent needs `twitter search "AI news" -f json`, a deterministic command that returns in seconds is strictly better than an LLM clicking through a webpage. The agent saves tokens for reasoning, not navigation.
+**Why toycli wins here:** When your agent needs `twitter search "AI news" -f json`, a deterministic command that returns in seconds is strictly better than an LLM clicking through a webpage. The agent saves tokens for reasoning, not navigation.
 
 ### 3. Authenticated Operations (Login-Required Sites)
 
@@ -48,12 +48,12 @@ OpenCLI occupies a specific niche in the browser automation ecosystem. This guid
 
 | Tool | Fit | Notes |
 |------|-----|-------|
-| **opencli** | Best | Reuses your Chrome login session via Browser Bridge. No credentials stored or transmitted. |
+| **toycli** | Best | Reuses your Chrome login session via Browser Bridge. No credentials stored or transmitted. |
 | Browser-Use | Viable | Can use browser profiles, but credential management is manual. |
 | Firecrawl | Poor | Cloud service cannot access your authenticated sessions. |
 | Crawl4AI | Poor | Requires manual cookie/session injection. |
 
-**Why opencli wins here:** The Browser Bridge extension reuses your existing Chrome login state in real-time. You log in once in Chrome, and opencli commands work immediately. No OAuth setup, no API keys, no credential files.
+**Why toycli wins here:** The Browser Bridge extension reuses your existing Chrome login state in real-time. You log in once in Chrome, and toycli commands work immediately. No OAuth setup, no API keys, no credential files.
 
 ### 4. General Web Browsing & Exploration
 
@@ -65,9 +65,9 @@ OpenCLI occupies a specific niche in the browser automation ecosystem. This guid
 | Stagehand | Best | Clean API for `act()`, `extract()`, `observe()` on any page. |
 | agent-browser | Good | Token-efficient primitives for AI agents. |
 | Skyvern | Good | Visual AI that generalizes across sites. |
-| **opencli** | Poor | Only works with sites that have pre-built adapters. Cannot handle arbitrary websites. |
+| **toycli** | Poor | Only works with sites that have pre-built adapters. Cannot handle arbitrary websites. |
 
-**opencli is not the right tool here.** If you need to explore unknown websites or handle one-off tasks on sites without adapters, use an LLM-driven browser tool. opencli trades generality for determinism and cost.
+**toycli is not the right tool here.** If you need to explore unknown websites or handle one-off tasks on sites without adapters, use an LLM-driven browser tool. toycli trades generality for determinism and cost.
 
 ### 5. Desktop App Control
 
@@ -75,14 +75,14 @@ OpenCLI occupies a specific niche in the browser automation ecosystem. This guid
 
 | Tool | Fit | Notes |
 |------|-----|-------|
-| **opencli** | Best | 7 desktop adapters via CDP + AppleScript. The only CLI tool with this capability. |
+| **toycli** | Best | 7 desktop adapters via CDP + AppleScript. The only CLI tool with this capability. |
 | All others | N/A | Browser automation tools cannot control desktop applications. |
 
-**This is unique to opencli.** No other tool in this comparison can send a prompt to ChatGPT desktop or extract code from Cursor via CLI.
+**This is unique to toycli.** No other tool in this comparison can send a prompt to ChatGPT desktop or extract code from Cursor via CLI.
 
 ## Key Trade-offs
 
-### opencli's Strengths
+### toycli's Strengths
 
 - **Zero LLM cost** — No tokens consumed at runtime. Run 10,000 times for free.
 - **Deterministic output** — Same command always returns the same schema. Pipeable, scriptable, CI-friendly.
@@ -91,18 +91,18 @@ OpenCLI occupies a specific niche in the browser automation ecosystem. This guid
 - **Desktop app control** — CDP adapters for Cursor, Codex, ChatGPT, Discord, and more.
 - **Easy to extend** — Drop a `.js` adapter into the `clis/` folder for auto-registration. Contributing a new site adapter is straightforward.
 
-### opencli's Limitations
+### toycli's Limitations
 
-- **Coverage requires adapters** — opencli only works with sites that have pre-built adapters. Adding a new site means writing a TypeScript adapter.
+- **Coverage requires adapters** — toycli only works with sites that have pre-built adapters. Adding a new site means writing a TypeScript adapter.
 - **Adapter maintenance** — When a website updates its DOM or API, the corresponding adapter may need updating. The community maintains these, but breakage is possible.
-- **Not general-purpose** — Cannot handle arbitrary websites. For unknown sites, pair opencli with a general browser tool as a fallback.
+- **Not general-purpose** — Cannot handle arbitrary websites. For unknown sites, pair toycli with a general browser tool as a fallback.
 
 ## Complementary Usage
 
-opencli works best alongside general-purpose browser tools, not as a replacement:
+toycli works best alongside general-purpose browser tools, not as a replacement:
 
 ```
-Has adapter?  ──yes──▶  opencli (fast, free, deterministic)
+Has adapter?  ──yes──▶  toycli (fast, free, deterministic)
      │
      no
      │
@@ -112,7 +112,7 @@ One-off task?  ──yes──▶  Browser-Use / Stagehand (LLM-driven)
      no
      │
      ▼
-Recurring?    ──yes──▶  Write an opencli adapter, then use opencli
+Recurring?    ──yes──▶  Write an toycli adapter, then use toycli
 ```
 
 ## Further Reading

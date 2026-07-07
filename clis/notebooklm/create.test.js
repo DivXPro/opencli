@@ -31,7 +31,7 @@ describe('notebooklm create', () => {
     });
 
     it('parseCreateProjectResult extracts the notebook id from the singleton-wrapped RPC result', () => {
-        const result = [[ ['notebook-payload-prefix', null, 'ec806f5b-fe74-4588-8f77-f073b91e9b1e', 'opencli-test', '🧪'] ]];
+        const result = [[ ['notebook-payload-prefix', null, 'ec806f5b-fe74-4588-8f77-f073b91e9b1e', 'toycli-test', '🧪'] ]];
         expect(parseCreateProjectResult(result)).toBe('ec806f5b-fe74-4588-8f77-f073b91e9b1e');
     });
 

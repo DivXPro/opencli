@@ -7,7 +7,7 @@ import { cli, Strategy } from '@toy-box/opencli/registry';
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const MDN_BASE = 'https://developer.mozilla.org';
-const UA = 'opencli-mdn-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-mdn-adapter (+https://github.com/toy-box/toycli)';
 const ALLOWED_LOCALES = new Set(['en-US', 'de', 'es', 'fr', 'ja', 'ko', 'pt-BR', 'ru', 'zh-CN', 'zh-TW']);
 
 function requireString(value, label) {

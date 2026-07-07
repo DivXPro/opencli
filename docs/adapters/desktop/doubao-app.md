@@ -10,20 +10,20 @@ Control the **Doubao AI Desktop App** via Chrome DevTools Protocol (CDP).
    ```
 2. Set the CDP endpoint:
    ```bash
-   export OPENCLI_CDP_ENDPOINT="http://127.0.0.1:9225"
+   export TOYCLI_CDP_ENDPOINT="http://127.0.0.1:9225"
    ```
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `opencli doubao-app status` | Check CDP connection status |
-| `opencli doubao-app new` | Start a new conversation |
-| `opencli doubao-app send "message"` | Send a message to the current chat |
-| `opencli doubao-app read` | Read the latest assistant reply |
-| `opencli doubao-app ask "message"` | Send a prompt and wait for the reply |
-| `opencli doubao-app screenshot` | Capture a screenshot of the app window |
-| `opencli doubao-app dump` | Export DOM and snapshot debug info |
+| `toycli doubao-app status` | Check CDP connection status |
+| `toycli doubao-app new` | Start a new conversation |
+| `toycli doubao-app send "message"` | Send a message to the current chat |
+| `toycli doubao-app read` | Read the latest assistant reply |
+| `toycli doubao-app ask "message"` | Send a prompt and wait for the reply |
+| `toycli doubao-app screenshot` | Capture a screenshot of the app window |
+| `toycli doubao-app dump` | Export DOM and snapshot debug info |
 
 ## How It Works
 

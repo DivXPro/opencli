@@ -308,7 +308,7 @@ describe('chatgpt browser command registration', () => {
     });
 
     it('maps successful project-file-add uploads to table rows', async () => {
-        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-chatgpt-'));
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-chatgpt-'));
         tempDirs.push(dir);
         const filePath = path.join(dir, 'report.pdf');
         fs.writeFileSync(filePath, 'fake-pdf');

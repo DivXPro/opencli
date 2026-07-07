@@ -5,7 +5,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const TVMAZE_BASE = 'https://api.tvmaze.com';
-const UA = 'opencli-tvmaze-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-tvmaze-adapter (+https://github.com/toy-box/toycli)';
 
 export function requireString(value, label) {
     const s = String(value ?? '').trim();

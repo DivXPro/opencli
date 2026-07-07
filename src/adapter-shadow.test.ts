@@ -6,7 +6,7 @@ import { findShadowedUserAdapters, formatAdapterShadowIssue } from './adapter-sh
 
 describe('adapter shadow detection', () => {
   it('reports user adapters that shadow packaged manifest commands', () => {
-    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-adapter-shadow-'));
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-adapter-shadow-'));
     try {
       const userClisDir = path.join(root, 'user-clis');
       const builtinRoot = path.join(root, 'pkg');
@@ -42,12 +42,12 @@ describe('adapter shadow detection', () => {
     const issue = formatAdapterShadowIssue([
       {
         name: 'instagram/saved',
-        userPath: '/home/me/.opencli/clis/instagram/saved.js',
+        userPath: '/home/me/.toycli/clis/instagram/saved.js',
         builtinPath: '/pkg/clis/instagram/saved.js',
       },
     ]);
 
     expect(issue).toContain('instagram/saved');
-    expect(issue).toContain('opencli adapter reset <site>');
+    expect(issue).toContain('toycli adapter reset <site>');
   });
 });

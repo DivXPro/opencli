@@ -6,7 +6,7 @@
 
 ## v1.1 changelog（vs v1）
 
-12 patches，按主题分 3 组。验证基础：twitter PoC（12 files / opencli-user）+ hackernews PoC（10 files / opencli-质量官）双站。
+12 patches，按主题分 3 组。验证基础：twitter PoC（12 files / toycli-user）+ hackernews PoC（10 files / toycli-质量官）双站。
 
 **Group 1 — Scope/boundary**（clarifications，不改 format）
 1. §1.1 双语 / CJK token-per-char 比 English 高 30-50%，必要时拆 sub-file（不放宽 800）
@@ -96,7 +96,7 @@ auth_strategy: COOKIE_API   # 引用 strategy-selection.md ladder
 **Optional**: `Site-wide pitfalls` (引用即可)
 **Frontmatter required**: `site`, `login_required`, `auth_strategy`
 
-`auth_strategy` 取值：`PUBLIC_API | COOKIE_API | PAGE_FETCH | INTERCEPT | DOM_STATE | UI_SELECTOR`，定义见 [`../../opencli-adapter-author/references/strategy-selection.md`](../../opencli-adapter-author/references/strategy-selection.md)。
+`auth_strategy` 取值：`PUBLIC_API | COOKIE_API | PAGE_FETCH | INTERCEPT | DOM_STATE | UI_SELECTOR`，定义见 [`../../toycli-adapter-author/references/strategy-selection.md`](../../toycli-adapter-author/references/strategy-selection.md)。
 
 **取主体不取并集**：`auth_strategy` 单值，覆盖该站绝大多数请求的策略。少数例外（如 twitter 公开 profile 可裸 fetch，主体仍是 COOKIE_API）在对应 page 的 `Linked APIs` section 里逐条标 `contract_strength` 区分，不靠 frontmatter 表达。array form 加复杂度无收益。
 
@@ -215,7 +215,7 @@ Create a new public post on this site with text content.
 - success: post visible on author's timeline within 5s
 
 ## Best path
-adapter: opencli twitter post
+adapter: toycli twitter post
 adapter_health: healthy        # healthy | suspect | broken
 preconditions:
   - logged_in
@@ -297,7 +297,7 @@ source: local
 ```
 
 **Required per entry**:
-- `endpoint_id` — 必须存在于同站 `~/.opencli/sites/<site>/endpoints.json`
+- `endpoint_id` — 必须存在于同站 `~/.toycli/sites/<site>/endpoints.json`
 - `triggers_on_pages` — array of `page_id`
 - `triggered_by_actions` — array of `action:<stable-id>`
 - `contract_strength` — `stable | visible-ui | internal-unstable`，定义见 `strategy-selection.md`
@@ -350,7 +350,7 @@ verified_at: 2026-06-01
 
 #### Scope（避免 sitemap 变杂物间）
 
-`pitfalls.md` 只放 **task-executor 级**坑 — 跑命令 / 操作页面会撞到的坑。**adapter-internal 实现坑**（queryId 解析 / envelope unwrap / bigint id / 字段 silent rename）放在 `~/.opencli/sites/<site>/notes.md`，不进 sitemap。
+`pitfalls.md` 只放 **task-executor 级**坑 — 跑命令 / 操作页面会撞到的坑。**adapter-internal 实现坑**（queryId 解析 / envelope unwrap / bigint id / 字段 silent rename）放在 `~/.toycli/sites/<site>/notes.md`，不进 sitemap。
 
 判断标准：
 
@@ -407,7 +407,7 @@ State signature:                          # OPTIONAL — for multi-step internal
   dom_anchor: <a11y role+name OR semantic selector>
 
 Evidence:
-- observed_with: opencli browser <session> <command>
+- observed_with: toycli browser <session> <command>
 - trace: <path to trace artifact, optional>
 ```
 
@@ -420,7 +420,7 @@ do: <agent action, adapter or semantic browser command>
 post: <URL / state / output that proves success>
 fail: <failure signal 1> | <signal 2> | <signal 3>
 recover: <fallback instruction>; adapter_health_update: <adapter> -> suspect
-evidence: opencli browser <cmd>
+evidence: toycli browser <cmd>
 ```
 
 字段分隔符约定（避免 ambiguity）：
@@ -428,8 +428,8 @@ evidence: opencli browser <cmd>
 | 符号 | 用途 | 例 |
 |---|---|---|
 | `\|` | 多 failure signal 平级枚举（"任一发生即视为失败"）| `fail: button_not_found \| /flow/login redirect` |
-| `\|\|` | 多 do path / recovery path **fallback priority**（"前者失败试后者"）| `do: opencli twitter like <url> \|\| click [data-testid="like"]` |
-| `;` | 多 recovery 指令 **sequential**（"逐条执行"）| `recover: adapter_health_update: opencli twitter like -> suspect; dom_click within card scope` |
+| `\|\|` | 多 do path / recovery path **fallback priority**（"前者失败试后者"）| `do: toycli twitter like <url> \|\| click [data-testid="like"]` |
+| `;` | 多 recovery 指令 **sequential**（"逐条执行"）| `recover: adapter_health_update: toycli twitter like -> suspect; dom_click within card scope` |
 
 字段语义完全等价 Form A，**推荐 Form B**，密集站避免 verbose markdown 把 page 撑爆。
 
@@ -445,8 +445,8 @@ evidence: opencli browser <cmd>
 - 一般是 page state（"on /home"）+ auth state（"logged_in"）+ UI state（"compose dialog not yet open"）
 
 **Do**：实际操作。优先级：
-1. 已有 adapter 命令（`opencli twitter post`）
-2. semantic browser command（`opencli browser click "Post" button`）
+1. 已有 adapter 命令（`toycli twitter post`）
+2. semantic browser command（`toycli browser click "Post" button`）
 3. 显式 selector（最后选项，写 stable anchor 不是裸 CSS）
 
 **Postconditions**：成功观察信号。必须具体 — "page changed" 不算，"URL is /compose AND textarea is focused" 才算。
@@ -486,11 +486,11 @@ evidence: opencli browser <cmd>
 ```yaml
 ### action:like_tweet
 pre: card visible AND (tweet_url known OR card permalink anchor extractable)
-do: opencli twitter like <tweet-url> || click [data-testid="like"] (within card scope)
+do: toycli twitter like <tweet-url> || click [data-testid="like"] (within card scope)
 post: testid 翻转 like -> unlike，icon 红色
 fail: testid 不变 | 弹 login modal
-recover: adapter_health_update: opencli twitter like -> suspect; dom_click within card scope
-evidence: opencli twitter like + opencli browser click
+recover: adapter_health_update: toycli twitter like -> suspect; dom_click within card scope
+evidence: toycli twitter like + toycli browser click
 ```
 
 两层 routing 不冲突：
@@ -508,7 +508,7 @@ action `Recovery` 字段可包含 directive：
 adapter_health_update: <adapter command> -> suspect | broken
 ```
 
-语义：当**本 action 因为该 adapter 失败而触发 Recovery**时，consumption skill（`opencli-browser-sitemap`）必须：
+语义：当**本 action 因为该 adapter 失败而触发 Recovery**时，consumption skill（`toycli-browser-sitemap`）必须：
 
 1. 在 local overlay 找到 reference 该 adapter 的 workflow（一般是 `Best path: adapter: <adapter command>` 的那条）
 2. 改写 workflow 的 `adapter_health` 为 directive 指定的等级
@@ -518,9 +518,9 @@ adapter_health_update: <adapter command> -> suspect | broken
 
 不写 directive 时，Recovery 只指导当前 agent 怎么 fallback，不影响其他 agent。带 directive = "我栽了，让我把这事告诉以后的 agent"。
 
-**实现责任**：在 `opencli-browser-sitemap` skill 的 consumption loop 里。Schema 这里只 spec directive 写侧格式，不 spec 实现细节。
+**实现责任**：在 `toycli-browser-sitemap` skill 的 consumption loop 里。Schema 这里只 spec directive 写侧格式，不 spec 实现细节。
 
-**Recovery 回 `healthy` 不在本 schema 范围**：`adapter_health` 从 `suspect` 回 `healthy` 的路径（TTL 自动衰减 / 跑 Fallback 成功后 probe Best path / 人工 reset）留给 `opencli-browser-sitemap` skill spec 拍。本 PR 只定写侧（"failed → suspect"），不定读侧（"suspect → healthy"）的恢复策略。
+**Recovery 回 `healthy` 不在本 schema 范围**：`adapter_health` 从 `suspect` 回 `healthy` 的路径（TTL 自动衰减 / 跑 Fallback 成功后 probe Best path / 人工 reset）留给 `toycli-browser-sitemap` skill spec 拍。本 PR 只定写侧（"failed → suspect"），不定读侧（"suspect → healthy"）的恢复策略。
 
 ---
 
@@ -561,11 +561,11 @@ sitemap 内部多文件互相引用。引用格式：
 
 agent 发现新路径 / stale 修正 / 半成品流程时写 draft。**draft 必须放在 `sitemap/` 目录内**，命名为 `sitemap/draft-<topic>.md` 或 `sitemap/pages/<page>.draft.md`。
 
-**❌ 不要**放在父目录（如 `~/.opencli/sites/<site>/sitemap.draft.md`） — `opencli browser open` 的 sitemap availability 检测只看 `sitemap/` 目录是否存在。draft 放父目录 → 检测不到 → agent 不会被提醒"有 sitemap" → 你的发现没人用。
+**❌ 不要**放在父目录（如 `~/.toycli/sites/<site>/sitemap.draft.md`） — `toycli browser open` 的 sitemap availability 检测只看 `sitemap/` 目录是否存在。draft 放父目录 → 检测不到 → agent 不会被提醒"有 sitemap" → 你的发现没人用。
 
 正确：
 ```
-~/.opencli/sites/twitter/sitemap/
+~/.toycli/sites/twitter/sitemap/
 ├── SITE.md
 ├── pages/home.md
 └── draft-search-filter.md       ← OK，会被检测到
@@ -573,7 +573,7 @@ agent 发现新路径 / stale 修正 / 半成品流程时写 draft。**draft 必
 
 错误：
 ```
-~/.opencli/sites/twitter/
+~/.toycli/sites/twitter/
 ├── sitemap.draft.md             ← 检测不到，不会触发 availability
 └── sitemap/                     ← 空 dir → 检测到但内容空
     └── (empty)
@@ -581,7 +581,7 @@ agent 发现新路径 / stale 修正 / 半成品流程时写 draft。**draft 必
 
 ### 5.2 `site-alias.json`（optional, Phase 2）
 
-`opencli browser open` 用 adapter registry 把 hostname → site 映射（如 `news.ycombinator.com → hackernews`）。如果 sitemap 先于 adapter 存在（即一个站还没人写 adapter 但有人写了 sitemap），registry 没数据，sitemap dir 检测不到。
+`toycli browser open` 用 adapter registry 把 hostname → site 映射（如 `news.ycombinator.com → hackernews`）。如果 sitemap 先于 adapter 存在（即一个站还没人写 adapter 但有人写了 sitemap），registry 没数据，sitemap dir 检测不到。
 
 future fix：sitemap dir 内放 `site-alias.json` 声明它服务的 hostname：
 
@@ -633,7 +633,7 @@ sitemap 是 hint，browser state 是 truth。当冲突时：
 
 ### 7.3 Reality check
 
-- action `Postconditions` 里的 `url_pattern` / `dom_anchor` → 用 `opencli browser` 实跑一遍，验证 anchor 仍可 resolve
+- action `Postconditions` 里的 `url_pattern` / `dom_anchor` → 用 `toycli browser` 实跑一遍，验证 anchor 仍可 resolve
 - workflow `State signature.url_pattern` → 同上
 
 失败 → 自动倒 `last_verified` 30 天前。
@@ -647,9 +647,9 @@ sitemap 是 hint，browser state 是 truth。当冲突时：
 
 ## 8. Cross-link
 
-- [`../../opencli-adapter-author/references/strategy-selection.md`](../../opencli-adapter-author/references/strategy-selection.md) — `contract_strength` 和 `auth_strategy` 取值定义
-- [`../../opencli-adapter-author/references/api-discovery.md`](../../opencli-adapter-author/references/api-discovery.md) — `endpoint_id` 怎么发现
-- `~/.opencli/sites/<site>/endpoints.json` — endpoint 的真实 URL/method/params/response
+- [`../../toycli-adapter-author/references/strategy-selection.md`](../../toycli-adapter-author/references/strategy-selection.md) — `contract_strength` 和 `auth_strategy` 取值定义
+- [`../../toycli-adapter-author/references/api-discovery.md`](../../toycli-adapter-author/references/api-discovery.md) — `endpoint_id` 怎么发现
+- `~/.toycli/sites/<site>/endpoints.json` — endpoint 的真实 URL/method/params/response
 
 ---
 
@@ -657,4 +657,4 @@ sitemap 是 hint，browser state 是 truth。当冲突时：
 
 1. **`state_signature` 用什么 DSL**：现在写 `url_pattern: <regex>` + `dom_anchor: <semantic>`，未来可能需要更结构化（如 JSON path / xpath / a11y tree path）。等 PoC 实践后定
 2. **多语言站 anchor**：现在建议 a11y role + name；不同 locale name 不同。是否一个 anchor 列表多 locale，还是一个 sitemap per locale？PoC 后决
-3. **Validation cron 实现位置**：作为 OpenCLI 内置命令 `opencli sitemap audit`？还是独立 GitHub Action？Phase 2 决
+3. **Validation cron 实现位置**：作为 ToyCLI 内置命令 `toycli sitemap audit`？还是独立 GitHub Action？Phase 2 决

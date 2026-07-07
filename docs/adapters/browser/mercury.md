@@ -4,7 +4,7 @@
 
 Mercury reimbursements are authenticated browser UI flows. There is no public
 API and no stable JSON endpoint for creating an expense, so the adapter drives
-the visible Mercury reimbursements page through OpenCLI Browser Bridge. It
+the visible Mercury reimbursements page through ToyCLI Browser Bridge. It
 creates a **draft**, uploads a local receipt file, waits for Mercury OCR, then
 re-applies the agent-provided fields because OCR can overwrite amount, currency,
 date, or merchant.
@@ -17,9 +17,9 @@ agent must inspect the Review page before any final submission.
 
 | Command | Description |
 |---------|-------------|
-| `opencli mercury reimbursement-plan` | Validate a reimbursement payload locally without opening Mercury |
-| `opencli mercury check-login` | Open Mercury reimbursements and report whether the selected browser profile is logged in |
-| `opencli mercury reimbursement-draft` | Create a reimbursement draft, attach the receipt, correct OCR-overwritten fields, and stop at Review |
+| `toycli mercury reimbursement-plan` | Validate a reimbursement payload locally without opening Mercury |
+| `toycli mercury check-login` | Open Mercury reimbursements and report whether the selected browser profile is logged in |
+| `toycli mercury reimbursement-draft` | Create a reimbursement draft, attach the receipt, correct OCR-overwritten fields, and stop at Review |
 
 `reimbursement-plan` and `reimbursement-draft` take the same business payload:
 
@@ -39,10 +39,10 @@ agent must inspect the Review page before any final submission.
 
 ```bash
 # 1. Confirm the selected browser profile is logged into Mercury
-opencli --profile <profile> mercury check-login -f json
+toycli --profile <profile> mercury check-login -f json
 
 # 2. Validate the payload locally first
-opencli mercury reimbursement-plan \
+toycli mercury reimbursement-plan \
   --receipt /absolute/path/to/receipt.png \
   --amount 140.00 \
   --currency CNY \
@@ -53,7 +53,7 @@ opencli mercury reimbursement-plan \
   -f json
 
 # 3. Create the draft and stop at Review
-opencli --profile <profile> mercury reimbursement-draft \
+toycli --profile <profile> mercury reimbursement-draft \
   --receipt /absolute/path/to/receipt.png \
   --amount 140.00 \
   --currency CNY \
@@ -70,7 +70,7 @@ For `check-login`:
 
 - `status: "ready"` means the profile reached Mercury reimbursements.
 - `status: "needs_login"` means Mercury redirected to login; sign into Mercury
-  in that Chrome/OpenCLI profile and rerun.
+  in that Chrome/ToyCLI profile and rerun.
 
 For `reimbursement-plan`:
 
@@ -112,9 +112,9 @@ npm run dev -- mercury reimbursement-plan \
   --amount 1.00 \
   --currency USD \
   --date 2026-06-30 \
-  --merchant "OpenCLI Test Merchant" \
+  --merchant "ToyCLI Test Merchant" \
   --category "Office Supplies & Equipment" \
-  --notes "OpenCLI adapter smoke test; do not submit." \
+  --notes "ToyCLI adapter smoke test; do not submit." \
   -f json
 ```
 
@@ -127,9 +127,9 @@ npm run dev -- --profile <profile> mercury reimbursement-draft \
   --amount 1.00 \
   --currency USD \
   --date 2026-06-30 \
-  --merchant "OpenCLI Test Merchant" \
+  --merchant "ToyCLI Test Merchant" \
   --category "Office Supplies & Equipment" \
-  --notes "OpenCLI adapter smoke test; do not submit." \
+  --notes "ToyCLI adapter smoke test; do not submit." \
   -f json
 ```
 
@@ -138,7 +138,7 @@ Pass condition: Mercury stops at Review and the returned row has
 
 ## Notes
 
-- **Login is required.** This adapter uses the selected OpenCLI browser profile;
+- **Login is required.** This adapter uses the selected ToyCLI browser profile;
   it does not store Mercury credentials or run an OAuth/login flow.
 - **Receipt upload** targets Mercury's attachment input:
   `[data-testid="expense-attachment-upload"]`. If Mercury changes that selector,
@@ -156,7 +156,7 @@ Pass condition: Mercury stops at Review and the returned row has
 
 ## Troubleshooting
 
-- `needs_login`: open Mercury in the same Chrome/OpenCLI profile, finish login,
+- `needs_login`: open Mercury in the same Chrome/ToyCLI profile, finish login,
   then rerun `check-login`.
 - Upload failure: verify the file exists locally and that Mercury still uses the
   receipt input selector above. The command requires Browser Bridge

@@ -8,22 +8,22 @@ Search and inspect crates on the public Rust crate registry. Both commands hit t
 
 | Command | Description |
 |---------|-------------|
-| `opencli crates search <query>` | Search the public crates.io registry by keyword |
-| `opencli crates crate <name>` | Single crate metadata (latest version, downloads, license, repo) |
+| `toycli crates search <query>` | Search the public crates.io registry by keyword |
+| `toycli crates crate <name>` | Single crate metadata (latest version, downloads, license, repo) |
 
 ## Usage Examples
 
 ```bash
 # Free-text search (name / keywords / description)
-opencli crates search tokio --limit 10
-opencli crates search "async runtime" --limit 20
+toycli crates search tokio --limit 10
+toycli crates search "async runtime" --limit 20
 
 # Single-crate detail (name from search rows)
-opencli crates crate serde
-opencli crates crate tokio
+toycli crates crate serde
+toycli crates crate tokio
 
 # JSON output
-opencli crates search tokio -f json
+toycli crates search tokio -f json
 ```
 
 ## Output Columns

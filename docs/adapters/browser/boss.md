@@ -6,20 +6,20 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli boss search` | |
-| `opencli boss detail` | |
+| `toycli boss search` | |
+| `toycli boss detail` | |
 
 ## Usage Examples
 
 ```bash
 # Quick start
-opencli boss search --limit 5
+toycli boss search --limit 5
 
 # JSON output
-opencli boss search -f json
+toycli boss search -f json
 
 # Verbose mode
-opencli boss search -v
+toycli boss search -v
 ```
 
 ## Prerequisites

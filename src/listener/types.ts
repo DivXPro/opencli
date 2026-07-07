@@ -21,7 +21,7 @@ export interface ListenerDeclaration {
   selector?: string;
   /** For source=dom: MutationObserver options override. */
   mutationOptions?: { childList?: boolean; subtree?: boolean; characterData?: boolean; attributes?: boolean };
-  /** Human-readable description shown by `opencli listener list <site>`. */
+  /** Human-readable description shown by `toycli listener list <site>`. */
   description?: string;
   /** Optional JSON-schema-ish hint of the emitted data shape (for docs only). */
   outputSchema?: Record<string, string>;

@@ -1,7 +1,7 @@
 // eastmoney sectors — industry / concept / region sector board ranking.
 //
-//   opencli eastmoney sectors
-//   opencli eastmoney sectors --type concept --sort money-flow --limit 30
+//   toycli eastmoney sectors
+//   toycli eastmoney sectors --type concept --sort money-flow --limit 30
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

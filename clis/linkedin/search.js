@@ -328,10 +328,10 @@ async function enrichJobDetails(page, jobs) {
     const enriched = [];
     for (let i = 0; i < jobs.length; i++) {
         const job = jobs[i];
-        console.error(`[opencli:linkedin] Fetching details ${i + 1}/${jobs.length}: ${job.title}`);
+        console.error(`[toycli:linkedin] Fetching details ${i + 1}/${jobs.length}: ${job.title}`);
         if (!job.url) {
             const reason = 'no url';
-            console.error(`[opencli:linkedin] Skipping detail for "${job.title}": ${reason}`);
+            console.error(`[toycli:linkedin] Skipping detail for "${job.title}": ${reason}`);
             enriched.push({ ...job, description: null, apply_url: null, detail_error: reason });
             continue;
         }
@@ -386,7 +386,7 @@ async function enrichJobDetails(page, jobs) {
             if (err instanceof AuthRequiredError)
                 throw err;
             const reason = `fetch failed: ${err?.message || err}`;
-            console.error(`[opencli:linkedin] Detail fetch failed for ${job.url}: ${reason}`);
+            console.error(`[toycli:linkedin] Detail fetch failed for ${job.url}: ${reason}`);
             enriched.push({ ...job, description: null, apply_url: null, detail_error: reason });
         }
     }

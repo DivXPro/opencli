@@ -35,7 +35,7 @@ describe('twitter reply command', () => {
     it('uploads a local image through the dedicated reply composer when --image is provided', async () => {
         const cmd = getRegistry().get('twitter/reply');
         expect(cmd?.func).toBeTypeOf('function');
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-twitter-reply-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-twitter-reply-'));
         const imagePath = path.join(tempDir, 'qr.png');
         fs.writeFileSync(imagePath, Buffer.from([0x89, 0x50, 0x4e, 0x47]));
         const setFileInput = vi.fn().mockResolvedValue(undefined);
@@ -94,8 +94,8 @@ describe('twitter reply command', () => {
         expect(setFileInput).toHaveBeenCalledTimes(1);
         const uploadedPath = setFileInput.mock.calls[0][0][0];
         // Tmp dir is created by utils.downloadRemoteImage with the
-        // 'opencli-twitter-' prefix; final extension comes from Content-Type.
-        expect(uploadedPath).toMatch(/opencli-twitter-.*\/image\.png$/);
+        // 'toycli-twitter-' prefix; final extension comes from Content-Type.
+        expect(uploadedPath).toMatch(/toycli-twitter-.*\/image\.png$/);
         // Per-call tmp dir is removed in the adapter's finally block, so the
         // downloaded file no longer exists once the command returns.
         expect(fs.existsSync(uploadedPath)).toBe(false);
@@ -202,7 +202,7 @@ describe('twitter image helpers (utils.js)', () => {
     });
 
     it('fails closed when a composer image preview never appears', async () => {
-        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-twitter-helper-'));
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-twitter-helper-'));
         const imagePath = path.join(tempDir, 'missing-preview.png');
         fs.writeFileSync(imagePath, Buffer.from([0x89, 0x50, 0x4e, 0x47]));
         const page = createPageMock([{ ok: false, message: 'Image upload timed out (30s).' }], {

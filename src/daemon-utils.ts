@@ -4,7 +4,7 @@ export const COMMAND_RESULT_UNKNOWN_HINT =
   'Inspect the browser/session state before retrying. Do not blindly retry write commands such as navigate, click, type, or eval.';
 
 export const PROFILE_DISCONNECTED_HINT =
-  'Open that Chrome profile and make sure the OpenCLI extension is enabled, or choose another profile with opencli profile use <name>.';
+  'Open that Chrome profile and make sure the ToyCLI extension is enabled, or choose another profile with toycli profile use <name>.';
 
 export type DaemonFailureContract = {
   message: string;
@@ -36,7 +36,7 @@ export function buildExtensionDisconnectFailure(input: {
 }
 
 export type ProfileRouteInput = {
-  /** Hard requirement (--profile / OPENCLI_PROFILE) — never falls back. */
+  /** Hard requirement (--profile / TOYCLI_PROFILE) — never falls back. */
   requestedContextId?: string;
   /** Soft preference (config defaultContextId) — arbitrated against live state. */
   preferredContextId?: string;
@@ -53,7 +53,7 @@ export type ProfileRouteResult =
  * daemon because the daemon is the only component that knows live connections:
  * a REQUIREMENT fails loud when offline, a PREFERENCE falls back to the only
  * connected profile — which keeps the documented promise "with only one
- * connected profile, OpenCLI uses it automatically" true even when a persisted
+ * connected profile, ToyCLI uses it automatically" true even when a persisted
  * default outlives the extension instance it names.
  */
 export function resolveProfileRoute(input: ProfileRouteInput): ProfileRouteResult {
@@ -85,15 +85,15 @@ export function resolveProfileRoute(input: ProfileRouteInput): ProfileRouteResul
         ? `Default browser profile "${preferred}" is not connected and multiple profiles are available; choose one with --profile.`
         : 'Multiple Browser Bridge profiles are connected; choose one with --profile.',
       errorHint: preferred
-        ? 'Run opencli profile list, then update the stale default with opencli profile use <name> or pass --profile <name>.'
-        : 'Run opencli profile list, then use opencli --profile <name> ... or opencli profile use <name>.',
+        ? 'Run toycli profile list, then update the stale default with toycli profile use <name> or pass --profile <name>.'
+        : 'Run toycli profile list, then use toycli --profile <name> ... or toycli profile use <name>.',
     };
   }
 
   return {
     ok: false,
     errorCode: 'extension_not_connected',
-    error: 'Extension not connected. Please install the opencli Browser Bridge extension.',
+    error: 'Extension not connected. Please install the toycli Browser Bridge extension.',
   };
 }
 

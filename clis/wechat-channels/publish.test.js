@@ -18,7 +18,7 @@ function createPageMock(overrides = {}) {
 }
 
 function makeTempVideo(ext = '.mp4') {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-wechat-channels-publish-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-wechat-channels-publish-'));
   const file = path.join(dir, `demo${ext}`);
   fs.writeFileSync(file, Buffer.from([0x00, 0x00, 0x00, 0x18]));
   return file;

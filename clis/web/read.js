@@ -10,8 +10,8 @@
  * Pipes through the shared article-download pipeline (Turndown + image download).
  *
  * Usage:
- *   opencli web read --url "https://www.anthropic.com/research/..." --output ./articles
- *   opencli web read --url "https://..." --download-images false
+ *   toycli web read --url "https://www.anthropic.com/research/..." --output ./articles
+ *   toycli web read --url "https://..." --download-images false
  */
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { downloadArticle } from '@toy-box/opencli/download/article-download';
@@ -190,7 +190,7 @@ function buildRenderAwareExtractorJs(options) {
         const collectEmptyContainers = (root, scope, baseUrl) => {
           const likely = 'table, tbody, ul[id], ol[id], div[id], section[id], [class*="grid"], [class*="data"], [class*="list"], [id*="grid"], [id*="data"], [id*="list"]';
           root.querySelectorAll?.(likely).forEach((el) => {
-            if (scope === 'main' && el.closest?.('[data-opencli-iframe-source]')) return;
+            if (scope === 'main' && el.closest?.('[data-toycli-iframe-source]')) return;
             const id = el.getAttribute('id') || '';
             const cls = el.getAttribute('class') || '';
             const name = [id, cls].join(' ').toLowerCase();
@@ -221,7 +221,7 @@ function buildRenderAwareExtractorJs(options) {
           absolutizeTree(frameBody, desc.src || window.location.href);
           collectEmptyContainers(frameBody, 'iframe', desc.src);
           const section = document.createElement('section');
-          section.setAttribute('data-opencli-iframe-source', desc.src);
+          section.setAttribute('data-toycli-iframe-source', desc.src);
           const heading = document.createElement('h2');
           heading.textContent = '来自 iframe: ' + (desc.src || fallbackLabel);
           section.appendChild(heading);
@@ -416,7 +416,7 @@ const command = cli({
         const waitSeconds = kwargs.wait ?? 3;
         const waitUntil = normalizeWaitUntil(kwargs['wait-until']);
         const frameMode = normalizeFrameMode(kwargs.frames);
-        const shouldDiagnose = boolish(kwargs.diagnose) || debug || !!process.env.OPENCLI_VERBOSE;
+        const shouldDiagnose = boolish(kwargs.diagnose) || debug || !!process.env.TOYCLI_VERBOSE;
         const networkEntries = [];
         const captureSupported = (waitUntil === 'networkidle' || shouldDiagnose)
             ? await maybeStartNetworkCapture(page)

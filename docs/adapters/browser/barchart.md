@@ -6,25 +6,25 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli barchart quote` | Stock quote with price, volume, and key metrics |
-| `opencli barchart options` | Options chain with greeks, IV, volume, and open interest |
-| `opencli barchart greeks` | Options greeks overview (IV, delta, gamma, theta, vega) |
-| `opencli barchart flow` | Unusual options activity / options flow |
+| `toycli barchart quote` | Stock quote with price, volume, and key metrics |
+| `toycli barchart options` | Options chain with greeks, IV, volume, and open interest |
+| `toycli barchart greeks` | Options greeks overview (IV, delta, gamma, theta, vega) |
+| `toycli barchart flow` | Unusual options activity / options flow |
 
 ## Usage Examples
 
 ```bash
 # Get stock quote
-opencli barchart quote AAPL
+toycli barchart quote AAPL
 
 # View options chain
-opencli barchart options TSLA
+toycli barchart options TSLA
 
 # Options greeks overview
-opencli barchart greeks NVDA
+toycli barchart greeks NVDA
 
 # Unusual options flow
-opencli barchart flow --limit 20 -f json
+toycli barchart flow --limit 20 -f json
 ```
 
 ## Prerequisites

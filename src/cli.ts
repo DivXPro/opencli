@@ -115,7 +115,7 @@ export function selectFreshByTimestamp<T extends { timestamp?: unknown }>(
 
 /**
  * Normalize raw capture entries (from daemon/CDP `readNetworkCapture` or
- * the JS interceptor's `window.__opencli_net`) into a consistent shape.
+ * the JS interceptor's `window.__toycli_net`) into a consistent shape.
  * Response preview is parsed as JSON when possible, otherwise kept as string.
  * `bodyFullSize` / `bodyTruncated` surface capture-layer truncation so the
  * agent-facing envelope can warn when the body isn't whole.
@@ -148,12 +148,12 @@ async function captureNetworkItems(page: import('./types.js').IPage): Promise<Br
       });
     }
   }
-  const raw = await page.evaluate(`(function(){ var out = window.__opencli_net || []; window.__opencli_net = []; return JSON.stringify(out); })()`) as string;
+  const raw = await page.evaluate(`(function(){ var out = window.__toycli_net || []; window.__toycli_net = []; return JSON.stringify(out); })()`) as string;
   try {
     const parsed = JSON.parse(raw) as BrowserNetworkItem[];
     return parsed.map((item) => ({ ...item, timestamp: timestampFromRaw(item.timestamp) }));
   } catch {
-    if (process.env.OPENCLI_VERBOSE) log.warn(`[network] Failed to parse interceptor buffer: ${typeof raw === 'string' ? raw.slice(0, 200) : String(raw)}`);
+    if (process.env.TOYCLI_VERBOSE) log.warn(`[network] Failed to parse interceptor buffer: ${typeof raw === 'string' ? raw.slice(0, 200) : String(raw)}`);
     return [];
   }
 }
@@ -185,7 +185,7 @@ function emitNetworkError(code: string, message: string, extra: Record<string, u
 
 /**
  * Check whether the site-memory scaffolding exists under
- * ~/.opencli/sites/<site>/. Agents have a strong tendency to forget to write
+ * ~/.toycli/sites/<site>/. Agents have a strong tendency to forget to write
  * endpoints.json / notes.md after a successful verify, which dooms the next
  * agent to redo recon from scratch. Surfacing the current state as part of
  * verify's final report converts that "silent skip" into a visible nudge;
@@ -223,7 +223,7 @@ type SitemapAvailabilityOptions = {
 };
 
 const SITEMAP_HINT =
-  'Site sitemap available. For navigation context, use the opencli-browser-sitemap skill; treat browser state as truth if it disagrees.';
+  'Site sitemap available. For navigation context, use the toycli-browser-sitemap skill; treat browser state as truth if it disagrees.';
 
 function siteNameCandidatesFromUrl(url: string, registry: Map<string, CliCommand> = getRegistry()): string[] {
   let host: string;
@@ -265,7 +265,7 @@ function firstExistingSitemapPath(paths: string[], fileExists: (candidate: strin
 function sitemapPathsForSite(site: string, opts: Required<Pick<SitemapAvailabilityOptions, 'homeDir' | 'packageRoot' | 'fileExists'>>): { local?: string; global?: string } {
   const safeSite = site.replace(/[^a-zA-Z0-9_-]+/g, '-');
   if (!safeSite) return {};
-  const localBase = path.join(opts.homeDir, '.opencli', 'sites', safeSite);
+  const localBase = path.join(opts.homeDir, '.toycli', 'sites', safeSite);
   return {
     local: firstExistingSitemapPath([
       path.join(localBase, 'sitemap'),
@@ -338,7 +338,7 @@ function sitemapHintForBrowserUrl(url: string, scope: string, opts: { oncePerSes
 }
 
 export function checkSiteMemory(site: string): SiteMemoryReport {
-  const siteDir = path.join(os.homedir(), '.opencli', 'sites', site);
+  const siteDir = path.join(os.homedir(), '.toycli', 'sites', site);
   const endpointsPath = path.join(siteDir, 'endpoints.json');
   const notesPath = path.join(siteDir, 'notes.md');
   let endpointsCount = 0;
@@ -438,7 +438,7 @@ type BrowserTabSummary = {
 };
 
 function getBrowserCacheDir(): string {
-  return process.env.OPENCLI_CACHE_DIR || path.join(os.homedir(), '.opencli', 'cache');
+  return process.env.TOYCLI_CACHE_DIR || path.join(os.homedir(), '.toycli', 'cache');
 }
 
 function getBrowserTargetStatePath(scope: string): string {
@@ -494,7 +494,7 @@ async function resolveBrowserTargetInSession(
     }
     throw new Error(
       `Target tab ${candidate} could not be validated in the current browser session. ` +
-      'The Browser Bridge session may have restarted; re-run "opencli browser tab list" and choose a current target.',
+      'The Browser Bridge session may have restarted; re-run "toycli browser tab list" and choose a current target.',
       { cause: err },
     );
   }
@@ -510,7 +510,7 @@ async function resolveBrowserTargetInSession(
 
   throw new Error(
     `Target tab ${candidate} is not part of the current browser session. ` +
-    'The Browser Bridge session may have restarted; re-run "opencli browser tab list" and choose a current target.',
+    'The Browser Bridge session may have restarted; re-run "toycli browser tab list" and choose a current target.',
   );
 }
 
@@ -534,7 +534,7 @@ async function getBrowserPage(
   const { BrowserBridge } = await import('./browser/index.js');
   const bridge = new BrowserBridge();
   // Internal GC timeout for browser sessions. Not the per-command runtime timeout.
-  const envTimeout = process.env.OPENCLI_BROWSER_IDLE_TIMEOUT;
+  const envTimeout = process.env.TOYCLI_BROWSER_IDLE_TIMEOUT;
   const idleTimeout = envTimeout ? parseInt(envTimeout, 10) : undefined;
   const page = await bridge.connect({
     timeout: DEFAULT_BROWSER_CONNECT_TIMEOUT,
@@ -563,10 +563,10 @@ function getBrowserWindowMode(command: Command | undefined, defaultMode: Browser
     if (optionRaw === 'foreground' || optionRaw === 'background') return optionRaw;
     throw new Error(`--window must be one of: foreground, background. Received: "${String(optionRaw)}"`);
   }
-  const envRaw = process.env.OPENCLI_WINDOW;
+  const envRaw = process.env.TOYCLI_WINDOW;
   if (envRaw !== undefined && envRaw !== '') {
     if (envRaw === 'foreground' || envRaw === 'background') return envRaw;
-    throw new Error(`OPENCLI_WINDOW must be one of: foreground, background. Received: "${envRaw}"`);
+    throw new Error(`TOYCLI_WINDOW must be one of: foreground, background. Received: "${envRaw}"`);
   }
   return defaultMode;
 }
@@ -592,12 +592,12 @@ function getCommandOption(command: Command | undefined, option: string): unknown
 }
 
 function getBrowserSession(command?: Command): string {
-  // The CLI surface is `opencli browser <session> <subcommand>`. main.ts rewrites
+  // The CLI surface is `toycli browser <session> <subcommand>`. main.ts rewrites
   // argv to insert `--session <name>` before commander parses it; this helper
   // reads back the rewritten flag.
   const raw = getCommandOption(command, 'session');
   if (typeof raw === 'string' && raw.trim()) return raw.trim();
-  throw new Error('<session> is a required positional argument: opencli browser <session> <command>');
+  throw new Error('<session> is a required positional argument: toycli browser <session> <command>');
 }
 
 function getBrowserProfileSelection(command?: Command): ProfileSelection | undefined {
@@ -691,7 +691,7 @@ function parseScreenshotDim(val: string, label: string): number {
 }
 
 function applyVerbose(opts: { verbose?: boolean }): void {
-  if (opts.verbose) process.env.OPENCLI_VERBOSE = '1';
+  if (opts.verbose) process.env.TOYCLI_VERBOSE = '1';
 }
 
 function formatChildCommandSummary(command: Command): string {
@@ -713,7 +713,7 @@ export function createProgram(BUILTIN_CLIS: string, USER_CLIS: string): Command 
   // enablePositionalOptions: prevents parent from consuming flags meant for subcommands;
   // prerequisite for passThroughOptions to forward --help/--version to external binaries
   program
-    .name('opencli')
+    .name('toycli')
     .description('Make any website your CLI. Zero setup. AI-powered.')
     .version(PKG_VERSION)
     .option('--profile <name>', 'Chrome profile/context alias for Browser Bridge commands')
@@ -749,8 +749,8 @@ export function createProgram(BUILTIN_CLIS: string, USER_CLIS: string): Command 
           fmt,
           columns: ['command', 'site', 'name', 'aliases', 'description', 'access', 'strategy', 'browser', 'args',
                      ...(isStructured ? ['columns', 'domain'] : [])],
-          title: 'opencli/list',
-          source: 'opencli list',
+          title: 'toycli/list',
+          source: 'toycli list',
         });
         return;
       }
@@ -781,7 +781,7 @@ export function createProgram(BUILTIN_CLIS: string, USER_CLIS: string): Command 
       };
 
       console.log();
-      console.log('  opencli' + ' — available commands');
+      console.log('  toycli' + ' — available commands');
       console.log();
 
       if (appsBySite.size > 0) {
@@ -836,11 +836,11 @@ export function createProgram(BUILTIN_CLIS: string, USER_CLIS: string): Command 
 
   const skillsCmd = program
     .command('skills')
-    .description('Read bundled OpenCLI skills');
+    .description('Read bundled ToyCLI skills');
 
   skillsCmd
     .command('list')
-    .description('List bundled opencli-* skills')
+    .description('List bundled toycli-* skills')
     .option('-f, --format <fmt>', 'Output format: table, json, yaml, md, csv', 'table')
     .action((opts) => {
       const rows = listOpenCliSkills();
@@ -848,15 +848,15 @@ export function createProgram(BUILTIN_CLIS: string, USER_CLIS: string): Command 
         fmt: opts.format,
         fmtExplicit: !!opts.format,
         columns: ['name', 'description', 'version', 'path'],
-        title: 'opencli/skills/list',
-        source: 'opencli skills list',
+        title: 'toycli/skills/list',
+        source: 'toycli skills list',
       });
     });
 
   skillsCmd
     .command('read')
-    .description("Print an opencli-* skill's SKILL.md or reference file")
-    .argument('<skill>', 'Skill name, or skill/path like opencli-browser/references/foo.md')
+    .description("Print an toycli-* skill's SKILL.md or reference file")
+    .argument('<skill>', 'Skill name, or skill/path like toycli-browser/references/foo.md')
     .argument('[path]', 'Path under the skill directory')
     .option('--json', 'Output a JSON envelope instead of raw markdown', false)
     .action((skill: string, skillPath: string | undefined, opts) => {
@@ -920,12 +920,12 @@ export function createProgram(BUILTIN_CLIS: string, USER_CLIS: string): Command 
 <session> is a required positional: pass the name of the browser session every subcommand should operate on. Reuse the same name across calls to keep the tab/state alive; pick a different name to isolate parallel browser work.
 
 Examples:
-  $ opencli browser work open https://x.com
-  $ opencli browser work open https://x.com --window background
-  $ opencli browser work click 12
-  $ opencli browser work state
-  $ opencli browser work bind
-  $ opencli browser work unbind
+  $ toycli browser work open https://x.com
+  $ toycli browser work open https://x.com --window background
+  $ toycli browser work click 12
+  $ toycli browser work state
+  $ toycli browser work bind
+  $ toycli browser work unbind
 `);
   const originalBrowserDescription = browser.description();
 
@@ -992,7 +992,7 @@ Examples:
       error: {
         code: 'javascript_dialog_open',
         message,
-        hint: 'Handle the modal first: opencli browser dialog accept (or dismiss). Use --text for prompt dialogs.',
+        hint: 'Handle the modal first: toycli browser dialog accept (or dismiss). Use --text for prompt dialogs.',
       },
     }, null, 2));
   }
@@ -1633,7 +1633,7 @@ Examples:
           error: {
             code: 'usage_error',
             message: '--css <selector> or a semantic locator flag is required',
-            hint: 'Examples: opencli browser find --css ".btn.primary"; opencli browser find --role button --name Save',
+            hint: 'Examples: toycli browser find --css ".btn.primary"; toycli browser find --role button --name Save',
           },
         }, null, 2));
         process.exitCode = EXIT_CODES.USAGE_ERROR;
@@ -1880,7 +1880,7 @@ Examples:
         return;
       }
       if (max > 0 && html.length > max) {
-        console.log(`<!-- opencli: truncated ${max} of ${html.length} chars; re-run without --max (or --max 0) for full -->\n${html.slice(0, max)}`);
+        console.log(`<!-- toycli: truncated ${max} of ${html.length} chars; re-run without --max (or --max 0) for full -->\n${html.slice(0, max)}`);
         return;
       }
       console.log(html);
@@ -1924,7 +1924,7 @@ Examples:
         error: {
           code: 'usage_error',
           message: 'At least one file path is required.',
-          hint: 'Example: opencli browser upload "input[type=file]" ./receipt.pdf',
+          hint: 'Example: toycli browser upload "input[type=file]" ./receipt.pdf',
         },
       };
     }
@@ -2509,7 +2509,7 @@ Examples:
   // Default output is JSON (agent-native). Each entry carries a stable `key`
   // (GraphQL operationName or `METHOD host+pathname`) so agents can fetch
   // full bodies with `--detail <key>` even after subsequent commands.
-  // Captures are persisted per browser session under ~/.opencli/cache/browser-network/.
+  // Captures are persisted per browser session under ~/.toycli/cache/browser-network/.
 
   addBrowserTabOption(browser.command('network'))
     .option('--detail <key>', 'Emit full body for the entry with this key')
@@ -2748,7 +2748,7 @@ Examples:
 
   browser.command('init')
     .argument('<name>', 'Adapter name in site/command format (e.g. hn/top)')
-    .description('Generate adapter scaffold in ~/.opencli/clis/')
+    .description('Generate adapter scaffold in ~/.toycli/clis/')
     .action(async (name: string) => {
       try {
         const parts = name.split('/');
@@ -2767,7 +2767,7 @@ Examples:
         const os = await import('node:os');
         const fs = await import('node:fs');
         const path = await import('node:path');
-        const dir = path.join(os.homedir(), '.opencli', 'clis', site);
+        const dir = path.join(os.homedir(), '.toycli', 'clis', site);
         const filePath = path.join(dir, `${command}.js`);
 
         if (fs.existsSync(filePath)) {
@@ -2784,7 +2784,7 @@ cli({
   name: '${command}',
   description: '', // TODO: describe what this command does
   access: 'read',  // TODO: 'read' for queries, 'write' for remote/account state changes
-  example: 'opencli ${site} ${command} -f yaml',
+  example: 'toycli ${site} ${command} -f yaml',
   domain: '${domain}',
   strategy: Strategy.PUBLIC, // TODO: PUBLIC (no auth), COOKIE (needs login), UI (DOM interaction)
   browser: false,            // TODO: set true if needs browser
@@ -2803,8 +2803,8 @@ cli({
         fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(filePath, template, 'utf-8');
         console.log(`Created: ${filePath}`);
-        console.log('First time on this site? Run: opencli browser analyze <url>');
-        console.log(`Edit the file to implement your adapter, then run: opencli browser verify ${name}`);
+        console.log('First time on this site? Run: toycli browser analyze <url>');
+        console.log(`Edit the file to implement your adapter, then run: toycli browser verify ${name}`);
       } catch (err) {
         console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
         process.exitCode = EXIT_CODES.GENERIC_ERROR;
@@ -2815,13 +2815,13 @@ cli({
 
   browser.command('verify')
     .argument('<name>', 'Adapter name in site/command format (e.g. hn/top)')
-    .option('--write-fixture', 'Write a starter fixture to ~/.opencli/sites/<site>/verify/<command>.json if none exists')
+    .option('--write-fixture', 'Write a starter fixture to ~/.toycli/sites/<site>/verify/<command>.json if none exists')
     .option('--update-fixture', 'Overwrite an existing fixture with one derived from current output')
     .option('--no-fixture', 'Ignore any fixture file for this run (no value-level validation)')
-    .option('--strict-memory', 'Fail (not just warn) when ~/.opencli/sites/<site>/endpoints.json or notes.md is missing')
+    .option('--strict-memory', 'Fail (not just warn) when ~/.toycli/sites/<site>/endpoints.json or notes.md is missing')
     .option('--seed-args <value>', 'Seed args when no fixture exists; use JSON array/object for multiple args or flags')
     .option('--trace <mode>', 'Trace capture for the adapter subprocess: off, on, retain-on-failure', 'off')
-    .description('Execute an adapter and validate output; uses fixture at ~/.opencli/sites/<site>/verify/<cmd>.json when present')
+    .description('Execute an adapter and validate output; uses fixture at ~/.toycli/sites/<site>/verify/<cmd>.json when present')
     .action(async (name: string, opts: { fixture?: boolean; writeFixture?: boolean; updateFixture?: boolean; strictMemory?: boolean; seedArgs?: string; trace?: string } = {}) => {
       try {
         const parts = name.split('/');
@@ -2835,10 +2835,10 @@ cli({
 
         const { execFileSync } = await import('node:child_process');
         const { loadFixture, writeFixture, deriveFixture, validateRows, validateRowShape, fixturePath, expandFixtureArgs, parseSeedArgs } = await import('./browser/verify-fixture.js');
-        const filePath = path.join(os.homedir(), '.opencli', 'clis', site, `${command}.js`);
+        const filePath = path.join(os.homedir(), '.toycli', 'clis', site, `${command}.js`);
         if (!fs.existsSync(filePath)) {
           console.error(`Adapter not found: ${filePath}`);
-          console.error(`Run "opencli browser init ${name}" to create it.`);
+          console.error(`Run "toycli browser init ${name}" to create it.`);
           process.exitCode = EXIT_CODES.GENERIC_ERROR;
           return;
         }
@@ -2877,7 +2877,7 @@ cli({
             ...(invocation.shell ? { shell: true } : {}),
           });
         } catch (err) {
-          console.log(`  Executing: opencli ${site} ${command} ${argDisplay}\n`);
+          console.log(`  Executing: toycli ${site} ${command} ${argDisplay}\n`);
           const execErr = err as { stdout?: string | Buffer; stderr?: string | Buffer };
           if (execErr.stdout) console.log(String(execErr.stdout));
           if (execErr.stderr) console.error(String(execErr.stderr).slice(0, 500));
@@ -2886,7 +2886,7 @@ cli({
           return;
         }
 
-        console.log(`  Executing: opencli ${site} ${command} ${argDisplay}\n`);
+        console.log(`  Executing: toycli ${site} ${command} ${argDisplay}\n`);
 
         let rows: Record<string, unknown>[];
         try {
@@ -2981,7 +2981,7 @@ cli({
 
   program
     .command('doctor')
-    .description('Diagnose opencli browser bridge connectivity')
+    .description('Diagnose toycli browser bridge connectivity')
     .option('-v, --verbose', 'Debug output')
     .action(async (opts) => {
       applyVerbose(opts);
@@ -3000,7 +3000,7 @@ cli({
 
   // ── Plugin management ──────────────────────────────────────────────────────
 
-  const pluginCmd = program.command('plugin').description('Manage opencli plugins');
+  const pluginCmd = program.command('plugin').description('Manage toycli plugins');
   // Snapshot before applyRootSubcommandSummaries() rewrites .description() to a child-name listing.
   const originalPluginDescription = pluginCmd.description();
 
@@ -3115,15 +3115,15 @@ cli({
       const plugins = listPlugins();
       if (plugins.length === 0) {
         console.log('  No plugins installed.');
-        console.log('  Install one with: opencli plugin install github:user/repo');
+        console.log('  Install one with: toycli plugin install github:user/repo');
         return;
       }
       if (opts.format === 'json') {
         renderOutput(plugins, {
           fmt: 'json',
           columns: ['name', 'commands', 'source'],
-          title: 'opencli/plugins',
-          source: 'opencli plugin list',
+          title: 'toycli/plugins',
+          source: 'toycli plugin list',
         });
         return;
       }
@@ -3187,8 +3187,8 @@ cli({
         console.log();
         console.log('  Next steps:');
         console.log(`    cd ${result.dir}`);
-        console.log(`    opencli plugin install file://${result.dir}`);
-        console.log(`    opencli ${name} hello`);
+        console.log(`    toycli plugin install file://${result.dir}`);
+        console.log(`    toycli ${name} hello`);
       } catch (err) {
         console.error(`Error: ${getErrorMessage(err)}`);
         process.exitCode = EXIT_CODES.GENERIC_ERROR;
@@ -3205,7 +3205,7 @@ cli({
     .description('Show which sites have local overrides vs using official baseline')
     .action(async () => {
       const os = await import('node:os');
-      const userClisDir = path.join(os.homedir(), '.opencli', 'clis');
+      const userClisDir = path.join(os.homedir(), '.toycli', 'clis');
       const builtinClisDir = BUILTIN_CLIS;
       try {
         const userEntries = await fs.promises.readdir(userClisDir, { withFileTypes: true });
@@ -3221,7 +3221,7 @@ cli({
           return;
         }
 
-        console.log(`Local overrides in ~/.opencli/clis/ (${userSites.length} sites):\n`);
+        console.log(`Local overrides in ~/.toycli/clis/ (${userSites.length} sites):\n`);
         for (const site of userSites) {
           const isOfficial = builtinSites.includes(site);
           const label = isOfficial ? 'override' : 'custom';
@@ -3235,11 +3235,11 @@ cli({
 
   adapterCmd
     .command('eject')
-    .description('Copy an official adapter to ~/.opencli/clis/ for local editing')
+    .description('Copy an official adapter to ~/.toycli/clis/ for local editing')
     .argument('<site>', 'Site name (e.g. twitter, bilibili)')
     .action(async (site: string) => {
       const os = await import('node:os');
-      const userClisDir = path.join(os.homedir(), '.opencli', 'clis');
+      const userClisDir = path.join(os.homedir(), '.toycli', 'clis');
       const builtinSiteDir = path.join(BUILTIN_CLIS, site);
       const userSiteDir = path.join(userClisDir, site);
 
@@ -3253,13 +3253,13 @@ cli({
 
       try {
         await fs.promises.access(userSiteDir);
-        console.error(`Site "${site}" already exists in ~/.opencli/clis/. Use "opencli adapter reset ${site}" first to restore official version.`);
+        console.error(`Site "${site}" already exists in ~/.toycli/clis/. Use "toycli adapter reset ${site}" first to restore official version.`);
         process.exitCode = EXIT_CODES.USAGE_ERROR;
         return;
       } catch { /* good, doesn't exist yet */ }
 
       fs.cpSync(builtinSiteDir, userSiteDir, { recursive: true });
-      console.log(`✅ Ejected "${site}" to ~/.opencli/clis/${site}/`);
+      console.log(`✅ Ejected "${site}" to ~/.toycli/clis/${site}/`);
       console.log('You can now edit the adapter files. Changes take effect immediately.');
       console.log('Note: Official updates to this adapter will overwrite your changes.');
     });
@@ -3271,7 +3271,7 @@ cli({
     .option('--all', 'Reset all local overrides')
     .action(async (site: string | undefined, opts: { all?: boolean }) => {
       const os = await import('node:os');
-      const userClisDir = path.join(os.homedir(), '.opencli', 'clis');
+      const userClisDir = path.join(os.homedir(), '.toycli', 'clis');
 
       if (opts.all) {
         try {
@@ -3325,17 +3325,17 @@ cli({
       const config = loadProfileConfig();
       const profiles = status?.profiles ?? [];
       if (!status) {
-        console.log('Daemon is not running. Run opencli doctor after opening Chrome.');
+        console.log('Daemon is not running. Run toycli doctor after opening Chrome.');
         return;
       }
       if (isDaemonStale(status, PKG_VERSION) || !Array.isArray(status.profiles)) {
         console.log(`Daemon ${formatDaemonVersion(status)} is stale for CLI v${PKG_VERSION}.`);
-        console.log('Run: opencli daemon restart');
+        console.log('Run: toycli daemon restart');
         return;
       }
       if (profiles.length === 0) {
         console.log('No Browser Bridge profiles connected.');
-        console.log('Open a Chrome profile with the OpenCLI extension installed, then run opencli profile list again.');
+        console.log('Open a Chrome profile with the ToyCLI extension installed, then run toycli profile list again.');
         return;
       }
 
@@ -3369,7 +3369,7 @@ cli({
   profileCmd
     .command('rename')
     .description('Assign a local alias to a connected Browser Bridge profile')
-    .argument('<contextId>', 'Profile contextId from opencli profile list')
+    .argument('<contextId>', 'Profile contextId from toycli profile list')
     .argument('<alias>', 'Local alias, e.g. work or personal')
     .action((contextId: string, alias: string) => {
       try {
@@ -3396,7 +3396,7 @@ cli({
     });
 
   // ── Built-in: daemon ──────────────────────────────────────────────────────
-  const daemonCmd = program.command('daemon').description('Manage the opencli daemon');
+  const daemonCmd = program.command('daemon').description('Manage the toycli daemon');
   // Snapshot before applyRootSubcommandSummaries() rewrites .description() to a child-name listing.
   const originalDaemonDescription = daemonCmd.description();
   daemonCmd
@@ -3534,8 +3534,8 @@ cli({
       renderOutput(rows, {
         fmt: opts.format,
         columns: ['name', 'package', 'binary', 'installed', 'description', 'homepage', 'tags'],
-        title: 'opencli/external/list',
-        source: 'opencli external list',
+        title: 'toycli/external/list',
+        source: 'toycli external list',
       });
     });
 
@@ -3621,8 +3621,8 @@ cli({
   // When an ancestor command declares a leading positional via `.usage(...)`
   // (e.g. `browser` -> `<session> <command> [options]`), inject the positional
   // between that ancestor's name and the next path segment so the help Usage
-  // line is accurate: `Usage: opencli browser <session> click [target] [options]`
-  // instead of `opencli browser click [target] [options]`. Commander does NOT
+  // line is accurate: `Usage: toycli browser <session> click [target] [options]`
+  // instead of `toycli browser click [target] [options]`. Commander does NOT
   // inherit configureHelp into subcommands, so we walk the descendant tree and
   // apply the override on each.
   const ancestorAwareCommandUsage = (cmd: Command): string => {
@@ -3650,7 +3650,7 @@ cli({
     const binary = operands[0];
     console.error(`error: unknown command '${binary}'`);
     if (isBinaryInstalled(binary)) {
-      console.error(`  Tip: '${binary}' exists on your PATH. Use 'opencli external register ${binary}' to add it as an external CLI.`);
+      console.error(`  Tip: '${binary}' exists on your PATH. Use 'toycli external register ${binary}' to add it as an external CLI.`);
     }
     program.outputHelp();
     process.exitCode = EXIT_CODES.USAGE_ERROR;
@@ -3697,7 +3697,7 @@ export function resolveBrowserVerifyInvocation(opts: {
 
   const sourceEntry = path.join(projectRoot, 'src', 'main.ts');
   if (!fileExists(sourceEntry)) {
-    throw new Error(`Could not find opencli entrypoint under ${projectRoot}. Expected built entry from package.json or src/main.ts.`);
+    throw new Error(`Could not find toycli entrypoint under ${projectRoot}. Expected built entry from package.json or src/main.ts.`);
   }
 
   const localTsxBin = path.join(projectRoot, 'node_modules', '.bin', platform === 'win32' ? 'tsx.cmd' : 'tsx');

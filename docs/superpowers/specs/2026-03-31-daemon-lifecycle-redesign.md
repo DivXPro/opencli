@@ -2,7 +2,7 @@
 
 ## Problem
 
-OpenCLI's daemon auto-exits after 5 minutes of idle time. During typical development
+ToyCLI's daemon auto-exits after 5 minutes of idle time. During typical development
 cycles (write code → test → modify → test again), coding intervals frequently exceed
 5 minutes. Each restart incurs 2-4 seconds of overhead (process spawn + Extension
 WebSocket reconnection), creating a noticeable and frustrating delay.
@@ -27,7 +27,7 @@ Four changes:
 1. Extend idle timeout from 5 minutes to 4 hours (configurable)
 2. Require dual idle condition: both no CLI requests AND no Extension connection
 3. Reduce Extension WebSocket reconnect backoff cap from 60s to 5s
-4. Add `opencli daemon status/stop/restart` commands
+4. Add `toycli daemon status/stop/restart` commands
 
 ## Design
 
@@ -109,7 +109,7 @@ cap means the Extension reconnects within 5 seconds of the daemon becoming avail
 
 Add three new CLI commands for daemon lifecycle management:
 
-**`opencli daemon status`**
+**`toycli daemon status`**
 
 Queries the daemon's `/status` endpoint (new) and displays:
 
@@ -128,13 +128,13 @@ If daemon is not running:
 Daemon: not running
 ```
 
-**`opencli daemon stop`**
+**`toycli daemon stop`**
 
 Sends a `POST /shutdown` request to the daemon, which triggers a graceful shutdown:
 reject pending requests with a shutdown message, close WebSocket connections, close
 HTTP server, then exit.
 
-**`opencli daemon restart`**
+**`toycli daemon restart`**
 
 Equivalent to `stop` followed by spawning a new daemon. Useful when the daemon gets
 into a bad state.
@@ -145,7 +145,7 @@ into a bad state.
   request time, memory usage
 - `POST /shutdown` — initiates graceful shutdown
 
-Both endpoints require the same `X-OpenCLI` header as existing endpoints for CSRF
+Both endpoints require the same `X-ToyCLI` header as existing endpoints for CSRF
 protection.
 
 ### CLI Connection Experience
@@ -157,7 +157,7 @@ silently polls every 300ms and eventually times out with a generic error.
 
 ```
 ⏳ Waiting for Chrome extension to connect...
-   Make sure Chrome is open and the OpenCLI extension is enabled.
+   Make sure Chrome is open and the ToyCLI extension is enabled.
 ```
 
 Poll interval reduced from 300ms to 200ms for slightly faster detection.
@@ -197,7 +197,7 @@ and shows:
 - Integration test: daemon survives 10+ minutes without CLI requests while Extension
   is connected
 - Integration test: daemon exits after configured timeout when fully idle
-- Integration test: `opencli daemon status/stop/restart` work correctly
+- Integration test: `toycli daemon status/stop/restart` work correctly
 
 ## Out of Scope
 

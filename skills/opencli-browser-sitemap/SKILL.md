@@ -1,12 +1,12 @@
 ---
-name: opencli-browser-sitemap
-description: Use when driving a website with opencli browser and sitemap context is available, requested, or needed to avoid blind navigation. Guides agents to consume site sitemap files lazily, choose adapter/browser fallback paths, resume from state signatures, and mark stale sitemap entries without trusting them over live browser state.
-allowed-tools: Bash(opencli:*), Read, Edit, Write, Grep
+name: toycli-browser-sitemap
+description: Use when driving a website with toycli browser and sitemap context is available, requested, or needed to avoid blind navigation. Guides agents to consume site sitemap files lazily, choose adapter/browser fallback paths, resume from state signatures, and mark stale sitemap entries without trusting them over live browser state.
+allowed-tools: Bash(toycli:*), Read, Edit, Write, Grep
 ---
 
-# opencli-browser-sitemap
+# toycli-browser-sitemap
 
-Use this skill when `opencli browser open` or `opencli browser analyze` reports `sitemap.available: true`, or when the user asks you to use a site's sitemap.
+Use this skill when `toycli browser open` or `toycli browser analyze` reports `sitemap.available: true`, or when the user asks you to use a site's sitemap.
 
 The sitemap is **prior knowledge**, not ground truth. It should reduce blind clicking, but it must never override the live browser state.
 
@@ -14,13 +14,13 @@ The sitemap is **prior knowledge**, not ground truth. It should reduce blind cli
 
 ## Consumption Loop
 
-1. Run or reuse `opencli browser <session> state` to know the current page.
+1. Run or reuse `toycli browser <session> state` to know the current page.
 2. Read only the smallest relevant sitemap files:
    - `SITE.md` for site-level orientation.
    - One matching `pages/<page-id>.md` for current state.
    - One matching `workflows/<task-id>.md` for the user goal.
    - `pitfalls.md` only when blocked or warned by the workflow.
-3. Prefer the workflow's **Best path**. If it names an adapter such as `opencli twitter post`, use that before raw browser actions.
+3. Prefer the workflow's **Best path**. If it names an adapter such as `toycli twitter post`, use that before raw browser actions.
 4. If the adapter is unavailable or fails, use the **Fallback path** browser workflow.
 5. After each navigation or state-changing action, refresh `state` and compare the workflow's `state_signature`.
 6. If reality disagrees, trust reality, continue probing, and write a local stale note or draft patch.
@@ -33,7 +33,7 @@ The sitemap is **prior knowledge**, not ground truth. It should reduce blind cli
 Read local overlay first, then global seed:
 
 ```text
-~/.opencli/sites/<site>/sitemap/    # local overlay
+~/.toycli/sites/<site>/sitemap/    # local overlay
 sitemaps/<site>/                    # repo seed (top-level)
 ```
 
@@ -75,7 +75,7 @@ Do not edit global seed files unless the task is explicitly a sitemap-authoring 
 
 When an adapter fails and the sitemap action or workflow tells you to update adapter health:
 
-1. Find the local workflow file under `~/.opencli/sites/<site>/sitemap/workflows/` whose `Best path` references the adapter command.
+1. Find the local workflow file under `~/.toycli/sites/<site>/sitemap/workflows/` whose `Best path` references the adapter command.
 2. If no local workflow exists, copy the matching global workflow into the local overlay first; never edit the global seed directly during browser task execution.
 3. Set `adapter_health: suspect` or `broken` as directed.
 4. Add a short stale note with observed error, current URL, and timestamp.

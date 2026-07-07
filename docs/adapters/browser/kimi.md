@@ -8,62 +8,62 @@ Drive **Kimi** (`kimi.com`) from the terminal through your existing browser sess
 
 | Command | Description | Access |
 |---------|-------------|--------|
-| `opencli kimi status` | Check page connection, login state, and current URL | read |
-| `opencli kimi account` | Read sidebar account labels | read |
-| `opencli kimi usage` | Read Kimi Code console usage, rate limit, membership, and model permission cards | read |
-| `opencli kimi history` | List visible sidebar conversations | read |
-| `opencli kimi detail <id>` | Open a chat by ID or trusted `/chat/<id>` URL and read messages | read |
-| `opencli kimi read` | Read messages in the current or selected chat | read |
-| `opencli kimi send <prompt>` | Send a prompt without waiting for the assistant reply | write |
-| `opencli kimi ask <prompt>` | Send a prompt and wait for the assistant reply | write |
-| `opencli kimi new` | Start a new chat | write |
-| `opencli kimi model` | Read, list, or switch the active model | write |
-| `opencli kimi mode [name]` | List or navigate to a Kimi work mode | write |
-| `opencli kimi copy-message` | Copy or return the last assistant message | write |
-| `opencli kimi react` | Like or dislike the last assistant message | write |
-| `opencli kimi regenerate` | Regenerate the last assistant message | write |
-| `opencli kimi share` | Open the share dialog for the last assistant message | write |
-| `opencli kimi history-rename --yes` | Rename a chat from the history page | write |
-| `opencli kimi sidebar-toggle` | Toggle the sidebar | write |
-| `opencli kimi view-all-history` | Navigate to the full history page | write |
-| `opencli kimi settings` | Open settings | write |
-| `opencli kimi sign-out --yes` | Sign out from settings | write |
-| `opencli kimi upgrade` | Open the membership/upgrade entry point | write |
-| `opencli kimi dismiss-banner` | Close a visible sidebar banner | write |
-| `opencli kimi templates` | List template cards on a mode page | read |
-| `opencli kimi storage-keys` | List localStorage or sessionStorage keys | read |
-| `opencli kimi storage-get <key>` | Read one storage value | read |
-| `opencli kimi cookies` | List JavaScript-visible cookies | read |
-| `opencli kimi idb-list` | List IndexedDB databases | read |
+| `toycli kimi status` | Check page connection, login state, and current URL | read |
+| `toycli kimi account` | Read sidebar account labels | read |
+| `toycli kimi usage` | Read Kimi Code console usage, rate limit, membership, and model permission cards | read |
+| `toycli kimi history` | List visible sidebar conversations | read |
+| `toycli kimi detail <id>` | Open a chat by ID or trusted `/chat/<id>` URL and read messages | read |
+| `toycli kimi read` | Read messages in the current or selected chat | read |
+| `toycli kimi send <prompt>` | Send a prompt without waiting for the assistant reply | write |
+| `toycli kimi ask <prompt>` | Send a prompt and wait for the assistant reply | write |
+| `toycli kimi new` | Start a new chat | write |
+| `toycli kimi model` | Read, list, or switch the active model | write |
+| `toycli kimi mode [name]` | List or navigate to a Kimi work mode | write |
+| `toycli kimi copy-message` | Copy or return the last assistant message | write |
+| `toycli kimi react` | Like or dislike the last assistant message | write |
+| `toycli kimi regenerate` | Regenerate the last assistant message | write |
+| `toycli kimi share` | Open the share dialog for the last assistant message | write |
+| `toycli kimi history-rename --yes` | Rename a chat from the history page | write |
+| `toycli kimi sidebar-toggle` | Toggle the sidebar | write |
+| `toycli kimi view-all-history` | Navigate to the full history page | write |
+| `toycli kimi settings` | Open settings | write |
+| `toycli kimi sign-out --yes` | Sign out from settings | write |
+| `toycli kimi upgrade` | Open the membership/upgrade entry point | write |
+| `toycli kimi dismiss-banner` | Close a visible sidebar banner | write |
+| `toycli kimi templates` | List template cards on a mode page | read |
+| `toycli kimi storage-keys` | List localStorage or sessionStorage keys | read |
+| `toycli kimi storage-get <key>` | Read one storage value | read |
+| `toycli kimi cookies` | List JavaScript-visible cookies | read |
+| `toycli kimi idb-list` | List IndexedDB databases | read |
 
 ## Usage Examples
 
 ```bash
 # Check the current Kimi tab
-opencli kimi status
+toycli kimi status
 
 # Read Kimi Code usage cards
-opencli kimi usage
+toycli kimi usage
 
 # Start a new chat and ask a question
-opencli kimi new
-opencli kimi ask "Summarize this plan in three bullets"
+toycli kimi new
+toycli kimi ask "Summarize this plan in three bullets"
 
 # Continue the current chat without waiting for a reply
-opencli kimi send "Now expand the second bullet"
+toycli kimi send "Now expand the second bullet"
 
 # List and read conversations
-opencli kimi history --limit 10
-opencli kimi detail https://kimi.com/chat/<chat-id>
-opencli kimi read --conv /chat/<chat-id>
+toycli kimi history --limit 10
+toycli kimi detail https://kimi.com/chat/<chat-id>
+toycli kimi read --conv /chat/<chat-id>
 
 # Inspect or switch model
-opencli kimi model
-opencli kimi model --list true
-opencli kimi model --set "K2"
+toycli kimi model
+toycli kimi model --list true
+toycli kimi model --set "K2"
 
 # Rename a chat only after explicit confirmation
-opencli kimi history-rename <chat-id> "New title" --yes true
+toycli kimi history-rename <chat-id> "New title" --yes true
 ```
 
 ## Options

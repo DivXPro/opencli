@@ -8,32 +8,32 @@ Read groups, topics, search results, dynamics, and single-topic details from [çŸ
 
 | Command | Description |
 |---------|-------------|
-| `opencli zsxq groups` | List the groups your account has joined |
-| `opencli zsxq topics` | List topics in the active group |
-| `opencli zsxq topic <id>` | Fetch a single topic with comments |
-| `opencli zsxq search <keyword>` | Search topics inside a group |
-| `opencli zsxq dynamics` | List recent dynamics across groups |
+| `toycli zsxq groups` | List the groups your account has joined |
+| `toycli zsxq topics` | List topics in the active group |
+| `toycli zsxq topic <id>` | Fetch a single topic with comments |
+| `toycli zsxq search <keyword>` | Search topics inside a group |
+| `toycli zsxq dynamics` | List recent dynamics across groups |
 
 ## Usage Examples
 
 ```bash
 # List your groups
-opencli zsxq groups
+toycli zsxq groups
 
 # List topics from the active group in Chrome
-opencli zsxq topics --limit 20
+toycli zsxq topics --limit 20
 
 # Search inside the active group
-opencli zsxq search "opencli"
+toycli zsxq search "toycli"
 
 # Search inside a specific group explicitly
-opencli zsxq search "opencli" --group_id 123456789
+toycli zsxq search "toycli" --group_id 123456789
 
 # Export a single topic with comments
-opencli zsxq topic 987654321 --comment_limit 20
+toycli zsxq topic 987654321 --comment_limit 20
 
 # Read recent dynamics across all joined groups
-opencli zsxq dynamics --limit 20
+toycli zsxq dynamics --limit 20
 ```
 
 ## Prerequisites

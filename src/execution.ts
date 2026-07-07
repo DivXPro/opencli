@@ -41,7 +41,7 @@ import { resolveAdapterSourcePath } from './adapter-source.js';
 const _loadedModules = new Map<string, Promise<void>>();
 /** Track mtime of loaded user adapter files for hot-reload in daemon mode. */
 const _moduleMtimes = new Map<string, number>();
-const _userClisDir = `${os.homedir()}/.opencli/clis/`;
+const _userClisDir = `${os.homedir()}/.toycli/clis/`;
 
 type TraceMode = 'off' | 'on' | 'retain-on-failure';
 
@@ -239,7 +239,7 @@ export async function executeCommand(
 
       if (electron) {
         // Electron apps: respect manual endpoint override, then try auto-detect
-        const manualEndpoint = process.env.OPENCLI_CDP_ENDPOINT;
+        const manualEndpoint = process.env.TOYCLI_CDP_ENDPOINT;
         if (manualEndpoint) {
           const port = Number(new URL(manualEndpoint).port);
           if (!await probeCDP(port)) {
@@ -255,7 +255,7 @@ export async function executeCommand(
       }
 
       const BrowserFactory = getBrowserFactory(cmd.site);
-      // Requirement vs preference: --profile / OPENCLI_PROFILE route strictly;
+      // Requirement vs preference: --profile / TOYCLI_PROFILE route strictly;
       // the config default is a soft preference the daemon arbitrates.
       const profileSelection = resolveProfileSelection(opts.profile);
       const profileRouting = profileRouteParams(profileSelection);
@@ -466,7 +466,7 @@ function exportTraceArtifact(
     if (status === 'failure' && error !== undefined) {
       attachTraceReceipt(error, trace.receipt);
     } else {
-      process.stderr.write(`OpenCLI trace artifact: ${trace.dir}\n`);
+      process.stderr.write(`ToyCLI trace artifact: ${trace.dir}\n`);
     }
     try {
       onTraceExport?.(trace);
@@ -532,7 +532,7 @@ function normalizeWindowMode(name: string, raw: unknown): BrowserWindowMode | nu
 
 function resolveBrowserWindowMode(defaultMode: BrowserWindowMode = 'background', rawOption?: unknown): BrowserWindowMode {
   return normalizeWindowMode('--window', rawOption)
-    ?? normalizeWindowMode('OPENCLI_WINDOW', process.env.OPENCLI_WINDOW)
+    ?? normalizeWindowMode('TOYCLI_WINDOW', process.env.TOYCLI_WINDOW)
     ?? defaultMode;
 }
 

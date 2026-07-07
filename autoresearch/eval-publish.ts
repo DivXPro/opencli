@@ -78,7 +78,7 @@ function judge(criteria: JudgeCriteria, output: string): boolean {
 }
 
 function runCommand(cmd: string, timeout = 30000): string {
-  const localCmd = cmd.replace(/^opencli /, `node dist/src/main.js `);
+  const localCmd = cmd.replace(/^toycli /, `node dist/src/main.js `);
   try {
     return execSync(localCmd, {
       cwd: PROJECT_ROOT,
@@ -179,12 +179,12 @@ function main() {
 
     // Close browser between tasks for clean state
     if (i < tasks.length - 1) {
-      try { runCommand('opencli browser close'); } catch { /* ignore */ }
+      try { runCommand('toycli browser close'); } catch { /* ignore */ }
     }
   }
 
   // Final close
-  try { runCommand('opencli browser close'); } catch { /* ignore */ }
+  try { runCommand('toycli browser close'); } catch { /* ignore */ }
 
   // Summary
   const totalPassed = results.filter(r => r.passed).length;

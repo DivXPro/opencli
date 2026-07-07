@@ -8,21 +8,21 @@ Look up public Lichess player profiles and per-perf top-N leaderboards. Lichess 
 
 | Command | Description |
 |---------|-------------|
-| `opencli lichess user <username>` | Lichess player profile (rating, perfs, win/loss counts) |
-| `opencli lichess top <perf>` | Top-N leaderboard for a perf type (bullet/blitz/rapid/classical/...) |
+| `toycli lichess user <username>` | Lichess player profile (rating, perfs, win/loss counts) |
+| `toycli lichess top <perf>` | Top-N leaderboard for a perf type (bullet/blitz/rapid/classical/...) |
 
 ## Usage Examples
 
 ```bash
 # Player profile
-opencli lichess user DrNykterstein
-opencli lichess user penguingm1
+toycli lichess user DrNykterstein
+toycli lichess user penguingm1
 
 # Top-N leaderboards (username round-trips into `lichess user`)
-opencli lichess top blitz
-opencli lichess top bullet --limit 50
-opencli lichess top rapid --limit 25
-opencli lichess top chess960
+toycli lichess top blitz
+toycli lichess top bullet --limit 50
+toycli lichess top rapid --limit 25
+toycli lichess top chess960
 ```
 
 ## Output Columns

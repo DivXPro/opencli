@@ -277,11 +277,11 @@ export async function typeAndSendMessage(page, text) {
     return true;
 }
 /**
- * Verbose log helper — prints when OPENCLI_VERBOSE is set.
+ * Verbose log helper — prints when TOYCLI_VERBOSE is set.
  */
 export function verbose(msg) {
-    if (process.env.OPENCLI_VERBOSE) {
-        console.error(`[opencli:boss] ${msg}`);
+    if (process.env.TOYCLI_VERBOSE) {
+        console.error(`[toycli:boss] ${msg}`);
     }
 }
 // ── Geek-side helpers ────────────────────────────────────────────────────────

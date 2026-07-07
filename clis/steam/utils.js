@@ -3,7 +3,7 @@
 import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const STEAM_STORE = 'https://store.steampowered.com';
-const UA = 'opencli-steam-adapter (+https://github.com/jackwener/opencli)';
+const UA = 'toycli-steam-adapter (+https://github.com/toy-box/toycli)';
 
 export function requireString(value, label) {
     const s = String(value ?? '').trim();

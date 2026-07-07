@@ -1,6 +1,6 @@
 # Realtime Listeners
 
-OpenCLI supports continuous realtime monitoring of any site: the Chrome extension intercepts network responses, DOM mutations, or CDP events, pushes them as `listener-event` messages to the daemon's EventBus, and external apps subscribe via HTTP/SSE. Data is isolated per `listenerId` — multiple subscribers never see each other's data.
+ToyCLI supports continuous realtime monitoring of any site: the Chrome extension intercepts network responses, DOM mutations, or CDP events, pushes them as `listener-event` messages to the daemon's EventBus, and external apps subscribe via HTTP/SSE. Data is isolated per `listenerId` — multiple subscribers never see each other's data.
 
 ## Architecture
 
@@ -8,7 +8,7 @@ OpenCLI supports continuous realtime monitoring of any site: the Chrome extensio
 Chrome Extension (network/DOM/CDP listeners + tab lifecycle)
         │ WebSocket /ext
         ▼
-OpenCLI Daemon (EventBus + ListenerManager)
+ToyCLI Daemon (EventBus + ListenerManager)
         │ HTTP /listener/stream (SSE) / /listener/history
         ▼
 External Apps (Wails / Python / shell / CLI)
@@ -18,25 +18,25 @@ External Apps (Wails / Python / shell / CLI)
 
 ```bash
 # Start a listener
-opencli listener start \
+toycli listener start \
   --site buyin --adapter live-products \
   --listener comments --source network \
   --url https://buyin.jinritemai.com/dashboard/live/control
 
 # Stream events in real time (JSONL to stdout)
-opencli listener stream --listener comments
+toycli listener stream --listener comments
 
 # Get buffered history
-opencli listener history --listener comments --since 1700000000000
+toycli listener history --listener comments --since 1700000000000
 
 # List active listeners
-opencli listener list
+toycli listener list
 
 # Stop a listener
-opencli listener stop --site buyin --adapter live-products --listener comments
+toycli listener stop --site buyin --adapter live-products --listener comments
 
 # Restart (stop + start)
-opencli listener restart --site buyin --adapter live-products --listener comments \
+toycli listener restart --site buyin --adapter live-products --listener comments \
   --source network --url https://buyin.jinritemai.com/dashboard/live/control
 ```
 
@@ -113,4 +113,4 @@ External apps can decide whether to auto-reconnect after receiving a `stopped` e
 
 ## Deduplication
 
-At most one active listener is allowed per `site/adapter:listenerId`. A duplicate `start` will not create a second tab — it returns `already-running`. Use `opencli listener restart` to restart.
+At most one active listener is allowed per `site/adapter:listenerId`. A duplicate `start` will not create a second tab — it returns `already-running`. Use `toycli listener restart` to restart.

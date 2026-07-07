@@ -8,24 +8,24 @@ Inspect Python packages on the Python Package Index. Two commands: registry meta
 
 | Command | Description |
 |---------|-------------|
-| `opencli pypi package <name>` | Single PyPI package metadata (latest version, summary, repo, license, release timeline) |
-| `opencli pypi downloads <name>` | Download stats from pypistats.org (recent totals or daily history) |
+| `toycli pypi package <name>` | Single PyPI package metadata (latest version, summary, repo, license, release timeline) |
+| `toycli pypi downloads <name>` | Download stats from pypistats.org (recent totals or daily history) |
 
 ## Usage Examples
 
 ```bash
 # Single-package metadata
-opencli pypi package requests
-opencli pypi package fastapi
+toycli pypi package requests
+toycli pypi package fastapi
 
 # Download stats — three rows (last-day / last-week / last-month) totals
-opencli pypi downloads requests --period recent
+toycli pypi downloads requests --period recent
 
 # Daily history for ~180 days (pypistats default window)
-opencli pypi downloads requests --period overall
+toycli pypi downloads requests --period overall
 
 # JSON output
-opencli pypi package requests -f json
+toycli pypi package requests -f json
 ```
 
 ## Output Columns

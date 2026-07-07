@@ -1,10 +1,10 @@
 /**
  * WeChat article download — export WeChat Official Account articles to Markdown.
  *
- * Ported from jackwener/wechat-article-to-markdown (JS version) to OpenCLI adapter.
+ * Ported from jackwener/wechat-article-to-markdown (JS version) to ToyCLI adapter.
  *
  * Usage:
- *   opencli weixin download --url "https://mp.weixin.qq.com/s/xxx" --output ./weixin
+ *   toycli weixin download --url "https://mp.weixin.qq.com/s/xxx" --output ./weixin
  */
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { downloadArticle } from '@toy-box/opencli/download/article-download';

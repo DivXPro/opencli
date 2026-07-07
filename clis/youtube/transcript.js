@@ -323,13 +323,13 @@ cli({
           if (OriginalXHR) {
             globalThis.XMLHttpRequest = class TimedtextCaptureXHR extends OriginalXHR {
               open(method, url, ...rest) {
-                this.__opencliTimedtextUrl = typeof url === 'string' ? url : '';
+                this.__toycliTimedtextUrl = typeof url === 'string' ? url : '';
                 return super.open(method, url, ...rest);
               }
               send(...args) {
                 this.addEventListener('load', () => {
                   try {
-                    const url = this.__opencliTimedtextUrl || this.responseURL || '';
+                    const url = this.__toycliTimedtextUrl || this.responseURL || '';
                     if (!isJson3TimedtextUrl(url, track)) return;
                     if (this.status < 200 || this.status >= 300) return;
                     const text = typeof this.responseText === 'string' ? this.responseText : '';

@@ -2,7 +2,7 @@
 /**
  * Layer 2: Claude Code Skill E2E Testing (LLM Judge)
  *
- * Spawns Claude Code with the opencli-adapter-author skill. Claude Code
+ * Spawns Claude Code with the toycli-adapter-author skill. Claude Code
  * completes the task using browse commands AND judges its own result.
  *
  * Task format: YAML with judge_context (multi-criteria, like Browser Use)
@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RESULTS_DIR = join(__dirname, 'results');
-const SKILL_PATH = join(__dirname, '..', 'skills', 'opencli-adapter-author', 'SKILL.md');
+const SKILL_PATH = join(__dirname, '..', 'skills', 'toycli-adapter-author', 'SKILL.md');
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -71,7 +71,7 @@ const TASKS: SkillTask[] = [
   { name: "scroll-pagination", task: "Find the pagination info at the bottom of the page", url: "https://books.toscrape.com", judge_context: ["Output must contain page number or pagination info"] },
 
   // Form
-  { name: "form-fill-basic", task: "Fill the Customer Name with 'OpenCLI' and Telephone with '555-0100'. Do not submit.", url: "https://httpbin.org/forms/post", judge_context: ["The agent must type 'OpenCLI' into a name field", "The agent must type '555-0100' into a phone field", "The form must NOT be submitted"] },
+  { name: "form-fill-basic", task: "Fill the Customer Name with 'ToyCLI' and Telephone with '555-0100'. Do not submit.", url: "https://httpbin.org/forms/post", judge_context: ["The agent must type 'ToyCLI' into a name field", "The agent must type '555-0100' into a phone field", "The form must NOT be submitted"] },
   { name: "form-radio", task: "Select the 'Medium' pizza size option. Do not submit.", url: "https://httpbin.org/forms/post", judge_context: ["The agent must select a radio button for Medium size"] },
   { name: "form-login", task: "Fill the username with 'testuser' and password with 'testpass'. Do not submit.", url: "https://the-internet.herokuapp.com/login", judge_context: ["The agent must fill the username field", "The agent must fill the password field", "The form must NOT be submitted"] },
 
@@ -89,7 +89,7 @@ const TASKS: SkillTask[] = [
   { name: "bench-jsonapi-todo", task: "Extract the first 5 todo items with their title and completion status", url: "https://jsonplaceholder.typicode.com/todos", judge_context: ["Output must contain 5 todo items", "Each must have a title and completed status"] },
 
   // Codex form (the real test)
-  { name: "codex-form-fill", task: "Fill the basic information using 'opencli' as the identity (first name=open, last name=cli, email=opencli@example.com, GitHub username=opencli). Do NOT submit the form.", url: "https://openai.com/form/codex-for-oss/", judge_context: ["The agent must fill the first name field", "The agent must fill the last name field", "The agent must fill the email field", "The form must NOT be submitted"], max_steps: 15 },
+  { name: "codex-form-fill", task: "Fill the basic information using 'toycli' as the identity (first name=open, last name=cli, email=toycli@example.com, GitHub username=toycli). Do NOT submit the form.", url: "https://openai.com/form/codex-for-oss/", judge_context: ["The agent must fill the first name field", "The agent must fill the last name field", "The agent must fill the email field", "The form must NOT be submitted"], max_steps: 15 },
 ];
 
 // ── Run Task ───────────────────────────────────────────────────────
@@ -100,7 +100,7 @@ function runSkillTask(task: SkillTask): TaskResult {
   const urlPart = task.url ? ` Start URL: ${task.url}` : '';
   const criteria = task.judge_context.map((c, i) => `${i + 1}. ${c}`).join('\n');
 
-  const prompt = `Complete this browser task using opencli browser commands:
+  const prompt = `Complete this browser task using toycli browser commands:
 
 TASK: ${task.task}${urlPart}
 
@@ -110,11 +110,11 @@ ${criteria}
 At the very end of your response, output a JSON verdict on its own line:
 {"success": true/false, "explanation": "brief explanation"}
 
-Always close the browser with 'opencli browser close' when done.`;
+Always close the browser with 'toycli browser close' when done.`;
 
   try {
     const output = execSync(
-      `claude -p --dangerously-skip-permissions --allowedTools "Bash(opencli:*)" --system-prompt ${JSON.stringify(skillContent)} --output-format json --no-session-persistence ${JSON.stringify(prompt)}`,
+      `claude -p --dangerously-skip-permissions --allowedTools "Bash(toycli:*)" --system-prompt ${JSON.stringify(skillContent)} --output-format json --no-session-persistence ${JSON.stringify(prompt)}`,
       {
         cwd: join(__dirname, '..'),
         timeout: (task.max_steps ?? 10) * 15_000,

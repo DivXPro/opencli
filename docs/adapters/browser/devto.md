@@ -8,11 +8,11 @@ Fetch the latest and greatest developer articles from the DEV community without 
 
 | Command | Description |
 |---------|-------------|
-| `opencli devto top` | Top DEV.to articles of the day |
-| `opencli devto latest` | Latest published articles across all tags (paginated) |
-| `opencli devto tag <tag>` | Latest articles for a specific tag |
-| `opencli devto user <username>` | Recent articles from a specific user |
-| `opencli devto read <id>` | Read the body of a single article |
+| `toycli devto top` | Top DEV.to articles of the day |
+| `toycli devto latest` | Latest published articles across all tags (paginated) |
+| `toycli devto tag <tag>` | Latest articles for a specific tag |
+| `toycli devto user <username>` | Recent articles from a specific user |
+| `toycli devto read <id>` | Read the body of a single article |
 
 ## Listing columns
 
@@ -53,27 +53,27 @@ does not expose article comments, so this reader does not emit a comment tree.
 
 ```bash
 # Top articles today
-opencli devto top --limit 5
+toycli devto top --limit 5
 
 # Latest published articles (newest first; supports --page for pagination)
-opencli devto latest --limit 20
-opencli devto latest --limit 20 --page 2
+toycli devto latest --limit 20
+toycli devto latest --limit 20 --page 2
 
 # Articles by tag (positional argument)
-opencli devto tag javascript
-opencli devto tag python --limit 20
+toycli devto tag javascript
+toycli devto tag python --limit 20
 
 # Articles by a specific author
-opencli devto user ben
-opencli devto user thepracticaldev --limit 5
+toycli devto user ben
+toycli devto user thepracticaldev --limit 5
 
 # Read a single article body by id
-opencli devto read 3605688
-opencli devto read 3605688 --max-length 5000
+toycli devto read 3605688
+toycli devto read 3605688 --max-length 5000
 
 # JSON output
-opencli devto top -f json
-opencli devto read 3605688 -f json
+toycli devto top -f json
+toycli devto read 3605688 -f json
 ```
 
 ## Prerequisites

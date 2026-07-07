@@ -1,6 +1,6 @@
 /**
  * Shared helpers for E2E tests.
- * Runs the built opencli binary as a subprocess.
+ * Runs the built toycli binary as a subprocess.
  */
 
 import { execFile } from 'node:child_process';
@@ -14,7 +14,7 @@ const ROOT = path.resolve(__dirname, '../..');
 const MAIN = path.join(ROOT, 'dist', 'src', 'main.js');
 
 /**
- * Default stdout cap for `runCli`. `opencli list -f json` already weighs
+ * Default stdout cap for `runCli`. `toycli list -f json` already weighs
  * ~1 MB at 1030 entries on v1.8.2 and grows with every new adapter. The
  * execFile default maxBuffer is 1 MB; past it stdout overflows and the
  * helper returns code 'ERR_CHILD_PROCESS_STDIO_MAXBUFFER' instead of the
@@ -29,8 +29,8 @@ export interface CliResult {
 }
 
 /**
- * Run `opencli` as a child process with the given arguments.
- * Without PLAYWRIGHT_MCP_EXTENSION_TOKEN, opencli auto-launches its own browser.
+ * Run `toycli` as a child process with the given arguments.
+ * Without PLAYWRIGHT_MCP_EXTENSION_TOKEN, toycli auto-launches its own browser.
  */
 export async function runCli(
   args: string[],
@@ -42,7 +42,7 @@ export async function runCli(
   const timeout = opts.timeout ?? 25_000;
   const maxBuffer = opts.maxBuffer ?? DEFAULT_MAX_BUFFER_BYTES;
   try {
-    const runtime = process.env.OPENCLI_TEST_RUNTIME || 'node';
+    const runtime = process.env.TOYCLI_TEST_RUNTIME || 'node';
     const { stdout, stderr } = await exec(runtime, [MAIN, ...args], {
       cwd: ROOT,
       timeout,

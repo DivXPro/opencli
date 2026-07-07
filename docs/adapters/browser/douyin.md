@@ -6,60 +6,60 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli douyin profile` | 获取账号信息 |
-| `opencli douyin videos` | 获取作品列表 |
-| `opencli douyin drafts` | 获取草稿列表 |
-| `opencli douyin draft` | 上传视频并保存为草稿 |
-| `opencli douyin publish` | 定时发布视频到抖音 |
-| `opencli douyin update` | 更新视频信息 |
-| `opencli douyin delete` | 删除作品 |
-| `opencli douyin stats` | 查询作品数据分析 |
-| `opencli douyin collections` | 获取合集列表 |
-| `opencli douyin activities` | 获取官方活动列表 |
-| `opencli douyin location` | 搜索发布可用的地理位置 |
-| `opencli douyin hashtag search` | 按关键词搜索话题 |
-| `opencli douyin hashtag suggest` | 基于封面 URI 推荐话题 |
-| `opencli douyin hashtag hot` | 获取热点词 |
+| `toycli douyin profile` | 获取账号信息 |
+| `toycli douyin videos` | 获取作品列表 |
+| `toycli douyin drafts` | 获取草稿列表 |
+| `toycli douyin draft` | 上传视频并保存为草稿 |
+| `toycli douyin publish` | 定时发布视频到抖音 |
+| `toycli douyin update` | 更新视频信息 |
+| `toycli douyin delete` | 删除作品 |
+| `toycli douyin stats` | 查询作品数据分析 |
+| `toycli douyin collections` | 获取合集列表 |
+| `toycli douyin activities` | 获取官方活动列表 |
+| `toycli douyin location` | 搜索发布可用的地理位置 |
+| `toycli douyin hashtag search` | 按关键词搜索话题 |
+| `toycli douyin hashtag suggest` | 基于封面 URI 推荐话题 |
+| `toycli douyin hashtag hot` | 获取热点词 |
 
 ## Usage Examples
 
 ```bash
 # 账号与作品
-opencli douyin profile
-opencli douyin videos --limit 10
-opencli douyin videos --status scheduled
-opencli douyin drafts
+toycli douyin profile
+toycli douyin videos --limit 10
+toycli douyin videos --status scheduled
+toycli douyin drafts
 
 # 发布前辅助信息
-opencli douyin collections
-opencli douyin activities
-opencli douyin location "东京塔"
-opencli douyin hashtag search "春游"
-opencli douyin hashtag hot --limit 10
+toycli douyin collections
+toycli douyin activities
+toycli douyin location "东京塔"
+toycli douyin hashtag search "春游"
+toycli douyin hashtag hot --limit 10
 
 # 保存草稿
-opencli douyin draft ./video.mp4 \
+toycli douyin draft ./video.mp4 \
   --title "春游 vlog" \
   --caption "#春游 先存草稿"
 
 # 定时发布
-opencli douyin publish ./video.mp4 \
+toycli douyin publish ./video.mp4 \
   --title "春游 vlog" \
   --caption "#春游 今天去看樱花" \
   --schedule "2026-04-08T12:00:00+09:00"
 
 # 也支持 Unix 秒字符串
-opencli douyin publish ./video.mp4 \
+toycli douyin publish ./video.mp4 \
   --title "春游 vlog" \
   --schedule 1775617200
 
 # 更新与删除
-opencli douyin update 1234567890 --caption "更新后的文案"
-opencli douyin update 1234567890 --reschedule "2026-04-09T20:00:00+09:00"
-opencli douyin delete 1234567890
+toycli douyin update 1234567890 --caption "更新后的文案"
+toycli douyin update 1234567890 --reschedule "2026-04-09T20:00:00+09:00"
+toycli douyin delete 1234567890
 
 # JSON 输出
-opencli douyin profile -f json
+toycli douyin profile -f json
 ```
 
 ## Prerequisites

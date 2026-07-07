@@ -21,7 +21,7 @@ async function tryProbe(config, page, phase) {
 }
 
 function authHint(config) {
-  return `Run \`opencli ${config.site} login\` to open the login page, then retry.`;
+  return `Run \`toycli ${config.site} login\` to open the login page, then retry.`;
 }
 
 function commandColumns(config) {

@@ -1,11 +1,11 @@
 # Browse Skill Testing Design
 
-Two-layer testing framework for `opencli browse` commands and the
+Two-layer testing framework for `toycli browse` commands and the
 Claude Code skill integration.
 
 ## Goal
 
-Verify that `opencli browse` works reliably on real websites and that
+Verify that `toycli browse` works reliably on real websites and that
 Claude Code can use the skill to complete browser tasks end-to-end.
 
 ## Architecture
@@ -24,7 +24,7 @@ autoresearch/
 
 ## Layer 1: Deterministic Browse Command Testing
 
-Tests `opencli browse` commands directly on real websites. No LLM
+Tests `toycli browse` commands directly on real websites. No LLM
 involved — pure command reliability testing.
 
 ### How It Works
@@ -36,8 +36,8 @@ last command's output:
 {
   "name": "hn-top-stories",
   "steps": [
-    "opencli browse open https://news.ycombinator.com",
-    "opencli browse eval \"JSON.stringify([...document.querySelectorAll('.titleline a')].slice(0,5).map(a=>({title:a.textContent,url:a.href})))\""
+    "toycli browse open https://news.ycombinator.com",
+    "toycli browse eval \"JSON.stringify([...document.querySelectorAll('.titleline a')].slice(0,5).map(a=>({title:a.textContent,url:a.href})))\""
   ],
   "judge": { "type": "arrayMinLength", "minLength": 5 }
 }
@@ -51,7 +51,7 @@ last command's output:
 
 - Runs all 59 tasks serially
 - Each task: execute steps → judge last step output → pass/fail
-- `opencli browse close` between tasks for clean state
+- `toycli browse close` between tasks for clean state
 - Expected: ~2 minutes, $0 cost
 
 ### Task Categories
@@ -69,18 +69,18 @@ last command's output:
 
 ## Layer 2: Claude Code Skill E2E Testing
 
-Spawns Claude Code with the opencli-browser skill to complete tasks
+Spawns Claude Code with the toycli-browser skill to complete tasks
 autonomously using browse commands.
 
 ### How It Works
 
 ```bash
 claude -p \
-  --system-prompt "$(cat skills/opencli-browser/SKILL.md)" \
+  --system-prompt "$(cat skills/toycli-browser/SKILL.md)" \
   --dangerously-skip-permissions \
-  --allowedTools "Bash(opencli:*)" \
+  --allowedTools "Bash(toycli:*)" \
   --output-format json \
-  "用 opencli browse 完成任务：Extract the top 5 stories from Hacker News with title and score. Start URL: https://news.ycombinator.com"
+  "用 toycli browse 完成任务：Extract the top 5 stories from Hacker News with title and score. Start URL: https://news.ycombinator.com"
 ```
 
 ### Execution

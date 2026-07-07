@@ -6,26 +6,26 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli gitee trending` | Recommended open-source projects from Gitee Explore |
-| `opencli gitee search` | Search Gitee repositories by keyword |
-| `opencli gitee user` | Show user profile panel (nickname, followers, public repos, Gitee index) |
+| `toycli gitee trending` | Recommended open-source projects from Gitee Explore |
+| `toycli gitee search` | Search Gitee repositories by keyword |
+| `toycli gitee user` | Show user profile panel (nickname, followers, public repos, Gitee index) |
 
 ## Usage Examples
 
 ```bash
 # Explore recommended projects
-opencli gitee trending --limit 10
+toycli gitee trending --limit 10
 
 # Search repositories
-opencli gitee search opencli --limit 10
+toycli gitee search toycli --limit 10
 
 # User profile panel
-opencli gitee user fu-qingrong
+toycli gitee user fu-qingrong
 
 # JSON output
-opencli gitee trending --limit 5 -f json
-opencli gitee search "ai agent" --limit 5 -f json
-opencli gitee user jackwener -f json
+toycli gitee trending --limit 5 -f json
+toycli gitee search "ai agent" --limit 5 -f json
+toycli gitee user jackwener -f json
 ```
 
 ## Prerequisites

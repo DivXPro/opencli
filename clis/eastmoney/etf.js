@@ -1,7 +1,7 @@
 // eastmoney etf — ETF ranking by change / turnover.
 //
-//   opencli eastmoney etf
-//   opencli eastmoney etf --sort change --limit 30
+//   toycli eastmoney etf
+//   toycli eastmoney etf --sort change --limit 30
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

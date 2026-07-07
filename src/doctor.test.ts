@@ -56,11 +56,11 @@ describe('doctor report rendering', () => {
       issues: [],
     }));
 
-    expect(text).toContain('[OK] Daemon: running on port 19825');
+    expect(text).toContain('[OK] Daemon: running on port 29825');
     expect(text).toContain('(v1.7.9)');
     expect(text).toContain('[OK] Extension: connected (v1.6.8)');
     expect(text).toContain('Everything looks good!');
-    expect(text).not.toContain('opencli browser analyze <url>');
+    expect(text).not.toContain('toycli browser analyze <url>');
   });
 
   it('renders a warning when daemon version is stale', () => {
@@ -71,11 +71,11 @@ describe('doctor report rendering', () => {
       daemonStale: true,
       extensionConnected: true,
       extensionVersion: '1.0.3',
-      issues: ['Stale daemon detected: daemon v1.7.6 != CLI v1.7.9.\n  Run: opencli daemon restart'],
+      issues: ['Stale daemon detected: daemon v1.7.6 != CLI v1.7.9.\n  Run: toycli daemon restart'],
     }));
 
-    expect(text).toContain('[WARN] Daemon: running on port 19825 (v1.7.6, stale; CLI v1.7.9)');
-    expect(text).toContain('Run: opencli daemon restart');
+    expect(text).toContain('[WARN] Daemon: running on port 29825 (v1.7.6, stale; CLI v1.7.9)');
+    expect(text).toContain('Run: toycli daemon restart');
     expect(text).not.toContain('Everything looks good!');
   });
 
@@ -98,7 +98,7 @@ describe('doctor report rendering', () => {
       issues: ['Daemon is running but the Chrome extension is not connected.'],
     }));
 
-    expect(text).toContain('[OK] Daemon: running on port 19825');
+    expect(text).toContain('[OK] Daemon: running on port 29825');
     expect(text).toContain('[MISSING] Extension: not connected');
   });
 
@@ -185,12 +185,12 @@ describe('doctor report rendering', () => {
     const fs = await import('node:fs');
     const os = await import('node:os');
     const path = await import('node:path');
-    const configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-doctor-profile-'));
+    const configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-doctor-profile-'));
     fs.writeFileSync(
       path.join(configDir, 'browser-profiles.json'),
       JSON.stringify({ version: 1, aliases: { work: 'zvypsyje' }, defaultContextId: 'zvypsyje' }),
     );
-    vi.stubEnv('OPENCLI_CONFIG_DIR', configDir);
+    vi.stubEnv('TOYCLI_CONFIG_DIR', configDir);
     try {
       mockGetDaemonHealth.mockResolvedValueOnce({
         state: 'ready',
@@ -308,7 +308,7 @@ describe('doctor report rendering', () => {
     mockFindShadowedUserAdapters.mockReturnValueOnce([
       {
         name: 'instagram/saved',
-        userPath: '/home/me/.opencli/clis/instagram/saved.js',
+        userPath: '/home/me/.toycli/clis/instagram/saved.js',
         builtinPath: '/pkg/clis/instagram/saved.js',
       },
     ]);

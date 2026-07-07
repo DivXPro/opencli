@@ -116,7 +116,7 @@ export function hasDiscordChannelTarget(kwargs = {}) {
 
 export function buildListChannelsScript() {
     return `
-      (function __opencliDiscordListChannels() {
+      (function __toycliDiscordListChannels() {
         function parseRoute(raw) {
           try {
             var url = new URL(raw, 'https://discord.com');
@@ -195,7 +195,7 @@ export function buildListChannelsScript() {
 
 export function buildListServersScript() {
     return `
-      (function __opencliDiscordListServers() {
+      (function __toycliDiscordListServers() {
         function parseGuildId(raw) {
           try {
             var url = new URL(raw, 'https://discord.com');
@@ -240,7 +240,7 @@ export function buildListServersScript() {
 export function buildReadMessagesScript(count) {
     const limit = Math.max(1, parseInt(String(count), 10) || 20);
     return `
-      (function __opencliDiscordReadMessages(limit) {
+      (function __toycliDiscordReadMessages(limit) {
         function textOf(el) { return el ? String(el.textContent || '').replace(/\\s+/g, ' ').trim() : ''; }
         function routeOfMessage(node) {
           var id = node && node.getAttribute ? node.getAttribute('id') || '' : '';
@@ -280,7 +280,7 @@ export function buildReadMessagesScript(count) {
 export function buildListThreadsScript(limit) {
     const max = Math.max(1, parseInt(String(limit), 10) || 30);
     return `
-      (function __opencliDiscordListThreads(limit) {
+      (function __toycliDiscordListThreads(limit) {
         function parseRoute(raw) {
           try {
             var url = new URL(raw, 'https://discord.com');
@@ -338,7 +338,7 @@ export function buildListThreadsScript(limit) {
 
 export function buildRouteStateScript() {
     return `
-      (function __opencliDiscordRouteState() {
+      (function __toycliDiscordRouteState() {
         function parseRoute(raw) {
           try {
             var url = new URL(raw, 'https://discord.com');
@@ -454,7 +454,7 @@ export async function resolveDiscordChannelTarget(page, kwargs = {}, options = {
 
     throw new ArgumentError(
         `Could not resolve Discord channel "${channelArg}".`,
-        'Use "opencli discord-app channels -f json" and retry with --url or numeric --guild/--channel ids.',
+        'Use "toycli discord-app channels -f json" and retry with --url or numeric --guild/--channel ids.',
     );
 }
 

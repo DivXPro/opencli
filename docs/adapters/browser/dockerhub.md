@@ -8,24 +8,24 @@ Search and inspect public Docker Hub repositories without auth or browser. Two c
 
 | Command | Description |
 |---------|-------------|
-| `opencli dockerhub search <query>` | Search Docker Hub repositories by keyword |
-| `opencli dockerhub image <name>` | Repository metadata (stars, pulls, last updated, status) |
+| `toycli dockerhub search <query>` | Search Docker Hub repositories by keyword |
+| `toycli dockerhub image <name>` | Repository metadata (stars, pulls, last updated, status) |
 
 ## Usage Examples
 
 ```bash
 # Search repositories
-opencli dockerhub search nginx --limit 10
-opencli dockerhub search "bitnami redis" --limit 5
+toycli dockerhub search nginx --limit 10
+toycli dockerhub search "bitnami redis" --limit 5
 
 # Single repository metadata (use `image` from search rows)
-opencli dockerhub image nginx              # implicit `library/nginx`
-opencli dockerhub image library/nginx
-opencli dockerhub image bitnami/redis
+toycli dockerhub image nginx              # implicit `library/nginx`
+toycli dockerhub image library/nginx
+toycli dockerhub image bitnami/redis
 
 # JSON output
-opencli dockerhub search nginx -f json
-opencli dockerhub image nginx -f json
+toycli dockerhub search nginx -f json
+toycli dockerhub image nginx -f json
 ```
 
 ## Output Columns

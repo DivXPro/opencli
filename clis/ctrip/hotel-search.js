@@ -5,7 +5,7 @@
  * from the SSR-rendered hotel listing page. Ctrip serves first 13 hotels
  * (10 organic + ~3 promoted) inline; `&pageSize=N` URL params are ignored
  * server-side so we cap default limit accordingly (see
- * `~/.opencli/sites/ctrip/notes.md`).
+ * `~/.toycli/sites/ctrip/notes.md`).
  *
  * Reuses the existing `mapHotelRow` + `pickHotelMapCoords` helpers from utils.js
  * so the column shape stays consistent if future variants (hotel-detail) also

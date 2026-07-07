@@ -1,13 +1,13 @@
 # Contributing
 
-Thanks for your interest in contributing to OpenCLI.
+Thanks for your interest in contributing to ToyCLI.
 
 ## Quick Start
 
 ```bash
 # 1. Fork & clone
-git clone git@github.com:<your-username>/opencli.git
-cd opencli
+git clone git@github.com:<your-username>/toycli.git
+cd toycli
 
 # 2. Install dependencies
 npm install
@@ -19,7 +19,7 @@ npm run build
 npx tsc --noEmit
 npm run build
 
-# 5. Link globally (optional, for testing `opencli` command)
+# 5. Link globally (optional, for testing `toycli` command)
 npm link
 ```
 
@@ -46,7 +46,7 @@ cli({
   name: 'search',
   description: 'Search MySite',
   access: 'read', // 'read' | 'write'
-  example: 'opencli mysite search <query> -f yaml',
+  example: 'toycli mysite search <query> -f yaml',
   domain: 'www.mysite.com',
   strategy: Strategy.COOKIE,
   args: [
@@ -74,8 +74,8 @@ cli({
 ### Validate Your Adapter
 
 ```bash
-opencli <site> <command> --limit 3 -f json   # Test your command
-opencli <site> <command> -v    # Verbose mode for debugging
+toycli <site> <command> --limit 3 -f json   # Test your command
+toycli <site> <command> -v    # Verbose mode for debugging
 ```
 
 ## Code Style

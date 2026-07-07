@@ -17,11 +17,11 @@ cli({
         await requireNotebooklmSession(page);
         const state = await getNotebooklmPageState(page);
         if (state.kind !== 'notebook') {
-            throw new EmptyResultError('opencli notebooklm current', 'No NotebookLM notebook is open in the adapter session. Run `opencli notebooklm open <notebook>` first.');
+            throw new EmptyResultError('toycli notebooklm current', 'No NotebookLM notebook is open in the adapter session. Run `toycli notebooklm open <notebook>` first.');
         }
         const current = await readCurrentNotebooklm(page);
         if (!current) {
-            throw new EmptyResultError('opencli notebooklm current', 'NotebookLM notebook metadata was not found on the current page.');
+            throw new EmptyResultError('toycli notebooklm current', 'NotebookLM notebook metadata was not found on the current page.');
         }
         return [current];
     },

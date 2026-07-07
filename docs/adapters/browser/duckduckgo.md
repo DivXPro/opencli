@@ -6,8 +6,8 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli duckduckgo search <keyword>` | Search DuckDuckGo and extract results from the page |
-| `opencli duckduckgo suggest <keyword>` | Get DuckDuckGo search suggestions |
+| `toycli duckduckgo search <keyword>` | Search DuckDuckGo and extract results from the page |
+| `toycli duckduckgo suggest <keyword>` | Get DuckDuckGo search suggestions |
 
 ## What works today
 
@@ -27,25 +27,25 @@
 
 ```bash
 # Basic search
-opencli duckduckgo search "machine learning"
+toycli duckduckgo search "machine learning"
 
 # Limit results
-opencli duckduckgo search "machine learning" --limit 5
+toycli duckduckgo search "machine learning" --limit 5
 
 # Region-specific search
-opencli duckduckgo search "machine learning" --region jp-jp
+toycli duckduckgo search "machine learning" --region jp-jp
 
 # Time filter (past week)
-opencli duckduckgo search "machine learning" --time w
+toycli duckduckgo search "machine learning" --time w
 
 # Pagination (second page)
-opencli duckduckgo search "machine learning" --offset 10
+toycli duckduckgo search "machine learning" --offset 10
 
 # JSON output
-opencli duckduckgo search "machine learning" -f json
+toycli duckduckgo search "machine learning" -f json
 
 # Search suggestions
-opencli duckduckgo suggest "machine" --limit 5
+toycli duckduckgo suggest "machine" --limit 5
 ```
 
 ## Prerequisites

@@ -18,10 +18,10 @@ function makeFakePage(probe) {
     wait: vi.fn(async () => undefined),
     evaluate: vi.fn(async (script) => {
       const text = String(script);
-      if (text.includes('__OPENCLI_LINKEDIN_PROBE__')) return probe;
-      if (text.includes('__OPENCLI_LINKEDIN_FOCUS_COMPOSER__')) return { ok: true, composerText: '' };
-      if (text.includes('__OPENCLI_LINKEDIN_READ_COMPOSER__')) return { ok: true, composerText };
-      if (text.includes('__OPENCLI_LINKEDIN_CLICK_SEND__')) return { ok: true, sent: true };
+      if (text.includes('__TOYCLI_LINKEDIN_PROBE__')) return probe;
+      if (text.includes('__TOYCLI_LINKEDIN_FOCUS_COMPOSER__')) return { ok: true, composerText: '' };
+      if (text.includes('__TOYCLI_LINKEDIN_READ_COMPOSER__')) return { ok: true, composerText };
+      if (text.includes('__TOYCLI_LINKEDIN_CLICK_SEND__')) return { ok: true, sent: true };
       return undefined;
     }),
     insertText: vi.fn(async (text) => {

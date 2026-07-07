@@ -1,12 +1,12 @@
 /**
  * Plugin scaffold: generates a ready-to-develop plugin directory.
  *
- * Usage: opencli plugin create <name> [--dir <path>]
+ * Usage: toycli plugin create <name> [--dir <path>]
  *
  * Creates:
  *   <name>/
- *     opencli-plugin.json   — manifest with name, version, description
- *     package.json          — ESM package with opencli peer dependency
+ *     toycli-plugin.json   — manifest with name, version, description
+ *     package.json          — ESM package with toycli peer dependency
  *     hello.ts              — sample pipeline command
  *     greet.ts              — sample TS command using func()
  *     README.md             — basic documentation
@@ -53,22 +53,22 @@ export function createPluginScaffold(name: string, opts: ScaffoldOptions = {}): 
 
   const files: string[] = [];
 
-  // opencli-plugin.json
+  // toycli-plugin.json
   const manifest = {
     name,
     version: '0.1.0',
-    description: opts.description ?? `An opencli plugin: ${name}`,
-    opencli: `>=${PKG_VERSION}`,
+    description: opts.description ?? `An toycli plugin: ${name}`,
+    toycli: `>=${PKG_VERSION}`,
   };
-  writeFile(targetDir, 'opencli-plugin.json', JSON.stringify(manifest, null, 2) + '\n');
-  files.push('opencli-plugin.json');
+  writeFile(targetDir, 'toycli-plugin.json', JSON.stringify(manifest, null, 2) + '\n');
+  files.push('toycli-plugin.json');
 
   // package.json
   const pkg = {
-    name: `opencli-plugin-${name}`,
+    name: `toycli-plugin-${name}`,
     version: '0.1.0',
     type: 'module',
-    description: opts.description ?? `An opencli plugin: ${name}`,
+    description: opts.description ?? `An toycli plugin: ${name}`,
     peerDependencies: {
       '@toy-box/opencli': `>=${PKG_VERSION}`,
     },
@@ -125,18 +125,18 @@ cli({
   files.push('greet.ts');
 
   // README.md
-  const readme = `# opencli-plugin-${name}
+  const readme = `# toycli-plugin-${name}
 
-${opts.description ?? `An opencli plugin: ${name}`}
+${opts.description ?? `An toycli plugin: ${name}`}
 
 ## Install
 
 \`\`\`bash
 # From local development directory
-opencli plugin install file://${targetDir}
+toycli plugin install file://${targetDir}
 
 # From GitHub (after publishing)
-opencli plugin install github:<user>/opencli-plugin-${name}
+toycli plugin install github:<user>/toycli-plugin-${name}
 \`\`\`
 
 ## Commands
@@ -150,14 +150,14 @@ opencli plugin install github:<user>/opencli-plugin-${name}
 
 \`\`\`bash
 # Install locally for development (symlinked, changes reflect immediately)
-opencli plugin install file://${targetDir}
+toycli plugin install file://${targetDir}
 
 # Verify commands are registered
-opencli list | grep ${name}
+toycli list | grep ${name}
 
 # Run a command
-opencli ${name} hello
-opencli ${name} greet --name World
+toycli ${name} hello
+toycli ${name} greet --name World
 \`\`\`
 `;
   writeFile(targetDir, 'README.md', readme);

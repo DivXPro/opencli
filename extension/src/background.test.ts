@@ -733,7 +733,7 @@ describe('background tab isolation', () => {
 
   it('returns the persisted profile contextId from popup status', async () => {
     const { chrome } = createChromeMock();
-    await chrome.storage.local.set({ opencli_context_id_v1: 'abc123xy' });
+    await chrome.storage.local.set({ toycli_context_id_v1: 'abc123xy' });
     vi.stubGlobal('chrome', chrome);
 
     await import('./background');
@@ -1028,7 +1028,7 @@ describe('background tab isolation', () => {
     const { chrome, tabs, groups } = createChromeMock();
     vi.stubGlobal('chrome', chrome);
     await chrome.storage.local.set({
-      opencli_target_lease_registry_v2: {
+      toycli_target_lease_registry_v2: {
         version: 2,
         contextId: 'user-default',
         ownedContainers: { interactive: { windowId: null }, automation: { windowId: 1 } },
@@ -1059,7 +1059,7 @@ describe('background tab isolation', () => {
     const deadline = Date.now() + 30_000;
     vi.stubGlobal('chrome', chrome);
     await chrome.storage.local.set({
-      opencli_target_lease_registry_v2: {
+      toycli_target_lease_registry_v2: {
         version: 2,
         contextId: 'user-default',
         ownedContainers: { interactive: { windowId: null }, automation: { windowId: 1 } },
@@ -1110,7 +1110,7 @@ describe('background tab isolation', () => {
       idleDeadlineAt: 0,
     }));
     expect(chrome.alarms.create).toHaveBeenCalledWith(
-      `opencli:lease-idle:${encodeURIComponent(adapterKey('twitter'))}`,
+      `toycli:lease-idle:${encodeURIComponent(adapterKey('twitter'))}`,
       expect.objectContaining({ when: expect.any(Number) }),
     );
     expect(chrome.windows.remove).not.toHaveBeenCalled();
@@ -1123,7 +1123,7 @@ describe('background tab isolation', () => {
     const deadline = now + 5_000;
     vi.stubGlobal('chrome', chrome);
     await chrome.storage.local.set({
-      opencli_target_lease_registry_v2: {
+      toycli_target_lease_registry_v2: {
         version: 2,
         contextId: 'user-default',
         ownedContainers: { interactive: { windowId: null }, automation: { windowId: 1 } },
@@ -1146,7 +1146,7 @@ describe('background tab isolation', () => {
     const mod = await import('./background');
     await mod.__test__.reconcileTargetLeaseRegistry();
 
-    const alarmName = `opencli:lease-idle:${encodeURIComponent(adapterKey('twitter'))}`;
+    const alarmName = `toycli:lease-idle:${encodeURIComponent(adapterKey('twitter'))}`;
     const createCalls = chrome.alarms.create.mock.calls.filter((c: unknown[]) => c[0] === alarmName);
     expect(createCalls.length).toBeGreaterThan(0);
     const scheduledWhen = (createCalls.at(-1)![1] as { when: number }).when;
@@ -1167,7 +1167,7 @@ describe('background tab isolation', () => {
     await mod.__test__.resolveTabId(undefined, adapterKey('alarm'));
 
     const onAlarmListener = chrome.alarms.onAlarm.addListener.mock.calls[0][0];
-    await onAlarmListener({ name: `opencli:lease-idle:${encodeURIComponent(adapterKey('alarm'))}` });
+    await onAlarmListener({ name: `toycli:lease-idle:${encodeURIComponent(adapterKey('alarm'))}` });
 
     expect(chrome.tabs.update).toHaveBeenCalledWith(1, { url: 'about:blank' });
     expect(chrome.windows.remove).not.toHaveBeenCalled();
@@ -1182,7 +1182,7 @@ describe('background tab isolation', () => {
     await mod.__test__.resolveTabId(undefined, adapterKey('first'));
 
     const onAlarmListener = chrome.alarms.onAlarm.addListener.mock.calls[0][0];
-    await onAlarmListener({ name: `opencli:lease-idle:${encodeURIComponent(adapterKey('first'))}` });
+    await onAlarmListener({ name: `toycli:lease-idle:${encodeURIComponent(adapterKey('first'))}` });
 
     expect(tabs[0].url).toBe('about:blank');
     expect(chrome.windows.remove).not.toHaveBeenCalled();
@@ -1260,7 +1260,7 @@ describe('background tab isolation', () => {
     expect(chrome.windows.create).toHaveBeenNthCalledWith(1, expect.objectContaining({ focused: true }));
     expect(chrome.windows.create).toHaveBeenNthCalledWith(2, expect.objectContaining({ focused: false }));
     expect(groups).toEqual([
-      expect.objectContaining({ windowId: 20, title: 'OpenCLI Browser' }),
+      expect.objectContaining({ windowId: 20, title: 'ToyCLI Browser' }),
     ]);
     expect(tabs.find((tab) => tab.id === adapterTabId)?.groupId).toBe(-1);
   });
@@ -1318,7 +1318,7 @@ describe('background tab isolation', () => {
     const { chrome, tabs, groups } = createChromeMock();
     vi.stubGlobal('chrome', chrome);
     await chrome.storage.local.set({
-      opencli_target_lease_registry_v2: {
+      toycli_target_lease_registry_v2: {
         version: 2,
         contextId: 'user-default',
         ownedContainers: {
@@ -1346,7 +1346,7 @@ describe('background tab isolation', () => {
     const deadline = Date.now() + 30_000;
     vi.stubGlobal('chrome', chrome);
     await chrome.storage.local.set({
-      opencli_target_lease_registry_v2: {
+      toycli_target_lease_registry_v2: {
         version: 2,
         contextId: 'user-default',
         ownedContainers: { interactive: { windowId: null }, automation: { windowId: 1, groupId: 99 } },
@@ -1380,7 +1380,7 @@ describe('background tab isolation', () => {
     expect(chrome.tabGroups.update).not.toHaveBeenCalled();
   });
 
-  it('ignores legacy OpenCLI Adapter groups when choosing an adapter container', async () => {
+  it('ignores legacy ToyCLI Adapter groups when choosing an adapter container', async () => {
     const { chrome, tabs, groups } = createChromeMock();
     tabs.push({
       id: 77,
@@ -1394,7 +1394,7 @@ describe('background tab isolation', () => {
     groups.push({
       id: 99,
       windowId: 7,
-      title: 'OpenCLI Adapter',
+      title: 'ToyCLI Adapter',
       color: 'orange',
       collapsed: true,
     });
@@ -1415,7 +1415,7 @@ describe('background tab isolation', () => {
     const { chrome, tabs } = createChromeMock();
     vi.stubGlobal('chrome', chrome);
     await chrome.storage.local.set({
-      opencli_target_lease_registry_v2: {
+      toycli_target_lease_registry_v2: {
         version: 2,
         contextId: 'user-default',
         ownedContainers: { interactive: { windowId: null }, automation: { windowId: 1, groupId: 99 } },

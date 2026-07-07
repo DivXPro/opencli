@@ -12,8 +12,8 @@ describe('extractLatestExtensionVersionFromReleases', () => {
         {
           tag_name: 'v1.7.3',
           assets: [
-            { name: 'opencli-extension.zip' },
-            { name: 'opencli-extension-v1.0.2.zip' },
+            { name: 'toycli-extension.zip' },
+            { name: 'toycli-extension-v1.0.2.zip' },
           ],
         },
       ]),
@@ -25,7 +25,7 @@ describe('extractLatestExtensionVersionFromReleases', () => {
       extractLatestExtensionVersionFromReleases([
         {
           tag_name: 'ext-v1.1.0',
-          assets: [{ name: 'opencli-extension.zip' }],
+          assets: [{ name: 'toycli-extension.zip' }],
         },
       ]),
     ).toBe('1.1.0');
@@ -36,7 +36,7 @@ describe('extractLatestExtensionVersionFromReleases', () => {
       extractLatestExtensionVersionFromReleases([
         {
           tag_name: 'v1.7.3',
-          assets: [{ name: 'opencli-extension.zip' }],
+          assets: [{ name: 'toycli-extension.zip' }],
         },
       ]),
     ).toBeUndefined();

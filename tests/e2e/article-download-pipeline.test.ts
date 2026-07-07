@@ -1,7 +1,7 @@
 /**
  * E2E regression tests for the HTML → Markdown article pipeline.
  *
- * Drives real pages through `opencli web read` and asserts the hardened
+ * Drives real pages through `toycli web read` and asserts the hardened
  * converter's invariants hold on the produced file:
  *   - no base64 `data:image/…` leaks
  *   - no <script> / <style> leakage
@@ -54,7 +54,7 @@ async function runWebReadOrSkip(
   url: string,
   label: string,
 ): Promise<WebReadResult | null> {
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-article-e2e-'));
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-article-e2e-'));
   tempDirs.push(tempDir);
 
   const args = ['web', 'read', '--url', url, '--output', tempDir, '--download-images', 'false', '--format', 'json'];

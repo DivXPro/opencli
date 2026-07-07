@@ -6,47 +6,47 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli yuanbao ask <prompt>` | Send a prompt to Yuanbao web chat and wait for the reply |
-| `opencli yuanbao send <prompt>` | Fire-and-forget: send a prompt without waiting for the reply |
-| `opencli yuanbao new` | Start a new Yuanbao conversation |
-| `opencli yuanbao status` | Check login state, current session, and current model |
-| `opencli yuanbao read` | Read messages in the current Yuanbao conversation |
-| `opencli yuanbao history` | List recent conversations from the Yuanbao sidebar |
-| `opencli yuanbao detail <id>` | Open a Yuanbao conversation by ID and read its messages |
+| `toycli yuanbao ask <prompt>` | Send a prompt to Yuanbao web chat and wait for the reply |
+| `toycli yuanbao send <prompt>` | Fire-and-forget: send a prompt without waiting for the reply |
+| `toycli yuanbao new` | Start a new Yuanbao conversation |
+| `toycli yuanbao status` | Check login state, current session, and current model |
+| `toycli yuanbao read` | Read messages in the current Yuanbao conversation |
+| `toycli yuanbao history` | List recent conversations from the Yuanbao sidebar |
+| `toycli yuanbao detail <id>` | Open a Yuanbao conversation by ID and read its messages |
 
 ## Usage Examples
 
 ```bash
 # Start a fresh chat
-opencli yuanbao new
+toycli yuanbao new
 
 # Basic ask (internet search on by default, deep thinking off by default)
-opencli yuanbao ask "你好"
+toycli yuanbao ask "你好"
 
 # Wait longer for a longer answer
-opencli yuanbao ask "帮我总结这篇文章" --timeout 90
+toycli yuanbao ask "帮我总结这篇文章" --timeout 90
 
 # Disable internet search explicitly
-opencli yuanbao ask "你好" --search false
+toycli yuanbao ask "你好" --search false
 
 # Enable deep thinking explicitly
-opencli yuanbao ask "你好" --think true
+toycli yuanbao ask "你好" --think true
 
 # Fire-and-forget send, then read the reply later via `read`
-opencli yuanbao send "解释一下量子纠缠"
+toycli yuanbao send "解释一下量子纠缠"
 
 # Inspect login + current session state
-opencli yuanbao status
+toycli yuanbao status
 
 # Read the visible conversation
-opencli yuanbao read
+toycli yuanbao read
 
 # List recent conversations from the sidebar
-opencli yuanbao history --limit 10
+toycli yuanbao history --limit 10
 
 # Open a conversation by URL or "<agentId>/<convId>" pair
-opencli yuanbao detail "https://yuanbao.tencent.com/chat/naQivTmsDa/b1118732-15ca-42cc-bc9a-e40090ccfb8c"
-opencli yuanbao detail "naQivTmsDa/b1118732-15ca-42cc-bc9a-e40090ccfb8c"
+toycli yuanbao detail "https://yuanbao.tencent.com/chat/naQivTmsDa/b1118732-15ca-42cc-bc9a-e40090ccfb8c"
+toycli yuanbao detail "naQivTmsDa/b1118732-15ca-42cc-bc9a-e40090ccfb8c"
 ```
 
 ## Options

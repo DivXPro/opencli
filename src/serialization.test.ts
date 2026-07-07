@@ -55,14 +55,14 @@ describe('formatRegistryHelpText', () => {
       args: [],
     };
 
-    expect(formatCommandExample(cmd)).toBe('opencli bilibili hot -f yaml');
+    expect(formatCommandExample(cmd)).toBe('toycli bilibili hot -f yaml');
     expect(serializeCommand(cmd)).toMatchObject({
       command: 'bilibili/hot',
       access: 'read',
-      example: 'opencli bilibili hot -f yaml',
+      example: 'toycli bilibili hot -f yaml',
     });
     expect(formatRegistryHelpText(cmd)).toContain('Access: read');
-    expect(formatRegistryHelpText(cmd)).toContain('Example: opencli bilibili hot -f yaml');
+    expect(formatRegistryHelpText(cmd)).toContain('Example: toycli bilibili hot -f yaml');
     expect(formatRegistryHelpText(cmd)).not.toContain('Strategy:');
   });
 

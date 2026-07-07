@@ -32,7 +32,7 @@ export const askCommand = cli({
         const timeoutSeconds = requirePositiveInt(
             Number(kwargs.timeout ?? 120),
             'claude ask --timeout',
-            'Example: opencli claude ask "hello" --timeout 120',
+            'Example: toycli claude ask "hello" --timeout 120',
         );
         const timeoutMs = timeoutSeconds * 1000;
         const wantThink = parseBoolFlag(kwargs.think);
@@ -71,7 +71,7 @@ export const askCommand = cli({
         // an existing conversation. Skip it when we resumed a prior thread.
         const currentUrl = await page.evaluate('window.location.href') || '';
         const inConversation = currentUrl.includes('/chat/');
-        const modelExplicit = kwargs.__opencliOptionSources?.model === 'cli';
+        const modelExplicit = kwargs.__toycliOptionSources?.model === 'cli';
 
         const wantModel = kwargs.model || 'sonnet';
         if (inConversation && modelExplicit) {

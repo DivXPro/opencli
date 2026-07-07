@@ -8,46 +8,46 @@ Browse and search **1point3acres** — a Discuz!-based BBS popular for North Ame
 
 | Command | Description | Auth |
 |---------|-------------|------|
-| `opencli 1point3acres hot` | Today's hot threads (by heat) | Public |
-| `opencli 1point3acres latest` | Newest threads (by post time, desc) | Public |
-| `opencli 1point3acres digest` | Editor-picked / featured threads | Public |
-| `opencli 1point3acres forums` | List all forums (fid + name) | Public |
-| `opencli 1point3acres forum <fid>` | List threads in a specific forum | Public |
-| `opencli 1point3acres thread <tid>` | Thread detail + replies | Public |
-| `opencli 1point3acres user <who>` | User profile (group / points / 大米 / posts) | Public |
-| `opencli 1point3acres search <query>` | Full-text search | Cookie |
-| `opencli 1point3acres notifications` | Site notifications (replies / mentions / reviews) | Cookie |
+| `toycli 1point3acres hot` | Today's hot threads (by heat) | Public |
+| `toycli 1point3acres latest` | Newest threads (by post time, desc) | Public |
+| `toycli 1point3acres digest` | Editor-picked / featured threads | Public |
+| `toycli 1point3acres forums` | List all forums (fid + name) | Public |
+| `toycli 1point3acres forum <fid>` | List threads in a specific forum | Public |
+| `toycli 1point3acres thread <tid>` | Thread detail + replies | Public |
+| `toycli 1point3acres user <who>` | User profile (group / points / 大米 / posts) | Public |
+| `toycli 1point3acres search <query>` | Full-text search | Cookie |
+| `toycli 1point3acres notifications` | Site notifications (replies / mentions / reviews) | Cookie |
 
 ## Usage Examples
 
 ```bash
 # Today's hot threads
-opencli 1point3acres hot --limit 10
+toycli 1point3acres hot --limit 10
 
 # Newest posts in the overseas-job-referral forum (fid=198)
-opencli 1point3acres forum 198 --limit 20
+toycli 1point3acres forum 198 --limit 20
 
 # Read a thread (tid comes from any listing's `tid` column)
-opencli 1point3acres thread 1158360 --limit 10
+toycli 1point3acres thread 1158360 --limit 10
 
 # Lookup a user (numeric → uid, otherwise username)
-opencli 1point3acres user 12345
-opencli 1point3acres user some-username
+toycli 1point3acres user 12345
+toycli 1point3acres user some-username
 
 # Filter the forum list by keyword
-opencli 1point3acres forums --filter 面经
+toycli 1point3acres forums --filter 面经
 
 # Search the site (requires login)
-opencli 1point3acres search "OPT extension" --limit 10
+toycli 1point3acres search "OPT extension" --limit 10
 
 # Notifications (requires login)
-opencli 1point3acres notifications --kind mypost --limit 20
+toycli 1point3acres notifications --kind mypost --limit 20
 ```
 
 ## Common Forum IDs
 
 `145` (海外面经) · `198` (海外职位内推) · `27` (研究生申请) · `28` (博士申请) · `82` (NIW / EB-1A 移民).
-Use `opencli 1point3acres forums` to see the full list.
+Use `toycli 1point3acres forums` to see the full list.
 
 ## Output Columns
 

@@ -14,7 +14,7 @@ export const BLOOMBERG_FEEDS = {
 // Note: the Businessweek RSS feed (feeds.bloomberg.com/businessweek/news.rss) is now served
 // empty by Bloomberg, so the `businessweek` command reads the section page instead (see
 // businessweek.js). Other sections still publish working RSS feeds.
-const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; opencli)';
+const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; toycli)';
 // Bloomberg's edge occasionally serves a transient empty/non-OK RSS response under load; a
 // couple of quick retries turn those intermittent misses into a successful fetch instead of a
 // hard NOT_FOUND. A feed that is genuinely empty still surfaces NOT_FOUND after the retries.

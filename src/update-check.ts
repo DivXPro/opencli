@@ -19,12 +19,12 @@ import * as path from 'node:path';
 import * as os from 'node:os';
 import { PKG_VERSION } from './version.js';
 
-const CACHE_DIR = path.join(os.homedir(), '.opencli');
+const CACHE_DIR = path.join(os.homedir(), '.toycli');
 const CACHE_FILE = path.join(CACHE_DIR, 'update-check.json');
 const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24h
 const EXTENSION_STALE_MS = 7 * 24 * 60 * 60 * 1000; // 7d
 const NPM_REGISTRY_URL = 'https://registry.npmjs.org/@toy-box/opencli/latest';
-const GITHUB_RELEASES_URL = 'https://api.github.com/repos/scopai/OpenCLI/releases?per_page=20';
+const GITHUB_RELEASES_URL = 'https://api.github.com/repos/scopai/ToyCLI/releases?per_page=20';
 
 interface UpdateCache {
   // CLI npm fetch fields — present once `checkForUpdateBackground` has succeeded.
@@ -115,7 +115,7 @@ function buildUpdateNotices({ cliVersion, cache, now }: NoticeInputs): NoticeLin
   ) {
     lines.extension =
       `\n  Extension update available: v${currentExtensionVersion} → v${latestExtensionVersion}\n` +
-      `  Download: https://github.com/scopai/opencli/releases\n`;
+      `  Download: https://github.com/toy-box/toycli/releases\n`;
   }
   return lines;
 }
@@ -149,7 +149,7 @@ export function registerUpdateNoticeOnExit(): void {
 function extractLatestExtensionVersionFromReleases(releases: GitHubRelease[]): string | undefined {
   for (const release of releases) {
     for (const asset of release.assets ?? []) {
-      const assetMatch = asset.name.match(/^opencli-extension-v(.+)\.zip$/);
+      const assetMatch = asset.name.match(/^toycli-extension-v(.+)\.zip$/);
       if (assetMatch) return assetMatch[1];
     }
 
@@ -166,7 +166,7 @@ async function fetchLatestExtensionVersion(): Promise<string | undefined> {
     const timer = setTimeout(() => controller.abort(), 3000);
     const res = await fetch(GITHUB_RELEASES_URL, {
       signal: controller.signal,
-      headers: { 'User-Agent': `opencli/${PKG_VERSION}`, Accept: 'application/vnd.github+json' },
+      headers: { 'User-Agent': `toycli/${PKG_VERSION}`, Accept: 'application/vnd.github+json' },
     });
     clearTimeout(timer);
     if (!res.ok) return undefined;
@@ -191,7 +191,7 @@ export function checkForUpdateBackground(): void {
       const timer = setTimeout(() => controller.abort(), 3000);
       const res = await fetch(NPM_REGISTRY_URL, {
         signal: controller.signal,
-        headers: { 'User-Agent': `opencli/${PKG_VERSION}` },
+        headers: { 'User-Agent': `toycli/${PKG_VERSION}` },
       });
       clearTimeout(timer);
       if (!res.ok) return;
@@ -223,7 +223,7 @@ export function recordExtensionVersion(version: string): void {
 
 /**
  * Get the cached latest extension version (if available).
- * Used by `opencli doctor` to report extension updates.
+ * Used by `toycli doctor` to report extension updates.
  */
 export function getCachedLatestExtensionVersion(): string | undefined {
   return _cache?.latestExtensionVersion;

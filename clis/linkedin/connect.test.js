@@ -85,7 +85,7 @@ describe('linkedin connect helpers', () => {
             .toBe('https://www.linkedin.com/in/jane/');
         expect(canonicalizeLinkedInProfileUrl('https://ca.linkedin.com/in/jane/?mini=true#x'))
             .toBe('https://www.linkedin.com/in/jane/');
-        expect(canonicalizeLinkedInProfileUrl('https://www.linkedin.com/company/opencli/')).toBe('');
+        expect(canonicalizeLinkedInProfileUrl('https://www.linkedin.com/company/toycli/')).toBe('');
         expect(canonicalizeLinkedInProfileUrl('https://evil-linkedin.com/in/jane/')).toBe('');
         expect(canonicalizeLinkedInProfileUrl('http://www.linkedin.com/in/jane/')).toBe('');
     });
@@ -226,7 +226,7 @@ describe('linkedin connect command', () => {
         const page = makeFakePage({});
 
         await expect(command.func(page, {
-            'profile-url': 'https://www.linkedin.com/company/opencli/',
+            'profile-url': 'https://www.linkedin.com/company/toycli/',
             'expected-name': 'Jane Doe',
             send: true,
         })).rejects.toBeInstanceOf(ArgumentError);

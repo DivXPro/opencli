@@ -36,7 +36,7 @@ function jsonResponse(body) {
 }
 
 async function withTempMarkdown(markdown, fn) {
-    const dir = await mkdtemp(join(tmpdir(), 'opencli-confluence-'));
+    const dir = await mkdtemp(join(tmpdir(), 'toycli-confluence-'));
     const file = join(dir, 'doc.md');
     await writeFile(file, markdown);
     try {

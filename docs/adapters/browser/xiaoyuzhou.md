@@ -6,41 +6,41 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli xiaoyuzhou podcast` | View a podcast profile (requires local credentials) |
-| `opencli xiaoyuzhou podcast-episodes` | List podcast episodes (requires local credentials) |
-| `opencli xiaoyuzhou episode` | View episode details (requires local credentials) |
-| `opencli xiaoyuzhou download` | Download episode audio (requires local credentials) |
-| `opencli xiaoyuzhou transcript` | Download transcript JSON and extracted text (requires local credentials) |
+| `toycli xiaoyuzhou podcast` | View a podcast profile (requires local credentials) |
+| `toycli xiaoyuzhou podcast-episodes` | List podcast episodes (requires local credentials) |
+| `toycli xiaoyuzhou episode` | View episode details (requires local credentials) |
+| `toycli xiaoyuzhou download` | Download episode audio (requires local credentials) |
+| `toycli xiaoyuzhou transcript` | Download transcript JSON and extracted text (requires local credentials) |
 
 ## Usage Examples
 
 ```bash
 # Podcast profile
-opencli xiaoyuzhou podcast 6013f9f58e2f7ee375cf4216
+toycli xiaoyuzhou podcast 6013f9f58e2f7ee375cf4216
 
 # Recent episodes
-opencli xiaoyuzhou podcast-episodes 6013f9f58e2f7ee375cf4216 --limit 5
+toycli xiaoyuzhou podcast-episodes 6013f9f58e2f7ee375cf4216 --limit 5
 
 # Episode details
-opencli xiaoyuzhou episode 69b3b675772ac2295bfc01d0
+toycli xiaoyuzhou episode 69b3b675772ac2295bfc01d0
 
 # Download episode audio
-opencli xiaoyuzhou download 69b3b675772ac2295bfc01d0 --output ./xiaoyuzhou
+toycli xiaoyuzhou download 69b3b675772ac2295bfc01d0 --output ./xiaoyuzhou
 
 # Download transcript JSON + text
-opencli xiaoyuzhou transcript 69dd0c98e2c8be31551f6a33 --output ./xiaoyuzhou-transcripts
+toycli xiaoyuzhou transcript 69dd0c98e2c8be31551f6a33 --output ./xiaoyuzhou-transcripts
 
 # JSON output
-opencli xiaoyuzhou episode 69b3b675772ac2295bfc01d0 -f json
+toycli xiaoyuzhou episode 69b3b675772ac2295bfc01d0 -f json
 
 # Verbose mode
-opencli xiaoyuzhou transcript 69dd0c98e2c8be31551f6a33 -v
+toycli xiaoyuzhou transcript 69dd0c98e2c8be31551f6a33 -v
 ```
 
 ## Prerequisites
 
 - No browser required — uses the authenticated Xiaoyuzhou API
-- All commands require local Xiaoyuzhou app credentials in `~/.opencli/xiaoyuzhou.json`
+- All commands require local Xiaoyuzhou app credentials in `~/.toycli/xiaoyuzhou.json`
 
 Example credential file:
 

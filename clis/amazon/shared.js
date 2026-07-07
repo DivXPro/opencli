@@ -32,21 +32,21 @@ const AMAZON_RANKING_SPECS = {
         rootUrl: BESTSELLERS_URL,
         pathPattern: /(?:^|\/)zgbs(?:\/|$)/i,
         invalidInputMessage: 'amazon bestsellers expects a best sellers URL or /zgbs path',
-        invalidInputHint: 'Example: opencli amazon bestsellers https://www.amazon.com/Best-Sellers/zgbs',
+        invalidInputHint: 'Example: toycli amazon bestsellers https://www.amazon.com/Best-Sellers/zgbs',
     },
     new_releases: {
         commandName: 'new-releases',
         rootUrl: NEW_RELEASES_URL,
         pathPattern: /\/gp\/new-releases(?:\/|$)/i,
         invalidInputMessage: 'amazon new-releases expects a new releases URL or /gp/new-releases path',
-        invalidInputHint: 'Example: opencli amazon new-releases https://www.amazon.com/gp/new-releases',
+        invalidInputHint: 'Example: toycli amazon new-releases https://www.amazon.com/gp/new-releases',
     },
     movers_shakers: {
         commandName: 'movers-shakers',
         rootUrl: MOVERS_SHAKERS_URL,
         pathPattern: /\/gp\/movers-and-shakers(?:\/|$)/i,
         invalidInputMessage: 'amazon movers-shakers expects a movers-and-shakers URL or /gp/movers-and-shakers path',
-        invalidInputHint: 'Example: opencli amazon movers-shakers https://www.amazon.com/gp/movers-and-shakers',
+        invalidInputHint: 'Example: toycli amazon movers-shakers https://www.amazon.com/gp/movers-and-shakers',
     },
 };
 export function cleanText(value) {
@@ -94,14 +94,14 @@ export function extractAsin(input) {
 export function buildProductUrl(input) {
     const asin = extractAsin(input);
     if (!asin) {
-        throw new ArgumentError('amazon product expects an ASIN or product URL', 'Example: opencli amazon product B0FJS72893');
+        throw new ArgumentError('amazon product expects an ASIN or product URL', 'Example: toycli amazon product B0FJS72893');
     }
     return `${PRODUCT_URL_PREFIX}${asin}`;
 }
 export function buildDiscussionUrl(input) {
     const asin = extractAsin(input);
     if (!asin) {
-        throw new ArgumentError('amazon discussion expects an ASIN or product URL', 'Example: opencli amazon discussion B0FJS72893');
+        throw new ArgumentError('amazon discussion expects an ASIN or product URL', 'Example: toycli amazon discussion B0FJS72893');
     }
     return `${DISCUSSION_URL_PREFIX}${asin}`;
 }
@@ -306,7 +306,7 @@ export function isRobotState(state) {
 export function buildChallengeHint(action) {
     return [
         `Open a clean Amazon ${action} page in the shared Chrome profile and clear any robot check first.`,
-        'If you are using CDP, set OPENCLI_CDP_TARGET=amazon.com and avoid parallel Amazon commands against the same browser target.',
+        'If you are using CDP, set TOYCLI_CDP_TARGET=amazon.com and avoid parallel Amazon commands against the same browser target.',
     ].join(' ');
 }
 export async function readPageState(page) {

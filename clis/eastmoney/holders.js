@@ -1,7 +1,7 @@
 // eastmoney holders — top-10 float shareholders of an A-share (F10 data).
 //
-//   opencli eastmoney holders 600519
-//   opencli eastmoney holders sh600519 --limit 10
+//   toycli eastmoney holders 600519
+//   toycli eastmoney holders sh600519 --limit 10
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

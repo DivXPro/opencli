@@ -1,15 +1,15 @@
-# Using OpenCLI with Android Chrome
+# Using ToyCLI with Android Chrome
 
-OpenCLI can control Chrome on a connected Android device via **ADB port forwarding** and **CDPBridge** — no extra tools or custom builds required. The same adapters that run on desktop Chrome work identically on Android, reusing whatever cookies are already in the mobile browser.
+ToyCLI can control Chrome on a connected Android device via **ADB port forwarding** and **CDPBridge** — no extra tools or custom builds required. The same adapters that run on desktop Chrome work identically on Android, reusing whatever cookies are already in the mobile browser.
 
 ---
 
 ## How It Works
 
-Android Chrome supports [remote debugging via CDP](https://developer.chrome.com/docs/devtools/remote-debugging/). The device exposes a local Unix socket that ADB can forward to a TCP port on your machine. OpenCLI's `CDPBridge` then connects to that port exactly as it would to any other CDP endpoint.
+Android Chrome supports [remote debugging via CDP](https://developer.chrome.com/docs/devtools/remote-debugging/). The device exposes a local Unix socket that ADB can forward to a TCP port on your machine. ToyCLI's `CDPBridge` then connects to that port exactly as it would to any other CDP endpoint.
 
 ```
-OpenCLI (CDPBridge)
+ToyCLI (CDPBridge)
     │  WebSocket (CDP)
     ▼
 localhost:9222                ← ADB forward
@@ -32,7 +32,7 @@ No Chrome extension, no daemon process — just a direct CDP WebSocket connectio
 
 **On your machine:**
 - [Android Debug Bridge (ADB)](https://developer.android.com/tools/adb) installed and on `$PATH`
-- OpenCLI installed (`npm install -g opencli`)
+- ToyCLI installed (`npm install -g toycli`)
 
 ---
 
@@ -77,39 +77,39 @@ A successful response lists the open tabs:
 ]
 ```
 
-### 4. Run any OpenCLI command
+### 4. Run any ToyCLI command
 
 ```bash
-export OPENCLI_CDP_ENDPOINT=http://localhost:9222
-opencli hackernews top --limit 5
+export TOYCLI_CDP_ENDPOINT=http://localhost:9222
+toycli hackernews top --limit 5
 ```
 
 ---
 
 ## Targeting a Specific Tab
 
-When multiple tabs are open, `CDPBridge` picks the best one automatically using a scoring algorithm (prefer `type=page`, real URLs over `about:blank`, etc.). To override this, set `OPENCLI_CDP_TARGET` to a substring of the tab's title or URL:
+When multiple tabs are open, `CDPBridge` picks the best one automatically using a scoring algorithm (prefer `type=page`, real URLs over `about:blank`, etc.). To override this, set `TOYCLI_CDP_TARGET` to a substring of the tab's title or URL:
 
 ```bash
-OPENCLI_CDP_TARGET="twitter" opencli twitter trending
+TOYCLI_CDP_TARGET="twitter" toycli twitter trending
 ```
 
 You can also connect directly to a specific tab's WebSocket URL (from `/json`):
 
 ```bash
-OPENCLI_CDP_ENDPOINT=ws://localhost:9222/devtools/page/3941 opencli ...
+TOYCLI_CDP_ENDPOINT=ws://localhost:9222/devtools/page/3941 toycli ...
 ```
 
 ---
 
 ## Using Login-Required Adapters
 
-Adapters that use the `cookie` strategy (most social/content sites) need you to be logged in on the Android device. The cookies are already in Android Chrome — OpenCLI reads them automatically over CDP.
+Adapters that use the `cookie` strategy (most social/content sites) need you to be logged in on the Android device. The cookies are already in Android Chrome — ToyCLI reads them automatically over CDP.
 
 To check whether an adapter requires login:
 
 ```bash
-opencli zhihu hot --help
+toycli zhihu hot --help
 # Strategy: cookie | Browser: yes | Domain: www.zhihu.com
 ```
 
@@ -154,8 +154,8 @@ adb -s <device1-serial> forward tcp:9222 localabstract:chrome_devtools_remote
 adb -s <device2-serial> forward tcp:9223 localabstract:chrome_devtools_remote
 
 # Run commands targeting each device
-OPENCLI_CDP_ENDPOINT=http://localhost:9222 opencli twitter trending
-OPENCLI_CDP_ENDPOINT=http://localhost:9223 opencli twitter trending
+TOYCLI_CDP_ENDPOINT=http://localhost:9222 toycli twitter trending
+TOYCLI_CDP_ENDPOINT=http://localhost:9223 toycli twitter trending
 ```
 
 ---

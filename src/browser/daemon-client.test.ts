@@ -33,7 +33,7 @@ describe('daemon-client', () => {
       extensionVersion: '1.2.3',
       pending: 0,
       memoryMB: 32,
-      port: 19825,
+      port: 29825,
     };
     const fetchMock = vi.mocked(fetch);
     fetchMock.mockResolvedValue({
@@ -45,7 +45,7 @@ describe('daemon-client', () => {
     expect(fetchMock).toHaveBeenCalledWith(
       expect.stringMatching(/\/status$/),
       expect.objectContaining({
-        headers: expect.objectContaining({ 'X-OpenCLI': '1' }),
+        headers: expect.objectContaining({ 'X-ToyCLI': '1' }),
       }),
     );
   });
@@ -65,7 +65,7 @@ describe('daemon-client', () => {
       expect.stringMatching(/\/shutdown$/),
       expect.objectContaining({
         method: 'POST',
-        headers: expect.objectContaining({ 'X-OpenCLI': '1' }),
+        headers: expect.objectContaining({ 'X-ToyCLI': '1' }),
       }),
     );
   });
@@ -84,7 +84,7 @@ describe('daemon-client', () => {
       extensionConnected: false,
       pending: 0,
       memoryMB: 16,
-      port: 19825,
+      port: 29825,
     };
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
@@ -103,7 +103,7 @@ describe('daemon-client', () => {
       extensionVersion: '1.2.3',
       pending: 0,
       memoryMB: 32,
-      port: 19825,
+      port: 29825,
     };
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
@@ -126,7 +126,7 @@ describe('daemon-client', () => {
       ],
       pending: 0,
       memoryMB: 32,
-      port: 19825,
+      port: 29825,
     };
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
@@ -146,7 +146,7 @@ describe('daemon-client', () => {
         extensionConnected: true,
         pending: 0,
         memoryMB: 1,
-        port: 19825,
+        port: 29825,
       }),
     } as Response);
 
@@ -155,9 +155,9 @@ describe('daemon-client', () => {
     expect(vi.mocked(fetch).mock.calls[0][0]).toMatch(/\/status\?contextId=work$/);
   });
 
-  it('rejects OPENCLI_DAEMON_PORT so CLI and extension cannot split bridge ports', async () => {
+  it('rejects TOYCLI_DAEMON_PORT so CLI and extension cannot split bridge ports', async () => {
     vi.resetModules();
-    vi.stubEnv('OPENCLI_DAEMON_PORT', '19999');
+    vi.stubEnv('TOYCLI_DAEMON_PORT', '19999');
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({
@@ -167,19 +167,19 @@ describe('daemon-client', () => {
         extensionConnected: true,
         pending: 0,
         memoryMB: 1,
-        port: 19825,
+        port: 29825,
       }),
     } as Response);
 
     const freshClient = await import('./daemon-client.js');
-    await expect(freshClient.fetchDaemonStatus()).rejects.toThrow('OPENCLI_DAEMON_PORT is no longer supported');
+    await expect(freshClient.fetchDaemonStatus()).rejects.toThrow('TOYCLI_DAEMON_PORT is no longer supported');
 
     expect(vi.mocked(fetch)).not.toHaveBeenCalled();
   });
 
-  it('tolerates OPENCLI_DAEMON_PORT when it equals the default port (launchers inject it, #2068)', async () => {
+  it('tolerates TOYCLI_DAEMON_PORT when it equals the default port (launchers inject it, #2068)', async () => {
     vi.resetModules();
-    vi.stubEnv('OPENCLI_DAEMON_PORT', '19825');
+    vi.stubEnv('TOYCLI_DAEMON_PORT', '29825');
     const status = {
       ok: true,
       pid: 1,
@@ -187,7 +187,7 @@ describe('daemon-client', () => {
       extensionConnected: true,
       pending: 0,
       memoryMB: 1,
-      port: 19825,
+      port: 29825,
     };
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
@@ -219,8 +219,8 @@ describe('daemon-client', () => {
     expect(ids[0]).not.toBe(ids[1]);
   });
 
-  it('sendCommand forwards OPENCLI_PROFILE as a hard contextId requirement', async () => {
-    vi.stubEnv('OPENCLI_PROFILE', 'work');
+  it('sendCommand forwards TOYCLI_PROFILE as a hard contextId requirement', async () => {
+    vi.stubEnv('TOYCLI_PROFILE', 'work');
     vi.spyOn(Date, 'now').mockReturnValue(1_763_000_000_000);
     vi.mocked(fetch).mockResolvedValue({
       status: 200,
@@ -238,13 +238,13 @@ describe('daemon-client', () => {
     const fs = await import('node:fs');
     const os = await import('node:os');
     const path = await import('node:path');
-    const configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-dc-profile-'));
+    const configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-dc-profile-'));
     fs.writeFileSync(
       path.join(configDir, 'browser-profiles.json'),
       JSON.stringify({ version: 1, aliases: {}, defaultContextId: 'zvypsyje' }),
     );
-    vi.stubEnv('OPENCLI_CONFIG_DIR', configDir);
-    vi.stubEnv('OPENCLI_PROFILE', '');
+    vi.stubEnv('TOYCLI_CONFIG_DIR', configDir);
+    vi.stubEnv('TOYCLI_PROFILE', '');
     try {
       vi.mocked(fetch).mockResolvedValue({
         status: 200,
@@ -261,8 +261,8 @@ describe('daemon-client', () => {
     }
   });
 
-  it('sendCommand uses explicit windowMode before OPENCLI_WINDOW env fallback', async () => {
-    vi.stubEnv('OPENCLI_WINDOW', 'foreground');
+  it('sendCommand uses explicit windowMode before TOYCLI_WINDOW env fallback', async () => {
+    vi.stubEnv('TOYCLI_WINDOW', 'foreground');
     vi.mocked(fetch).mockResolvedValue({
       status: 200,
       json: () => Promise.resolve({ id: 'server', ok: true, data: 'ok' }),
@@ -347,7 +347,7 @@ describe('daemon-client', () => {
           ...(extensionVersion && { extensionVersion }),
           pending: 0,
           memoryMB: 0,
-          port: 19825,
+          port: 29825,
         },
       },
       spawnedProcess: null,
@@ -386,7 +386,7 @@ describe('daemon-client', () => {
   it('sendCommand runs full bridge ensure on a pre-connect TypeError (ECONNREFUSED) before resending', async () => {
     const ensureSpy = mockEnsureReady();
     const refused = new TypeError('fetch failed');
-    (refused as { cause?: unknown }).cause = Object.assign(new Error('connect ECONNREFUSED 127.0.0.1:19825'), { code: 'ECONNREFUSED' });
+    (refused as { cause?: unknown }).cause = Object.assign(new Error('connect ECONNREFUSED 127.0.0.1:29825'), { code: 'ECONNREFUSED' });
     const fetchMock = vi.mocked(fetch);
     fetchMock
       .mockRejectedValueOnce(refused)
@@ -498,7 +498,7 @@ describe('daemon-client', () => {
         ok: false,
         errorCode: 'profile_required',
         error: 'Multiple Browser Bridge profiles are connected; choose one with --profile.',
-        errorHint: 'Run opencli profile list, then opencli profile use <name>.',
+        errorHint: 'Run toycli profile list, then toycli profile use <name>.',
       }),
     } as Response);
 

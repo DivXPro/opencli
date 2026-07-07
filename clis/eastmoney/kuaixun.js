@@ -1,7 +1,7 @@
 // eastmoney kuaixun — 7x24 real-time market news feed.
 //
-//   opencli eastmoney kuaixun
-//   opencli eastmoney kuaixun --column 102 --limit 30
+//   toycli eastmoney kuaixun
+//   toycli eastmoney kuaixun --column 102 --limit 30
 
 import { cli, Strategy } from '@toy-box/opencli/registry';
 import { CliError } from '@toy-box/opencli/errors';

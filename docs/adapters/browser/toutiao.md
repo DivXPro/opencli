@@ -4,21 +4,21 @@
 
 | Command | Mode | Domain | Description |
 |---------|------|--------|-------------|
-| `opencli toutiao articles` | 🔐 Browser | `mp.toutiao.com` | 头条号创作者后台文章列表及数据（需登录） |
-| `opencli toutiao hot` | 🌐 Public | `www.toutiao.com` | 今日头条首页热榜（公开，无需登录） |
+| `toycli toutiao articles` | 🔐 Browser | `mp.toutiao.com` | 头条号创作者后台文章列表及数据（需登录） |
+| `toycli toutiao hot` | 🌐 Public | `www.toutiao.com` | 今日头条首页热榜（公开，无需登录） |
 
 ## Usage Examples
 
 ```bash
 # Public hot board (no login)
-opencli toutiao hot
-opencli toutiao hot --limit 10
-opencli toutiao hot -f json
+toycli toutiao hot
+toycli toutiao hot --limit 10
+toycli toutiao hot -f json
 
 # Creator dashboard articles (logged-in)
-opencli toutiao articles
-opencli toutiao articles --page 2
-opencli toutiao articles --page 1 -f json
+toycli toutiao articles
+toycli toutiao articles --page 2
+toycli toutiao articles --page 1 -f json
 ```
 
 ## Output

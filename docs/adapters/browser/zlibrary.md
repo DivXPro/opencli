@@ -6,20 +6,20 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli zlibrary search <query>` | Search Z-Library books by title, author, ISBN, or keyword |
-| `opencli zlibrary info <url>` | Read a Z-Library book page and list available PDF/EPUB download links |
+| `toycli zlibrary search <query>` | Search Z-Library books by title, author, ISBN, or keyword |
+| `toycli zlibrary info <url>` | Read a Z-Library book page and list available PDF/EPUB download links |
 
 ## Usage Examples
 
 ```bash
 # Search books
-opencli zlibrary search "machine learning" --limit 5
+toycli zlibrary search "machine learning" --limit 5
 
 # Get book download formats from a result URL
-opencli zlibrary info "https://z-library.im/book/..."
+toycli zlibrary info "https://z-library.im/book/..."
 
 # JSON output
-opencli zlibrary search "9780131103627" -f json
+toycli zlibrary search "9780131103627" -f json
 ```
 
 ## Prerequisites

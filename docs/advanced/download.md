@@ -1,6 +1,6 @@
 # Download Support
 
-OpenCLI supports downloading images, videos, and articles from supported platforms.
+ToyCLI supports downloading images, videos, and articles from supported platforms.
 
 ## Supported Platforms
 
@@ -29,39 +29,39 @@ brew install yt-dlp
 
 ```bash
 # Download images/videos from Xiaohongshu note
-opencli xiaohongshu download "https://www.xiaohongshu.com/search_result/<id>?xsec_token=..." --output ./xhs
-opencli xiaohongshu download "https://xhslink.com/..." --output ./xhs
+toycli xiaohongshu download "https://www.xiaohongshu.com/search_result/<id>?xsec_token=..." --output ./xhs
+toycli xiaohongshu download "https://xhslink.com/..." --output ./xhs
 
 # Download Bilibili video (requires yt-dlp)
-opencli bilibili download --bvid BV1xxx --output ./bilibili
-opencli bilibili download --bvid BV1xxx --quality 1080p
+toycli bilibili download --bvid BV1xxx --output ./bilibili
+toycli bilibili download --bvid BV1xxx --quality 1080p
 
 # Download Twitter media from user
-opencli twitter download elonmusk --limit 20 --output ./twitter
+toycli twitter download elonmusk --limit 20 --output ./twitter
 
 # Download single tweet media
-opencli twitter download --tweet-url "https://x.com/user/status/123" --output ./twitter
+toycli twitter download --tweet-url "https://x.com/user/status/123" --output ./twitter
 
 # Download Douban posters / stills
-opencli douban download 30382501 --output ./douban
+toycli douban download 30382501 --output ./douban
 
 # Download Xiaoyuzhou episode audio
-opencli xiaoyuzhou download 69b3b675772ac2295bfc01d0 --output ./xiaoyuzhou
+toycli xiaoyuzhou download 69b3b675772ac2295bfc01d0 --output ./xiaoyuzhou
 
 # Download Xiaoyuzhou transcript JSON + text
-opencli xiaoyuzhou transcript 69dd0c98e2c8be31551f6a33 --output ./xiaoyuzhou-transcripts
+toycli xiaoyuzhou transcript 69dd0c98e2c8be31551f6a33 --output ./xiaoyuzhou-transcripts
 
 # Export Zhihu article to Markdown
-opencli zhihu download "https://zhuanlan.zhihu.com/p/xxx" --output ./zhihu
+toycli zhihu download "https://zhuanlan.zhihu.com/p/xxx" --output ./zhihu
 
 # Export with local images
-opencli zhihu download "https://zhuanlan.zhihu.com/p/xxx" --download-images
+toycli zhihu download "https://zhuanlan.zhihu.com/p/xxx" --download-images
 
 # Export WeChat article to Markdown
-opencli weixin download --url "https://mp.weixin.qq.com/s/xxx" --output ./weixin
+toycli weixin download --url "https://mp.weixin.qq.com/s/xxx" --output ./weixin
 ```
 
-`opencli xiaoyuzhou download` and `transcript` require local Xiaoyuzhou credentials in `~/.opencli/xiaoyuzhou.json`.
+`toycli xiaoyuzhou download` and `transcript` require local Xiaoyuzhou credentials in `~/.toycli/xiaoyuzhou.json`.
 
 ## Pipeline Step
 

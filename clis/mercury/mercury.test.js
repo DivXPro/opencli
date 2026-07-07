@@ -13,7 +13,7 @@ let tmpDir;
 let receiptPath;
 
 beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opencli-mercury-test-'));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'toycli-mercury-test-'));
     receiptPath = path.join(tmpDir, 'receipt.png');
     fs.writeFileSync(receiptPath, 'receipt');
 });

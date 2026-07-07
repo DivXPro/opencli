@@ -6,16 +6,16 @@
 
 | Command | Description |
 |---------|-------------|
-| `opencli cnki search <query>` | Search CNKI Overseas papers by keyword |
+| `toycli cnki search <query>` | Search CNKI Overseas papers by keyword |
 
 ## Usage Examples
 
 ```bash
 # Search CNKI papers
-opencli cnki search "large language model"
+toycli cnki search "large language model"
 
 # Limit returned results
-opencli cnki search "retrieval augmented generation" --limit 5
+toycli cnki search "retrieval augmented generation" --limit 5
 ```
 
 ## Prerequisites

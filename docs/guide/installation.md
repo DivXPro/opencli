@@ -14,12 +14,12 @@ npm install -g @toy-box/opencli
 ## Install from Source
 
 ```bash
-git clone git@github.com:jackwener/opencli.git
-cd opencli
+git clone git@github.com:jackwener/toycli.git
+cd toycli
 npm install
 npm run build
 npm link      # Link binary globally
-opencli list  # Now you can use it anywhere!
+toycli list  # Now you can use it anywhere!
 ```
 
 ## Update
@@ -27,26 +27,26 @@ opencli list  # Now you can use it anywhere!
 ```bash
 npm install -g @toy-box/opencli@latest
 
-# If you use the packaged OpenCLI skills, refresh them too
-npx skills add jackwener/opencli
+# If you use the packaged ToyCLI skills, refresh them too
+npx skills add jackwener/toycli
 ```
 
 Or refresh only the skills you actually use:
 
 ```bash
-npx skills add jackwener/opencli --skill opencli-adapter-author
-npx skills add jackwener/opencli --skill opencli-autofix
-npx skills add jackwener/opencli --skill opencli-browser
-npx skills add jackwener/opencli --skill opencli-browser-sitemap
-npx skills add jackwener/opencli --skill opencli-sitemap-author
-npx skills add jackwener/opencli --skill opencli-usage
-npx skills add jackwener/opencli --skill smart-search
+npx skills add jackwener/toycli --skill toycli-adapter-author
+npx skills add jackwener/toycli --skill toycli-autofix
+npx skills add jackwener/toycli --skill toycli-browser
+npx skills add jackwener/toycli --skill toycli-browser-sitemap
+npx skills add jackwener/toycli --skill toycli-sitemap-author
+npx skills add jackwener/toycli --skill toycli-usage
+npx skills add jackwener/toycli --skill smart-search
 ```
 
 ## Verify Installation
 
 ```bash
-opencli --version   # Check version
-opencli list        # List all commands
-opencli doctor      # Diagnose connectivity
+toycli --version   # Check version
+toycli list        # List all commands
+toycli doctor      # Diagnose connectivity
 ```

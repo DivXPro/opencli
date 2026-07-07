@@ -8,38 +8,38 @@ Access **Binance** market data from the terminal via the public API (no authenti
 
 | Command | Description |
 |---------|-------------|
-| `opencli binance price` | Get 24h ticker stats for one symbol |
-| `opencli binance prices` | Get latest prices for all symbols |
-| `opencli binance ticker` | Get 24h ticker stats for all symbols |
-| `opencli binance pairs` | List exchange trading pairs |
-| `opencli binance trades` | Get recent trades for one symbol |
-| `opencli binance depth` | Get order-book depth for one symbol |
-| `opencli binance asks` | Show ask-side depth for one symbol |
-| `opencli binance klines` | Get candlestick data |
-| `opencli binance top` | Show top movers by volume |
-| `opencli binance gainers` | Show top gainers |
-| `opencli binance losers` | Show top losers |
+| `toycli binance price` | Get 24h ticker stats for one symbol |
+| `toycli binance prices` | Get latest prices for all symbols |
+| `toycli binance ticker` | Get 24h ticker stats for all symbols |
+| `toycli binance pairs` | List exchange trading pairs |
+| `toycli binance trades` | Get recent trades for one symbol |
+| `toycli binance depth` | Get order-book depth for one symbol |
+| `toycli binance asks` | Show ask-side depth for one symbol |
+| `toycli binance klines` | Get candlestick data |
+| `toycli binance top` | Show top movers by volume |
+| `toycli binance gainers` | Show top gainers |
+| `toycli binance losers` | Show top losers |
 
 ## Usage Examples
 
 ```bash
 # One symbol, 24h stats
-opencli binance price BTCUSDT
+toycli binance price BTCUSDT
 
 # Latest prices for all pairs
-opencli binance prices
+toycli binance prices
 
 # Recent trades
-opencli binance trades BTCUSDT --limit 20
+toycli binance trades BTCUSDT --limit 20
 
 # Order-book depth
-opencli binance depth BTCUSDT --limit 20
+toycli binance depth BTCUSDT --limit 20
 
 # 1h candles
-opencli binance klines BTCUSDT --interval 1h --limit 50
+toycli binance klines BTCUSDT --interval 1h --limit 50
 
 # JSON output
-opencli binance top -f json
+toycli binance top -f json
 ```
 
 ## Prerequisites

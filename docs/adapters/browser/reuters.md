@@ -10,20 +10,20 @@ Browser Bridge.
 
 | Command | Description |
 |---------|-------------|
-| `opencli reuters search` | Search Reuters articles (`articles-by-search-v2` API) |
-| `opencli reuters article-detail` | Fetch full article body + metadata for a Reuters URL |
+| `toycli reuters search` | Search Reuters articles (`articles-by-search-v2` API) |
+| `toycli reuters article-detail` | Fetch full article body + metadata for a Reuters URL |
 
 ## Usage Examples
 
 ```bash
 # Search the latest Reuters articles
-opencli reuters search "tariff" --limit 10
+toycli reuters search "tariff" --limit 10
 
 # Round-trip from search → detail using the `url` column
-opencli reuters article-detail "https://www.reuters.com/world/..."
+toycli reuters article-detail "https://www.reuters.com/world/..."
 
 # JSON output
-opencli reuters search "tariff" -f json
+toycli reuters search "tariff" -f json
 ```
 
 ## Columns
