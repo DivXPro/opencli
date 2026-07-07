@@ -77,7 +77,7 @@
   binary: tg
   package: tg-cli
   description: "Telegram CLI — local-first sync, search, export via MTProto for AI agents"
-  homepage: "https://github.com/jackwener/tg-cli"
+  homepage: "https://github.com/scopai/tg-cli"
   tags: [telegram, messaging, search, export, ai-agent]
   install:
     default: "uv tool install kabi-tg-cli"
@@ -86,7 +86,7 @@
   binary: discord
   package: discord-cli
   description: "Discord CLI — local-first sync, search, export via SQLite for AI agents"
-  homepage: "https://github.com/jackwener/discord-cli"
+  homepage: "https://github.com/scopai/discord-cli"
   tags: [discord, messaging, search, export, ai-agent]
   install:
     default: "uv tool install kabi-discord-cli"
@@ -95,10 +95,10 @@
   binary: wx
   package: wx-cli
   description: "WeChat local data CLI — sessions, messages, search, contacts, export for AI agents"
-  homepage: "https://github.com/jackwener/wx-cli"
+  homepage: "https://github.com/scopai/wx-cli"
   tags: [wechat, messaging, search, export, ai-agent]
   install:
-    default: "npm install -g @jackwener/wx-cli"
+    default: "npm install -g @scopai/wx-cli"
 
 - name: wrangler
   binary: wrangler
