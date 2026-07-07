@@ -5,7 +5,7 @@ import {
     CommandExecutionError,
     EmptyResultError,
     TimeoutError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import {
     SKILL_VERSION,
     WEREAD_GATEWAY_URL,

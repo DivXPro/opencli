@@ -2,8 +2,8 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ArgumentError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { ArgumentError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './reel.js';
 const tempDirs = [];
 function createTempVideo(name = 'demo.mp4', bytes = Buffer.from('video')) {

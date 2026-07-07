@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { getPostDataJs } from './utils.js';
 /**
  * 即刻搜索适配器

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import { ArgumentError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { ArgumentError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './message-read.js';
 
 function makePage(result) {

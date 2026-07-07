@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { conversationSelectionArgs, openCodexConversation } from './sidebar.js';
 export const readCommand = cli({
     site: 'codex',

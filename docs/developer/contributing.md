@@ -38,8 +38,8 @@ Before you start:
 Built-in adapters are authored in JavaScript. Create a file like `clis/<site>/<command>.js`:
 
 ```javascript
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 cli({
   site: 'mysite',

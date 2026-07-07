@@ -7,8 +7,8 @@
 // Auth: flex-auth (Bearer + X-Server-Id via header — server accepts query too,
 // but CLI uses header). Bugen source-verified.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { buildFetchSnippet } from './in-page.js';
 import { dispatchEvaluateResult } from './errors.js';
 import { SLOCK_SITE, SLOCK_DOMAIN, SLOCK_HOME_URL } from './shared.js';

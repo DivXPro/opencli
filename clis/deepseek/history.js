@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { DEEPSEEK_DOMAIN, getConversationList } from './utils.js';
 
 export const historyCommand = cli({

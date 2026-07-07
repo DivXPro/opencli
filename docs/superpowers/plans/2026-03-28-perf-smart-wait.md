@@ -448,7 +448,7 @@ The current `stepIntercept` uses `generateInterceptorJs`/`generateReadIntercepte
  * Pipeline step: intercept — declarative XHR interception.
  */
 
-import type { IPage } from '@scopai/opencli/types';
+import type { IPage } from '@toy-box/opencli/types';
 import { render, normalizeEvaluateSource } from '../template.js';
 
 export async function stepIntercept(page: IPage | null, params: any, data: any, args: Record<string, any>): Promise<any> {

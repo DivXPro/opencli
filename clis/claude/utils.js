@@ -1,4 +1,4 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const CLAUDE_DOMAIN = 'claude.ai';
 export const CLAUDE_URL = 'https://claude.ai/new';

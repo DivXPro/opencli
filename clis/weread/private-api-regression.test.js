@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { log } from '@scopai/opencli/logger';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { log } from '@toy-box/opencli/logger';
 import { fetchPrivateApi } from './utils.js';
 import './shelf.js';
 describe('weread private API regression', () => {

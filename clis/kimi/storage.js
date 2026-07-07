@@ -5,12 +5,12 @@
 //   cookies         — list JS-visible cookies
 //   idb-list        — list IndexedDB databases on kimi.com
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import { KIMI_DOMAIN, ensureOnKimi } from './_utils.js';
 
 const STORAGE_COLUMNS = ['Field', 'Value', 'Index', 'Key', 'Bytes', 'Name', 'Preview', 'Database', 'Version'];

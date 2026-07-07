@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { EmptyResultError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './creator-stats.js';
 
 describe('xiaohongshu creator-stats', () => {

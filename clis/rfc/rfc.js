@@ -3,8 +3,8 @@
 // Hits `https://datatracker.ietf.org/doc/rfc<N>/doc.json` and projects the
 // agent-useful fields: title, abstract (full text — RFCs don't truncate well),
 // page count, working group, authors, std level, publish date, plus rendered URLs.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { RFC_BASE, requireRfcNumber, rfcFetch, trimDate } from './utils.js';
 
 cli({

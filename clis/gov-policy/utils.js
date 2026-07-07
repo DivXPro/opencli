@@ -1,4 +1,4 @@
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const EMPTY_RESULT_PATTERNS = [
     /没有找到/,

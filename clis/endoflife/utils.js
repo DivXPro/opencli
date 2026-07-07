@@ -2,7 +2,7 @@
 //
 // endoflife.date publishes a free, unauthenticated REST API with cycle / EOL /
 // LTS data for hundreds of products. Docs: https://endoflife.date/docs/api/
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const EOL_BASE = 'https://endoflife.date/api';
 const UA = 'opencli-endoflife-adapter (+https://github.com/jackwener/opencli)';

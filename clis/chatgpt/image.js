@@ -1,9 +1,9 @@
 import * as os from 'node:os';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { saveBase64ToFile } from '@scopai/opencli/utils';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { saveBase64ToFile } from '@toy-box/opencli/utils';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { clearChatGPTDraft, getChatGPTVisibleImageUrls, navigateToProject, normalizeBooleanFlag, prepareChatGPTImagePaths, sendChatGPTMessage, unwrapEvaluateResult, waitForChatGPTImages, getChatGPTImageAssets, uploadChatGPTImages } from './utils.js';
 
 const CHATGPT_DOMAIN = 'chatgpt.com';

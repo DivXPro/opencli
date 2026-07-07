@@ -3,8 +3,8 @@
 // Hits `https://developer.mozilla.org/api/v1/search?q=…&locale=…`. Returns a
 // row per matched doc with title, slug-derived id, summary preview, and the
 // canonical MDN URL.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const MDN_BASE = 'https://developer.mozilla.org';
 const UA = 'opencli-mdn-adapter (+https://github.com/jackwener/opencli)';

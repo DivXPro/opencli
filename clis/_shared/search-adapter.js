@@ -1,4 +1,4 @@
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export function requireSearchQuery(value, label = 'keyword') {
   const query = String(value ?? '').trim();

@@ -1,8 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as crypto from 'node:crypto';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, TimeoutError } from '@toy-box/opencli/errors';
 
 const GROK_URL = 'https://grok.com/';
 const SESSION_HINT = 'Likely login/auth/challenge/session issue in the existing grok.com browser session.';

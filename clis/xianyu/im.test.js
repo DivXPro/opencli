@@ -8,10 +8,10 @@ import {
     normalizeLimit,
     normalizeRank,
 } from './im.js';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import './messages.js';
 import './reply.js';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 
 async function runBrowserScript(html, script, { url = 'https://www.goofish.com/im', beforeEval } = {}) {
     const dom = new JSDOM(html, { url, runScripts: 'outside-only' });

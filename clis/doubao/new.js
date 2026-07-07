@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { DOUBAO_DOMAIN, startNewDoubaoChat } from './utils.js';
 export const newCommand = cli({
     site: 'doubao',

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './attachment-download.js';
 
 function makePage(envelope) {

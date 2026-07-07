@@ -1,5 +1,5 @@
-import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     buildClickInboxConversationEvaluate,
     buildExtractInboxEvaluate,

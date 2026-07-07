@@ -1,8 +1,8 @@
 /**
  * Weibo user-posts — list posts from a user within an optional date range.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { unwrapEvaluateResult } from './utils.js';
 
 const MAX_LIMIT = 100;

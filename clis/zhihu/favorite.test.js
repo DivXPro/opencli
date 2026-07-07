@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './favorite.js';
 describe('zhihu favorite', () => {
     it('registers as a cookie browser command', () => {

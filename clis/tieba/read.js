@@ -1,5 +1,5 @@
-import { EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { buildTiebaReadItems } from './utils.js';
 function getThreadUrl(kwargs) {
     const threadId = String(kwargs.id || '');

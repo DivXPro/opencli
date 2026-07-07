@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 
 const { mockRequestJson, mockLoadCredentials, mockHttpDownload, mockMkdirSync } = vi.hoisted(() => ({
     mockRequestJson: vi.fn(),
@@ -18,12 +18,12 @@ vi.mock('./auth.js', async () => {
     };
 });
 
-vi.mock('@scopai/opencli/download', () => ({
+vi.mock('@toy-box/opencli/download', () => ({
     httpDownload: mockHttpDownload,
     sanitizeFilename: vi.fn((value) => value.replace(/\s+/g, '_')),
 }));
 
-vi.mock('@scopai/opencli/download/progress', () => ({
+vi.mock('@toy-box/opencli/download/progress', () => ({
     formatBytes: vi.fn((size) => `${size} B`),
 }));
 

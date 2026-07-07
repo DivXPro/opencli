@@ -1,6 +1,6 @@
 // server-use.js
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError } from '@toy-box/opencli/errors';
 import { dispatchEvaluateResult } from './errors.js';
 import { SLOCK_SITE, SLOCK_DOMAIN, SLOCK_HOME_URL, SLOCK_API_BASE } from './shared.js';
 import { UUID_RE } from './resolve.js';

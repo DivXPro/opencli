@@ -3,8 +3,8 @@
  * discover clip ids without needing to remember them, and feed them to
  * `opencli suno download`.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import {
     STUDIO_API,
     SUNO_DOMAIN,

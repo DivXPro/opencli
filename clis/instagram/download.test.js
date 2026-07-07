@@ -1,13 +1,13 @@
 import * as os from 'node:os';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 const { mockHttpDownload, logSpy } = vi.hoisted(() => ({
     mockHttpDownload: vi.fn(),
     logSpy: vi.spyOn(console, 'log').mockImplementation(() => undefined),
 }));
-vi.mock('@scopai/opencli/download', async () => {
-    const actual = await vi.importActual('@scopai/opencli/download');
+vi.mock('@toy-box/opencli/download', async () => {
+    const actual = await vi.importActual('@toy-box/opencli/download');
     return { ...actual, httpDownload: mockHttpDownload };
 });
 const { buildInstagramDownloadItems, parseInstagramMediaTarget, } = await import('./download.js');

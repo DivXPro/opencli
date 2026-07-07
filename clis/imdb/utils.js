@@ -1,4 +1,4 @@
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 /**
  * Normalize an IMDb title or person input to a bare ID.
  * Accepts bare IDs, desktop URLs, mobile URLs, and URLs with language prefixes or query params.

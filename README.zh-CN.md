@@ -5,9 +5,9 @@
 > 或者在任意页面上跑 Browser Use —— 导航、填表单、点击、抓取、自动化。
 
 [![English](https://img.shields.io/badge/docs-English-1D4ED8?style=flat-square)](./README.md)
-[![npm](https://img.shields.io/npm/v/@scopai/opencli?style=flat-square)](https://www.npmjs.com/package/@scopai/opencli)
-[![Node.js Version](https://img.shields.io/node/v/@scopai/opencli?style=flat-square)](https://nodejs.org)
-[![License](https://img.shields.io/npm/l/@scopai/opencli?style=flat-square)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@toy-box/opencli?style=flat-square)](https://www.npmjs.com/package/@toy-box/opencli)
+[![Node.js Version](https://img.shields.io/node/v/@toy-box/opencli?style=flat-square)](https://nodejs.org)
+[![License](https://img.shields.io/npm/l/@toy-box/opencli?style=flat-square)](./LICENSE)
 
 OpenCLI 可以用同一套 CLI 做三类事情：
 
@@ -34,7 +34,7 @@ System 页面安装或修复 `opencli` 命令。
 
 ```bash
 node --version
-npm install -g @scopai/opencli
+npm install -g @toy-box/opencli
 ```
 
 ### 2. 安装 Browser Bridge 扩展

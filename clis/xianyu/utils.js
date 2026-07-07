@@ -1,4 +1,4 @@
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 export function normalizeNumericId(value, label, example) {
     const normalized = String(value || '').trim();
     if (!/^\d+$/.test(normalized)) {

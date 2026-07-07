@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const { mockWarn } = vi.hoisted(() => ({
     mockWarn: vi.fn(),
 }));
-vi.mock('@scopai/opencli/logger', () => ({
+vi.mock('@toy-box/opencli/logger', () => ({
     log: {
         info: vi.fn(),
         warn: mockWarn,
@@ -13,8 +13,8 @@ vi.mock('@scopai/opencli/logger', () => ({
         stepResult: vi.fn(),
     },
 }));
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import { classifyXueqiuCommentsResponse, collectCommentRows, mergeUniqueCommentRows, normalizeCommentItem, normalizeSymbolInput, } from './comments.js';
 const command = getRegistry().get('xueqiu/comments');
 function createCommandPage(response) {

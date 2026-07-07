@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { flattenCodexProjects, readCodexProjects } from './sidebar.js';
 export const historyCommand = cli({
     site: 'codex',

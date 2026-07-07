@@ -1,8 +1,8 @@
 /**
  * LinkedIn Learning course detail by slug, via /learning-api/courses?q=slug.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const DOMAIN = 'www.linkedin.com';
 

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError } from '@toy-box/opencli/errors';
 import { __test__ } from './tweets.js';
 
 function makeTweetEntry(id, author = 'jakevin7') {

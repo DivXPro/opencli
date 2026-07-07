@@ -3,8 +3,8 @@
  * endpoint `/callback/{live|daily}/game/{id}`. Returns the canonical
  * PGN headers + move data plus per-player metadata.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { UA, formatDate, isPlainObject, parseGameUrl } from './utils.js';
 
 const CALLBACK_BASE = 'https://www.chess.com/callback';

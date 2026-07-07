@@ -12,7 +12,7 @@ import {
     AuthRequiredError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 /**
  * Common Chinese cities → dianping cityId.

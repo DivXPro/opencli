@@ -1,5 +1,5 @@
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { SHARE_API, extractPwdId, apiPost, getToken, pollTask, findFolder, } from './utils.js';
 async function saveShare(page, pwdId, stoken, fidList, targetFid, saveAll) {
     const data = await apiPost(page, `${SHARE_API}/save?pr=ucpro&fr=pc`, {

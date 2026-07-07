@@ -10,8 +10,8 @@
  *
  * Requires: logged into www.xiaohongshu.com in Chrome.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CliError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CliError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { normalizeXhsUserId } from './user-helpers.js';
 
 const PROFILE_SETTLE_MS = 2500;

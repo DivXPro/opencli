@@ -6,8 +6,8 @@
  * Usage:
  *   opencli weixin download --url "https://mp.weixin.qq.com/s/xxx" --output ./weixin
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { downloadArticle } from '@scopai/opencli/download/article-download';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { downloadArticle } from '@toy-box/opencli/download/article-download';
 // ============================================================
 // URL Normalization
 // ============================================================

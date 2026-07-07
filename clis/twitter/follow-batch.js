@@ -1,5 +1,5 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { unwrapBrowserResult } from './shared.js';
 
 const USERNAME_RE = /^[A-Za-z0-9_]{1,15}$/;

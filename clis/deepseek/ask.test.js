@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { CliError, CommandExecutionError, EXIT_CODES, TimeoutError } from '@scopai/opencli/errors';
+import { CliError, CommandExecutionError, EXIT_CODES, TimeoutError } from '@toy-box/opencli/errors';
 
 const {
   mockEnsureOnDeepSeek,

@@ -2,8 +2,8 @@
 //
 // Endpoint: GET /food/enforcement.json?search=<lucene>&limit=<n>
 // Sorted by report_date descending (most recent first).
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { OPENFDA_BASE, openfdaFetch, requireBoundedInt } from './utils.js';
 
 cli({

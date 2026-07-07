@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 import './top.js';
 import './best.js';
 import './ask.js';

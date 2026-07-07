@@ -7,8 +7,8 @@
  * a real series_id) and surface name / brand / official + dealer price.
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 import {
     DCD_BASE,
     SEARCH_COLUMNS,

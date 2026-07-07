@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const ALLOWED_HOSTS = new Set([
   'share.note.youdao.com',

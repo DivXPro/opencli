@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { pixivFetch } from './utils.js';
 
 function requireUserBody(body, uid) {

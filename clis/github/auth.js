@@ -1,4 +1,4 @@
-import { AuthRequiredError } from '@scopai/opencli/errors';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
 import { registerSiteAuthCommands } from '../_shared/site-auth.js';
 
 async function hasGithubSessionCookies(page) {

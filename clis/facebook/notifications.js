@@ -36,13 +36,13 @@
 //   - Empty list (after settle + auth check passes) → `EmptyResultError`,
 //     never silent `[]`.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     AuthRequiredError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 export const FB_HOST = 'https://www.facebook.com';
 export const NOTIFICATIONS_LIMIT_DEFAULT = 15;

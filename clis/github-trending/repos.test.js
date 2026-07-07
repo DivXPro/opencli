@@ -1,5 +1,5 @@
-import { getRegistry } from '@scopai/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import './repos.js';
 

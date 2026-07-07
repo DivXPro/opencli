@@ -5,8 +5,8 @@
 // last-week / last-month totals as a single row. Pass `--period overall` to
 // hit `/api/packages/<pkg>/overall` for the full daily history (one row per
 // day).
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 import { PYPISTATS_BASE, pypiFetch, requirePackageName } from './utils.js';
 
 const PERIODS = new Set(['recent', 'overall']);

@@ -11,7 +11,7 @@ import {
     AuthRequiredError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import { exploreCommand, __test__ as exploreTest } from './explore.js';
 import { friendsCommand, __test__ as friendsTest } from './friends.js';
 import { followingCommand, __test__ as followingTest } from './following.js';

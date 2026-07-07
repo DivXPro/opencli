@@ -19,8 +19,8 @@
  *   - per answer: an `ANSWER` row plus its `A-COMMENT` rows indented under it
  *   - the accepted answer (if any) is surfaced first and tagged `accepted=true`
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const SE_API_BASE = 'https://api.stackexchange.com/2.3';
 const SE_SITE = 'stackoverflow';

@@ -1,8 +1,8 @@
 /**
  * Weibo user — get user profile by uid or screen_name.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import { requireObjectEvaluateResult, unwrapEvaluateResult } from './utils.js';
 cli({
     site: 'weibo',

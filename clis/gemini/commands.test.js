@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const mocks = vi.hoisted(() => ({
     ensureGeminiPage: vi.fn(),

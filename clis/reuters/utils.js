@@ -1,7 +1,7 @@
 /**
  * Shared helpers for the reuters adapter.
  */
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 const MIN_LIMIT = 1;
 const MAX_LIMIT = 40;

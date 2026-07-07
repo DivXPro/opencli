@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { findFolder, formatSize, listMyDrive, } from './utils.js';
 async function buildTree(page, pdirFid, parentPath, depth, maxDepth, dirsOnly) {
     if (depth > maxDepth)

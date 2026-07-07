@@ -1,7 +1,7 @@
 /**
  * Shared helpers for the toutiao adapter.
  */
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 const ARTICLES_MIN_PAGE = 1;
 const ARTICLES_MAX_PAGE = 4;

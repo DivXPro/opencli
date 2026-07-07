@@ -4,8 +4,8 @@
 // projection: name, latest version, summary, author, license, homepage,
 // project URLs, requires-python, last-modified time. Download stats are
 // intentionally separate (see `pypi downloads`).
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { PYPI_BASE, pypiFetch, requirePackageName } from './utils.js';
 
 function pickHomepage(info) {

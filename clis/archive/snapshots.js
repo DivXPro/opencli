@@ -1,10 +1,10 @@
 // archive snapshots: Wayback Machine CDX history for a URL.
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 function buildWaybackUrl(timestamp, original) {
     if (!timestamp || !original) return '';

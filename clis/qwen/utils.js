@@ -1,5 +1,5 @@
-import { htmlToMarkdown } from '@scopai/opencli/utils';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
+import { htmlToMarkdown } from '@toy-box/opencli/utils';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, TimeoutError } from '@toy-box/opencli/errors';
 
 export const QIANWEN_DOMAIN = 'www.qianwen.com';
 export const QIANWEN_URL = 'https://www.qianwen.com/';

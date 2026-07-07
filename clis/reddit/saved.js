@@ -1,5 +1,5 @@
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 cli({
     site: 'reddit',
     name: 'saved',

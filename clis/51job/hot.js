@@ -5,8 +5,8 @@
  * own ranked recommendation list (up to ~999 for most regions).
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 import {
     WE_ORIGIN, SEARCH_COLUMNS, SORT_CODES,
     requirePage, navigateTo, pageFetchJson,

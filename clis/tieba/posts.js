@@ -1,5 +1,5 @@
-import { EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { buildTiebaPostCardsFromPagePc, buildTiebaPostItems, normalizeTiebaLimit, signTiebaPcParams, } from './utils.js';
 function getForumPageNumber(kwargs) {
     return Math.max(1, Number(kwargs.page || 1));

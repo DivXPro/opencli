@@ -1,9 +1,9 @@
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { Page as BrowserPage } from '@scopai/opencli/browser/page';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { Page as BrowserPage } from '@toy-box/opencli/browser/page';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { buildClickActionJs, buildEnsureComposerOpenJs, buildInspectUploadStageJs, } from './post.js';
 import { resolveInstagramRuntimeInfo } from './_shared/runtime-info.js';
 const INSTAGRAM_HOME_URL = 'https://www.instagram.com/';

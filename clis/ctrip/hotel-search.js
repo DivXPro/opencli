@@ -13,8 +13,8 @@
  *
  * Anti-bot: not detected on first-page navigation (PR #1481 recon 2026-05-12).
  */
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { mapHotelRow, parseCityId, parseIsoDate } from './utils.js';
 
 const MIN_LIMIT = 1;

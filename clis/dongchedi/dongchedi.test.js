@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { getRegistry, Strategy } from '@scopai/opencli/registry';
+import { getRegistry, Strategy } from '@toy-box/opencli/registry';
 
 import {
     SEARCH_COLUMNS,

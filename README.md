@@ -5,9 +5,9 @@
 > Or run Browser Use against any page — navigate, fill forms, click, extract, automate.
 
 [![中文文档](https://img.shields.io/badge/docs-%E4%B8%AD%E6%96%87-0F766E?style=flat-square)](./README.zh-CN.md)
-[![npm](https://img.shields.io/npm/v/@scopai/opencli?style=flat-square)](https://www.npmjs.com/package/@scopai/opencli)
-[![Node.js Version](https://img.shields.io/node/v/@scopai/opencli?style=flat-square)](https://nodejs.org)
-[![License](https://img.shields.io/npm/l/@scopai/opencli?style=flat-square)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@toy-box/opencli?style=flat-square)](https://www.npmjs.com/package/@toy-box/opencli)
+[![Node.js Version](https://img.shields.io/node/v/@toy-box/opencli?style=flat-square)](https://nodejs.org)
+[![License](https://img.shields.io/npm/l/@toy-box/opencli?style=flat-square)](./LICENSE)
 
 OpenCLI gives you one surface for three different kinds of automation:
 
@@ -35,7 +35,7 @@ OpenCLI requires **Node.js >= 20** when installed through npm.
 
 ```bash
 node --version
-npm install -g @scopai/opencli
+npm install -g @toy-box/opencli
 ```
 
 ### 2. Install the Browser Bridge Extension

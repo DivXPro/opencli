@@ -1,5 +1,5 @@
-import { CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { buildProvenance, buildSearchUrl, cleanText, extractAsin, normalizeProductUrl, parsePriceText, parseRatingValue, parseReviewCount, assertUsableState, gotoAndReadState, } from './shared.js';
 function normalizeSearchCandidate(candidate, rank, sourceUrl) {
     const productUrl = normalizeProductUrl(candidate.href);

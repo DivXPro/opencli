@@ -1,4 +1,4 @@
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 export const DEEPSEEK_DOMAIN = 'chat.deepseek.com';
 export const DEEPSEEK_URL = 'https://chat.deepseek.com/';

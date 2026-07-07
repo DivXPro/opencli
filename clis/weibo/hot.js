@@ -1,7 +1,7 @@
 /**
  * Weibo hot search — browser cookie API.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { requireArrayEvaluateResult, unwrapEvaluateResult } from './utils.js';
 cli({
     site: 'weibo',

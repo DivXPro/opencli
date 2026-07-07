@@ -8,7 +8,7 @@
  * pure normalizers so they stay unit-testable without a browser.
  */
 
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 export const INDEED_ORIGIN = 'https://www.indeed.com';
 

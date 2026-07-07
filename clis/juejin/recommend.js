@@ -2,8 +2,8 @@
 //
 // Hits the `recommend_all_feed` endpoint, which mirrors what the Juejin web UI
 // renders on the front page; `sort_type` 200 is the default "recommended" mix.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import {
     juejinFetch,
     mapFeedItem,

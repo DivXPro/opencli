@@ -1,6 +1,6 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { BROWSER_JSON_SNIFF_FN, throwIfLoginWall } from '@scopai/opencli/utils';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { BROWSER_JSON_SNIFF_FN, throwIfLoginWall } from '@toy-box/opencli/utils';
 
 export const REDDIT_SUBSCRIBED_MAX_LIMIT = 1000;
 

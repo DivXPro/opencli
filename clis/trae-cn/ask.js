@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { TimeoutError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { TimeoutError } from '@toy-box/opencli/errors';
 import {
   activityScript,
   approveTraePrompts,

@@ -1,4 +1,4 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 export const SITE = '1688';
 export const HOME_URL = 'https://www.1688.com/';
 export const SEARCH_URL_PREFIX = 'https://s.1688.com/selloffer/offer_search.htm?charset=utf8&keywords=';

@@ -1,5 +1,5 @@
-import { AuthRequiredError, EmptyResultError, selectorError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError, EmptyResultError, selectorError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { normalizeNumericId } from './utils.js';
 function buildItemUrl(itemId) {
     return `https://www.goofish.com/item?id=${encodeURIComponent(itemId)}`;

@@ -3,8 +3,8 @@
 // OEIS' search endpoint, when given `q=id:Annnnnn`, returns one full record
 // with all sub-fields populated. We surface formula / xref / reference counts
 // instead of dumping the full graph.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { OEIS_BASE, formatId, oeisFetch, previewTerms, requireSequenceId } from './utils.js';
 
 function asArray(value) {

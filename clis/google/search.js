@@ -7,8 +7,8 @@
  * to the result container (`div.tF2Cxc` or closest `div[data-hveid]`) to find
  * snippets. This approach is resilient to class name changes.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 cli({
     site: 'google',
     name: 'search',

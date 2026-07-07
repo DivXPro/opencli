@@ -1,4 +1,4 @@
-import { CliError } from '@scopai/opencli/errors';
+import { CliError } from '@toy-box/opencli/errors';
 const SPOTIFY_PLACEHOLDER_PATTERNS = [
     /^your_spotify_client_id_here$/i,
     /^your_spotify_client_secret_here$/i,

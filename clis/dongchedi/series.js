@@ -7,7 +7,7 @@
  * price ranges, 懂车分 score + review count, sales rank, and trim count.
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     DCD_BASE,
     SERIES_COLUMNS,

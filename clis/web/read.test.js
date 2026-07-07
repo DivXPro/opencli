@@ -5,7 +5,7 @@ const { mockDownloadArticle } = vi.hoisted(() => ({
     mockDownloadArticle: vi.fn(),
 }));
 
-vi.mock('@scopai/opencli/download/article-download', () => ({
+vi.mock('@toy-box/opencli/download/article-download', () => ({
     downloadArticle: mockDownloadArticle,
 }));
 

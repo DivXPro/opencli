@@ -1,6 +1,6 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { browserFetch } from './_shared/browser-fetch.js';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 cli({
     site: 'douyin',
     name: 'profile',

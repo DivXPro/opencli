@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { selectorError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { selectorError } from '@toy-box/opencli/errors';
 import { buildChatwiseInjectTextJs } from './utils.js';
 export const sendCommand = cli({
     site: 'chatwise',

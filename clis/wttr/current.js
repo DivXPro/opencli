@@ -2,8 +2,8 @@
 //
 // Endpoint: GET /<location>?format=j1  → returns current_condition + nearest_area.
 // One row (current snapshot).
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { requireString, wttrFetch, pickWeatherDesc } from './utils.js';
 
 cli({

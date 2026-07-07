@@ -1,6 +1,6 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { htmlToMarkdown } from '@scopai/opencli/utils';
-import { ArgumentError, CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { htmlToMarkdown } from '@toy-box/opencli/utils';
+import { ArgumentError, CommandExecutionError, TimeoutError } from '@toy-box/opencli/errors';
 import {
     YUANBAO_DOMAIN,
     IS_VISIBLE_JS,

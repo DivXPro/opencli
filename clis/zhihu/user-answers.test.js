@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { AuthRequiredError, CliError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CliError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import './user-answers.js';
 
 describe('zhihu user-answers', () => {

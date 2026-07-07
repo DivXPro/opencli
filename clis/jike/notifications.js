@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 // 将通知类型代码映射为中文标签
 function resolveActionLabel(type) {
     if (!type)

@@ -7,8 +7,8 @@
  * Scores are rescaled from x100 ints to /5 floats (422 -> 4.22).
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     SCORE_COLUMNS,
     dcdFetchPageProps,

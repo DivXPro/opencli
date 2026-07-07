@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import { __test__ } from './bookmark-folder.js';
 
 const { parseBookmarkFolderTimeline, extractFolderTweet, buildFolderTimelineUrl, FOLDER_ID_PATTERN } = __test__;

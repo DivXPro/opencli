@@ -1,9 +1,9 @@
 /**
  * YouTube unlike — remove like from a video via InnerTube like API.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { parseVideoId, prepareYoutubeApiPage, readYoutubeSapisid, SAPISID_HASH_FN } from './utils.js';
-import { CommandExecutionError, AuthRequiredError } from '@scopai/opencli/errors';
+import { CommandExecutionError, AuthRequiredError } from '@toy-box/opencli/errors';
 
 cli({
     site: 'youtube',

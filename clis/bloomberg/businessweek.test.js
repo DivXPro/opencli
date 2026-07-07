@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ArgumentError, CliError } from '@scopai/opencli/errors';
+import { ArgumentError, CliError } from '@toy-box/opencli/errors';
 import { __test__ } from './businessweek.js';
 
 const {

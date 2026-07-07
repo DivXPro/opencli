@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { fetchIssue, jiraConfig, jiraRowsOrEmpty, normalizeAttachment, requireIssueKey } from './shared.js';
 import { requirePayloadArray } from '../_atlassian/shared.js';
 

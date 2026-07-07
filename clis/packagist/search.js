@@ -4,8 +4,8 @@
 // agent-useful projection: vendor/package (round-trips into `packagist
 // package`), description, lifetime download count, GitHub-stars-style favers,
 // repository URL.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { PACKAGIST_BASE, packagistFetch, requireBoundedInt, requireString } from './utils.js';
 
 cli({

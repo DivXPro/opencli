@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { TimeoutError } from '@scopai/opencli/errors';
+import { TimeoutError } from '@toy-box/opencli/errors';
 import { pollTranscodeWithFetch } from './transcode.js';
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function makePage() {

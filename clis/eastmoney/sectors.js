@@ -3,8 +3,8 @@
 //   opencli eastmoney sectors
 //   opencli eastmoney sectors --type concept --sort money-flow --limit 30
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 
 const SECTOR_TYPES = {
   industry: 'm:90+t:2',

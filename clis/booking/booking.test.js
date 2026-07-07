@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './search.js';
 import { __test__ } from './search.js';
 

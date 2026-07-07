@@ -1,5 +1,5 @@
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { buildTiebaSearchItems, normalizeTiebaLimit } from './utils.js';
 const MAX_SUPPORTED_PAGE = '1';
 /**

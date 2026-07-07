@@ -1,5 +1,5 @@
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { forceEnglishUrl, isChallengePage, normalizeImdbTitleType, waitForImdbPath, waitForImdbSearchReady, } from './utils.js';
 /**
  * Search IMDb via the public search page and parse Next.js payload first.

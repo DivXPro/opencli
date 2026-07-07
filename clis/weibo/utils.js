@@ -1,7 +1,7 @@
 /**
  * Shared Weibo utilities — uid extraction.
  */
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 /**
  * `page.evaluate` may return either the raw IIFE value or a
  * `{ session, data }` envelope depending on the browser-bridge version.

@@ -5,15 +5,15 @@ const { mockDownloadMedia, mockFormatCookieHeader } = vi.hoisted(() => ({
     mockFormatCookieHeader: vi.fn(() => 'sid=secret'),
 }));
 
-vi.mock('@scopai/opencli/download/media-download', () => ({
+vi.mock('@toy-box/opencli/download/media-download', () => ({
     downloadMedia: mockDownloadMedia,
 }));
 
-vi.mock('@scopai/opencli/download', () => ({
+vi.mock('@toy-box/opencli/download', () => ({
     formatCookieHeader: mockFormatCookieHeader,
 }));
 
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './comments.js';
 import './download.js';
 import './feed.js';

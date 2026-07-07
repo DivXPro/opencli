@@ -1,11 +1,11 @@
 // Quest (= conversation) lifecycle commands: new / send / ask.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     TimeoutError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import {
     buildQoderInjectTextScript,
     clickByTextScript,

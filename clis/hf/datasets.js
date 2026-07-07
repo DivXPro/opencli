@@ -1,10 +1,10 @@
 // hf datasets — list top Hugging Face datasets.
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 const SORT_OPTIONS = ['downloads', 'likes', 'trending', 'created_at', 'last_modified'];
 const SORT_ALIAS = { lastmodified: 'last_modified', createdat: 'created_at' };

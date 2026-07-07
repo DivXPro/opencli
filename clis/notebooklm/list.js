@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
 import { NOTEBOOKLM_DOMAIN, NOTEBOOKLM_SITE } from './shared.js';
 import { ensureNotebooklmHome, listNotebooklmLinks, listNotebooklmViaRpc, readCurrentNotebooklm, requireNotebooklmSession, } from './utils.js';
 cli({

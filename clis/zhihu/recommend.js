@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CliError } from '@toy-box/opencli/errors';
 
 function normalizeUrl(item) {
     const target = item.target || {};

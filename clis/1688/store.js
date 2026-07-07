@@ -1,5 +1,5 @@
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { FACTORY_BADGE_PATTERNS, SERVICE_BADGE_PATTERNS, assertAuthenticatedState, buildDetailUrl, buildProvenance, canonicalizeSellerUrl, canonicalizeStoreUrl, cleanMultilineText, cleanText, extractAddress, extractBadges, extractMemberId, extractMetric, extractOfferId, extractShopId, extractYearsOnPlatform, gotoAndReadState, guessTopCategories, resolveStoreUrl, uniqueNonEmpty, } from './shared.js';
 function normalizeStorePayload(input) {
     const storePayload = input.storePayload;

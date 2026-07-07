@@ -19,7 +19,7 @@ import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 export const DCD_BASE = 'https://www.dongchedi.com';
 

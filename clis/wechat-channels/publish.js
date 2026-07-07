@@ -18,8 +18,8 @@
  */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const PUBLISH_URL = 'https://channels.weixin.qq.com/platform/post/create';

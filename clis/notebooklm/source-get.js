@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { NOTEBOOKLM_DOMAIN, NOTEBOOKLM_SITE } from './shared.js';
 import { findNotebooklmSourceRow, getNotebooklmPageState, listNotebooklmSourcesFromPage, listNotebooklmSourcesViaRpc, requireNotebooklmSession, } from './utils.js';
 cli({

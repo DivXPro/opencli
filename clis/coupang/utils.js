@@ -1,4 +1,4 @@
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 /**
  * Parse a positive integer arg (--limit / --page / --review-page).

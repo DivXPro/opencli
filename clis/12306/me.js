@@ -6,8 +6,8 @@
  * own response (12306 already masks the ID number server-side; this
  * adapter never decodes that mask).
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { isAuthLikePayload, maskEmail, maskMobile, maskChineseName, require12306Login, requireEvaluateObject } from './utils.js';
 
 const ACCOUNT_INFO_URL = 'https://kyfw.12306.cn/otn/modifyUser/initQueryUserInfoApi';

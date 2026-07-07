@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 // Apple Marketing Tools RSS API — public, no key required
 const CHARTS_URL = 'https://rss.marketingtools.apple.com/api/v2';
 const CHARTS_TIMEOUT_MS = 15_000;

@@ -1,5 +1,5 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError, selectorError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, selectorError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { buildChatUrl, buildClickInboxConversationEvaluate, buildExtractChatStateEvaluate, buildSendMessageEvaluate, normalizeRank, requireClickResult, requireEvaluateObject, requireText } from './im.js';
 import { normalizeNumericId } from './utils.js';
 

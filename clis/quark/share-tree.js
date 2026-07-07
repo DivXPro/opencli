@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { extractPwdId, formatDate, getShareList, getToken, } from './utils.js';
 async function buildTree(page, pwdId, stoken, pdirFid, depth, maxDepth) {
     if (depth > maxDepth)

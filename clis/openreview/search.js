@@ -1,8 +1,8 @@
 /**
  * OpenReview full-text search.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 import { noteToRow, openreviewFetch, requireBoundedInt } from './utils.js';
 
 cli({

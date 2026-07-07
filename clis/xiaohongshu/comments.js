@@ -5,8 +5,8 @@
  * Supports both top-level comments and nested replies (楼中楼) via
  * the --with-replies flag.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, CliError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CliError, EmptyResultError } from '@toy-box/opencli/errors';
 import { parseNoteId, buildNoteUrl } from './note-helpers.js';
 
 const XHS_PROFILE_HREF_SELECTOR = '.author-wrapper a[href*="/user/profile/"], a.name[href*="/user/profile/"], a.user-name[href*="/user/profile/"], a[href*="/user/profile/"]';

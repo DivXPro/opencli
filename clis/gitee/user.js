@@ -1,5 +1,5 @@
-import { CliError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 const GITEE_BASE_URL = 'https://gitee.com';
 const GITEE_USER_API = 'https://gitee.com/api/v5/users';
 function normalizeText(value) {

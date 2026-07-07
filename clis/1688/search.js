@@ -1,5 +1,5 @@
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { FACTORY_BADGE_PATTERNS, SERVICE_BADGE_PATTERNS, assertAuthenticatedState, buildProvenance, buildSearchUrl, canonicalizeItemUrl, canonicalizeSellerUrl, cleanText, extractBadges, extractLocation, extractMemberId, extractOfferId, extractShopId, gotoAndReadState, parseMoqText, parsePriceText, SEARCH_LIMIT_DEFAULT, SEARCH_LIMIT_MAX, parseSearchLimit, uniqueNonEmpty, } from './shared.js';
 const SEARCH_ITEM_URL_PATTERNS = [
     'detail.1688.com/offer/',

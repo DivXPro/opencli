@@ -1,5 +1,5 @@
-import { CliError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { postHupuJson } from './utils.js';
 cli({
     site: 'hupu',

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { AuthRequiredError, TimeoutError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { AuthRequiredError, TimeoutError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import { registerSiteAuthCommands } from './site-auth.js';
 
 function pageMock() {

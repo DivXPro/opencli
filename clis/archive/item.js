@@ -1,10 +1,10 @@
 // archive item: Internet Archive item metadata (one row per identifier).
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 const IDENTIFIER_RE = /^[A-Za-z0-9._-]+$/;
 

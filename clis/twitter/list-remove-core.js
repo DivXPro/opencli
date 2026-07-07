@@ -1,4 +1,4 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { resolveTwitterQueryId, unwrapBrowserResult } from './shared.js';
 import { getListsManagementInstructions, parseListsManagement } from './lists.js';
 import { TWITTER_BEARER_TOKEN } from './utils.js';

@@ -16,7 +16,7 @@
 // `result` row enum: `unfollowed` / `already-not-following`. Failures
 // throw — never returned as a success row.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     BROWSER_HELPERS,
     BUTTON_WALKER_HELPERS,

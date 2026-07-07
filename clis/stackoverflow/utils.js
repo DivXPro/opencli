@@ -8,7 +8,7 @@ import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 export const SE_API = 'https://api.stackexchange.com/2.3';
 export const SE_SITE = 'stackoverflow';

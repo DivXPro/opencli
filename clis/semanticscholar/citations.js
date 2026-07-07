@@ -3,8 +3,8 @@
 // Hits `/paper/{ref}/citations?fields=...`. The endpoint returns
 // `{ data: [{ citingPaper: { ... } }] }`; we unwrap to the citing-paper rows
 // and surface fields that round-trip into `semanticscholar paper <paperId>`.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import {
     S2_GRAPH_BASE,
     normalizePaperRow,

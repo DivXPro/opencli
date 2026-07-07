@@ -1,5 +1,5 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { mergeSearchItems, normalizeSearchItem, parseLimitArg, parsePageArg, sanitizeSearchItems } from './utils.js';
 function escapeJsString(value) {
     return JSON.stringify(value);

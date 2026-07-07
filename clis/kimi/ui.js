@@ -1,11 +1,11 @@
 // Sidebar / mode-navigation commands for Kimi.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import {
     KIMI_DOMAIN,
     KIMI_URL,

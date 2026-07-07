@@ -2,8 +2,8 @@ import {
   ArgumentError,
   CommandExecutionError,
   EmptyResultError,
-} from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+} from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 

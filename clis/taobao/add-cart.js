@@ -1,5 +1,5 @@
-import { AuthRequiredError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { normalizeNumericId } from '../_shared/common.js';
 cli({
     site: 'taobao',

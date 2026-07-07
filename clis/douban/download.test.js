@@ -1,12 +1,12 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import path from 'node:path';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 const { mockHttpDownload, mockLoadDoubanSubjectPhotos, mockMkdirSync } = vi.hoisted(() => ({
     mockHttpDownload: vi.fn(),
     mockLoadDoubanSubjectPhotos: vi.fn(),
     mockMkdirSync: vi.fn(),
 }));
-vi.mock('@scopai/opencli/download', () => ({
+vi.mock('@toy-box/opencli/download', () => ({
     httpDownload: mockHttpDownload,
     sanitizeFilename: vi.fn((value) => value.replace(/\s+/g, '_')),
 }));
@@ -17,7 +17,7 @@ vi.mock('./utils.js', async () => {
         loadDoubanSubjectPhotos: mockLoadDoubanSubjectPhotos,
     };
 });
-vi.mock('@scopai/opencli/download/progress', () => ({
+vi.mock('@toy-box/opencli/download/progress', () => ({
     formatBytes: vi.fn((size) => `${size} B`),
 }));
 vi.mock('node:fs', () => ({

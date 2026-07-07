@@ -1,5 +1,5 @@
 import * as fs from 'node:fs';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 export const exportCommand = cli({
     site: 'codex',
     name: 'export',

@@ -1,11 +1,11 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     AuthRequiredError,
     CommandExecutionError,
     EmptyResultError,
     getErrorMessage,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 const STUDIO_CONTENT_URL = 'https://www.tiktok.com/tiktokstudio/content';
 const ITEM_LIST_API_PATH = '/tiktok/creator/manage/item_list/v1/';

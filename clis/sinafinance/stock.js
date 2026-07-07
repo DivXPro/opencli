@@ -5,8 +5,8 @@
  *   suggest3.sinajs.cn  — symbol search
  *   hq.sinajs.cn        — real-time quote
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 const MARKET_CN = '11';
 const MARKET_HK = '31';
 const MARKET_US = '41';

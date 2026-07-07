@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 import { fetchPrivateApi, fetchWebApi, resolveShelfReader, WEREAD_UA, WEREAD_WEB_ORIGIN, } from './utils.js';
 function decodeHtmlText(value) {
     return value

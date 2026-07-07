@@ -1,5 +1,5 @@
 // stackoverflow user — search Stack Overflow users by name and return profiles.
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     seFetch,
     normalizeLimit,

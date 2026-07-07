@@ -1,4 +1,4 @@
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { unwrapEvaluateResult } from './evaluate-result.js';
 
 function isAuthLikeError(code, message) {

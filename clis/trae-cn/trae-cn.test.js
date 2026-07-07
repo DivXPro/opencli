@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { ArgumentError, CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError, TimeoutError } from '@toy-box/opencli/errors';
 import { activityCommand } from './activity.js';
 import { approveCommand } from './approve.js';
 import { askCommand } from './ask.js';

@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { describe, it, expect, vi } from 'vitest';
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 vi.mock('node:fs', async (importOriginal) => {
     const actual = await importOriginal();

@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { describe, expect, it, vi } from 'vitest';
-import { ArgumentError, TimeoutError } from '@scopai/opencli/errors';
+import { ArgumentError, TimeoutError } from '@toy-box/opencli/errors';
 import {
     buildChatwiseInjectTextJs,
     buildChatwiseMessageCountJs,

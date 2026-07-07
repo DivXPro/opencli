@@ -1,9 +1,9 @@
 /**
  * YouTube unsubscribe — unsubscribe from a channel via InnerTube subscription API.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { prepareYoutubeApiPage, readYoutubeSapisid, SAPISID_HASH_FN, RESOLVE_CHANNEL_HANDLE_FN } from './utils.js';
-import { CommandExecutionError, AuthRequiredError } from '@scopai/opencli/errors';
+import { CommandExecutionError, AuthRequiredError } from '@toy-box/opencli/errors';
 
 cli({
     site: 'youtube',

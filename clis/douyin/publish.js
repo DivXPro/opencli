@@ -13,8 +13,8 @@
  */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { getUploadAuthV5Credentials, applyVideoUploadInner, commitVideoUploadInner } from './_shared/vod-upload.js';
 import { tosUpload } from './_shared/tos-upload.js';
 import { imagexUpload } from './_shared/imagex-upload.js';

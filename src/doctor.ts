@@ -194,7 +194,7 @@ export async function runBrowserDoctor(opts: DoctorOptions = {}): Promise<Doctor
     if (!satisfiesRange(opts.cliVersion, extensionCompatRange)) {
       issues.push(
         `CLI version incompatible with extension: extension v${extensionVersion} requires CLI ${extensionCompatRange}, but CLI is v${opts.cliVersion}\n` +
-        '  Update the CLI: npm install -g @scopai/opencli\n' +
+        '  Update the CLI: npm install -g @toy-box/opencli\n' +
         '  Or download a compatible extension from: https://github.com/scopai/opencli/releases',
       );
     }

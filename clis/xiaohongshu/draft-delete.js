@@ -1,5 +1,5 @@
-import { CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     DRAFT_DB_NAME,
     STORE_NAME_MAP,

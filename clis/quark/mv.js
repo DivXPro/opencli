@@ -1,5 +1,5 @@
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { DRIVE_API, apiPost, findFolder, pollTask } from './utils.js';
 cli({
     site: 'quark',

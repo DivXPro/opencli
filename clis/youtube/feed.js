@@ -2,8 +2,8 @@
  * YouTube feed — homepage recommended videos.
  * Reads ytInitialData from the homepage directly (personalized, no separate API call needed).
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 cli({
     site: 'youtube',

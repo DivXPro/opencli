@@ -1,8 +1,8 @@
 /**
  * Jianyu search — browser DOM extraction from Jianyu bid search page.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
 import { buildSearchCandidates, cleanText, dedupeCandidates, detectAuthPrompt, normalizeDate, searchRowsFromEntries, } from './shared/china-bid-search.js';
 import { toProcurementSearchRecords } from './shared/procurement-contract.js';
 const SITE = 'jianyu';

@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { fetchDouyinComments, fetchDouyinUserVideos } from './_shared/public-api.js';
 export const MAX_USER_VIDEOS_LIMIT = 20;
 export const USER_VIDEO_COMMENT_CONCURRENCY = 4;

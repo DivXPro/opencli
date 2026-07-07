@@ -6,7 +6,7 @@
  */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 /**
  * Detect MIME type from file extension.
  * Falls back to image/jpeg for unknown extensions.

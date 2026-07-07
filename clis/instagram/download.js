@@ -1,9 +1,9 @@
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CliError, CommandExecutionError, EXIT_CODES } from '@scopai/opencli/errors';
-import { httpDownload } from '@scopai/opencli/download';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CliError, CommandExecutionError, EXIT_CODES } from '@toy-box/opencli/errors';
+import { httpDownload } from '@toy-box/opencli/download';
 const INSTAGRAM_GRAPHQL_DOC_ID = '8845758582119845';
 const INSTAGRAM_GRAPHQL_APP_ID = '936619743392459';
 const INSTAGRAM_HOST_SUFFIX = 'instagram.com';

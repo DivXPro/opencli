@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { AuthRequiredError, EmptyResultError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { AuthRequiredError, EmptyResultError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import { __test__ } from './item.js';
 import './item.js';
 function createPageMock(evaluateResult) {

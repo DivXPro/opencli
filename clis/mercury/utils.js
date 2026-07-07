@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const MERCURY_EXPENSES_URL = 'https://app.mercury.com/expenses/my-expenses';
 export const RECEIPT_INPUT_SELECTOR = '[data-testid="expense-attachment-upload"]';

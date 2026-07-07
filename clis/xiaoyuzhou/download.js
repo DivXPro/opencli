@@ -1,9 +1,9 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
-import { httpDownload, sanitizeFilename } from '@scopai/opencli/download';
-import { formatBytes } from '@scopai/opencli/download/progress';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
+import { httpDownload, sanitizeFilename } from '@toy-box/opencli/download';
+import { formatBytes } from '@toy-box/opencli/download/progress';
 import { loadXiaoyuzhouCredentials, requestXiaoyuzhouJson } from './auth.js';
 
 cli({

@@ -4,8 +4,8 @@
  * target, the API call is skipped and `not-following` is returned without
  * touching state.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { apiPost, fetchJson, getSelfUid, requireOkPayload, resolveUid } from './utils.js';
 
 const RELATION_VERIFY_TIMEOUT_MS = 5000;

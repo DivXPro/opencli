@@ -1,13 +1,13 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { createPageMock } from '../test-utils.js';
 // Mock download dependencies before importing the adapter
 const { mockHttpDownload, mockMkdirSync } = vi.hoisted(() => ({
     mockHttpDownload: vi.fn(),
     mockMkdirSync: vi.fn(),
 }));
-vi.mock('@scopai/opencli/download', () => ({
+vi.mock('@toy-box/opencli/download', () => ({
     formatCookieHeader: vi.fn().mockReturnValue('cookie=value'),
     httpDownload: mockHttpDownload,
 }));

@@ -1,9 +1,9 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { formatBytes } from '@scopai/opencli/download/progress';
-import { httpDownload, sanitizeFilename } from '@scopai/opencli/download';
-import { EmptyResultError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { formatBytes } from '@toy-box/opencli/download/progress';
+import { httpDownload, sanitizeFilename } from '@toy-box/opencli/download';
+import { EmptyResultError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { getDoubanPhotoExtension, loadDoubanSubjectPhotos, normalizeDoubanSubjectId } from './utils.js';
 function buildDoubanPhotoFilename(subjectId, photo) {
     const index = String(photo.index).padStart(3, '0');

@@ -1,4 +1,4 @@
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { buildFetchSnippet } from './in-page.js';
 import { SLOCK_DOMAIN, SLOCK_HOME_URL } from './shared.js';
 

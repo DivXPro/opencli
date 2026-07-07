@@ -1,6 +1,6 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
-import { BROWSER_JSON_SNIFF_FN, throwIfLoginWall } from '@scopai/opencli/utils';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { BROWSER_JSON_SNIFF_FN, throwIfLoginWall } from '@toy-box/opencli/utils';
 import { TWITTER_BEARER_TOKEN, applyTopByEngagement } from './utils.js';
 import { extractCard, extractQuotedTweet, extractMedia, describeTwitterApiError } from './shared.js';
 

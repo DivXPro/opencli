@@ -11,7 +11,7 @@ import {
     requirePayloadString,
     requireString,
 } from '../_atlassian/shared.js';
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 const DEFAULT_ISSUE_FIELDS = [
     'summary',

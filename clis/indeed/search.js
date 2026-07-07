@@ -7,8 +7,8 @@
  * is heavily obfuscated and changes shape per A/B bucket).
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError, CommandExecutionError } from '@toy-box/opencli/errors';
 import {
     SEARCH_COLUMNS,
     requireQuery,

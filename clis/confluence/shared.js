@@ -10,7 +10,7 @@ import {
     readUtf8File,
     requireString,
 } from '../_atlassian/shared.js';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 
 export function confluenceConfig() {
     return getConfluenceConfig();

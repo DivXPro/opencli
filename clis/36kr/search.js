@@ -3,8 +3,8 @@
  *
  * Navigates to the 36kr search results page and scrapes rendered articles.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 cli({
     site: '36kr',
     name: 'search',

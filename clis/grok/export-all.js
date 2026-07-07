@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, EmptyResultError, TimeoutError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, EmptyResultError, TimeoutError } from '@toy-box/opencli/errors';
 import fs from 'node:fs';
 import {
   normalizeConversationRows,

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
+import { getRegistry, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, TimeoutError } from '@toy-box/opencli/errors';
 import {
     buildAskResult,
     buildAskEvaluateJs,

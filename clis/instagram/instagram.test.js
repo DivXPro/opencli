@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import './following.js';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 
 /**
  * Extract the evaluate JS source from the following command pipeline

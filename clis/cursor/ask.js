@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, selectorError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, selectorError } from '@toy-box/opencli/errors';
 export const askCommand = cli({
     site: 'cursor',
     name: 'ask',

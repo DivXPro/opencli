@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 const { mockApiGet } = vi.hoisted(() => ({
     mockApiGet: vi.fn(),
 }));
@@ -7,7 +7,7 @@ vi.mock('./utils.js', async (importOriginal) => ({
     ...(await importOriginal()),
     apiGet: mockApiGet,
 }));
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './subtitle.js';
 describe('bilibili subtitle', () => {
     const command = getRegistry().get('bilibili/subtitle');

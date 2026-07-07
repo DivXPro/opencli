@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { NOTEBOOKLM_DOMAIN, NOTEBOOKLM_SITE } from './shared.js';
 import { callNotebooklmRpc } from './rpc.js';
 import { buildNotebooklmNotebookUrl, ensureNotebooklmHome, getNotebooklmAuthuser, parseNotebooklmNotebookTarget, requireNotebooklmExecute, requireNotebooklmSession, verifyNotebooklmSourceAdded } from './utils.js';

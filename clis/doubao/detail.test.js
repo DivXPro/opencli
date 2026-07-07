@@ -9,7 +9,7 @@ vi.mock('./utils.js', async () => {
         getConversationDetail: mockGetConversationDetail,
     };
 });
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './detail.js';
 describe('doubao detail', () => {
     const detail = getRegistry().get('doubao/detail');

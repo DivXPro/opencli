@@ -28,8 +28,8 @@
 //     login-likely hint (xiaoe routinely renders an empty shell when
 //     the cookie has expired). No silent `return [{ content: '' }]`.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 export const CONTENT_SELECTORS = [
     '.rich-text-wrap',

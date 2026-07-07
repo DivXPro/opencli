@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, ConfigError, getErrorMessage } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, ConfigError, getErrorMessage } from '@toy-box/opencli/errors';
 import { activateChatGPT, selectModel, MODEL_CHOICES, sendPrompt } from './ax.js';
 export const sendCommand = cli({
     site: 'chatgpt-app',

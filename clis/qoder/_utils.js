@@ -11,7 +11,7 @@
 //   - "Knowledge"  = personal/team knowledge base
 //   - "Marketplace"= plugin/skill marketplace
 
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const IS_VISIBLE_JS = `
   const isVisible = (el) => {

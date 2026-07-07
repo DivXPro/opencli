@@ -3,8 +3,8 @@
 //   opencli eastmoney etf
 //   opencli eastmoney etf --sort change --limit 30
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 
 const SORTS = {
   turnover: { fid: 'f6', order: 'desc' },

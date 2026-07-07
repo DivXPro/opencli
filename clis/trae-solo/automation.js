@@ -9,8 +9,8 @@
 //   .button-eTMLAq.secondary  'Create manually'
 //   .button-eTMLAq.primary    'Create in chat'
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 import { switchToPanel } from './_actions.js';
 
 async function switchToAutomationTab(page, tabName) {

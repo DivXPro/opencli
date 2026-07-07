@@ -1,6 +1,6 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
-import { log } from '@scopai/opencli/logger';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
+import { log } from '@toy-box/opencli/logger';
 import { buildWebShelfEntries, fetchPrivateApi, loadWebShelfSnapshot, } from './utils.js';
 function normalizeShelfLimit(limit) {
     if (!Number.isFinite(limit))

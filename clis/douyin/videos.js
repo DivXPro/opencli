@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { browserFetch } from './_shared/browser-fetch.js';
 function normalizeVideoStatus(status, publicTime) {
     if (typeof status === 'number')

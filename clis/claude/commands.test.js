@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ArgumentError, AuthRequiredError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const {
     mockEnsureOnClaude,

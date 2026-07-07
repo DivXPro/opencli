@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 import { parseQianwenSessionId, waitForAnswer } from './utils.js';
 
 describe('qwen waitForAnswer baseline anchoring', () => {

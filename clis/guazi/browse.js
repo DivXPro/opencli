@@ -8,7 +8,7 @@
  * no network) so it runs identically in the unit test against a frozen page.
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     BROWSE_COLUMNS,
     CommandExecutionError,

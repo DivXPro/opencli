@@ -13,7 +13,7 @@
  * full-width `【】` vs ASCII `[]` mismatch — fixture tests can.
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     SHOP_COLUMNS,
     detectAuthOrPageFailure,

@@ -1,4 +1,4 @@
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 // ── Constants ───────────────────────────────────────────────────────────────
 const BOSS_DOMAIN = 'www.zhipin.com';

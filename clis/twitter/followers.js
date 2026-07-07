@@ -1,5 +1,5 @@
-import { ArgumentError, AuthRequiredError, selectorError, EmptyResultError, CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, selectorError, EmptyResultError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { normalizeTwitterScreenName, unwrapBrowserResult } from './shared.js';
 
 /**

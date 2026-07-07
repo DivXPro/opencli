@@ -1,7 +1,7 @@
 /**
  * BOSS直聘 recommend — view recommended candidates (新招呼/greet sort list).
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { requirePage, navigateToChat, bossFetch, fetchRecommendList, verbose } from './utils.js';
 cli({
     site: 'boss',

@@ -10,10 +10,10 @@
  *   opencli twitter download elonmusk --limit 50 --output ./twitter
  *   opencli twitter download --tweet-url https://x.com/xxx/status/123 --output ./twitter
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CliError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { formatCookieHeader } from '@scopai/opencli/download';
-import { downloadMedia } from '@scopai/opencli/download/media-download';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CliError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { formatCookieHeader } from '@toy-box/opencli/download';
+import { downloadMedia } from '@toy-box/opencli/download/media-download';
 import {
     resolveTwitterOperationMetadata,
     normalizeTwitterGraphqlPayload,

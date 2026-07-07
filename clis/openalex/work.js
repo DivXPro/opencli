@@ -5,7 +5,7 @@
 // `doi.org` / `openalex.org` URL. Returns one row plus the (decoded)
 // abstract — OpenAlex stores abstracts as `abstract_inverted_index` so we
 // reconstruct it for downstream readers.
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     OPENALEX_BASE,
     appendMailto,

@@ -3,8 +3,8 @@
 //   opencli eastmoney convertible
 //   opencli eastmoney convertible --sort premium --limit 30
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 
 const SORTS = {
   change:   { fid: 'f3',   order: 'desc' },

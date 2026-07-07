@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import './salesnav-thread.js';
 
 const {

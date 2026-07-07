@@ -4,8 +4,8 @@
 // object that includes a `tvl` time-series array; we project the latest entry
 // as the current TVL plus identifying metadata (category from /protocols since
 // the per-protocol endpoint omits it).
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { LLAMA_BASE, llamaFetch, requireSlug, unixToDate } from './utils.js';
 
 cli({

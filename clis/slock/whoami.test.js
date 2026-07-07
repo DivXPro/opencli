@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './whoami.js';
 
 function makePage(authMe, status = 200) {

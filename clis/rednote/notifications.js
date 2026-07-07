@@ -9,8 +9,8 @@
  * (`userInfo.nickName`) to absorb the same SSR client-transform diff that
  * `feed` hits on rednote.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 const NOTIFICATION_TYPES = new Set(['mentions', 'likes', 'connections']);
 

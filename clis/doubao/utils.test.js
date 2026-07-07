@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { describe, expect, it, vi } from 'vitest';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import {
     __test__,
     collectDoubaoTranscriptAdditions,

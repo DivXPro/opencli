@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './drafts.js';
 describe('douyin drafts registration', () => {
     it('registers the drafts command', () => {

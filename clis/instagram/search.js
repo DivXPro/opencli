@@ -1,4 +1,4 @@
-import { cli } from '@scopai/opencli/registry';
+import { cli } from '@toy-box/opencli/registry';
 cli({
     site: 'instagram',
     name: 'search',

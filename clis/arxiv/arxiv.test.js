@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import { normalizeArxivCategory, normalizeArxivLimit, parseEntries } from './utils.js';
 import './paper.js';
 import './search.js';

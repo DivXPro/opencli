@@ -3,8 +3,8 @@
 // Hits `https://hub.docker.com/v2/search/repositories/?query=…`. Returns the
 // agent-useful projection: official-flag, owner/name (round-trips into
 // `dockerhub image`), star count, pull count, short description.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { HUB_BASE, hubFetch, requireBoundedInt, requireString } from './utils.js';
 
 cli({

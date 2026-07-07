@@ -21,7 +21,7 @@
 // target first via openCodexConversation (using --project / --conversation
 // / --index / --thread-id), then trigger the menu and click.
 
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import {
     collectCodexProjectsFromDocument,
     conversationSelectionArgs,

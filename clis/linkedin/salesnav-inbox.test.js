@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import './salesnav-inbox.js';
 
 const {

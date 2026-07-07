@@ -19,8 +19,8 @@
 //     via `${fn.toString()}` so the live and the test path share one
 //     source of truth.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { requireXiaoePageUrl } from './content.js';
 
 // resource_type → human label. 1=图文 2=直播 3=音频 4=视频 6=专栏 8=大专栏.

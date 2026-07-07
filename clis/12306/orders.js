@@ -7,8 +7,8 @@
  * referer / page-state handshakes and is left for a follow-up so this
  * command can ship reliably.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { isAuthLikePayload, maskChineseName, require12306Login, requireEvaluateObject } from './utils.js';
 
 const NO_COMPLETE_URL = 'https://kyfw.12306.cn/otn/queryOrder/queryMyOrderNoComplete';

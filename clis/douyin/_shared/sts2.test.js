@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AuthRequiredError } from '@scopai/opencli/errors';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
 import { getSts2Credentials } from './sts2.js';
 describe('douyin sts2 credentials', () => {
     it('accepts top-level credential fields returned by creator center', async () => {

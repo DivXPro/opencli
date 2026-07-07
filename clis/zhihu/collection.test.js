@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 // Mock logger
-vi.mock('@scopai/opencli/logger', () => ({
+vi.mock('@toy-box/opencli/logger', () => ({
   log: {
     info: vi.fn(),
     status: vi.fn(),

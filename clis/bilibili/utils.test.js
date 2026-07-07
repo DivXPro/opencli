@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { parsePageArg, resolveBvid, resolveUid, selectVideoPart } from './utils.js';
 describe('resolveBvid', () => {
     it('passes through a valid BV ID', async () => {

@@ -4,8 +4,8 @@
 // projection: name, latest version, description, total + recent downloads,
 // homepage / docs / repo, license (from latest version row), version count,
 // created / updated timestamps.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { CRATES_BASE, cratesFetch, requireCrateName } from './utils.js';
 
 cli({

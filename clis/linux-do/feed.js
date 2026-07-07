@@ -12,8 +12,8 @@
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 const LINUX_DO_HOME = 'https://linux.do';
 const LINUX_DO_METADATA_TTL_MS = 24 * 60 * 60 * 1000;
 let liveTagsPromise = null;

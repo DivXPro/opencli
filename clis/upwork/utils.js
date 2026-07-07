@@ -17,7 +17,7 @@
 import {
     ArgumentError,
     CommandExecutionError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 export const UPWORK_ORIGIN = 'https://www.upwork.com';
 

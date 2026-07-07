@@ -416,7 +416,7 @@ describe('resolveHostOpencliRoot', () => {
   it('walks up from compiled dist/src files to the package root', () => {
     fs.writeFileSync(
       path.join(tmpDir, 'package.json'),
-      JSON.stringify({ name: '@scopai/opencli' }),
+      JSON.stringify({ name: '@toy-box/opencli' }),
     );
     const distSrcDir = path.join(tmpDir, 'dist', 'src');
     fs.mkdirSync(distSrcDir, { recursive: true });

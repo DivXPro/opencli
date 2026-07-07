@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CliError } from '@toy-box/opencli/errors';
 import { loadXiaoyuzhouCredentials, requestXiaoyuzhouJson, fetchXiaoyuzhouTranscriptBody, extractTranscriptText } from './auth.js';
 
 cli({

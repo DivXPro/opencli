@@ -5,8 +5,8 @@
 // Returns the agent-useful projection: each version + publish timestamp +
 // packaging. If a specific `:version` is supplied, only that version is
 // returned.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { MAVEN_BASE, mavenFetch, epochMsToIso, requireBoundedInt, requireCoord } from './utils.js';
 
 cli({

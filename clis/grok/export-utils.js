@@ -1,4 +1,4 @@
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const GROK_CONVERSATION_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 

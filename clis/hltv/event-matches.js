@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { BASE, assertRequiredFields, extractIdFromUrl, gotoAndWait, normalizeLimit, parseEventRef, parseHltvDate, parseNumber } from './utils.js';
 
 function buildEventStatsUrl(event) {

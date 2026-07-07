@@ -1,6 +1,6 @@
 import { statSync } from 'node:fs';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, ConfigError, TimeoutError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, ConfigError, TimeoutError } from '@toy-box/opencli/errors';
 import { activateChatGPT, getVisibleChatMessages, selectModel, MODEL_CHOICES, isGenerating, sendPrompt } from './ax.js';
 export const askCommand = cli({
     site: 'chatgpt-app',

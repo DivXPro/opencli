@@ -3,8 +3,8 @@
  * for near-the-money options on a given symbol.
  * Auth: CSRF token from <meta name="csrf-token"> + session cookies.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const DEFAULT_LIMIT = 10;
 const MIN_LIMIT = 1;

@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, EmptyResultError } from '@toy-box/opencli/errors';
 // ── CLI definition ────────────────────────────────────────────────────
 //
 // X (Twitter) removed the post-count caption from each trend cell on the

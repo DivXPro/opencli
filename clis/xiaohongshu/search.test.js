@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import { JSDOM } from 'jsdom';
 import { __test__, buildScrollUntilJs, noteIdToDate, unwrapEvaluateResult } from './search.js';
 

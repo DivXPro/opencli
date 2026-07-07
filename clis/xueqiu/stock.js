@@ -1,5 +1,5 @@
-import { cli } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { fetchXueqiuJson } from './utils.js';
 function fmtAmount(v) {
     if (v == null)

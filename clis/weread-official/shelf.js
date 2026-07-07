@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { callGateway, emptyResult, formatDate, makeDeepLink } from './utils.js';
 
 /**

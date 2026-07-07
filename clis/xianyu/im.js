@@ -1,4 +1,4 @@
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const DEFAULT_INBOX_LIMIT = 20;
 export const MAX_INBOX_LIMIT = 100;

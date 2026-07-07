@@ -4,7 +4,7 @@
 // (JWT, ~357 bytes) readable on the manus.im domain. The API uses
 // Connect-RPC (POST + JSON + Connect-Protocol-Version: 1).
 
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 export const MANUS_DOMAIN = 'manus.im';
 export const MANUS_URL = 'https://manus.im/app';

@@ -1,5 +1,5 @@
-import { CliError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 const GITEE_SEARCH_URL = 'https://gitee.com/search';
 const GITEE_SEARCH_WIDGET = 'wong1slagnlmzwvsu5ya';
 const GITEE_SEARCH_API = `https://so.gitee.com/v1/search/widget/${GITEE_SEARCH_WIDGET}`;

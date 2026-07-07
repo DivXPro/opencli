@@ -4,10 +4,10 @@
 // regex pulling viewer counts from card text). We extract from the live-discover
 // state injected on `/live`, then top up via `/api/live/discover/get/`.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import {
     BROWSER_HELPERS,
     LIVE_ITEM_NORMALIZER,

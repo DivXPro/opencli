@@ -1,4 +1,4 @@
-import { cli } from '@scopai/opencli/registry';
+import { cli } from '@toy-box/opencli/registry';
 import { fetchXueqiuJson } from './utils.js';
 function strip(html) {
     return (html || '')

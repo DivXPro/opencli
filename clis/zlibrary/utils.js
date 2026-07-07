@@ -2,7 +2,7 @@
  * Z-Library adapter utilities.
  */
 
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 const ZLIBRARY_DOMAIN = 'z-library.im';
 const ZLIBRARY_ORIGIN = `https://${ZLIBRARY_DOMAIN}`;

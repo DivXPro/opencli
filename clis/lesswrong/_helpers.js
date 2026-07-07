@@ -1,4 +1,4 @@
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 export const SITE = 'lesswrong';
 export const DOMAIN = 'www.lesswrong.com';
 const GRAPHQL_URL = `https://${DOMAIN}/graphql`;

@@ -1,6 +1,6 @@
-import { CliError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { isRecord } from '@scopai/opencli/utils';
+import { CliError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { isRecord } from '@toy-box/opencli/utils';
 const GITEE_EXPLORE_URL = 'https://gitee.com/explore';
 const MAX_LIMIT = 50;
 const MAX_DESCRIPTION_LENGTH = 48;

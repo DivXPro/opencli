@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
-import { CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { parseTweetUrl, buildTwitterArticleScopeSource } from './shared.js';
 import {
     COMPOSER_FILE_INPUT_SELECTOR,

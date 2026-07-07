@@ -3,8 +3,8 @@
 //
 // Complements existing `medium feed` (per-publication / per-user) and
 // `medium search` by surfacing topical streams.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const TAG_PATTERN = /^[a-z0-9][a-z0-9-]*$/i;
 

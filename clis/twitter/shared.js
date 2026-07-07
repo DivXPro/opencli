@@ -1,4 +1,4 @@
-import { ArgumentError } from '@scopai/opencli/errors';
+import { ArgumentError } from '@toy-box/opencli/errors';
 
 const QUERY_ID_PATTERN = /^[A-Za-z0-9_-]+$/;
 const SCREEN_NAME_PATTERN = /^[A-Za-z0-9_]{1,15}$/;

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ArgumentError, CliError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CliError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 const { mockApiGet, mockDownloadMedia, mockCheckYtdlp } = vi.hoisted(() => ({
   mockApiGet: vi.fn(),
@@ -12,16 +12,16 @@ vi.mock('./utils.js', async (importOriginal) => ({
   apiGet: mockApiGet,
 }));
 
-vi.mock('@scopai/opencli/download', () => ({
+vi.mock('@toy-box/opencli/download', () => ({
   checkYtdlp: mockCheckYtdlp,
   sanitizeFilename: (s) => s,
 }));
 
-vi.mock('@scopai/opencli/download/media-download', () => ({
+vi.mock('@toy-box/opencli/download/media-download', () => ({
   downloadMedia: mockDownloadMedia,
 }));
 
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './download.js';
 
 /** view API 成功响应的最小骨架 */

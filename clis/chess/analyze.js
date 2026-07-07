@@ -3,8 +3,8 @@
  * navigates the bound session to the `/analysis` form of the game URL
  * and reports the resolved page URL.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import { parseGameUrl } from './utils.js';
 
 cli({

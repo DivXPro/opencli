@@ -3,12 +3,12 @@
 // Unlike `wikipedia summary` which returns the lead-section blurb truncated to
 // 300 chars, this adapter returns the *complete* article body (or the first N
 // paragraphs by explicit opt-in). No silent truncation: the caller decides.
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 cli({
     site: 'wikipedia',

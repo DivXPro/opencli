@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { CliError } from '@scopai/opencli/errors';
+import { CliError } from '@toy-box/opencli/errors';
 import { parseCompanyJobCard, pageFetchJson, resolveCity } from './utils.js';
 
 describe('51job resolveCity', () => {

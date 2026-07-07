@@ -20,8 +20,8 @@ import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+} from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import {
     CONTENT_SELECTORS,
     contentCommand,

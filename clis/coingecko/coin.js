@@ -1,10 +1,10 @@
 // coingecko coin — fetch a single cryptocurrency's market detail by id.
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 cli({
     site: 'coingecko',

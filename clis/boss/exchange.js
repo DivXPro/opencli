@@ -1,7 +1,7 @@
 /**
  * BOSS直聘 exchange — request phone/wechat exchange with a candidate.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { requirePage, navigateToChat, bossFetch, findFriendByUid, verbose } from './utils.js';
 cli({
     site: 'boss',

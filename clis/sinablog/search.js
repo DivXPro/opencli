@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 function normalize(value) {
     return typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : '';
 }

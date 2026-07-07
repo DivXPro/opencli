@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { __test__ } from './auth.js';
 
 function makePage({ cookies = [{ name: 'SUB' }, { name: 'SUBP' }], evalResults = [] } = {}) {

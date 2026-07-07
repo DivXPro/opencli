@@ -3,8 +3,8 @@
 // REST Countries' `name/<query>` endpoint matches as substring across both
 // common and official names; multiple matches are returned (e.g. "guinea"
 // matches Guinea, Guinea-Bissau, Equatorial Guinea, Papua New Guinea).
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     COUNTRY_FIELDS,
     REST_COUNTRIES_BASE,

@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { listRemoveUser } from './list-remove-core.js';
 import {
     parseBatchIntervalSeconds,

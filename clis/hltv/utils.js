@@ -1,4 +1,4 @@
-import { ArgumentError, CommandExecutionError, EmptyResultError, TimeoutError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError, EmptyResultError, TimeoutError } from '@toy-box/opencli/errors';
 
 export const BASE = 'https://www.hltv.org';
 

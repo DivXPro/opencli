@@ -1,10 +1,10 @@
 // archive search: Internet Archive Advanced Search across all mediatypes.
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 const SORT_OPTIONS = ['downloads', 'date', 'addeddate', 'week', 'title'];
 const SORT_ALIAS = { added: 'addeddate', published: 'date' };

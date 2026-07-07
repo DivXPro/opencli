@@ -1,5 +1,5 @@
-import { cli } from '@scopai/opencli/registry';
-import { AuthRequiredError } from '@scopai/opencli/errors';
+import { cli } from '@toy-box/opencli/registry';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
 import { fetchXueqiuJson } from './utils.js';
 cli({
     site: 'xueqiu',

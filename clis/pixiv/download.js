@@ -6,10 +6,10 @@
  */
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { formatCookieHeader, httpDownload } from '@scopai/opencli/download';
-import { formatBytes } from '@scopai/opencli/download/progress';
-import { CommandExecutionError, EmptyResultError, getErrorMessage } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { formatCookieHeader, httpDownload } from '@toy-box/opencli/download';
+import { formatBytes } from '@toy-box/opencli/download/progress';
+import { CommandExecutionError, EmptyResultError, getErrorMessage } from '@toy-box/opencli/errors';
 import { pixivFetch } from './utils.js';
 cli({
     site: 'pixiv',

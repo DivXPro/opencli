@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { summarizeCreatorNote } from './creator-notes-summary.js';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import * as creatorNotesModule from './creator-notes.js';
 import * as creatorDetailModule from './creator-note-detail.js';
 import './creator-notes-summary.js';

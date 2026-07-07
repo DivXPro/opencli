@@ -8,8 +8,8 @@
  * Uses the public v2 endpoint `/notes?content.authorids=~<profile-id>`,
  * which returns the same note shape as `paper`, sorted by `cdate:desc`.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     noteToRow,
     openreviewFetch,

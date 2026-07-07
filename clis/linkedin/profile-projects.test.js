@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import './profile-projects.js';
 
 const { normalizeProfileUrl, profileProjectsUrl, parseProjectText, parseProjectsSectionText, decodeLinkedInSafetyUrl, normalizeProject } = await import('./profile-projects.js').then((m) => m.__test__);

@@ -3,8 +3,8 @@
  * REST returns HTTP 500 from a web context; LinkedIn renders results
  * server-side now. One navigation per call consumes one CUL query.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 const LINKEDIN_DOMAIN = 'www.linkedin.com';
 const SEARCH_URL_BASE = 'https://www.linkedin.com/search/results/people/';

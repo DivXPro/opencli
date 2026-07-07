@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
 import { getCourses, initSession, enterCourse, getTabIframeUrl, parseAssignmentsFromDom, sleep, } from './utils.js';
 cli({
     site: 'chaoxing',

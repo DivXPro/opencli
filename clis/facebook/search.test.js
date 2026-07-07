@@ -3,8 +3,8 @@
  * Facebook search must navigate in the pipeline before DOM extraction.
  */
 import { describe, expect, it, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { executePipeline } from '@scopai/opencli/pipeline';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { executePipeline } from '@toy-box/opencli/pipeline';
 // Import the adapter to register it
 import './search.js';
 /**

@@ -2,8 +2,8 @@
  * Log/backfill work hours. Project API paths vary by deployment,
  * so we try common endpoints in sequence.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 import { gotoOnesHome, onesFetchInPageWithMeta, resolveOnesUserUuid, summarizeOnesError, } from './common.js';
 import { hoursToOnesManhourRaw } from './task-helpers.js';
 function summarizeOnesMutationBody(parsed, status) {

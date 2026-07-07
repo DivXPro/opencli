@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './reaction-remove.js';
 
 const UUID = '550e8400-e29b-41d4-a716-446655440000';

@@ -1,7 +1,7 @@
-import { AuthRequiredError, EmptyResultError } from '@scopai/opencli/errors';
-import { formatCookieHeader } from '@scopai/opencli/download';
-import { downloadMedia } from '@scopai/opencli/download/media-download';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { AuthRequiredError, EmptyResultError } from '@toy-box/opencli/errors';
+import { formatCookieHeader } from '@toy-box/opencli/download';
+import { downloadMedia } from '@toy-box/opencli/download/media-download';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 /**
  * band post — Export full content of a Band post: body, comments, and optional photo download.
  *

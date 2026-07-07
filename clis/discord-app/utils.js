@@ -1,4 +1,4 @@
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 const DISCORD_HOSTS = new Set(['discord.com', 'canary.discord.com', 'ptb.discord.com']);
 const DISCORD_ORIGIN = 'https://discord.com';

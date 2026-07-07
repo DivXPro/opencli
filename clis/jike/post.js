@@ -1,5 +1,5 @@
-import { cli } from '@scopai/opencli/registry';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { cli } from '@toy-box/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 cli({
     site: 'jike',
     name: 'post',

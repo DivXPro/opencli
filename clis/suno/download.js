@@ -6,8 +6,8 @@
  * WAV downloads still trigger Suno's per-download billing (the same charge
  * the web UI's "Download → WAV" flow makes).
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import {
     STUDIO_API,
     SUNO_DOMAIN,

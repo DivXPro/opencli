@@ -7,8 +7,8 @@
  * venue / year / type, DOI, and the open-access landing page when one
  * exists.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     SEARCH_COLUMNS,
     dblpFetchJson,

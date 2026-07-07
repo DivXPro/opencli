@@ -1,6 +1,6 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { log } from '@scopai/opencli/logger';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { log } from '@toy-box/opencli/logger';
 import { stripHtml } from './text.js';
 
 function validatePositiveInt(value, name) {

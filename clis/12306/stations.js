@@ -4,8 +4,8 @@
  * Queries the public `station_name.js` bundle and filters by the user's
  * keyword. Anonymous, no session needed.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 import { fetchStationBundle } from './utils.js';
 
 const MAX_LIMIT = 50;

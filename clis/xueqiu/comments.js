@@ -1,7 +1,7 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { log } from '@scopai/opencli/logger';
-import { isRecord } from '@scopai/opencli/utils';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { log } from '@toy-box/opencli/logger';
+import { isRecord } from '@toy-box/opencli/utils';
 const XUEQIU_SYMBOL_PATTERN = /^(?:[A-Z]{2}\d{5,6}|\d{4,6}|[A-Z]{1,5}(?:[.-][A-Z]{1,2})?)$/;
 const FAILURE_REASON_BY_KIND = {
     auth: 'auth failure',

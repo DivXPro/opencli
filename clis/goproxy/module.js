@@ -2,8 +2,8 @@
 //
 // Hits `https://proxy.golang.org/<module>/@latest`, returning the canonical
 // version, publish time, and the upstream VCS / commit / tag the proxy resolved.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { GOPROXY_BASE, goproxyJson, requireModulePath, trimDate } from './utils.js';
 
 cli({

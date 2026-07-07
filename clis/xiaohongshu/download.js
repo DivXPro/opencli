@@ -6,10 +6,10 @@
  *
  * Accepts a full xiaohongshu.com URL with xsec_token or an xhslink short link.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { formatCookieHeader } from '@scopai/opencli/download';
-import { downloadMedia } from '@scopai/opencli/download/media-download';
-import { CliError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { formatCookieHeader } from '@toy-box/opencli/download';
+import { downloadMedia } from '@toy-box/opencli/download/media-download';
+import { CliError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { buildNoteUrl, parseNoteId } from './note-helpers.js';
 /**
  * Build the media-extraction IIFE. The note id is interpolated as a default

@@ -4,8 +4,8 @@
 // Returns the agent-useful projection: `groupId:artifactId` (round-trips
 // into `maven artifact`), latest version, packaging, version count, last
 // publish timestamp, repository.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { MAVEN_BASE, mavenFetch, epochMsToIso, requireBoundedInt, requireString } from './utils.js';
 
 cli({

@@ -4,8 +4,8 @@
 // Sort by semver (descending) and return up to `--limit` rows; per-tag publish
 // time comes from `@v/<ver>.info` and is fetched only when `--with-time` is set,
 // since it costs one HTTP request per row.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     GOPROXY_BASE, goproxyJson, goproxyText, requireBoundedInt, requireModulePath, sortVersionsDescending, trimDate,
 } from './utils.js';

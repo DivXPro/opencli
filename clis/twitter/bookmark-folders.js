@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { TWITTER_BEARER_TOKEN } from './utils.js';
 import { resolveTwitterQueryId, describeTwitterApiError } from './shared.js';
 

@@ -3,8 +3,8 @@
  * Reuses the DOM-extraction IIFE from `../xiaohongshu/note.js`; only the
  * web host and cookie root differ.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import { NOTE_EXTRACT_JS } from '../xiaohongshu/note.js';
 import { buildNoteUrl, parseNoteId } from '../xiaohongshu/note-helpers.js';
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError, CommandExecutionError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError, CommandExecutionError } from '@toy-box/opencli/errors';
 import './drug-label.js';
 import './food-recall.js';
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './inbox-read-all.js';
 
 function makePage(result = { kind: 'ok', rows: { ok: true, markedCount: 7 } }) {

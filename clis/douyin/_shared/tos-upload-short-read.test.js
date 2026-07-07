@@ -12,7 +12,7 @@ import * as actualFs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 import { setReadSyncOverride, tosUpload } from './tos-upload.js';
 /** Build a minimal fetch mock that satisfies initMultipartUpload (POST ?uploads → 200 + UploadId XML). */
 function makeFetchMock() {

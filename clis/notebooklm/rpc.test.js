@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { AuthRequiredError } from '@scopai/opencli/errors';
+import { AuthRequiredError } from '@toy-box/opencli/errors';
 import { buildNotebooklmRpcBody, extractNotebooklmRpcResult, getNotebooklmPageAuth, parseNotebooklmChunkedResponse, unwrapNotebooklmEvaluateResult, } from './rpc.js';
 describe('notebooklm rpc transport', () => {
     it('unwraps Browser Bridge evaluate envelopes', () => {

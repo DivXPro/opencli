@@ -1,5 +1,5 @@
 {
-  "name": "@scopai/opencli",
+  "name": "@toy-box/opencli",
   "version": "1.8.6",
   "publishConfig": {
     "access": "public"

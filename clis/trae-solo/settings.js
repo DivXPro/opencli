@@ -8,11 +8,11 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import { TRAE_APP_SUPPORT } from './_fs.js';
 
 const TRAE_SETTINGS_JSON = path.join(TRAE_APP_SUPPORT, 'User/settings.json');

@@ -2777,7 +2777,7 @@ Examples:
 
         let domain = site;
 
-        const template = `import { cli, Strategy } from '@scopai/opencli/registry';
+        const template = `import { cli, Strategy } from '@toy-box/opencli/registry';
 
 cli({
   site: '${site}',

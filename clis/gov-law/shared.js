@@ -1,4 +1,4 @@
-import { CliError } from '@scopai/opencli/errors';
+import { CliError } from '@toy-box/opencli/errors';
 
 export async function navigateViaVueRouter(page, query) {
     await page.goto('https://flk.npc.gov.cn/index.html');

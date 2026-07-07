@@ -1,6 +1,6 @@
 // channel-action.js — factory for no-body POST /channels/:id/<verb> ops.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError } from '@toy-box/opencli/errors';
 import { buildChannelScopedSnippet } from './in-page.js';
 import { dispatchEvaluateResult } from './errors.js';
 import { SLOCK_SITE, SLOCK_DOMAIN, SLOCK_HOME_URL } from './shared.js';

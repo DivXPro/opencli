@@ -2,9 +2,9 @@
  * Yollomi background removal — POST /api/ai/remove-bg (free, 0 credits)
  */
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
-import { log } from '@scopai/opencli/logger';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
+import { log } from '@toy-box/opencli/logger';
 import { YOLLOMI_DOMAIN, yollomiPost, downloadOutput, fmtBytes } from './utils.js';
 cli({
     site: 'yollomi',

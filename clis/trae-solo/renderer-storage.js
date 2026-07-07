@@ -11,12 +11,12 @@
 //                       (Trae SOLO ships an @byted/ve-rtc DB for the
 //                        Volcengine RTC voice/video infra)
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     ArgumentError,
     CommandExecutionError,
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 
 function pickStore(args) {
     const s = String(args?.storage || 'local').trim().toLowerCase();

@@ -1,4 +1,4 @@
-import { CliError } from '@scopai/opencli/errors';
+import { CliError } from '@toy-box/opencli/errors';
 
 const SLUG_RE = /^[A-Za-z0-9_-]+$/;
 const USER_PREFIX_RE = /^user:([A-Za-z0-9_-]+)$/;

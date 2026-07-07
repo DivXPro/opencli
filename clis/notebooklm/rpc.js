@@ -1,4 +1,4 @@
-import { AuthRequiredError, CliError } from '@scopai/opencli/errors';
+import { AuthRequiredError, CliError } from '@toy-box/opencli/errors';
 import { NOTEBOOKLM_DOMAIN } from './shared.js';
 
 export function unwrapNotebooklmEvaluateResult(payload) {

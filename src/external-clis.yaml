@@ -98,7 +98,7 @@
   homepage: "https://github.com/scopai/wx-cli"
   tags: [wechat, messaging, search, export, ai-agent]
   install:
-    default: "npm install -g @scopai/wx-cli"
+    default: "npm install -g @toy-box/wx-cli"
 
 - name: wrangler
   binary: wrangler

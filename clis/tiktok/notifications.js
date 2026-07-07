@@ -4,10 +4,10 @@
 // text content" pipeline. Calls `/api/notice/multi/?notice_type=N` directly
 // from inside the live page so cookies + msToken get forwarded by the browser.
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     EmptyResultError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import {
     BROWSER_HELPERS,
     MAX_PAGES,

@@ -5,7 +5,7 @@ const { browserFetchMock } = vi.hoisted(() => ({
 vi.mock('./_shared/browser-fetch.js', () => ({
     browserFetch: browserFetchMock,
 }));
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './collections.js';
 describe('douyin collections', () => {
     beforeEach(() => {

@@ -4,8 +4,8 @@
 //   opencli eastmoney index-board
 //   opencli eastmoney index-board --group all
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 
 const INDEX_GROUPS = {
   main: [

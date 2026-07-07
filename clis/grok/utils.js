@@ -1,5 +1,5 @@
-import { htmlToMarkdown } from '@scopai/opencli/utils';
-import { ArgumentError, AuthRequiredError } from '@scopai/opencli/errors';
+import { htmlToMarkdown } from '@toy-box/opencli/utils';
+import { ArgumentError, AuthRequiredError } from '@toy-box/opencli/errors';
 
 export const GROK_DOMAIN = 'grok.com';
 export const GROK_URL = 'https://grok.com/';

@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { DOUBAO_DOMAIN, getConversationDetail, parseDoubaoConversationId } from './utils.js';
 export const detailCommand = cli({
     site: 'doubao',

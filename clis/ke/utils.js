@@ -1,4 +1,4 @@
-import { AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 
 const CAPTCHA_TEXT_PATTERNS = [
     '请拖动下方滑块完成验证',

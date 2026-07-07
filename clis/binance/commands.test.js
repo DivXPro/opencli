@@ -1,6 +1,6 @@
-import { getRegistry } from '@scopai/opencli/registry';
+import { getRegistry } from '@toy-box/opencli/registry';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { executePipeline } from '@scopai/opencli/pipeline';
+import { executePipeline } from '@toy-box/opencli/pipeline';
 
 // Import all binance adapters to register them
 import './top.js';

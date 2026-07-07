@@ -7,7 +7,7 @@
  * a key/value sheet. Pure HTML→rows so it is unit-tested against a frozen page.
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     CAR_COLUMNS,
     EmptyResultError,

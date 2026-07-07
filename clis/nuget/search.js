@@ -2,8 +2,8 @@
 //
 // Hits `azuresearch-usnc.nuget.org/query?q=…&take=…&prerelease=false`. The `id`
 // column round-trips into `nuget package` for full version history.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     NUGET_SEARCH_BASE,
     joinAuthors,

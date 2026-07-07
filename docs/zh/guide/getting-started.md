@@ -8,7 +8,7 @@ OpenCLI 将**任何网站**或 **Electron 应用**变成命令行界面 — Bili
 ## 安装
 
 ```bash
-npm install -g @scopai/opencli
+npm install -g @toy-box/opencli
 ```
 
 ## 基本使用

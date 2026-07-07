@@ -1,8 +1,8 @@
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { saveBase64ToFile } from '@scopai/opencli/utils';
-import { ArgumentError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { saveBase64ToFile } from '@toy-box/opencli/utils';
+import { ArgumentError } from '@toy-box/opencli/errors';
 import { GEMINI_DOMAIN, exportGeminiImages, getGeminiVisibleImageUrls, sendGeminiMessage, startNewGeminiChat, waitForGeminiImages } from './utils.js';
 function extFromMime(mime) {
     if (mime.includes('png'))

@@ -1,7 +1,7 @@
 import * as path from 'node:path';
-import { formatCookieHeader } from '@scopai/opencli/download';
-import { downloadMedia } from '@scopai/opencli/download/media-download';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { formatCookieHeader } from '@toy-box/opencli/download';
+import { downloadMedia } from '@toy-box/opencli/download/media-download';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { cleanText } from './shared.js';
 import { extractAssetsForInput } from './assets.js';
 function extFromUrl(url, fallback) {

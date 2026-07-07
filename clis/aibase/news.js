@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError, getErrorMessage } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError, getErrorMessage } from '@toy-box/opencli/errors';
 
 const AIBASE_DAILY_URL = 'https://www.aibase.com/zh/daily';
 const DEFAULT_LIMIT = 20;

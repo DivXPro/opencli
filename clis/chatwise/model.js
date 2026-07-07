@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { selectorError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { selectorError } from '@toy-box/opencli/errors';
 export const modelCommand = cli({
     site: 'chatwise',
     name: 'model',

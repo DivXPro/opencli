@@ -3,8 +3,8 @@
 // Hits `https://rubygems.org/api/v1/search.json?query=…&page=1`. Returns an
 // agent-useful projection: gem name (round-trips into `rubygems gem`), latest
 // version, lifetime downloads, license(s), author(s), short info, project URL.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import { GEMS_BASE, gemsFetch, requireBoundedInt, requireString } from './utils.js';
 
 cli({

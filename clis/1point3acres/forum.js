@@ -1,8 +1,8 @@
 /**
  * 一亩三分地 版块帖子列表 — /bbs/forum-<fid>-<page>.html
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError } from '@toy-box/opencli/errors';
 import { fetchHtml, parseThreadList, parseThreadRows, normalizeLimit, BASE } from './utils.js';
 
 cli({

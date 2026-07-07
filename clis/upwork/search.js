@@ -8,12 +8,12 @@
  * change frequently while the state shape has been stable.
  */
 
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import {
     CommandExecutionError,
     EmptyResultError,
     AuthRequiredError,
-} from '@scopai/opencli/errors';
+} from '@toy-box/opencli/errors';
 import {
     buildSearchUrl,
     isPlainObject,

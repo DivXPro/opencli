@@ -3,8 +3,8 @@
 // Hits `POST https://api.osv.dev/v1/query` with `{package:{name,ecosystem}, version?}`.
 // Returns one row per vulnerability ranked by published date (newest first), so
 // agents can answer "is package X@Y vulnerable?" in one shot.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     OSV_BASE, osvPost, requireBoundedInt, requireEcosystem, requireString, severityLabel, trimDate,
 } from './utils.js';

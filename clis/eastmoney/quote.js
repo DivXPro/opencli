@@ -7,8 +7,8 @@
 //   opencli eastmoney quote 600000 --fields all
 //   opencli eastmoney quote "sh600000,sz000001,00700.HK"
 
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CliError } from '@toy-box/opencli/errors';
 import { resolveSecid, splitSymbols } from './_secid.js';
 
 const FIELDS = [

@@ -1,5 +1,5 @@
-import { CommandExecutionError } from '@scopai/opencli/errors';
-import { Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
+import { Strategy } from '@toy-box/opencli/registry';
 import { assertUsableState, buildProvenance, cleanText, extractAsin, extractCategoryNodeId, extractReviewCountFromCardText, firstMeaningfulLine, gotoAndReadState, isRankingPaginationUrl, normalizeProductUrl, parsePriceText, parseRatingValue, parseReviewCount, resolveRankingUrl, toAbsoluteAmazonUrl, uniqueNonEmpty, } from './shared.js';
 function parseRank(rawRank, fallback) {
     const normalized = cleanText(rawRank);

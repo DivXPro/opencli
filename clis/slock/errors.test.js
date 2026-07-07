@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, ConfigError } from '@scopai/opencli/errors';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, ConfigError } from '@toy-box/opencli/errors';
 import { dispatchEvaluateResult } from './errors.js';
 
 describe('dispatchEvaluateResult', () => {

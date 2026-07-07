@@ -1,5 +1,5 @@
-import { CommandExecutionError } from '@scopai/opencli/errors';
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { extractJsonLd, forceEnglishUrl, isChallengePage } from './utils.js';
 /**
  * Fetch the IMDb Top 250 Movies list from JSON-LD structured data on the chart page.

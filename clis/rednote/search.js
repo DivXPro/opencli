@@ -5,8 +5,8 @@
  * web host and the login-gate detection differ. See issue #1136 for the
  * 1:1 comparison between the two frontends.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { buildScrollUntilJs, buildSearchExtractJs, noteIdToDate, unwrapEvaluateResult } from '../xiaohongshu/search.js';
 
 function parseLimit(raw) {

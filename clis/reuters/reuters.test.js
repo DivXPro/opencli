@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
-import { getRegistry } from '@scopai/opencli/registry';
+import { ArgumentError, AuthRequiredError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
 import './search.js';
 import './article-detail.js';
 import { buildArticleDetailScript, buildSearchScript, isAuthStatus, looksAuthWallText, mapArticleDetail, mapSearchArticles, parseLimit } from './utils.js';

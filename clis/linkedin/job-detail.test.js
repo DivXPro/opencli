@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getRegistry } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { getRegistry } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import './job-detail.js';
 
 const { normalizeJobUrl, decodeLinkedinRedirect, normalizeDetail } = await import('./job-detail.js').then((m) => m.__test__);

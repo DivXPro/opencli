@@ -10,9 +10,9 @@
  *   ANTHROPIC_BASE_URL=http://localhost:8082 claude
  */
 import { createServer } from 'node:http';
-import { CDPBridge } from '@scopai/opencli/browser/cdp';
-import { resolveElectronEndpoint } from '@scopai/opencli/launcher';
-import { EXIT_CODES, getErrorMessage } from '@scopai/opencli/errors';
+import { CDPBridge } from '@toy-box/opencli/browser/cdp';
+import { resolveElectronEndpoint } from '@toy-box/opencli/launcher';
+import { EXIT_CODES, getErrorMessage } from '@toy-box/opencli/errors';
 // ─── Helpers ─────────────────────────────────────────────────────────
 function generateMsgId() {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

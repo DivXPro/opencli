@@ -9,10 +9,10 @@
  *   --mode grouped (default): sentences merged, speaker detection, chapters
  *   --mode raw: every caption segment as-is with precise timestamps
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { extractJsonAssignmentFromHtml, parseVideoId, prepareYoutubeApiPage } from './utils.js';
 import { groupTranscriptSegments, formatGroupedTranscript, } from './transcript-group.js';
-import { CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 
 function unwrapBrowserResult(value) {
     if (value && typeof value === 'object' && 'session' in value && 'data' in value) {

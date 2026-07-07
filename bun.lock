@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "@scopai/opencli",
+      "name": "@toy-box/opencli",
       "dependencies": {
         "chalk": "^5.3.0",
         "cli-table3": "^0.6.5",

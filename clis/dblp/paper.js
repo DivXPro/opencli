@@ -6,8 +6,8 @@
  * uses a stable, narrow schema, so we parse it with conservative regexes
  * — same approach as the arxiv adapter.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     PAPER_COLUMNS,
     dblpFetchXml,

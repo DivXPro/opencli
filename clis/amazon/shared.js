@@ -1,4 +1,4 @@
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 export const SITE = 'amazon';
 export const DOMAIN = 'amazon.com';
 export const HOME_URL = 'https://www.amazon.com/';

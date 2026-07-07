@@ -1,4 +1,4 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
+import { cli, Strategy } from '@toy-box/opencli/registry';
 import { injectTextScript, clickSendScript } from './utils.js';
 export const sendCommand = cli({
     site: 'doubao-app',

@@ -1,4 +1,4 @@
-import { CommandExecutionError } from '@scopai/opencli/errors';
+import { CommandExecutionError } from '@toy-box/opencli/errors';
 export function buildMediumTagUrl(topic) {
     return topic ? `https://medium.com/tag/${encodeURIComponent(topic)}` : 'https://medium.com/tag/technology';
 }

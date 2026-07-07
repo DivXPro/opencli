@@ -21,7 +21,7 @@
  * second search in the same process skips both navigations.
  */
 
-import { ArgumentError, CommandExecutionError } from '@scopai/opencli/errors';
+import { ArgumentError, CommandExecutionError } from '@toy-box/opencli/errors';
 import { CITY_ID, resolveCityId } from './utils.js';
 
 const CHINESE_RE = /^[一-龥]+$/;

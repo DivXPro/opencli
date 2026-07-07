@@ -6,8 +6,8 @@
  * search.php?searchid=<ID>. Node fetch follows redirects automatically as
  * long as we pass the session cookie along.
  */
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, EmptyResultError } from '@toy-box/opencli/errors';
 import { fetchHtml, parseSearchList, assertNotGuestAlert, getCookie, decodeEntities, normalizeLimit, BASE } from './utils.js';
 
 cli({

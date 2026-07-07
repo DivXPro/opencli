@@ -3,8 +3,8 @@
 // Hits the public storesearch API (`/api/storesearch/?term=…`). Returns
 // matched apps with id / name / price / metascore / platform support so
 // the row's `id` round-trips into `steam app`.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { EmptyResultError } from '@toy-box/opencli/errors';
 import {
     STEAM_STORE,
     decodeHtmlEntities,

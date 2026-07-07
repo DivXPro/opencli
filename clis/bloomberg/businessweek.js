@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CliError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CliError } from '@toy-box/opencli/errors';
 
 const SECTION_URL = 'https://www.bloomberg.com/businessweek';
 

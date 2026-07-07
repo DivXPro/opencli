@@ -1,5 +1,5 @@
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { CommandExecutionError, TimeoutError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { CommandExecutionError, TimeoutError } from '@toy-box/opencli/errors';
 import {
     authRequired,
     ensureOnGrok,

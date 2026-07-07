@@ -14,8 +14,8 @@
 //
 // To bypass author search entirely, pass `--pid <prefix>/<id>` (e.g.
 // `--pid 56/953`). This is the canonical disambiguator.
-import { cli, Strategy } from '@scopai/opencli/registry';
-import { ArgumentError, CommandExecutionError, EmptyResultError } from '@scopai/opencli/errors';
+import { cli, Strategy } from '@toy-box/opencli/registry';
+import { ArgumentError, CommandExecutionError, EmptyResultError } from '@toy-box/opencli/errors';
 import {
     DBLP_ORIGIN,
     decodeXmlEntities,
