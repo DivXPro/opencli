@@ -76,7 +76,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DivXPro/toycli.git"
+    "url": "git+https://github.com/DivXPro/opencli.git"
   },
   "dependencies": {
     "@mozilla/readability": "^0.6.0",
