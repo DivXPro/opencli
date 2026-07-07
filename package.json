@@ -1,6 +1,6 @@
 {
   "name": "@toy-box/opencli",
-  "version": "1.8.6",
+  "version": "1.8.6-patch.0",
   "publishConfig": {
     "access": "public"
   },
@@ -11,7 +11,7 @@
   "type": "module",
   "main": "dist/src/main.js",
   "bin": {
-    "opencli": "dist/src/main.js"
+    "toycli": "dist/src/main.js"
   },
   "exports": {
     ".": "./dist/src/main.js",
@@ -33,7 +33,7 @@
   "files": [
     "dist/src/",
     "clis/",
-    "skills/opencli-*/**",
+    "skills/toycli-*/**",
     "cli-manifest.json",
     "scripts/",
     "README.md",
@@ -49,7 +49,7 @@
     "copy-yaml": "node scripts/copy-yaml.cjs",
     "start": "node dist/src/main.js",
     "start:bun": "bun dist/src/main.js",
-    "preuninstall": "node -e \"fetch('http://127.0.0.1:19825/shutdown',{method:'POST',headers:{'X-OpenCLI':'1'},signal:AbortSignal.timeout(3000)}).catch(()=>{})\" || true",
+    "preuninstall": "node -e \"fetch('http://127.0.0.1:19825/shutdown',{method:'POST',headers:{'X-ToyCLI':'1'},signal:AbortSignal.timeout(3000)}).catch(()=>{})\" || true",
     "postinstall": "node scripts/postinstall.js || true; node scripts/fetch-adapters.js || true",
     "typecheck": "tsc --noEmit",
     "prepare": "[ -d src ] && npm run build || true",
@@ -76,7 +76,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DivXPro/opencli.git"
+    "url": "git+https://github.com/DivXPro/toycli.git"
   },
   "dependencies": {
     "@mozilla/readability": "^0.6.0",
@@ -106,5 +106,5 @@
       "vite": "6.4.2"
     }
   },
-  "homepage": "https://github.com/DivXPro/opencli"
+  "homepage": "https://github.com/DivXPro/toycli"
 }

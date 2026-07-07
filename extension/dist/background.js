@@ -1,4 +1,4 @@
-const DAEMON_PORT = 19825;
+const DAEMON_PORT = 29825;
 const DAEMON_HOST = "localhost";
 const DAEMON_WS_URL = `ws://${DAEMON_HOST}:${DAEMON_PORT}/ext`;
 const DAEMON_PING_URL = `http://${DAEMON_HOST}:${DAEMON_PORT}/ping`;
@@ -74,7 +74,7 @@ async function ensureAttached(tabId, aggressiveRetry = false) {
     } catch (e) {
       lastError = e instanceof Error ? e.message : String(e);
       if (attempt < MAX_ATTACH_RETRIES) {
-        console.warn(`[opencli] attach attempt ${attempt}/${MAX_ATTACH_RETRIES} failed: ${lastError}, retrying in ${RETRY_DELAY_MS}ms...`);
+        console.warn(`[toycli] attach attempt ${attempt}/${MAX_ATTACH_RETRIES} failed: ${lastError}, retrying in ${RETRY_DELAY_MS}ms...`);
         await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
         try {
           const tab = await chrome.tabs.get(tabId);
@@ -97,7 +97,7 @@ async function ensureAttached(tabId, aggressiveRetry = false) {
       finalWindowId = String(tab.windowId);
     } catch {
     }
-    console.warn(`[opencli] attach failed for tab ${tabId}: url=${finalUrl}, windowId=${finalWindowId}, error=${lastError}`);
+    console.warn(`[toycli] attach failed for tab ${tabId}: url=${finalUrl}, windowId=${finalWindowId}, error=${lastError}`);
     const hint = lastError.includes("chrome-extension://") ? ". Tip: another Chrome extension may be interfering — try disabling other extensions" : "";
     throw new Error(`attach failed: ${lastError}${hint}`);
   }
@@ -808,34 +808,34 @@ function buildObserverInjection(selector, options = {}) {
   };
   return `
 (() => {
-  if (window.__OPENCLI_DOM_LISTENER__) return;
-  window.__OPENCLI_DOM_LISTENER__ = { queue: [] };
+  if (window.__TOYCLI_DOM_LISTENER__) return;
+  window.__TOYCLI_DOM_LISTENER__ = { queue: [] };
   const target = document.querySelector(${JSON.stringify(selector)});
   if (!target) return;
   const obs = new MutationObserver((mutations) => {
     for (const m of mutations) {
-      window.__OPENCLI_DOM_LISTENER__.queue.push({
+      window.__TOYCLI_DOM_LISTENER__.queue.push({
         type: m.type,
         timestamp: Date.now(),
         text: m.target && m.target.textContent ? m.target.textContent.slice(0, 500) : '',
         added: m.addedNodes ? m.addedNodes.length : 0,
         removed: m.removedNodes ? m.removedNodes.length : 0,
       });
-      if (window.__OPENCLI_DOM_LISTENER__.queue.length > 200) window.__OPENCLI_DOM_LISTENER__.queue.shift();
+      if (window.__TOYCLI_DOM_LISTENER__.queue.length > 200) window.__TOYCLI_DOM_LISTENER__.queue.shift();
     }
   });
   obs.observe(target, ${JSON.stringify(opts)});
-  window.__OPENCLI_DOM_LISTENER__.drain = () => {
-    const out = window.__OPENCLI_DOM_LISTENER__.queue;
-    window.__OPENCLI_DOM_LISTENER__.queue = [];
+  window.__TOYCLI_DOM_LISTENER__.drain = () => {
+    const out = window.__TOYCLI_DOM_LISTENER__.queue;
+    window.__TOYCLI_DOM_LISTENER__.queue = [];
     return out;
   };
 })();
 `;
 }
-const DRAIN_EXPRESSION = `window.__OPENCLI_DOM_LISTENER__ && window.__OPENCLI_DOM_LISTENER__.drain ? window.__OPENCLI_DOM_LISTENER__.drain() : []`;
+const DRAIN_EXPRESSION = `window.__TOYCLI_DOM_LISTENER__ && window.__TOYCLI_DOM_LISTENER__.drain ? window.__TOYCLI_DOM_LISTENER__.drain() : []`;
 
-const JOURNAL_KEY = "opencli_command_journal_v1";
+const JOURNAL_KEY = "toycli_command_journal_v1";
 const JOURNAL_MAX_ENTRIES = 64;
 const JOURNAL_RESULT_MAX_BYTES = 64 * 1024;
 let cache = null;
@@ -926,7 +926,7 @@ async function executeWithJournal(cmd, execute) {
 let ws = null;
 let reconnectTimer = null;
 let reconnectAttempts = 0;
-const CONTEXT_ID_KEY = "opencli_context_id_v1";
+const CONTEXT_ID_KEY = "toycli_context_id_v1";
 let currentContextId = "default";
 let contextIdPromise = null;
 let connectInFlight = null;
@@ -1042,7 +1042,7 @@ async function connectAttempt() {
   }
   thisWs.onopen = () => {
     if (ws !== thisWs) return;
-    console.log("[opencli] Connected to daemon");
+    console.log("[toycli] Connected to daemon");
     reconnectAttempts = 0;
     if (reconnectTimer) {
       clearTimeout(reconnectTimer);
@@ -1064,13 +1064,13 @@ async function connectAttempt() {
       const target = ws && ws.readyState === WebSocket.OPEN ? ws : thisWs;
       safeSend(target, result);
     } catch (err) {
-      console.error("[opencli] Message handling error:", err);
+      console.error("[toycli] Message handling error:", err);
     }
   };
   thisWs.onclose = () => {
     stopWsKeepalive(thisWs);
     if (ws !== thisWs) return;
-    console.log("[opencli] Disconnected from daemon");
+    console.log("[toycli] Disconnected from daemon");
     ws = null;
     scheduleReconnect();
   };
@@ -1117,13 +1117,13 @@ const automationSessions = /* @__PURE__ */ new Map();
 const IDLE_TIMEOUT_DEFAULT = 3e4;
 const IDLE_TIMEOUT_INTERACTIVE = 6e5;
 const IDLE_TIMEOUT_NONE = -1;
-const REGISTRY_KEY = "opencli_target_lease_registry_v2";
-const LEASE_IDLE_ALARM_PREFIX = "opencli:lease-idle:";
+const REGISTRY_KEY = "toycli_target_lease_registry_v2";
+const LEASE_IDLE_ALARM_PREFIX = "toycli:lease-idle:";
 const CONTAINER_TAB_GROUP_TITLE = {
-  interactive: "OpenCLI Browser",
+  interactive: "ToyCLI Browser",
   // Retained for registry/type compatibility. Adapter automation no longer
   // creates or discovers a visible tab group.
-  automation: "OpenCLI Adapter"
+  automation: "ToyCLI Adapter"
 };
 const OWNED_TAB_GROUP_COLOR = "orange";
 let leaseMutationQueue = Promise.resolve();
@@ -1153,7 +1153,7 @@ function getSessionName(session) {
   if (!raw) throw new CommandFailure(
     "session_required",
     "Browser session is required.",
-    "Pass a browser session name, e.g. opencli browser <session> <command>."
+    "Pass a browser session name, e.g. toycli browser <session> <command>."
   );
   return raw;
 }
@@ -1538,7 +1538,7 @@ async function ensureOwnedContainerGroupUnlocked(role, fallbackWindowId, ids) {
     }
     return canonical;
   } catch (err) {
-    console.warn(`[opencli] Failed to ensure ${role} tab group: ${err instanceof Error ? err.message : String(err)}`);
+    console.warn(`[toycli] Failed to ensure ${role} tab group: ${err instanceof Error ? err.message : String(err)}`);
     throw err;
   }
 }
@@ -1602,7 +1602,7 @@ async function ensureOwnedContainerWindowUnlocked(role, initialUrl, mode = "back
   });
   container.windowId = win.id;
   await persistRuntimeState();
-  console.log(`[opencli] Created owned ${role} window ${container.windowId} (start=${startUrl})`);
+  console.log(`[toycli] Created owned ${role} window ${container.windowId} (start=${startUrl})`);
   const tabs = await chrome.tabs.query({ windowId: win.id });
   const initialTabId = tabs[0]?.id;
   if (initialTabId) {
@@ -1685,7 +1685,7 @@ async function getAutomationWindow(leaseKey, initialUrl) {
     if (!existing.owned) {
       throw new CommandFailure(
         "bound_window_operation_blocked",
-        `Session "${existing.session}" is bound to a user tab and does not own an OpenCLI tab lease.`,
+        `Session "${existing.session}" is bound to a user tab and does not own an ToyCLI tab lease.`,
         "Use page commands on the bound tab, or unbind the session first."
       );
     }
@@ -1713,7 +1713,7 @@ chrome.windows.onRemoved.addListener(async (windowId) => {
   }
   for (const [leaseKey, session] of automationSessions.entries()) {
     if (session.windowId === windowId) {
-      console.log(`[opencli] ${session.surface} container closed (session=${session.session})`);
+      console.log(`[toycli] ${session.surface} container closed (session=${session.session})`);
       if (session.idleTimer) clearTimeout(session.idleTimer);
       automationSessions.delete(leaseKey);
       sessionOverrides.delete(leaseKey);
@@ -1730,7 +1730,7 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
       automationSessions.delete(leaseKey);
       sessionOverrides.delete(leaseKey);
       scheduleIdleAlarm(leaseKey, IDLE_TIMEOUT_NONE);
-      console.log(`[opencli] Session ${session.session} detached from tab ${tabId} (tab closed)`);
+      console.log(`[toycli] Session ${session.session} detached from tab ${tabId} (tab closed)`);
     }
   }
   await persistRuntimeState();
@@ -1751,7 +1751,7 @@ function initialize() {
     await reconcileTargetLeaseRegistry();
     await connect();
   })();
-  console.log("[opencli] OpenCLI extension initialized");
+  console.log("[toycli] ToyCLI extension initialized");
 }
 chrome.runtime.onInstalled.addListener(() => {
   initialize();
@@ -1793,7 +1793,7 @@ async function fetchDaemonVersion() {
   try {
     const res = await fetch(`http://${DAEMON_HOST}:${DAEMON_PORT}/status`, {
       method: "GET",
-      headers: { "X-OpenCLI": "1" },
+      headers: { "X-ToyCLI": "1" },
       signal: AbortSignal.timeout(1500)
     });
     if (!res.ok) return null;
@@ -1947,11 +1947,11 @@ async function resolveTab(tabId, leaseKey, initialUrl) {
         throw new CommandFailure(
           matchesSession ? "bound_tab_not_debuggable" : "bound_tab_mismatch",
           matchesSession ? `Bound tab for session "${session.session}" is not debuggable (${tab.url ?? "unknown URL"}).` : `Target tab is not the tab bound to session "${session.session}".`,
-          'Run "opencli browser bind" again on a debuggable http(s) tab.'
+          'Run "toycli browser bind" again on a debuggable http(s) tab.'
         );
       }
       if (session && !matchesSession && session.preferredTabId === null && isDebuggableUrl(tab.url)) {
-        console.warn(`[opencli] Tab ${tabId} drifted to window ${tab.windowId}, moving back to ${session.windowId}`);
+        console.warn(`[toycli] Tab ${tabId} drifted to window ${tab.windowId}, moving back to ${session.windowId}`);
         try {
           await chrome.tabs.move(tabId, { windowId: session.windowId, index: -1 });
           const moved = await chrome.tabs.get(tabId);
@@ -1959,10 +1959,10 @@ async function resolveTab(tabId, leaseKey, initialUrl) {
             return { tabId, tab: moved };
           }
         } catch (moveErr) {
-          console.warn(`[opencli] Failed to move tab back: ${moveErr}`);
+          console.warn(`[toycli] Failed to move tab back: ${moveErr}`);
         }
       } else if (!isDebuggableUrl(tab.url)) {
-        console.warn(`[opencli] Tab ${tabId} URL is not debuggable (${tab.url}), re-resolving`);
+        console.warn(`[toycli] Tab ${tabId} URL is not debuggable (${tab.url}), re-resolving`);
       }
     } catch (err) {
       if (err instanceof CommandFailure) throw err;
@@ -1971,10 +1971,10 @@ async function resolveTab(tabId, leaseKey, initialUrl) {
         throw new CommandFailure(
           "bound_tab_gone",
           `Bound tab for session "${existingSession.session}" no longer exists.`,
-          'Run "opencli browser bind" again, then retry the command.'
+          'Run "toycli browser bind" again, then retry the command.'
         );
       }
-      console.warn(`[opencli] Tab ${tabId} no longer exists, re-resolving`);
+      console.warn(`[toycli] Tab ${tabId} no longer exists, re-resolving`);
     }
   }
   const existingPreferredTabId = existingSession?.preferredTabId ?? null;
@@ -1987,7 +1987,7 @@ async function resolveTab(tabId, leaseKey, initialUrl) {
         throw new CommandFailure(
           "bound_tab_not_debuggable",
           `Bound tab for session "${session.session}" is not debuggable (${preferredTab.url ?? "unknown URL"}).`,
-          'Switch the tab to an http(s) page or run "opencli browser bind" on another tab.'
+          'Switch the tab to an http(s) page or run "toycli browser bind" on another tab.'
         );
       }
     } catch (err) {
@@ -1997,7 +1997,7 @@ async function resolveTab(tabId, leaseKey, initialUrl) {
         throw new CommandFailure(
           "bound_tab_gone",
           `Bound tab for session "${session.session}" no longer exists.`,
-          'Run "opencli browser bind" again, then retry the command.'
+          'Run "toycli browser bind" again, then retry the command.'
         );
       }
       return createOwnedTabLease(leaseKey, initialUrl);
@@ -2020,7 +2020,7 @@ async function resolveTab(tabId, leaseKey, initialUrl) {
     try {
       const updated = await chrome.tabs.get(reuseTab.id);
       if (isDebuggableUrl(updated.url)) return { tabId: reuseTab.id, tab: updated };
-      console.warn(`[opencli] data: URI was intercepted (${updated.url}), creating fresh tab`);
+      console.warn(`[toycli] data: URI was intercepted (${updated.url}), creating fresh tab`);
     } catch {
     }
   }
@@ -2167,19 +2167,19 @@ async function handleNavigate(cmd, leaseKey) {
     }, 100);
     timeoutTimer = setTimeout(() => {
       timedOut = true;
-      console.warn(`[opencli] Navigate to ${targetUrl} timed out after 15s`);
+      console.warn(`[toycli] Navigate to ${targetUrl} timed out after 15s`);
       finish();
     }, 15e3);
   });
   let tab = await chrome.tabs.get(tabId);
   const postNavigationSession = automationSessions.get(leaseKey);
   if (postNavigationSession && tab.windowId !== postNavigationSession.windowId) {
-    console.warn(`[opencli] Tab ${tabId} drifted to window ${tab.windowId} during navigation, moving back to ${postNavigationSession.windowId}`);
+    console.warn(`[toycli] Tab ${tabId} drifted to window ${tab.windowId} during navigation, moving back to ${postNavigationSession.windowId}`);
     try {
       await chrome.tabs.move(tabId, { windowId: postNavigationSession.windowId, index: -1 });
       tab = await chrome.tabs.get(tabId);
     } catch (moveErr) {
-      console.warn(`[opencli] Failed to recover drifted tab: ${moveErr}`);
+      console.warn(`[toycli] Failed to recover drifted tab: ${moveErr}`);
     }
   }
   return pageScopedResult(cmd.id, tabId, { title: tab.title, url: tab.url, timedOut });
@@ -2191,8 +2191,8 @@ async function handleTabs(cmd, leaseKey) {
       id: cmd.id,
       ok: false,
       errorCode: "bound_tab_mutation_blocked",
-      error: `Session "${session.session}" is bound to a user tab; tab new/select/close requires an owned OpenCLI session.`,
-      errorHint: "Unbind the session first, or use a different session for owned OpenCLI tabs."
+      error: `Session "${session.session}" is bound to a user tab; tab new/select/close requires an owned ToyCLI session.`,
+      errorHint: "Unbind the session first, or use a different session for owned ToyCLI tabs."
     };
   }
   switch (cmd.op) {
@@ -2461,25 +2461,25 @@ async function releaseLease(leaseKey, reason = "released") {
       if (hasOtherOwnedLease) {
         await chrome.tabs.remove(tabId).catch(() => {
         });
-        console.log(`[opencli] Released owned tab lease ${tabId} (session=${session.session}, surface=${session.surface}, ${reason})`);
+        console.log(`[toycli] Released owned tab lease ${tabId} (session=${session.session}, surface=${session.surface}, ${reason})`);
       } else {
         try {
           const tab = await chrome.tabs.update(tabId, { url: BLANK_PAGE, active: true });
           const group = await ensureOwnedContainerGroup(getOwnedWindowRole(leaseKey), session.windowId, [tab.id ?? tabId]);
           if (group) session.windowId = group.windowId;
-          console.log(`[opencli] Released owned tab lease ${tabId} as reusable placeholder (session=${session.session}, surface=${session.surface}, ${reason})`);
+          console.log(`[toycli] Released owned tab lease ${tabId} as reusable placeholder (session=${session.session}, surface=${session.surface}, ${reason})`);
         } catch {
           await chrome.tabs.remove(tabId).catch(() => {
           });
-          console.log(`[opencli] Released owned tab lease ${tabId} (session=${session.session}, surface=${session.surface}, ${reason})`);
+          console.log(`[toycli] Released owned tab lease ${tabId} (session=${session.session}, surface=${session.surface}, ${reason})`);
         }
       }
     } else {
-      console.log(`[opencli] Released legacy owned window lease ${session.windowId} without closing container (session=${session.session}, surface=${session.surface}, ${reason})`);
+      console.log(`[toycli] Released legacy owned window lease ${session.windowId} without closing container (session=${session.session}, surface=${session.surface}, ${reason})`);
     }
   } else if (session.preferredTabId !== null) {
     await safeDetach(session.preferredTabId);
-    console.log(`[opencli] Detached borrowed tab lease ${session.preferredTabId} (session=${session.session}, surface=${session.surface}, ${reason})`);
+    console.log(`[toycli] Detached borrowed tab lease ${session.preferredTabId} (session=${session.session}, surface=${session.surface}, ${reason})`);
   }
   automationSessions.delete(leaseKey);
   sessionOverrides.delete(leaseKey);
@@ -2577,7 +2577,7 @@ async function handleBind(cmd, leaseKey) {
     preferredTabId: boundTab.id
   });
   resetWindowIdleTimer(leaseKey);
-  console.log(`[opencli] Session ${getSessionFromKey(leaseKey)} explicitly bound to tab ${boundTab.id} (${boundTab.url})`);
+  console.log(`[toycli] Session ${getSessionFromKey(leaseKey)} explicitly bound to tab ${boundTab.id} (${boundTab.url})`);
   return pageScopedResult(cmd.id, boundTab.id, {
     url: boundTab.url,
     title: boundTab.title,

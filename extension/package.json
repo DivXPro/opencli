@@ -1,8 +1,8 @@
 {
-  "name": "opencli-extension",
-  "version": "1.0.22",
+  "name": "toycli-extension",
+  "version": "1.0.22.1",
   "private": true,
-  "opencli": {
+  "toycli": {
     "compatRange": ">=1.7.0"
   },
   "type": "module",
